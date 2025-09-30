@@ -16,17 +16,17 @@
 
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useState } from 'react';
-import clearIcon from '../icons/clear-icon.png';
-import useStyles from './useStyles';
-import { useHeaderStyles } from './useHeaderStyles';
-import MoreInfoIcon from '../icons/more-info.svg';
-import './App.css';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import { configApiRef, useApi } from '@backstage/core-plugin-api';
-import { DEFAULT_BOT_CONFIG } from '../constants';
 import Tooltip from '@mui/material/Tooltip';
+import { useState } from 'react';
+import { DEFAULT_BOT_CONFIG } from '../constants';
+import clearIcon from '../icons/clear-icon.png';
+import MoreInfoIcon from '../icons/more-info.svg';
+import './App.css';
+import { useHeaderStyles } from './useHeaderStyles';
+import useStyles from './useStyles';
 
 // SVG icons with white contours
 const FormIcon = () => (

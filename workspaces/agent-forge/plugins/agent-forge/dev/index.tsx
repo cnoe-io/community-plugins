@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { createDevApp } from '@backstage/dev-utils';
-import { chatAssistantPlugin, ChatAssistantPage } from '../src/plugin';
+import { ChatAssistantPage, chatAssistantPlugin } from '../src/plugin';
 
 createDevApp()
   .registerPlugin(chatAssistantPlugin)

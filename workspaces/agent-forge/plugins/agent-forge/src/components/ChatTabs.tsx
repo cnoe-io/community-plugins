@@ -17,12 +17,12 @@
 
 /* eslint-disable react/react-in-jsx-scope*/
 
-import useStyles from './useStyles';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Button from '@mui/material/Button';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
 import { DEFAULT_BOT_CONFIG } from '../constants';
+import useStyles from './useStyles';
 
 interface ChatTabsProps {
   handleMessageSubmit: (msg?: string) => void;

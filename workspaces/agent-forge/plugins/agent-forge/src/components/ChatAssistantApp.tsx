@@ -17,27 +17,27 @@
 /* eslint-disable react/react-in-jsx-scope*/
 
 // React import removed - using new JSX transform
-import { useState, useEffect, useRef, useMemo } from 'react';
-import ChatFeedback from './ChatFeedback';
-import ChatHeader from './ChatHeader';
-import ChatInput from './ChatInput';
-import ChatTabs from './ChatTabs';
-import useStyles from './useStyles';
-import { ChatSuggestionOptions } from './ChatSuggestionOptions';
-import { Message, Feedback, UserResponse } from '../types';
 import {
   appThemeApiRef,
   configApiRef,
   identityApiRef,
   useApi,
 } from '@backstage/core-plugin-api';
-import { createTimestamp, delay, makeLinksClickable } from '../utils';
-import { ChatbotApi } from '../apis';
-import useObservable from 'react-use/esm/useObservable';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { DEFAULT_BOT_CONFIG } from '../constants';
 import Typography from '@mui/material/Typography';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import useObservable from 'react-use/esm/useObservable';
+import { ChatbotApi } from '../apis';
+import { DEFAULT_BOT_CONFIG } from '../constants';
+import { Feedback, Message, UserResponse } from '../types';
+import { createTimestamp, delay, makeLinksClickable } from '../utils';
+import ChatFeedback from './ChatFeedback';
+import ChatHeader from './ChatHeader';
+import ChatInput from './ChatInput';
+import { ChatSuggestionOptions } from './ChatSuggestionOptions';
+import ChatTabs from './ChatTabs';
+import useStyles from './useStyles';
 
 interface IChatFeedback {
   [key: number]: Feedback;

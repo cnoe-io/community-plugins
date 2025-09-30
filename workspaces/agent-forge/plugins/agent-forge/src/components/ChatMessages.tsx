@@ -15,29 +15,29 @@
  */
 /* eslint-disable react/react-in-jsx-scope */
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
-import TypingIndicator from './TypingIndicator';
-import { FeedbackButton } from './FeedbackButton';
-import Chip from '@mui/material/Chip';
-import { Feedback, Message } from '../types';
-import useStyles from './useStyles';
 import { MarkdownContent } from '@backstage/core-components';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
-import Snackbar from '@mui/material/Snackbar';
-import useAsync from 'react-use/esm/useAsync';
 import {
+  configApiRef,
   identityApiRef,
   useApi,
-  configApiRef,
 } from '@backstage/core-plugin-api';
-import { isProviderField, isModelField } from '../utils/helpers';
-import { DEFAULT_BOT_CONFIG } from '../constants';
-import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+import Snackbar from '@mui/material/Snackbar';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import { DEFAULT_BOT_CONFIG } from '../constants';
+import { Feedback, Message } from '../types';
+import { isModelField, isProviderField } from '../utils/helpers';
+import { FeedbackButton } from './FeedbackButton';
+import TypingIndicator from './TypingIndicator';
+import useStyles from './useStyles';
 
 interface ChatMessagesProps {
   handleMessageSubmit: (msg?: string) => void;
