@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { useApi } from '@backstage/core-plugin-api';
-
 import { ProjectListResponse } from '@backstage-community/plugin-report-portal-common';
+import { useApi } from '@backstage/core-plugin-api';
 import { useEffect, useState } from 'react';
 import { reportPortalApiRef } from '../api';
 

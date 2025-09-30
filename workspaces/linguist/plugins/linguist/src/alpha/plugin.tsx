@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
+import { compatWrapper } from '@backstage/core-compat-api';
 import {
   ApiBlueprint,
   createFrontendPlugin,
   discoveryApiRef,
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
-
-import { LinguistClient, linguistApiRef } from '../api';
-import { compatWrapper } from '@backstage/core-compat-api';
 import { EntityCardBlueprint } from '@backstage/plugin-catalog-react/alpha';
+import { linguistApiRef, LinguistClient } from '../api';
 import { isLinguistAvailable } from '../plugin';
 
 /** @alpha */

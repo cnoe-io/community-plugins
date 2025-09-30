@@ -19,6 +19,7 @@ Next, integrate the plugin by adding it as a tab to the catalog entity pages whe
 ```jsx
 // In packages/app/src/components/catalog/EntityPage.tsx
 import { EntityTodoContent } from '@backstage-community/plugin-todo';
+
 // Adds the Todo tab to the service entity page
 const serviceEntityPage = (
   <EntityLayout>
@@ -38,6 +39,7 @@ Import `todoPlugin` in your `App.tsx` and add it to your app's `features` array:
 
 ```typescript
 import todoPlugin from '@backstage-community/plugin-todo/alpha';
+
 // ...
 export const app = createApp({
   features: [

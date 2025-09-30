@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 import {
-  configApiRef,
   ApiBlueprint,
+  configApiRef,
   discoveryApiRef,
   identityApiRef,
 } from '@backstage/frontend-plugin-api';
-import { sentryApiRef, ProductionSentryApi } from '../api';
+import { ProductionSentryApi, sentryApiRef } from '../api';
 
 /**
  * @alpha

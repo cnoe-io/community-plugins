@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { buildIncidentQueryParams } from './queryParamsUtils';
 import { IncidentTableFieldEnum } from '../types';
+import { buildIncidentQueryParams } from './queryParamsUtils';
 
 describe('buildIncidentQueryParams', () => {
   const baseParams = {

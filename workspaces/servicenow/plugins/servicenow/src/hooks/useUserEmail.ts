@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
+import { UserEntity } from '@backstage/catalog-model';
 import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
-import { UserEntity } from '@backstage/catalog-model';
 import { useAsync } from 'react-use';
 
 export function useUserEmail(kind: string): string | undefined {

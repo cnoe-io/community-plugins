@@ -14,24 +14,22 @@
  * limitations under the License.
  */
 
-import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import {
+  ManageApi,
+  manageApiRef,
+} from '@backstage-community/plugin-manage-react';
+import { RELATION_OWNED_BY } from '@backstage/catalog-model';
+import { catalogPlugin } from '@backstage/plugin-catalog';
 import {
   CatalogApi,
   catalogApiRef,
   StarredEntitiesApi,
   starredEntitiesApiRef,
 } from '@backstage/plugin-catalog-react';
-import { catalogPlugin } from '@backstage/plugin-catalog';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { Observable } from '@backstage/types';
-import { RELATION_OWNED_BY } from '@backstage/catalog-model';
-
-import {
-  ManageApi,
-  manageApiRef,
-} from '@backstage-community/plugin-manage-react';
-
-import { ManagePageImpl } from './ManagePage';
 import { ManageTabsImpl } from '../ManageTabs';
+import { ManagePageImpl } from './ManagePage';
 
 const starredEntities: StarredEntitiesApi = {
   toggleStarred: async () => {},

@@ -26,8 +26,8 @@ Software Catalog integration:
    ```tsx
    import {
      EntityServicenowContent,
-     isServicenowAvailable,
      isMyProfile,
+     isServicenowAvailable,
    } from '@backstage-community/plugin-servicenow';
    ```
 

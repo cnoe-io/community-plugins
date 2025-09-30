@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 import { act, render, screen } from '@testing-library/react';
-
 import { mockArgoResources } from '../../../../../../dev/__data__/argoRolloutsObjects';
+import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
 import { Revision, RolloutUI } from '../../../../../types/revision';
 import { getRolloutUIResources } from '../../../../../utils/rollout-utils';
 import Rollout from '../Rollout';
-import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
 
 const [canaryRollout, blueGreenRollout] = getRolloutUIResources(
   mockArgoResources,

@@ -1,11 +1,10 @@
-import type { ReactNode } from 'react';
 import Container from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider from '@mui/material/Divider';
-
 import { makeStyles } from '@mui/styles';
+import type { ReactNode } from 'react';
 
 type CardProps = {
   children: ReactNode;

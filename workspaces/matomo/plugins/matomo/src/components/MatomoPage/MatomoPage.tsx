@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-import { ReactNode, useState } from 'react';
-import useAsync from 'react-use/lib/useAsync';
-
 import { Entity } from '@backstage/catalog-model';
 import {
   InfoCard,
@@ -26,7 +23,6 @@ import {
 } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
-
 import Assessment from '@mui/icons-material/Assessment';
 import ContactMail from '@mui/icons-material/ContactMail';
 import Box from '@mui/material/Box';
@@ -41,6 +37,8 @@ import Select from '@mui/material/Select';
 import MuiTooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactNode, useState } from 'react';
+import useAsync from 'react-use/lib/useAsync';
 import {
   CartesianGrid,
   Cell,
@@ -54,7 +52,6 @@ import {
   XAxis,
   YAxis,
 } from 'recharts';
-
 import { matomoApiRef, transformVisitByTime } from '../../api';
 import { StatsCard } from './StatsCard';
 

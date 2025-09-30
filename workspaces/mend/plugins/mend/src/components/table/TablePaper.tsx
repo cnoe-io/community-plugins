@@ -1,6 +1,6 @@
-import type { ReactNode, CSSProperties, FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import type { CSSProperties, FC, ReactNode } from 'react';
 
 type TablePaperProps = {
   children: ReactNode[];

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { Link, Table, TableColumn } from '@backstage/core-components';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import RetryIcon from '@material-ui/icons/Replay';
 import { useConsumerGroupsOffsetsForEntity } from './useConsumerGroupsOffsetsForEntity';
-import { Table, TableColumn, Link } from '@backstage/core-components';
 
 export type TopicPartitionInfo = {
   topic: string;

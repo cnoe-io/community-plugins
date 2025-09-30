@@ -15,13 +15,6 @@
  */
 import { BaseNode } from '@patternfly/react-topology';
 import { render } from '@testing-library/react';
-
-import { mockUseTranslation } from '../../../test-utils/mockTranslations';
-
-jest.mock('../../../hooks/useTranslation', () => ({
-  useTranslation: () => mockUseTranslation(),
-}));
-
 import {
   workloadNode,
   workloadNode2,
@@ -31,7 +24,12 @@ import {
   workloadNodeWtknRes,
   workloadNodeWtknRes2,
 } from '../../../__fixtures__/workloadNodeData';
+import { mockUseTranslation } from '../../../test-utils/mockTranslations';
 import TopologyResourcesTabPanel from './TopologyResourcesTabPanel';
+
+jest.mock('../../../hooks/useTranslation', () => ({
+  useTranslation: () => mockUseTranslation(),
+}));
 
 jest.mock('@material-ui/styles', () => ({
   ...jest.requireActual('@material-ui/styles'),

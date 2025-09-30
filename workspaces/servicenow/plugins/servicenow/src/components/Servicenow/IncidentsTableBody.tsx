@@ -16,12 +16,11 @@
 
 import Box from '@mui/material/Box';
 import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
-
+import TableRow from '@mui/material/TableRow';
+import type { IncidentsData } from '../../types';
 import { IncidentsListColumns } from './IncidentsListColumns';
 import { IncidentsTableRow } from './IncidentsTableRow';
-import type { IncidentsData } from '../../types';
 
 export const IncidentsTableBody = ({ rows }: { rows: IncidentsData[] }) => {
   // TODO: Add loading and error states

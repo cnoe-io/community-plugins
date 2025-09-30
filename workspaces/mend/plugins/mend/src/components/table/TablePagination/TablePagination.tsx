@@ -1,7 +1,7 @@
-import type { MouseEvent, ChangeEventHandler } from 'react';
-import MaterialTablePagination from '@mui/material/TablePagination';
 import type { Theme } from '@mui/material/styles';
+import MaterialTablePagination from '@mui/material/TablePagination';
 import { makeStyles } from '@mui/styles';
+import type { ChangeEventHandler, MouseEvent } from 'react';
 import { TablePaginationActions } from './TablePaginationActions';
 
 type TablePaginationProps = {

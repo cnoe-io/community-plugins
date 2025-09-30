@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { MSSV_ENABLED_ANNOTATION } from '@backstage-community/plugin-multi-source-security-viewer-common';
 import { Entity } from '@backstage/catalog-model';
 import {
   isMultiCIAvailableAndEnabled,
   multiSourceSecurityViewerPlugin,
 } from './plugin';
-import { MSSV_ENABLED_ANNOTATION } from '@backstage-community/plugin-multi-source-security-viewer-common';
 
 describe('multi-source-security-viewer', () => {
   it('should export plugin', () => {

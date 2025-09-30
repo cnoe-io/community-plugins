@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SelectOption, SelectList } from '@patternfly/react-core';
-import { ResourcesFilters, FiltersType } from '../../../../../types/resources';
 import {
   HealthStatus,
   SyncStatusCode,
   SyncStatuses,
 } from '@backstage-community/plugin-redhat-argocd-common';
 import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
+import { SelectList, SelectOption } from '@patternfly/react-core';
 import { argocdTranslationRef } from '../../../../../translations/ref';
+import { FiltersType, ResourcesFilters } from '../../../../../types/resources';
 
 export const resourcesFiltersMenuItems = (
   t: TranslationFunction<typeof argocdTranslationRef.T>,

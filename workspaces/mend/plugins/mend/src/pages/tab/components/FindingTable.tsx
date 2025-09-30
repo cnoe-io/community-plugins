@@ -1,9 +1,9 @@
-import { Finding, Project } from '../../../models';
-import { Table } from '../../../components';
-import { FindingData } from '../../../queries';
-import { findingTableColumnSchema } from './findingTable.schema';
-import { getFindingStatistics } from './findingTable.helpers';
 import { useLocation } from 'react-router-dom';
+import { Table } from '../../../components';
+import { Finding, Project } from '../../../models';
+import { FindingData } from '../../../queries';
+import { getFindingStatistics } from './findingTable.helpers';
+import { findingTableColumnSchema } from './findingTable.schema';
 
 export const FindingTable = ({
   findingData,

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { render } from '@testing-library/react';
-
 import { mockTektonResources } from '../../../__fixtures__/1-tektonResources';
 import { mockUseTranslation } from '../../../test-utils/mockTranslations';
 import PLRlist from './PLRlist';

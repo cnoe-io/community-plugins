@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useCallback } from 'react';
-
-import { makeStyles } from '@mui/styles';
-import FormGroup from '@mui/material/FormGroup';
+import { HeaderLabel } from '@backstage/core-components';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-
-import { HeaderLabel } from '@backstage/core-components';
-
+import { makeStyles } from '@mui/styles';
+import { useCallback } from 'react';
 import { useManagePageCombined } from './useFilters';
 
 /**

@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
 import { Box, Chip, Tooltip, Typography } from '@material-ui/core';
 import moment from 'moment';
-
+import type { FC } from 'react';
+import { useTranslation } from '../../../../../../hooks/useTranslation';
 import { AnalysisRun } from '../../../../../../types/analysisRuns';
 import AnalysisRunStatus from './AnalysisRunStatus';
-import { useTranslation } from '../../../../../../hooks/useTranslation';
 
 interface AnalysisRunsProps {
   analysisruns: AnalysisRun[];

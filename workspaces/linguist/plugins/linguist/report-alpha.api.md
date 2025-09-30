@@ -5,17 +5,20 @@
 ```ts
 /// <reference types="react" />
 
-import { AnyApiFactory } from '@backstage/core-plugin-api';
-import { ApiFactory } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
-import { EntityCardType } from '@backstage/plugin-catalog-react/alpha';
-import { EntityPredicate } from '@backstage/plugin-catalog-react/alpha';
-import { ExtensionBlueprintParams } from '@backstage/frontend-plugin-api';
-import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
-import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
-import { JSX as JSX_2 } from 'react';
-import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
+import { AnyApiFactory, ApiFactory } from '@backstage/core-plugin-api';
 import { TranslationRef } from '@backstage/core-plugin-api/alpha';
+import {
+  ExtensionBlueprintParams,
+  ExtensionDataRef,
+  ExtensionDefinition,
+  OverridableFrontendPlugin,
+} from '@backstage/frontend-plugin-api';
+import {
+  EntityCardType,
+  EntityPredicate,
+} from '@backstage/plugin-catalog-react/alpha';
+import { JSX as JSX_2 } from 'react';
 
 // @alpha (undocumented)
 const _default: OverridableFrontendPlugin<

@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, useState } from 'react';
-import MultiProgress from 'react-multi-progress';
-
 import { InfoCard, InfoCardVariants } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
-
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
@@ -29,7 +25,8 @@ import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
 import { styled, useTheme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-
+import { useEffect, useState } from 'react';
+import MultiProgress from 'react-multi-progress';
 import { useLaunchDetails, useProjectDetails } from '../../hooks';
 import { isReportPortalAvailable } from '../../utils/isReportPortalAvailable';
 

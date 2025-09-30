@@ -15,8 +15,8 @@
  */
 
 import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
-import * as data from '../../src/components/ConsumerGroupOffsets/__fixtures__/consumer-group-offsets.json';
 import { ConsumerGroupOffsetsResponse } from '../../src/api/types';
+import * as data from '../../src/components/ConsumerGroupOffsets/__fixtures__/consumer-group-offsets.json';
 
 const consumerGroupOffsets = data as ConsumerGroupOffsetsResponse;
 

@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 import { render } from '@testing-library/react';
+import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
+import { FiltersType } from '../../../../../../types/resources';
 import {
   healthStatusMenuItems,
-  syncStatusMenuItems,
   kindFilterMenuItems,
+  syncStatusMenuItems,
 } from '../Filters';
-import { FiltersType } from '../../../../../../types/resources';
-import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
 
 jest.mock('../../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

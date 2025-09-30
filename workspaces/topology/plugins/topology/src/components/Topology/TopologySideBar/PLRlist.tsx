@@ -19,14 +19,12 @@ import {
   pipelineRunStatus,
   Status,
 } from '@janus-idp/shared-react';
-
 import ResourceName from '../../../common/components/ResourceName';
 import ResourceStatus from '../../../common/components/ResourceStatus';
 import { MAXSHOWRESCOUNT } from '../../../const';
 import { PipelineRunModel } from '../../../pipeline-models';
 import PLRlastUpdated from './PLRlastUpdated';
 import TopologyResourcesTabPanelItem from './TopologyResourcesTabPaneltem';
-
 import './PLRlist.css';
 import { useTranslation } from '../../../hooks/useTranslation';
 

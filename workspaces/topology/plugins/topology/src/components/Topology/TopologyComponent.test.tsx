@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { usePermission } from '@backstage/plugin-permission-react';
 import { useTheme } from '@mui/material/styles';
 import { render } from '@testing-library/react';
-
 import { mockUseTranslation } from '../../test-utils/mockTranslations';
 import { TopologyComponent } from './TopologyComponent';
-import { usePermission } from '@backstage/plugin-permission-react';
 
 jest.mock('../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

@@ -13,26 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren, createContext, useContext, useMemo } from 'react';
-
-import useAsync from 'react-use/lib/useAsync';
-
+import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
+import { ErrorPanel, Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import {
   catalogApiRef,
   useStarredEntities,
 } from '@backstage/plugin-catalog-react';
-import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
-import { ErrorPanel, Progress } from '@backstage/core-components';
-
-import { useKindOrder } from '../KindOrder';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
+import useAsync from 'react-use/lib/useAsync';
+import { manageApiRef, Owners } from '../../api';
 import { arrayify, joinKinds } from '../../utils';
-import { defaultKinds } from './types';
 import {
-  type KindStarredType,
   KindStarred,
+  type KindStarredType,
 } from '../CurrentKindProvider/types';
-import { Owners, manageApiRef } from '../../api';
+import { useKindOrder } from '../KindOrder';
+import { defaultKinds } from './types';
 
 interface OwnedEntitiesProviderContext {
   kinds: string[];

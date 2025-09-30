@@ -13,34 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useCallback, useMemo, useState } from 'react';
-
-import { useNavigate } from 'react-router-dom';
-
-import { makeStyles } from '@mui/styles';
+import {
+  useOwners,
+  usePosition,
+} from '@backstage-community/plugin-manage-react';
+import { getCompoundEntityRef, parseEntityRef } from '@backstage/catalog-model';
+import { EmptyState } from '@backstage/core-components';
+import { useAnalytics, useRouteRef } from '@backstage/core-plugin-api';
+import {
+  Direction,
+  EntityNode,
+  EntityRelationsGraph,
+} from '@backstage/plugin-catalog-graph';
+import {
+  entityRouteRef,
+  humanizeEntityRef,
+} from '@backstage/plugin-catalog-react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-
-import {
-  Direction,
-  EntityNode,
-  EntityRelationsGraph,
-} from '@backstage/plugin-catalog-graph';
-import { getCompoundEntityRef, parseEntityRef } from '@backstage/catalog-model';
-import { EmptyState } from '@backstage/core-components';
-import { useAnalytics, useRouteRef } from '@backstage/core-plugin-api';
-import {
-  entityRouteRef,
-  humanizeEntityRef,
-} from '@backstage/plugin-catalog-react';
-import {
-  useOwners,
-  usePosition,
-} from '@backstage-community/plugin-manage-react';
+import { makeStyles } from '@mui/styles';
+import { useCallback, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   controlsCard: {

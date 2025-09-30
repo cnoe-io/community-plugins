@@ -5,16 +5,19 @@
 ```ts
 /// <reference types="react" />
 
-import { AnyApiFactory } from '@backstage/core-plugin-api';
-import { ApiFactory } from '@backstage/core-plugin-api';
-import { ExtensionBlueprintParams } from '@backstage/frontend-plugin-api';
-import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
-import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
-import { OverridableFrontendPlugin } from '@backstage/frontend-plugin-api';
-import { SearchFilterResultTypeBlueprintParams } from '@backstage/plugin-search-react/alpha';
-import { SearchResultItemExtensionComponent } from '@backstage/plugin-search-react/alpha';
-import { SearchResultItemExtensionPredicate } from '@backstage/plugin-search-react/alpha';
-import { SearchResultListItemBlueprintParams } from '@backstage/plugin-search-react/alpha';
+import { AnyApiFactory, ApiFactory } from '@backstage/core-plugin-api';
+import {
+  ExtensionBlueprintParams,
+  ExtensionDataRef,
+  ExtensionDefinition,
+  OverridableFrontendPlugin,
+} from '@backstage/frontend-plugin-api';
+import {
+  SearchFilterResultTypeBlueprintParams,
+  SearchResultItemExtensionComponent,
+  SearchResultItemExtensionPredicate,
+  SearchResultListItemBlueprintParams,
+} from '@backstage/plugin-search-react/alpha';
 
 // @alpha (undocumented)
 const _default: OverridableFrontendPlugin<

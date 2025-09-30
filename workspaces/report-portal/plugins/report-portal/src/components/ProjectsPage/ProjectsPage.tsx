@@ -19,19 +19,17 @@ import {
   Content,
   Header,
   Link,
+  LinkButton,
   Page,
   useQueryParamState,
-  LinkButton,
 } from '@backstage/core-components';
 import { useRouteRef } from '@backstage/core-plugin-api';
-
 import Launch from '@mui/icons-material/Launch';
-import { styled, Theme } from '@mui/material/styles';
-
-import { rootRouteRef } from '../../routes';
-import { ProjectsPageContent } from './ProjectsPageContent/ProjectsPageContent';
-import { ReportPortalSearchBar } from '../ReportPortalSearchBar';
 import Grid from '@mui/material/Grid';
+import { styled, Theme } from '@mui/material/styles';
+import { rootRouteRef } from '../../routes';
+import { ReportPortalSearchBar } from '../ReportPortalSearchBar';
+import { ProjectsPageContent } from './ProjectsPageContent/ProjectsPageContent';
 
 const StyledButton = styled(LinkButton)(({ theme }: { theme: Theme }) => ({
   backdropFilter: 'blur(10px)',

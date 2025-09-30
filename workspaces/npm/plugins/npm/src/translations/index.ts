@@ -15,7 +15,6 @@
  */
 
 import { createTranslationResource } from '@backstage/core-plugin-api/alpha';
-
 import { npmTranslationRef } from './ref';
 
 export { npmTranslationRef } from './ref';

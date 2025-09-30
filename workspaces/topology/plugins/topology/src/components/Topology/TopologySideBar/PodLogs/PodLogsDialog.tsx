@@ -13,32 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-
-import * as React from 'react';
-
 import { ErrorBoundary } from '@backstage/core-components';
-import { RequirePermission } from '@backstage/plugin-permission-react';
 import { kubernetesProxyPermission } from '@backstage/plugin-kubernetes-common';
-
+import { RequirePermission } from '@backstage/plugin-permission-react';
 import { V1Pod } from '@kubernetes/client-node';
+import CloseIcon from '@mui/icons-material/Close';
 import Box from '@mui/material/Box';
 import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import { SelectChangeEvent } from '@mui/material/Select';
-import DialogContent from '@mui/material/DialogContent';
-import CloseIcon from '@mui/icons-material/Close';
 import { Button } from '@patternfly/react-core';
-
+import { useState } from 'react';
+import * as React from 'react';
 import ResourceName from '../../../../common/components/ResourceName';
 import { K8sResourcesContext } from '../../../../hooks/K8sResourcesContext';
 import { useTranslation } from '../../../../hooks/useTranslation';
+import { MissingPermissionPage } from '../../permissions/MissingPermissionPage';
 import { ContainerSelector } from './ContainerSelector';
 import { PodLogs } from './PodLogs';
 import PodLogsDownload from './PodLogsDownload';
 import { ContainerScope } from './types';
-import { MissingPermissionPage } from '../../permissions/MissingPermissionPage';
 
 type PodLogsDialogProps = {
   podData: V1Pod;

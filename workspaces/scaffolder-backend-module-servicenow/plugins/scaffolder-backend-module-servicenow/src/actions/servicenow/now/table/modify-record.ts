@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
-
 import {
   ApiError,
   DefaultService,
@@ -22,7 +21,6 @@ import {
 } from '../../../../generated/now/table';
 import { CreateActionOptions, ServiceNowResponses } from '../../../types';
 import { updateOpenAPIConfig } from './helpers';
-
 import { examples } from './modify-record.example';
 
 const id = 'servicenow:now:table:modifyRecord';

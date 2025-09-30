@@ -19,11 +19,10 @@ import {
   BackstageUserPrincipal,
   HttpAuthService,
 } from '@backstage/backend-plugin-api';
+import { mockErrorHandler, mockServices } from '@backstage/backend-test-utils';
 import { AuthenticationError } from '@backstage/errors';
 import express from 'express';
 import request from 'supertest';
-
-import { mockErrorHandler, mockServices } from '@backstage/backend-test-utils';
 import { ServiceNowConfig } from '../../config';
 import { createRouter } from './router';
 

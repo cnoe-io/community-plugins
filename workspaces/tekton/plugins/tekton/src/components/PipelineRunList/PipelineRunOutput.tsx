@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { useContext, useCallback } from 'react';
-
-import { Progress } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
-
 import {
   ACSCheckResults,
   ACSImageScanResult,
@@ -28,14 +21,17 @@ import {
   TaskRunKind as TaskRunV1Kind,
   usePipelineRunOutput,
 } from '@aonic-ui/pipelines';
-import { Grid, Paper, Typography } from '@material-ui/core';
-
-import { PipelineRunKind, TaskRunKind } from '@janus-idp/shared-react';
-import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
-import { TektonResourcesContext } from '../../hooks/TektonResourcesContext';
-import { TektonResourcesContextData } from '../../types/types';
-import { tektonTranslationRef } from '../../translation';
+import { Progress } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
+import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
+import { PipelineRunKind, TaskRunKind } from '@janus-idp/shared-react';
+import { Grid, Paper, Typography } from '@material-ui/core';
+import type { FC } from 'react';
+import { useCallback, useContext } from 'react';
+import { TektonResourcesContext } from '../../hooks/TektonResourcesContext';
+import { tektonTranslationRef } from '../../translation';
+import { TektonResourcesContextData } from '../../types/types';
 
 type PipelineRunOutputProps = {
   pipelineRun: PipelineRunKind;

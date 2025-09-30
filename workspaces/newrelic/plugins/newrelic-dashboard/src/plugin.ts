@@ -15,11 +15,11 @@
  */
 
 import {
-  createPlugin,
   configApiRef,
   createApiFactory,
-  discoveryApiRef,
   createComponentExtension,
+  createPlugin,
+  discoveryApiRef,
   fetchApiRef,
 } from '@backstage/core-plugin-api';
 import { newRelicDashboardApiRef, NewRelicDashboardClient } from './api';

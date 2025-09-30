@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { createBackend } from '@backstage/backend-defaults';
-
 import { catalogModuleKeycloakEntityProvider } from '../src/module/catalogModuleKeycloakEntityProvider';
 
 const backend = createBackend();

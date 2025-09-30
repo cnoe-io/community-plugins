@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useRef, useEffect, useCallback } from 'react';
-
 import { useEntity } from '@backstage/plugin-catalog-react';
-
-import { isEqual } from 'lodash';
-
+import { useKubernetesObjects } from '@backstage/plugin-kubernetes-react';
 import {
   ComputedStatus,
   useDebounceCallback,
   useDeepCompareMemoize,
 } from '@janus-idp/shared-react';
-
-import { useKubernetesObjects } from '@backstage/plugin-kubernetes-react';
+import { isEqual } from 'lodash';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { TektonResourcesContextData, TektonResponseData } from '../types/types';
 import { useAllWatchResources } from './useAllWatchResources';
 import { useResourcesClusters } from './useResourcesClusters';

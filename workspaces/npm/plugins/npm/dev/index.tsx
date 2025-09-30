@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Content, Header, Page } from '@backstage/core-components';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { Content, Header, Page } from '@backstage/core-components';
 import { Grid } from '@material-ui/core';
-
 import {
-  npmPlugin,
   EntityNpmInfoCard,
-  EntityNpmReleaseTableCard,
   EntityNpmReleaseOverviewCard,
+  EntityNpmReleaseTableCard,
+  npmPlugin,
 } from '../src/plugin';
-
 import { npmTranslations } from '../src/translations';
-
 import { allExamples } from './examples';
 
 const builder = createDevApp()

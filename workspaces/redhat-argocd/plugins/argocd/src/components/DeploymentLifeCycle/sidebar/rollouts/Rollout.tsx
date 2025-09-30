@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { useState, useEffect, memo } from 'react';
-
 import { Box, makeStyles, Theme } from '@material-ui/core';
-
+import type { FC } from 'react';
+import { memo, useEffect, useState } from 'react';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { Revision, RolloutUI } from '../../../../types/revision';
+import Metadata from '../../../Common/Metadata';
+import MetadataItem from '../../../Common/MetadataItem';
 import BlueGreenRevision from './revisions/BlueGreenRevision';
 import CanaryRevision from './revisions/CanaryRevision';
-import MetadataItem from '../../../Common/MetadataItem';
-import Metadata from '../../../Common/Metadata';
-import { useTranslation } from '../../../../hooks/useTranslation';
 
 const useRevisionStyles = makeStyles((theme: Theme) => ({
   revisionContainer: {

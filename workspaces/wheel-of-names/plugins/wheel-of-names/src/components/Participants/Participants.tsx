@@ -13,43 +13,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Entity } from '@backstage/catalog-model';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import {
+  Avatar,
+  Card,
+  CardContent,
+  CardHeader,
+  CircularProgress,
+  Divider,
+  IconButton,
+  InputAdornment,
+  List,
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  TextField,
+  Typography,
+} from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import ClearIcon from '@material-ui/icons/Clear';
+import GroupIcon from '@material-ui/icons/Group';
+import PersonIcon from '@material-ui/icons/Person';
+import SearchIcon from '@material-ui/icons/Search';
+import { Alert } from '@material-ui/lab';
 import React, {
-  useState,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
-  useCallback,
+  useState,
 } from 'react';
-import { Entity } from '@backstage/catalog-model';
-import { useApi, configApiRef } from '@backstage/core-plugin-api';
-import { catalogApiRef } from '@backstage/plugin-catalog-react';
-
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  TextField,
-  Typography,
-  CircularProgress,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  Divider,
-  IconButton,
-  Avatar,
-  InputAdornment,
-} from '@material-ui/core';
-
-import { Alert } from '@material-ui/lab';
-import SearchIcon from '@material-ui/icons/Search';
-import PersonIcon from '@material-ui/icons/Person';
-import GroupIcon from '@material-ui/icons/Group';
-import AddIcon from '@material-ui/icons/Add';
-import { useParticipantsStyles } from './Styles';
 import { ParticipantsList } from './List';
 import { EntityService } from './Service';
-import ClearIcon from '@material-ui/icons/Clear';
+import { useParticipantsStyles } from './Styles';
 
 export interface Participant {
   id: string;

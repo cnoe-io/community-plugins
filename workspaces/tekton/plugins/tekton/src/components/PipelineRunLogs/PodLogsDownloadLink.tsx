@@ -13,25 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC, ReactElement } from 'react';
-
-import { useState, useContext } from 'react';
-
 import { useApi } from '@backstage/core-plugin-api';
+import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
 import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
-
 import { V1Pod } from '@kubernetes/client-node';
 import { createStyles, Link, makeStyles, Theme } from '@material-ui/core';
 import DownloadIcon from '@mui/icons-material/FileDownloadOutlined';
 import classNames from 'classnames';
-
+import type { FC, ReactElement } from 'react';
+import { useContext, useState } from 'react';
 import { TektonResourcesContext } from '../../hooks/TektonResourcesContext';
 import { ContainerScope } from '../../hooks/usePodLogsOfPipelineRun';
-import { TektonResourcesContextData } from '../../types/types';
-import { getPodLogs } from '../../utils/log-downloader-utils';
-import { useTranslationRef } from '@backstage/core-plugin-api/alpha';
 import { tektonTranslationRef } from '../../translation';
+import { TektonResourcesContextData } from '../../types/types';
 import { downloadLogFile } from '../../utils/download-log-file-utils';
+import { getPodLogs } from '../../utils/log-downloader-utils';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

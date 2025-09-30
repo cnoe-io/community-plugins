@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import { isSonarQubeAvailable } from '@backstage-community/plugin-sonarqube-react';
+import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 
 /**
  * @alpha

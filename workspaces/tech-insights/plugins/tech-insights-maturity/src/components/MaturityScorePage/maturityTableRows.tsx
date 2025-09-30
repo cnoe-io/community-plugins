@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Link } from '@backstage/core-components';
+import { InsightFacts } from '@backstage-community/plugin-tech-insights-common';
 import {
   MaturityCheckResult,
   MaturityRank,
   Rank,
 } from '@backstage-community/plugin-tech-insights-maturity-common';
+import { Link } from '@backstage/core-components';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
 import CancelTwoToneIcon from '@mui/icons-material/Cancel';
@@ -39,7 +40,6 @@ import { makeStyles, styled } from '@mui/styles';
 import type { SyntheticEvent } from 'react';
 import { useState } from 'react';
 import { MaturityRankAvatar } from '../MaturityRankAvatar';
-import { InsightFacts } from '@backstage-community/plugin-tech-insights-common';
 
 interface Props {
   checks: MaturityCheckResult[];

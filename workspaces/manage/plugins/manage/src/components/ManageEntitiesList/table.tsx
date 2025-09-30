@@ -13,32 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useCallback, useMemo, useRef } from 'react';
-
-import Tooltip from '@mui/material/Tooltip';
-import { capitalize } from '@mui/material/utils';
-import BusinessIcon from '@mui/icons-material/Business';
-import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-
-import { Table, TableOptions, TableColumn } from '@backstage/core-components';
+import {
+  KindStarred,
+  ManageColumnModule,
+  pluralizeKind,
+  simplifyColumns,
+  useCurrentKindTitle,
+  useOwnedEntities,
+} from '@backstage-community/plugin-manage-react';
 import {
   Entity,
   parseEntityRef,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
+import { Table, TableColumn, TableOptions } from '@backstage/core-components';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
-
-import {
-  KindStarred,
-  ManageColumnModule,
-  simplifyColumns,
-  useOwnedEntities,
-  useCurrentKindTitle,
-  pluralizeKind,
-} from '@backstage-community/plugin-manage-react';
-
-import { ManageColumnSimple, isManageColumnSimple } from './utils';
+import BusinessIcon from '@mui/icons-material/Business';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ScatterPlotIcon from '@mui/icons-material/ScatterPlot';
+import Tooltip from '@mui/material/Tooltip';
+import { capitalize } from '@mui/material/utils';
+import { useCallback, useMemo, useRef } from 'react';
 import { ReRender } from './ReRender';
 import {
   defaultPageSize,
@@ -46,6 +41,7 @@ import {
   useEntitesTablePageSize,
   useSetEntitesTablePageSize,
 } from './table-settings';
+import { isManageColumnSimple, ManageColumnSimple } from './utils';
 
 /** @public */
 export type TableRow = {

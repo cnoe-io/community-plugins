@@ -13,10 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { memo } from 'react';
-
 import {
   Box,
   Card,
@@ -26,15 +22,16 @@ import {
   Theme,
   Typography,
 } from '@material-ui/core';
-
+import type { FC } from 'react';
+import { memo } from 'react';
 import useCanaryMetadata from '../../../../../hooks/useCanaryMetadata';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 import { Revision } from '../../../../../types/revision';
 import { ROLLOUT_REVISION_ANNOTATION } from '../../../../../types/rollouts';
 import AnalysisRuns from './AnalysisRuns/AnalysisRuns';
 import ProgressBar from './ProgressBar';
 import RevisionStatus from './RevisionStatus';
 import RevisionType from './RevisionType';
-import { useTranslation } from '../../../../../hooks/useTranslation';
 
 interface RevisionCardProps {
   revision: Revision;

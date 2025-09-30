@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import useAsync from 'react-use/esm/useAsync';
+import { Check } from '@backstage-community/plugin-tech-insights-common';
+import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { Content, Page, Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { ScorecardInfo } from '../ScorecardsInfo';
-import Alert from '@material-ui/lab/Alert';
-import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
-import { makeStyles } from '@material-ui/core/styles';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { getCompoundEntityRef } from '@backstage/catalog-model';
-import { Check } from '@backstage-community/plugin-tech-insights-common';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import useAsync from 'react-use/esm/useAsync';
+import { ScorecardInfo } from '../ScorecardsInfo';
 
 const useStyles = makeStyles(() => ({
   contentScorecards: {

@@ -13,18 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { Chip } from '@material-ui/core';
-
 import {
   Application,
   HealthStatus,
 } from '@backstage-community/plugin-redhat-argocd-common';
-import { AppHealthIcon } from './StatusIcons';
 import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
-import { argocdTranslationRef } from '../../translations/ref';
+import { Chip } from '@material-ui/core';
+import type { FC } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
+import { argocdTranslationRef } from '../../translations/ref';
+import { AppHealthIcon } from './StatusIcons';
 
 const getHealthStatusTranslation = (
   status: HealthStatus,

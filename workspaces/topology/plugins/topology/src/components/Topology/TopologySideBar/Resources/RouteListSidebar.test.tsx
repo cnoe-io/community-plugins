@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { render } from '@testing-library/react';
-
 import { workloadNodeData } from '../../../../__fixtures__/workloadNodeData';
 import { mockUseTranslation } from '../../../../test-utils/mockTranslations';
 import { RouteData } from '../../../../types/route';

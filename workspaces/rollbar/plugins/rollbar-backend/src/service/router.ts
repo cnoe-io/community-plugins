@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
+import { CacheService, LoggerService } from '@backstage/backend-plugin-api';
+import { Config } from '@backstage/config';
 import express from 'express';
 import Router from 'express-promise-router';
-import { Config } from '@backstage/config';
 import { RollbarApi } from '../api';
-import { CacheService, LoggerService } from '@backstage/backend-plugin-api';
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 
 interface RouterOptions {
   rollbarApi?: RollbarApi;

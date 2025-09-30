@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { useState, Fragment } from 'react';
 import { Box, IconButton, makeStyles, Theme } from '@material-ui/core';
 import Tooltip from '@mui/material/Tooltip';
-import PipelineRunOutput from './PipelineRunOutput';
-import { PipelineRunLogs } from '../PipelineRunLogs/PipelineRunLogs';
-import { DialogLauncher } from '../DialogLauncher/DialogLauncher';
+import type { FC } from 'react';
+import { Fragment, useState } from 'react';
 import { PipelineRunResult } from '../../models/pipelineRunResult';
+import { DialogLauncher } from '../DialogLauncher/DialogLauncher';
 import { ViewLogsIcon } from '../Icons/LogsIcon';
 import { OutputIcon } from '../Icons/OutputIcon';
+import { PipelineRunLogs } from '../PipelineRunLogs/PipelineRunLogs';
+import PipelineRunOutput from './PipelineRunOutput';
 
 const useStyles = makeStyles((theme: Theme) => ({
   boxActions: {

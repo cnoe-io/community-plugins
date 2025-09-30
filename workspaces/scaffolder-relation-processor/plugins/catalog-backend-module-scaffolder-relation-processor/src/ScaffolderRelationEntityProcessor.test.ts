@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { mockServices } from '@backstage/backend-test-utils';
 import type { Entity } from '@backstage/catalog-model';
 import type { CatalogProcessorCache } from '@backstage/plugin-catalog-node';
-import { mockServices } from '@backstage/backend-test-utils';
-
 import { ScaffolderRelationEntityProcessor } from './ScaffolderRelationEntityProcessor';
 
 describe('ScaffolderRelationEntityProcessor', () => {

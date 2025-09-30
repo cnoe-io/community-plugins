@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
-import { entitySonarQubeCard } from './entityCard';
 import { sonarQubeApi } from './apis';
+import { entitySonarQubeCard } from './entityCard';
 import { entitySonarQubeContent } from './entityContent';
 
 /**

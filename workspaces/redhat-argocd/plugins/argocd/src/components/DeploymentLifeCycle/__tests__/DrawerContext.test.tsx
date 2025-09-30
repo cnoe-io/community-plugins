@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ReactNode } from 'react';
-import { DrawerProvider, useDrawerContext } from '../DrawerContext';
-import { screen, render, renderHook } from '@testing-library/react';
-import { mockApplication } from '../../../../dev/__data__';
 import { Application } from '@backstage-community/plugin-redhat-argocd-common';
+import { render, renderHook, screen } from '@testing-library/react';
+import type { ReactNode } from 'react';
+import { mockApplication } from '../../../../dev/__data__';
+import { DrawerProvider, useDrawerContext } from '../DrawerContext';
 
 const MockComponent = () => {
   const { application, appHistory, latestRevision } = useDrawerContext();

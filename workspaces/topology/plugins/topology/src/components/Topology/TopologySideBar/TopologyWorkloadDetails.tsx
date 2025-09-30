@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { PropsWithChildren } from 'react';
-
 import { V1OwnerReference } from '@kubernetes/client-node';
-import { LocalizedTimestamp } from '../../LocalizedTimestamp';
-
-import { K8sWorkloadResource } from '../../../types/types';
+import type { PropsWithChildren } from 'react';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { K8sWorkloadResource } from '../../../types/types';
+import { LocalizedTimestamp } from '../../LocalizedTimestamp';
 import TopologyResourceLabels from './TopologyResourceLabels';
 import TopologySideBarDetailsItem from './TopologySideBarDetailsItem';
 

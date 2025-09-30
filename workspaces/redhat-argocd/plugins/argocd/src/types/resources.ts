@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import { V1Pod, V1ReplicaSet } from '@kubernetes/client-node';
-
+import { argocdTranslationRef } from '../translations/ref';
 import { AnalysisRun } from './analysisRuns';
 import { Rollout } from './rollouts';
-import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
-import { argocdTranslationRef } from '../translations/ref';
 
 export const k8sResourceTypes = ['pods', 'replicasets'];
 export const customResourceTypes = ['analysisruns', 'rollouts'];

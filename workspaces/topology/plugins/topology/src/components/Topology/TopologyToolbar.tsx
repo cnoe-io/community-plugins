@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { MouseEvent, Ref } from 'react';
-
-import { useContext, useState } from 'react';
-
-import { LabelGroup, ToolbarItem, Label } from '@patternfly/react-core';
 import {
-  Select,
-  SelectOption,
-  SelectList,
+  Label,
+  LabelGroup,
   MenuToggle,
   MenuToggleElement,
+  Select,
+  SelectList,
+  SelectOption,
+  ToolbarItem,
 } from '@patternfly/react-core';
-
+import type { MouseEvent, Ref } from 'react';
+import { useContext, useState } from 'react';
 import { FilterContext } from '../../hooks/FilterContext';
 import { K8sResourcesContext } from '../../hooks/K8sResourcesContext';
 import { useTranslation } from '../../hooks/useTranslation';

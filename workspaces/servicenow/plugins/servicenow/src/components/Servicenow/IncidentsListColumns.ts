@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { TableColumn } from '@backstage/core-components';
-
 import { IncidentsData, IncidentTableFieldEnum } from '../../types';
 
 export const IncidentsListColumns: TableColumn<IncidentsData>[] = [

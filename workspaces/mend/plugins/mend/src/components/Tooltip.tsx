@@ -1,8 +1,8 @@
-import type { ReactElement } from 'react';
-import { useRef, useState, useCallback } from 'react';
 import type { Theme } from '@mui/material/styles';
 import MaterialTooltip from '@mui/material/Tooltip';
 import { makeStyles } from '@mui/styles';
+import type { ReactElement } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useResize } from '../hooks';
 
 type ExtendedClassesProps = {

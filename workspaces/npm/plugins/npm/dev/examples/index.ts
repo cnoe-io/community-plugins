@@ -1,3 +1,8 @@
+import { failingExamples } from './failing-examples';
+import { githubExamples } from './github-examples';
+import { gitlabExamples } from './gitlab-examples';
+import { npmjsExamples } from './npmjs-examples';
+
 /*
  * Copyright 2025 The Backstage Authors
  *
@@ -18,11 +23,6 @@ export { npmjsExamples } from './npmjs-examples';
 export { githubExamples } from './github-examples';
 export { gitlabExamples } from './gitlab-examples';
 export { failingExamples } from './failing-examples';
-
-import { npmjsExamples } from './npmjs-examples';
-import { githubExamples } from './github-examples';
-import { gitlabExamples } from './gitlab-examples';
-import { failingExamples } from './failing-examples';
 
 export const allExamples = [
   ...npmjsExamples,

@@ -140,8 +140,8 @@ yarn workspace app add @backstage-community/plugin-redhat-argocd
 ```ts
 // packages/app/src/components/catalog/EntityPage.tsx
 import {
-  ArgocdDeploymentSummary,
   ArgocdDeploymentLifecycle,
+  ArgocdDeploymentSummary,
   isArgocdConfigured,
 } from '@backstage-community/plugin-redhat-argocd';
 

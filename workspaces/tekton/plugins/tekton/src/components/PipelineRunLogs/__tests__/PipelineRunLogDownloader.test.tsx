@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen } from '@testing-library/react';
-import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
-
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { screen } from '@testing-library/react';
 import { testPipelineRunPods } from '../../../__fixtures__/pods-data';
 import PipelineRunLogDownloader from '../PipelineRunLogDownloader';
 

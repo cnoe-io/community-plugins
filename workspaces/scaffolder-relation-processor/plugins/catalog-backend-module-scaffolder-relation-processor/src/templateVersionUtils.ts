@@ -13,16 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { AuthService } from '@backstage/backend-plugin-api';
+import { CatalogClient } from '@backstage/catalog-client';
+import type { Entity } from '@backstage/catalog-model';
+import type { Config } from '@backstage/config';
 import type { CatalogProcessorCache } from '@backstage/plugin-catalog-node';
 import type { EventsService } from '@backstage/plugin-events-node';
-import { CatalogClient } from '@backstage/catalog-client';
-import {
-  NotificationService,
-  NotificationRecipients,
-} from '@backstage/plugin-notifications-node';
-import { AuthService } from '@backstage/backend-plugin-api';
 import { NotificationPayload } from '@backstage/plugin-notifications-common';
-import type { Entity } from '@backstage/catalog-model';
+import {
+  NotificationRecipients,
+  NotificationService,
+} from '@backstage/plugin-notifications-node';
 import {
   DEFAULT_NOTIFICATION_DESCRIPTION,
   DEFAULT_NOTIFICATION_ENABLED,
@@ -31,7 +32,6 @@ import {
   TEMPLATE_VERSION_UPDATED_TOPIC,
 } from './constants';
 import { ScaffolderRelationProcessorConfig } from './types';
-import type { Config } from '@backstage/config';
 
 /**
  * Cache structure for storing template version information

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-import { Card, CardContent, Typography, Link } from '@material-ui/core';
-import moment from 'moment';
-import { ClassNameMap } from '@material-ui/styles/withStyles';
 import {
   Application,
   History,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { Card, CardContent, Link, Typography } from '@material-ui/core';
+import { ClassNameMap } from '@material-ui/styles/withStyles';
+import moment from 'moment';
+import type { FC } from 'react';
 import { useTranslation } from '../../../../../hooks/useTranslation';
 
 type DeploymentHistoryCommitProps = {

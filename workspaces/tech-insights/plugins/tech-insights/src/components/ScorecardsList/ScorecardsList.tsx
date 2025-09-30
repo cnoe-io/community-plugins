@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
+import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
+import {
+  ResultCheckIcon,
+  techInsightsApiRef,
+} from '@backstage-community/plugin-tech-insights-react';
+import { Entity } from '@backstage/catalog-model';
+import { MarkdownContent } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles } from '@material-ui/core/styles';
-import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
-import { MarkdownContent } from '@backstage/core-components';
-import { Entity } from '@backstage/catalog-model';
-import {
-  ResultCheckIcon,
-  techInsightsApiRef,
-} from '@backstage-community/plugin-tech-insights-react';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles(theme => ({

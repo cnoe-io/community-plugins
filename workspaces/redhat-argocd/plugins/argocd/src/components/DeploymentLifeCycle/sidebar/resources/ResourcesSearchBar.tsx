@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ChangeEvent, FC } from 'react';
 import {
   createStyles,
   InputAdornment,
   makeStyles,
   TextField,
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
 import ClearIcon from '@material-ui/icons/Clear';
+import SearchIcon from '@material-ui/icons/Search';
+import type { ChangeEvent, FC } from 'react';
 import { useTranslation } from '../../../../hooks/useTranslation';
 
 const useStyles = makeStyles(theme =>

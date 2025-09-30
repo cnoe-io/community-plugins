@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useContext, useCallback, useEffect } from 'react';
-import useAsync from 'react-use/esm/useAsync';
-
 import { useApi } from '@backstage/core-plugin-api';
-import { ContainerScope } from '@backstage/plugin-kubernetes-react';
-
+import {
+  ContainerScope,
+  kubernetesProxyApiRef,
+} from '@backstage/plugin-kubernetes-react';
 import { V1Pod } from '@kubernetes/client-node';
-import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
+import { useCallback, useContext, useEffect, useState } from 'react';
+import useAsync from 'react-use/esm/useAsync';
 import { TektonResourcesContextData } from '../types/types';
 import { TektonResourcesContext } from './TektonResourcesContext';
 

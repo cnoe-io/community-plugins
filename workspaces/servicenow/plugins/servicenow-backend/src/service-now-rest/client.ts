@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import { LoggerService } from '@backstage/backend-plugin-api';
-import {
-  ClientCredentials,
-  ResourceOwnerPassword,
-  ModuleOptions,
-  AccessToken,
-} from 'simple-oauth2';
-import axios from 'axios';
 import {
   IncidentPick,
   PaginatedIncidents,
 } from '@backstage-community/plugin-servicenow-common';
+import { LoggerService } from '@backstage/backend-plugin-api';
+import axios from 'axios';
+import {
+  AccessToken,
+  ClientCredentials,
+  ModuleOptions,
+  ResourceOwnerPassword,
+} from 'simple-oauth2';
 import { OAuthConfig, ServiceNowConfig } from '../../config';
 
 export type IncidentQueryParams = {

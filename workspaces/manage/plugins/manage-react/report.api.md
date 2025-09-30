@@ -5,22 +5,24 @@
 ```ts
 /// <reference types="react" />
 
-import { ApiFactory } from '@backstage/core-plugin-api';
-import { ApiRef } from '@backstage/core-plugin-api';
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { CircularProgressProps } from '@mui/material/CircularProgress';
-import { ComponentProps } from 'react';
-import type { ComponentType } from 'react';
-import { DiscoveryApi } from '@backstage/core-plugin-api';
 import { Entity } from '@backstage/catalog-model';
-import { FetchApi } from '@backstage/core-plugin-api';
-import { GaugeCard as GaugeCard_2 } from '@backstage/core-components';
-import { GaugePropsGetColor } from '@backstage/core-components';
-import { GridOwnProps } from '@mui/material/Grid';
+import {
+  GaugeCard as GaugeCard_2,
+  GaugePropsGetColor,
+} from '@backstage/core-components';
+import {
+  ApiFactory,
+  ApiRef,
+  BackstagePlugin,
+  DiscoveryApi,
+  FetchApi,
+} from '@backstage/core-plugin-api';
 import { JsonValue } from '@backstage/types';
+import { CircularProgressProps } from '@mui/material/CircularProgress';
+import { GridOwnProps } from '@mui/material/Grid';
+import { ComponentProps, PropsWithChildren, ReactNode } from 'react';
+import type { ComponentType } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
-import { PropsWithChildren } from 'react';
-import { ReactNode } from 'react';
 
 // @public
 export interface ApiFactoryOptions {

@@ -1546,18 +1546,17 @@
   // app/src/lib/MyClient.ts
   import {
     TechRadarApi,
+    techRadarApiRef,
     TechRadarLoaderResponse,
   } from '@backstage-community/plugin-tech-radar';
+  // app/src/apis.ts
+  import { MyOwnClient } from './lib/MyClient';
 
   class MyOwnClient implements TechRadarApi {
     async load(): Promise<TechRadarLoaderResponse> {
       // here's where you would put you logic to load the response that was previously passed into getData
     }
   }
-
-  // app/src/apis.ts
-  import { MyOwnClient } from './lib/MyClient';
-  import { techRadarApiRef } from '@backstage-community/plugin-tech-radar';
 
   export const apis: AnyApiFactory[] = [
     /*

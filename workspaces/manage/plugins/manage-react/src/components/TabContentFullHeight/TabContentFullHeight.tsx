@@ -21,9 +21,8 @@ import {
   useMemo,
   useState,
 } from 'react';
-
-import { usePosition } from './usePosition';
 import { useMutationObserver } from './useMutationObserver';
+import { usePosition } from './usePosition';
 
 /**
  * Props for {@link TabContentFullHeight}

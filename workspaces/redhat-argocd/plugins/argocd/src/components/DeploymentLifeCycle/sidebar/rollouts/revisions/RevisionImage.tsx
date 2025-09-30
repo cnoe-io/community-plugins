@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 import { Typography } from '@material-ui/core';
-
-import { ReplicaSet } from '../../../../../types/resources';
 import { useTranslation } from '../../../../../hooks/useTranslation';
+import { ReplicaSet } from '../../../../../types/resources';
 
 const RevisionImage = ({ revision }: { revision: ReplicaSet }) => {
   const image = revision.spec?.template?.spec?.containers?.[0]?.image;

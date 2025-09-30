@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, screen } from '@testing-library/react';
-import DeploymentMetadata from '../DeploymentMetadata';
 import {
   Application,
   Resource,
   Source,
 } from '@backstage-community/plugin-redhat-argocd-common';
-import { useDrawerContext } from '../../../../DrawerContext';
-import { mockApplication, mockEntity } from '../../../../../../../dev/__data__';
+import { Config } from '@backstage/config';
+import { ApiRef, configApiRef } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { TestApiProvider } from '@backstage/test-utils';
-import { configApiRef, ApiRef } from '@backstage/core-plugin-api';
-import { Config } from '@backstage/config';
+import { render, screen } from '@testing-library/react';
+import { mockApplication, mockEntity } from '../../../../../../../dev/__data__';
 import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
+import { useDrawerContext } from '../../../../DrawerContext';
+import DeploymentMetadata from '../DeploymentMetadata';
 
 jest.mock('../../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

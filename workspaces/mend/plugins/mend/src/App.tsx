@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
 import { QueryClientProvider } from '@tanstack/react-query';
+import { Route, Routes } from 'react-router-dom';
 import { queryClient } from './api';
 import { Overview } from './pages/overview';
 

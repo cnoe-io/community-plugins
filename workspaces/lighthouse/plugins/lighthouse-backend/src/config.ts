@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { LoggerService } from '@backstage/backend-plugin-api';
 import {
-  SchedulerServiceTaskScheduleDefinition,
+  LoggerService,
   readSchedulerServiceTaskScheduleDefinitionFromConfig,
+  SchedulerServiceTaskScheduleDefinition,
 } from '@backstage/backend-plugin-api';
 import { Config, readDurationFromConfig } from '@backstage/config';
 import { HumanDuration } from '@backstage/types';

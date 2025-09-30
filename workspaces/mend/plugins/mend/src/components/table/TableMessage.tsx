@@ -1,7 +1,7 @@
-import Typography from '@mui/material/Typography';
 import SvgIcon from '@mui/material/SvgIcon';
+import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
-import { tableIconMap, TableIcon } from './table.icons';
+import { TableIcon, tableIconMap } from './table.icons';
 
 type TableMessageProps = {
   icon: TableIcon;

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
+import { configApiRef, errorApiRef } from '@backstage/core-plugin-api';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
+import { TestApiProvider } from '@backstage/test-utils';
 import { renderHook, waitFor } from '@testing-library/react';
 import { when } from 'jest-when';
 import { PropsWithChildren } from 'react';
@@ -25,12 +27,8 @@ import {
   KafkaDashboardApi,
   kafkaDashboardApiRef,
 } from '../../api/types';
-import { useConsumerGroupsOffsetsForEntity } from './useConsumerGroupsOffsetsForEntity';
 import * as data from './__fixtures__/consumer-group-offsets.json';
-
-import { errorApiRef } from '@backstage/core-plugin-api';
-import { configApiRef } from '@backstage/core-plugin-api';
-import { TestApiProvider } from '@backstage/test-utils';
+import { useConsumerGroupsOffsetsForEntity } from './useConsumerGroupsOffsetsForEntity';
 
 const consumerGroupOffsets = data as ConsumerGroupOffsetsResponse;
 

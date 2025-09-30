@@ -15,43 +15,41 @@
  */
 import '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import '@patternfly/react-core/dist/styles/base-no-reset.css';
-
-import {
-  configApiRef,
-  createApiFactory,
-  createPlugin,
-  discoveryApiRef,
-  fetchApiRef,
-  identityApiRef,
-  gitlabAuthApiRef,
-  createRoutableExtension,
-} from '@backstage/core-plugin-api';
-
-import { rootRouteRef } from './routes';
-import { MssvJenkinsClient, mssvJenkinsApiRef } from './api/jenkins';
-import {
-  JenkinsClient,
-  isJenkinsAvailable,
-} from '@backstage-community/plugin-jenkins';
-import { MssvGithubActionsClient, mssvGithubActionsApiRef } from './api/github';
-import {
-  GithubActionsClient,
-  isGithubActionsAvailable,
-} from '@backstage-community/plugin-github-actions';
-import { scmAuthApiRef } from '@backstage/integration-react';
-import {
-  CustomGitlabCiClient,
-  MssvGitlabCIClient,
-  mssvGitlabCIApiRef,
-} from './api/gitlab';
-import { isGitlabAvailable } from '@immobiliarelabs/backstage-plugin-gitlab';
-import { Entity } from '@backstage/catalog-model';
 import {
   AzureDevOpsClient,
   isAzurePipelinesAvailable,
 } from '@backstage-community/plugin-azure-devops';
-import { MssvAzureDevopsClient, mssvAzureDevopsApiRef } from './api/azure';
+import {
+  GithubActionsClient,
+  isGithubActionsAvailable,
+} from '@backstage-community/plugin-github-actions';
+import {
+  isJenkinsAvailable,
+  JenkinsClient,
+} from '@backstage-community/plugin-jenkins';
 import { MSSV_ENABLED_ANNOTATION } from '@backstage-community/plugin-multi-source-security-viewer-common';
+import { Entity } from '@backstage/catalog-model';
+import {
+  configApiRef,
+  createApiFactory,
+  createPlugin,
+  createRoutableExtension,
+  discoveryApiRef,
+  fetchApiRef,
+  gitlabAuthApiRef,
+  identityApiRef,
+} from '@backstage/core-plugin-api';
+import { scmAuthApiRef } from '@backstage/integration-react';
+import { isGitlabAvailable } from '@immobiliarelabs/backstage-plugin-gitlab';
+import { mssvAzureDevopsApiRef, MssvAzureDevopsClient } from './api/azure';
+import { mssvGithubActionsApiRef, MssvGithubActionsClient } from './api/github';
+import {
+  CustomGitlabCiClient,
+  mssvGitlabCIApiRef,
+  MssvGitlabCIClient,
+} from './api/gitlab';
+import { mssvJenkinsApiRef, MssvJenkinsClient } from './api/jenkins';
+import { rootRouteRef } from './routes';
 
 /** @public */
 export const multiSourceSecurityViewerPlugin = createPlugin({

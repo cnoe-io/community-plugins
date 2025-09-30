@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
 import { usePermission } from '@backstage/plugin-permission-react';
-
 import { render } from '@testing-library/react';
-
+import type { FC } from 'react';
 import { K8sResourcesContext } from '../../hooks/K8sResourcesContext';
 import { useWorkloadsWatcher } from '../../hooks/useWorkloadWatcher';
 import { mockUseTranslation } from '../../test-utils/mockTranslations';

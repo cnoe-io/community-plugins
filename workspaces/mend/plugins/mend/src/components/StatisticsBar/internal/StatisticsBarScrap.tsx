@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
 import type { Theme } from '@mui/material/styles';
 import { makeStyles } from '@mui/styles';
+import { ReactElement } from 'react';
 import { numberToShortText } from '../../../utils';
-import { StatisticsBarScrapProps } from '../statisticsBar.types';
 import { linearGradient } from '../statisticsBar.helpers';
+import { StatisticsBarScrapProps } from '../statisticsBar.types';
 
 const useStyles = makeStyles<Theme, { color: string; isHovered: boolean }>(
   () => ({

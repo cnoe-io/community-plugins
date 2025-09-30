@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import useAsync from 'react-use/esm/useAsync';
 import { Entity } from '@backstage/catalog-model';
+import { useApi } from '@backstage/core-plugin-api';
+import useAsync from 'react-use/esm/useAsync';
 import { rollbarApiRef } from '../api';
 import { RollbarTopActiveItem } from '../api/types';
 import { useProjectSlugFromEntity } from './useProject';
-import { useApi } from '@backstage/core-plugin-api';
 
 export function useTopActiveItems(entity: Entity) {
   const api = useApi(rollbarApiRef);

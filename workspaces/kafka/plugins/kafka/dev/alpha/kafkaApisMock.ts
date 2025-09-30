@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import * as data from '../../src/components/ConsumerGroupOffsets/__fixtures__/consumer-group-offsets.json';
 import {
   ConsumerGroupOffsetsResponse,
   KafkaApi,
   KafkaDashboardApi,
 } from '../../src/api/types';
+import * as data from '../../src/components/ConsumerGroupOffsets/__fixtures__/consumer-group-offsets.json';
 
 const consumerGroupOffsets = data as ConsumerGroupOffsetsResponse;
 

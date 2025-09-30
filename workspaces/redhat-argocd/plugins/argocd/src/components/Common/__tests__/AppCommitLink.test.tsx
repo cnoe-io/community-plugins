@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen, render, fireEvent } from '@testing-library/react';
-import AppCommitLink from '../AppCommitLink';
+import {
+  History,
+  RevisionInfo,
+} from '@backstage-community/plugin-redhat-argocd-common';
+import { fireEvent, render, screen } from '@testing-library/react';
 import {
   mockApplication,
   mockEntity,
   mockRevision,
 } from '../../../../dev/__data__';
-import {
-  History,
-  RevisionInfo,
-} from '@backstage-community/plugin-redhat-argocd-common';
+import AppCommitLink from '../AppCommitLink';
 
 describe('AppCommitLink', () => {
   it('should return null if application is not passed', () => {

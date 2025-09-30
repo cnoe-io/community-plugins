@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { useLayoutEffect } from 'react';
-
 import { TektonResourcesContext } from '../../hooks/TektonResourcesContext';
 import { useDarkTheme } from '../../hooks/useDarkTheme';
 import { useTektonObjectsResponse } from '../../hooks/useTektonObjectsResponse';
@@ -22,7 +21,6 @@ import { useTektonViewPermission } from '../../hooks/useTektonViewPermission';
 import { ModelsPlural } from '../../models';
 import PermissionAlert from '../common/PermissionAlert';
 import PipelineRunList from '../PipelineRunList/PipelineRunList';
-
 import '@patternfly/react-core/dist/styles/base-no-reset.css';
 import '@patternfly/patternfly/utilities/Accessibility/accessibility.css';
 import { Progress } from '@backstage/core-components';

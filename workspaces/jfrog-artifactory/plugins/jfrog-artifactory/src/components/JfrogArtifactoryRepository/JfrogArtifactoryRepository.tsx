@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-import { useAsync } from 'react-use';
-
 import { Link, Progress, Table } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-
 import { Box, Chip, makeStyles } from '@material-ui/core';
-
+import { useState } from 'react';
+import { useAsync } from 'react-use';
 import { jfrogArtifactoryApiRef } from '../../api';
 import { Edge } from '../../types';
-import { columns, useStyles } from './tableHeading';
 import { formatByteSize, formatDate } from '../../utils';
+import { columns, useStyles } from './tableHeading';
 
 const useLocalStyles = makeStyles({
   chip: {

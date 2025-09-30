@@ -1,5 +1,5 @@
 import { createDevApp } from '@backstage/dev-utils';
-import { plugin, MendPage } from '../src/plugin';
+import { MendPage, plugin } from '../src/plugin';
 
 createDevApp()
   .registerPlugin(plugin)

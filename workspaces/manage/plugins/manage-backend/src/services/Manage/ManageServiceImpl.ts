@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import {
-  BackstageCredentials,
-  BackstageUserPrincipal,
-} from '@backstage/backend-plugin-api';
-
+import { OwnersAndOwnedEntities } from '@backstage-community/plugin-manage-common';
 import {
   OwnedEntitiesService,
   OwnershipService,
 } from '@backstage-community/plugin-manage-node';
-import { OwnersAndOwnedEntities } from '@backstage-community/plugin-manage-common';
+import {
+  BackstageCredentials,
+  BackstageUserPrincipal,
+} from '@backstage/backend-plugin-api';
 
 export class ManageServiceImpl {
   constructor(

@@ -13,27 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useMemo } from 'react';
+import { FindingSummary } from '@backstage-community/plugin-sonarqube-react';
+import { useTranslationRef } from '@backstage/frontend-plugin-api';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-import { defaultDuplicationRatings } from '../SonarQubeTable/types';
-import BugReport from '@material-ui/icons/BugReport';
-import Lock from '@material-ui/icons/Lock';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import BugReport from '@material-ui/icons/BugReport';
+import LinkIcon from '@material-ui/icons/Link';
+import Lock from '@material-ui/icons/Lock';
 import LockOpen from '@material-ui/icons/LockOpen';
+import Security from '@material-ui/icons/Security';
 import SentimentVeryDissatisfied from '@material-ui/icons/SentimentVeryDissatisfied';
 import SentimentVerySatisfied from '@material-ui/icons/SentimentVerySatisfied';
-import Security from '@material-ui/icons/Security';
 import { DateTime } from 'luxon';
+import { useMemo } from 'react';
+import { sonarqubeTranslationRef } from '../../translation';
+import { defaultDuplicationRatings } from '../SonarQubeTable/types';
 import { Percentage } from './Percentage';
 import { Rating } from './Rating';
 import { RatingCard } from './RatingCard';
 import { Value } from './Value';
-import { FindingSummary } from '@backstage-community/plugin-sonarqube-react';
-import { useTranslationRef } from '@backstage/frontend-plugin-api';
-import { sonarqubeTranslationRef } from '../../translation';
-import Tooltip from '@material-ui/core/Tooltip';
-import LinkIcon from '@material-ui/icons/Link';
 
 type MetricInsightsProps = {
   value: FindingSummary | any;

@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-
-import { ResourcesTable } from '../ResourcesTable';
 import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
-import { useArgoResources } from '../../rollouts/RolloutContext';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
+import { useArgoResources } from '../../rollouts/RolloutContext';
+import { ResourcesTable } from '../ResourcesTable';
 
 jest.mock('../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

@@ -13,34 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useRef, useMemo, useEffect } from 'react';
-
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
-import { configApiRef, useApi } from '@backstage/core-plugin-api';
-import { useEntity } from '@backstage/plugin-catalog-react';
-
-import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
-import { argoCDApiRef } from '../../api';
-import { useApplications } from '../../hooks/useApplications';
-import { useArgocdConfig } from '../../hooks/useArgocdConfig';
-import { useArgocdViewPermission } from '../../hooks/useArgocdViewPermission';
 import {
   Application,
   RevisionInfo,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import { createStyles, makeStyles, Theme, Typography } from '@material-ui/core';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { argoCDApiRef } from '../../api';
+import { useApplications } from '../../hooks/useApplications';
+import { useArgocdConfig } from '../../hooks/useArgocdConfig';
+import { useArgocdViewPermission } from '../../hooks/useArgocdViewPermission';
+import { useTranslation } from '../../hooks/useTranslation';
 import {
   getArgoCdAppConfig,
   getInstanceName,
   getUniqueRevisions,
   removeDuplicateRevisions,
 } from '../../utils/utils';
-
 import PermissionAlert from '../Common/PermissionAlert';
 import DeploymentLifecycleCard from './DeploymentLifecycleCard';
 import DeploymentLifecycleDrawer from './DeploymentLifecycleDrawer';
-import { ArgoResourcesProvider } from './sidebar/rollouts/RolloutContext';
 import { DrawerProvider } from './DrawerContext';
-import { useTranslation } from '../../hooks/useTranslation';
+import { ArgoResourcesProvider } from './sidebar/rollouts/RolloutContext';
 
 const useDrawerStyles = makeStyles<Theme>(theme =>
   createStyles({

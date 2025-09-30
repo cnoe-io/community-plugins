@@ -19,7 +19,6 @@ import {
   DiscoveryApi,
   IdentityApi,
 } from '@backstage/core-plugin-api';
-
 import { TagsResponse } from '../types';
 
 const DEFAULT_PROXY_PATH = '/jfrog-artifactory/api';

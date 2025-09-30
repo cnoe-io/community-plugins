@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { InputError } from '@backstage/errors';
-import type { ParsedQs } from 'qs';
 import type { Order } from '@backstage-community/plugin-servicenow-common';
 import { IncidentFieldEnum } from '@backstage-community/plugin-servicenow-common';
+import { InputError } from '@backstage/errors';
+import type { ParsedQs } from 'qs';
 import { IncidentQueryParams } from '../service-now-rest';
 
 const ALLOWED_STATES: readonly string[] = ['1', '2', '3', '6', '7', '8'];

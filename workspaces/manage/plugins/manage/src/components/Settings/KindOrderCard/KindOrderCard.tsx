@@ -13,15 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useCallback, useMemo } from 'react';
-
-import { capitalize } from '@mui/material/utils';
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
-
 import {
   pluralizeKind,
   ReorderableTabs,
@@ -29,6 +20,13 @@ import {
   useOwnedKinds,
   useSetKindOrder,
 } from '@backstage-community/plugin-manage-react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import { capitalize } from '@mui/material/utils';
+import { useCallback, useMemo } from 'react';
 
 /**
  * The KindOrder card that is displayed in the default settings page.

@@ -19,8 +19,8 @@ import {
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { rootCatalogKafkaRouteRef } from '../plugin';
 import { KAFKA_CONSUMER_GROUP_ANNOTATION } from '../constants';
+import { rootCatalogKafkaRouteRef } from '../plugin';
 
 /**
  * @alpha

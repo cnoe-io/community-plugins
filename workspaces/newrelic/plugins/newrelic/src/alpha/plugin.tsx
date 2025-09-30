@@ -15,19 +15,18 @@
  */
 
 import {
+  compatWrapper,
+  convertLegacyRouteRef,
+} from '@backstage/core-compat-api';
+import {
   ApiBlueprint,
-  PageBlueprint,
   createFrontendPlugin,
   discoveryApiRef,
   fetchApiRef,
   NavItemBlueprint,
+  PageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import {
-  compatWrapper,
-  convertLegacyRouteRef,
-} from '@backstage/core-compat-api';
 import ExtensionIcon from '@material-ui/icons/ExtensionOutlined';
-
 import { newRelicApiRef, NewRelicClient } from '../api';
 import { rootRouteRef } from '../plugin';
 

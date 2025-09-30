@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import { useMemo, useCallback } from 'react';
-import { useQueryState } from './useQueryState';
-import { INCIDENT_STATE_MAP, PRIORITY_MAP } from '../utils/incidentUtils';
 import { SelectItem } from '@backstage/core-components';
+import { useCallback, useMemo } from 'react';
+import { INCIDENT_STATE_MAP, PRIORITY_MAP } from '../utils/incidentUtils';
+import { useQueryState } from './useQueryState';
 
 export const useQueryArrayFilter = (filterName: 'state' | 'priority') => {
   const [raw, setRaw] = useQueryState<string>(filterName, '');

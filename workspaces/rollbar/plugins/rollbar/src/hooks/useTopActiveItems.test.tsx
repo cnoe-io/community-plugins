@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { default as React } from 'react';
-import { renderHook } from '@testing-library/react-hooks';
-import { useTopActiveItems } from './useTopActiveItems';
-import { rollbarApiRef } from '../api';
-import { TestApiProvider } from '@backstage/test-utils';
 import { Entity } from '@backstage/catalog-model';
 import { configApiRef } from '@backstage/core-plugin-api';
+import { TestApiProvider } from '@backstage/test-utils';
+import { renderHook } from '@testing-library/react-hooks';
+import { default as React } from 'react';
+import { rollbarApiRef } from '../api';
+import { useTopActiveItems } from './useTopActiveItems';
 
 describe('useTopActiveItems', () => {
   const mockApi = {

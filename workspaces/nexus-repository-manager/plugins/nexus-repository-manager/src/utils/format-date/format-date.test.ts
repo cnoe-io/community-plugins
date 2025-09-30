@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { formatDate } from './format-date';
 import { DateTime } from 'luxon';
+import { formatDate } from './format-date';
 
 describe('formatDate', () => {
   it('returns "N/A" when the input is undefined', () => {

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
 import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
-import DeploymentMetadata from './DeploymentMetadata';
-import RolloutMetadata from './RolloutMetadata';
+import type { FC } from 'react';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 import Metadata from '../../../../Common/Metadata';
 import MetadataItem from '../../../../Common/MetadataItem';
-import { useTranslation } from '../../../../../hooks/useTranslation';
+import DeploymentMetadata from './DeploymentMetadata';
+import RolloutMetadata from './RolloutMetadata';
 
 type ResourceMetadataProps = {
   resource: Resource;

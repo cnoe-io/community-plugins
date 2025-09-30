@@ -1,5 +1,5 @@
-import SvgIcon from '@mui/material/SvgIcon';
 import { SidebarItem } from '@backstage/core-components';
+import SvgIcon from '@mui/material/SvgIcon';
 
 /** @public */
 export const MendSidebar = () => {

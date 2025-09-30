@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useMemo } from 'react';
-
+import { useMemo, useState } from 'react';
 import { SHOW_POD_COUNT_FILTER_ID } from '../const';
 import { DisplayFilters, FilterContextType } from '../types/types';
 import { useTranslation } from './useTranslation';

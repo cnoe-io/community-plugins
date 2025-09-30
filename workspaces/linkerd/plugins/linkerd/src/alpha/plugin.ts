@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
+import { linkerdApi } from './api';
 import {
-  IsMeshedEntityCard,
   EdgesTableEntityCard,
+  IsMeshedEntityCard,
   LinkerdEntityContent,
 } from './extensions';
-import { linkerdApi } from './api';
 
 /**
  * @alpha

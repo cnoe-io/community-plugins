@@ -15,13 +15,13 @@
  */
 
 import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
-import { Entity } from '@backstage/catalog-model';
-import { useApi } from '@backstage/core-plugin-api';
 import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import { Entity } from '@backstage/catalog-model';
 import { Gauge, InfoCard } from '@backstage/core-components';
-import { ScorecardInfo } from '../ScorecardsInfo';
-import Typography from '@material-ui/core/Typography';
+import { useApi } from '@backstage/core-plugin-api';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { ScorecardInfo } from '../ScorecardsInfo';
 
 export const ScorecardsGauge = (props: {
   checkResults: CheckResult[];

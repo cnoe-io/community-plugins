@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ElementType } from 'react';
-import LabelImportantIcon from '@mui/icons-material/LabelImportant';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
-import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
-import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import LabelImportantIcon from '@mui/icons-material/LabelImportant';
 import PauseCircleOutlineIcon from '@mui/icons-material/PauseCircleOutline';
-import { ModerateIcon } from '../components/Servicenow/ModerateIcon';
-import { InProgressIcon } from '../components/Servicenow/InProgressIcon';
-import { ClosedIcon } from '../components/Servicenow/ClosedIcon';
-
+import PendingOutlinedIcon from '@mui/icons-material/PendingOutlined';
 import Typography from '@mui/material/Typography';
+import { ElementType } from 'react';
+import { ClosedIcon } from '../components/Servicenow/ClosedIcon';
+import { InProgressIcon } from '../components/Servicenow/InProgressIcon';
+import { ModerateIcon } from '../components/Servicenow/ModerateIcon';
 
 interface StatusData {
   Icon: ElementType;

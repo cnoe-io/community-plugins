@@ -1,13 +1,13 @@
-import type { CSSProperties, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
-import { dateTimeFormat, getObjValue } from '../../../utils';
+import type { CSSProperties, ReactNode } from 'react';
 import {
   Tag,
   TagColor,
   Tooltip,
   type TableRowFindingProps,
 } from '../../../components';
-import { StatisticsName, FindingIssueStatus } from '../../../models';
+import { FindingIssueStatus, StatisticsName } from '../../../models';
+import { dateTimeFormat, getObjValue } from '../../../utils';
 import { FindingTableIssueTrackingTooltip } from './FindingTableIssueTrackingTooltip';
 
 enum FINDING_FIELD {

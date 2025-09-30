@@ -15,10 +15,10 @@
  */
 
 import type { Order } from '@backstage-community/plugin-servicenow-common';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { IncidentsTableHeader } from './IncidentsTableHeader';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { IncidentTableField, IncidentTableFieldEnum } from '../../types';
 import { IncidentsListColumns } from './IncidentsListColumns';
-import { IncidentTableFieldEnum, IncidentTableField } from '../../types';
+import { IncidentsTableHeader } from './IncidentsTableHeader';
 
 describe('IncidentsTableHeader', () => {
   const mockOnRequestSort = jest.fn();

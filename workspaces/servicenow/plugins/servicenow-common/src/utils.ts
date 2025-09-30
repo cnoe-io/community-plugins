@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
-
 import { ServiceAnnotationFieldName } from './types';
 
 /**

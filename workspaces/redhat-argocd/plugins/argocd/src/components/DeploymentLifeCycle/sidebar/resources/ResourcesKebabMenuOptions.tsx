@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { MouseEvent } from 'react';
-
-import { useState } from 'react';
 import {
   createStyles,
   IconButton,
+  makeStyles,
   Menu,
   MenuItem,
-  makeStyles,
   Theme,
 } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import type { MouseEvent } from 'react';
+import { useState } from 'react';
 import { useTranslation } from '../../../../hooks/useTranslation';
 
 const useStyles = makeStyles((theme: Theme) =>

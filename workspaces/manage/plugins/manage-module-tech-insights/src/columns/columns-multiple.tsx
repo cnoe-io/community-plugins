@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useMemo } from 'react';
-
-import { stringifyEntityRef } from '@backstage/catalog-model';
-import { TechInsightsCheckIcon } from '@backstage-community/plugin-tech-insights';
-import type { Check } from '@backstage-community/plugin-tech-insights-common/client';
 import {
   ColumnIconError,
-  type ManageColumn,
   type GetColumnsFunc,
+  type ManageColumn,
 } from '@backstage-community/plugin-manage-react';
-
+import { TechInsightsCheckIcon } from '@backstage-community/plugin-tech-insights';
+import type { Check } from '@backstage-community/plugin-tech-insights-common/client';
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import { useMemo } from 'react';
 import { eqCheck } from '../utils';
-
 import { useEntityInsights } from './hooks';
 import { NoData } from './NoData';
 

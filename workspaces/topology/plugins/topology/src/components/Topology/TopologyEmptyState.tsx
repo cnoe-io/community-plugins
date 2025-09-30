@@ -19,7 +19,6 @@ import {
   EmptyStateBody,
   EmptyStateVariant,
 } from '@patternfly/react-core';
-
 import { useTranslation } from '../../hooks/useTranslation';
 
 type TopologyEmptyStateProps = {

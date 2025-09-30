@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import { Dispatch, SetStateAction } from 'react';
-
 import { ComputedStatus } from '@janus-idp/shared-react';
+import { Dispatch, SetStateAction } from 'react';
 
 export const tektonGroupColor = '#38812f';
 

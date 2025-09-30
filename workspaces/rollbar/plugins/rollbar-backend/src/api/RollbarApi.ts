@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
+import { CacheService, LoggerService } from '@backstage/backend-plugin-api';
 import { camelCase } from 'lodash';
+import fetch from 'node-fetch';
 import { buildQuery } from '../util';
 import {
   RollbarItemCount,
@@ -23,8 +25,6 @@ import {
   RollbarProjectAccessToken,
   RollbarTopActiveItem,
 } from './types';
-import fetch from 'node-fetch';
-import { CacheService, LoggerService } from '@backstage/backend-plugin-api';
 
 const CACHE_KEY = 'projectmap';
 const CACHE_TTL = 300;

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { Finding, Project } from '../models';
 import { post } from '../api';
+import { Finding, Project } from '../models';
 import { Query } from './queries.types';
 
 export enum FINDING_QUERY_KEY {

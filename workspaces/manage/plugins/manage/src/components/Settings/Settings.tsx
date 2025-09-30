@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 import { ReactNode } from 'react';
-
-import { SettingsProvider } from './SettingsProvider';
 import { DefaultSettings } from './DefaultSettings';
+import { SettingsProvider } from './SettingsProvider';
 
 export interface SettingsProps {
   tabs: { path: string; title: string }[];

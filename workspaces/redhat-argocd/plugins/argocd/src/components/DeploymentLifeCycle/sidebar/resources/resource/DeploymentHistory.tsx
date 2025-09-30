@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  Application,
+  History,
+  RevisionInfo,
+} from '@backstage-community/plugin-redhat-argocd-common';
 import { Box, Typography } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 import type { FC } from 'react';
-import { getCommitUrl } from '../../../../../utils/utils';
-import {
-  Application,
-  RevisionInfo,
-  History,
-} from '@backstage-community/plugin-redhat-argocd-common';
-import { DeploymentHistoryCommit } from './DeploymentHistoryCommit';
 import { useTranslation } from '../../../../../hooks/useTranslation';
+import { getCommitUrl } from '../../../../../utils/utils';
+import { DeploymentHistoryCommit } from './DeploymentHistoryCommit';
 
 type DeploymentHistoryProps = {
   application: Application;

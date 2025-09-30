@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 import {
+  Entity,
+  parseEntityRef,
+  stringifyEntityRef,
+} from '@backstage/catalog-model';
+import {
   createApiFactory,
   createComponentExtension,
   createPlugin,
@@ -22,16 +27,10 @@ import {
   identityApiRef,
 } from '@backstage/core-plugin-api';
 import {
-  Entity,
-  parseEntityRef,
-  stringifyEntityRef,
-} from '@backstage/catalog-model';
-
-import { rootRouteRef } from './routes';
-import {
   serviceNowApiRef,
   ServiceNowBackendClient,
 } from './api/ServiceNowBackendClient';
+import { rootRouteRef } from './routes';
 
 /**
  * Servicenow Plugin

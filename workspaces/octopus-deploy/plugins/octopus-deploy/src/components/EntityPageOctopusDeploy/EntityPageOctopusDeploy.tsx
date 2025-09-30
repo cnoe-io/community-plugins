@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useConfig } from '../../hooks/useConfig';
 import { useEntity } from '@backstage/plugin-catalog-react';
+import { useConfig } from '../../hooks/useConfig';
 import { useProject } from '../../hooks/useProject';
 import { useReleases } from '../../hooks/useReleases';
 import { getProjectReferenceAnnotationFromEntity } from '../../utils/getAnnotationFromEntity';

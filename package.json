@@ -19,6 +19,7 @@
     "@backstage/cli": "^0.32.0",
     "@backstage/cli-node": "^0.2.13",
     "@changesets/parse": "^0.4.0",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "@manypkg/get-packages": "^2.2.2",
     "@octokit/rest": "^20.1.1",
     "@spotify/eslint-plugin": "^15.0.0",

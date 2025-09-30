@@ -1,16 +1,25 @@
-import express from 'express';
-import Router from 'express-promise-router';
 import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
-  LoggerService,
-  DiscoveryService,
   AuthService,
+  DiscoveryService,
   HttpAuthService,
+  LoggerService,
   PermissionsService,
 } from '@backstage/backend-plugin-api';
 import { CatalogClient } from '@backstage/catalog-client';
 import { Config } from '@backstage/config';
 import { AuthorizeResult } from '@backstage/plugin-permission-common';
+import express from 'express';
+import Router from 'express-promise-router';
+import { MEND_API_VERSION } from '../constants';
+import {
+  mendReadPermission,
+  permissionIntegrationRouter,
+  transformConditions,
+  type FilterProps,
+} from '../permission';
+import { MendAuthSevice } from './auth.service';
+import { MendDataService } from './data.service';
 import {
   dataFindingParser,
   dataMatcher,
@@ -18,24 +27,15 @@ import {
   fetchQueryPagination,
   parseEntityURL,
 } from './data.service.helpers';
-import { MendDataService } from './data.service';
-import { MendAuthSevice } from './auth.service';
 import {
+  CodeFindingSuccessResponseData,
+  ContainersFindingSuccessResponseData,
+  DependenciesFindingSuccessResponseData,
+  Finding,
+  OrganizationProjectSuccessResponseData,
   PaginationQueryParams,
   ProjectStatisticsSuccessResponseData,
-  OrganizationProjectSuccessResponseData,
-  CodeFindingSuccessResponseData,
-  DependenciesFindingSuccessResponseData,
-  ContainersFindingSuccessResponseData,
-  Finding,
 } from './data.service.types';
-import {
-  mendReadPermission,
-  transformConditions,
-  permissionIntegrationRouter,
-  type FilterProps,
-} from '../permission';
-import { MEND_API_VERSION } from '../constants';
 
 /** @internal */
 export type RouterOptions = {

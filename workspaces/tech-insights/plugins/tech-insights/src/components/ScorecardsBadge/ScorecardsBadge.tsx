@@ -15,10 +15,10 @@
  */
 
 import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
-import { Entity } from '@backstage/catalog-model';
-import Chip from '@material-ui/core/Chip';
-import { useApi } from '@backstage/core-plugin-api';
 import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import { Entity } from '@backstage/catalog-model';
+import { useApi } from '@backstage/core-plugin-api';
+import Chip from '@material-ui/core/Chip';
 import Tooltip from '@material-ui/core/Tooltip';
 import { ScorecardsList } from '../ScorecardsList';
 

@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useCallback, useEffect } from 'react';
+import { useApi } from '@backstage/core-plugin-api';
+import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
+import { useCallback, useEffect, useState } from 'react';
 import useAsyncRetry from 'react-use/lib/useAsyncRetry';
 import useInterval from 'react-use/lib/useInterval';
-import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
-import { useApi } from '@backstage/core-plugin-api';
-
 import { ContainerScope } from '../components/Topology/TopologySideBar/PodLogs/types';
 
 interface PodLogsOptions {

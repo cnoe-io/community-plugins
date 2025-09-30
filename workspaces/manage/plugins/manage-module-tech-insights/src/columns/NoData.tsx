@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { makeStyles } from '@mui/styles';
 import Tooltip from '@mui/material/Tooltip';
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme: any) => ({
   root: {

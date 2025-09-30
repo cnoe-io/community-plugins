@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { Route, Routes } from 'react-router-dom';
-
 import { launchRouteRef, projectsRouteRef } from '../routes';
 import { LaunchesPage } from './LaunchesPage';
 import { ProjectsPage } from './ProjectsPage';

@@ -13,20 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren } from 'react';
-
-import { useApi, configApiRef } from '@backstage/core-plugin-api';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { usePermission } from '@backstage/plugin-permission-react';
-
 import { createTheme, ThemeProvider } from '@material-ui/core';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
+import { PropsWithChildren } from 'react';
 import { mockApplication, mockEntity } from '../../../../dev/__data__';
+import { argoCDApiRef } from '../../../api';
 import { useArgocdConfig } from '../../../hooks/useArgocdConfig';
+import { mockUseTranslation } from '../../../test-utils/mockTranslations';
 import DeploymentLifecycle from '../DeploymentLifecycle';
 import { useArgoResources } from '../sidebar/rollouts/RolloutContext';
-import { argoCDApiRef } from '../../../api';
-import { mockUseTranslation } from '../../../test-utils/mockTranslations';
 
 jest.mock('../../../hooks/useArgocdConfig', () => ({
   useArgocdConfig: jest.fn(),

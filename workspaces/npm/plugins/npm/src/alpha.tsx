@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { isNpmAvailable } from '@backstage-community/plugin-npm-common';
 import {
   ApiBlueprint,
   createFrontendPlugin,
@@ -23,8 +24,6 @@ import {
   EntityCardBlueprint,
   EntityContentBlueprint,
 } from '@backstage/plugin-catalog-react/alpha';
-import { isNpmAvailable } from '@backstage-community/plugin-npm-common';
-
 import { NpmBackendApiRef, NpmBackendClient } from './api';
 
 export { npmTranslationRef, npmTranslations } from './translations';

@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import { MouseEvent } from 'react';
+import type { Order } from '@backstage-community/plugin-servicenow-common';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
-
-import type { Order } from '@backstage-community/plugin-servicenow-common';
-
-import { IncidentsListColumns } from './IncidentsListColumns';
+import { MouseEvent } from 'react';
 import { IncidentTableField } from '../../types';
+import { IncidentsListColumns } from './IncidentsListColumns';
 
 type IncidentsTableHeaderProps = {
   order: Order;

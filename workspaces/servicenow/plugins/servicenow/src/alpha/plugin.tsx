@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+import { isServicenowAvailable } from '@backstage-community/plugin-servicenow-common';
 import {
   ApiBlueprint,
   createFrontendPlugin,
@@ -26,8 +27,6 @@ import {
   serviceNowApiRef,
   ServiceNowBackendClient,
 } from '../api/ServiceNowBackendClient';
-
-import { isServicenowAvailable } from '@backstage-community/plugin-servicenow-common';
 
 /** @alpha */
 export const servicenowApi = ApiBlueprint.make({

@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, useState } from 'react';
-import useDebounce from 'react-use/lib/useDebounce';
-
+import {
+  ProjectDetails,
+  ProjectListResponse,
+} from '@backstage-community/plugin-report-portal-common';
 import {
   ErrorPanel,
   Link,
@@ -28,20 +29,16 @@ import {
   useApi,
   useRouteRef,
 } from '@backstage/core-plugin-api';
-
 import Launch from '@mui/icons-material/Launch';
-import Skeleton from '@mui/material/Skeleton';
-
 import IconButton from '@mui/material/IconButton';
+import Skeleton from '@mui/material/Skeleton';
 import Tooltip from '@mui/material/Tooltip';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAsync from 'react-use/lib/useAsync';
+import useDebounce from 'react-use/lib/useDebounce';
 import { reportPortalApiRef } from '../../../api';
 import { launchRouteRef } from '../../../routes';
-import useAsync from 'react-use/lib/useAsync';
-import {
-  ProjectListResponse,
-  ProjectDetails,
-} from '@backstage-community/plugin-report-portal-common';
 
 export const ProjectsPageContent = (props: { host: string }) => {
   const { host } = props;

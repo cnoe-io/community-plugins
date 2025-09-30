@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import jenkinsPlugin from '@backstage-community/plugin-jenkins/alpha';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { convertLegacyAppRoot } from '@backstage/core-compat-api';
 import { createApp } from '@backstage/frontend-defaults';
 import {
-  configApiRef,
   ApiBlueprint,
+  configApiRef,
   createFrontendModule,
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
@@ -28,12 +29,10 @@ import {
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import { Navigate, Route } from 'react-router';
-
-import jenkinsPlugin from '@backstage-community/plugin-jenkins/alpha';
 
 const homePageExtension = PageBlueprint.make({
   name: 'home',

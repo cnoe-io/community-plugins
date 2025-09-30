@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
-import { stringifyEntityRef } from '@backstage/catalog-model';
-
 import type { OwnersAndOwnedEntities } from '@backstage-community/plugin-manage-common';
-
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import type { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
 import type {
   ManageApi,
   ManageProvider,
   Owners,
   OwnersAndEntities,
 } from './ManageApi';
-import type { ManageModuleApi } from './types';
-import { orderOwnership } from './order-ownership';
 import { orderEntities } from './order-entities';
+import { orderOwnership } from './order-ownership';
+import type { ManageModuleApi } from './types';
 
 /** @public */
 export interface DefaultManageApiOptions {

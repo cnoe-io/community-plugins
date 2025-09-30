@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Application } from '@backstage-community/plugin-redhat-argocd-common';
 import { Entity } from '@backstage/catalog-model';
 import { ConfigReader } from '@backstage/config';
+import { Header, Page, TabbedLayout } from '@backstage/core-components';
 import { configApiRef } from '@backstage/core-plugin-api';
-import { Page, Header, TabbedLayout } from '@backstage/core-components';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { KubernetesApi } from '@backstage/plugin-kubernetes-react';
 import { permissionApiRef } from '@backstage/plugin-permission-react';
 import { mockApis, TestApiProvider } from '@backstage/test-utils';
-
 import { Box } from '@material-ui/core';
-
 import {
   ArgoCDApi,
   argoCDApiRef,
@@ -39,7 +38,6 @@ import {
   ArgocdDeploymentSummary,
   argocdPlugin,
 } from '../src/plugin';
-import { Application } from '@backstage-community/plugin-redhat-argocd-common';
 import { customResourceTypes } from '../src/types/resources';
 import {
   mockApplication,

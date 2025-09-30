@@ -15,8 +15,6 @@
  */
 import { useContext, useState } from 'react';
 import './PipelineBars.css';
-import { Tooltip } from '@patternfly/react-core';
-
 import {
   ComputedStatus,
   getRunStatusColor,
@@ -26,7 +24,7 @@ import {
   TaskStatusTooltip,
   TaskStatusTypes,
 } from '@janus-idp/shared-react';
-
+import { Tooltip } from '@patternfly/react-core';
 import { TektonResourcesContext } from '../../hooks/TektonResourcesContext';
 import { getTaskStatusOfPLR } from '../../utils/tekton-utils';
 import PipelineRunLogDialog from '../PipelineRunLogs/PipelineRunLogDialog';

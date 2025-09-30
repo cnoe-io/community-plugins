@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import sonarQubePlugin from '@backstage-community/plugin-sonarqube/alpha';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { convertLegacyApp } from '@backstage/core-compat-api';
+import { SignInPage } from '@backstage/core-components';
 import { createApp } from '@backstage/frontend-defaults';
 import {
   createFrontendModule,
@@ -22,15 +24,11 @@ import {
   SignInPageBlueprint,
 } from '@backstage/frontend-plugin-api';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import { Navigate, Route } from 'react-router';
-
 import { navigationExtension } from './components/Sidebar';
-import { SignInPage } from '@backstage/core-components';
-
-import sonarQubePlugin from '@backstage-community/plugin-sonarqube/alpha';
 
 const signInPage = SignInPageBlueprint.make({
   params: {

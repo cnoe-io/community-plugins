@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import request from 'supertest';
-
 import {
   mockCredentials,
   startTestBackend,
 } from '@backstage/backend-test-utils';
-import { catalogServiceMock } from '@backstage/plugin-catalog-node/testUtils';
 import { Entity } from '@backstage/catalog-model';
-
+import { catalogServiceMock } from '@backstage/plugin-catalog-node/testUtils';
+import request from 'supertest';
 import { managePlugin } from './plugin';
 
 describe('plugin', () => {

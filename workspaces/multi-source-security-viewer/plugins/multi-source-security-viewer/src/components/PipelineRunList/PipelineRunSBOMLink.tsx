@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import type { FC } from 'react';
-
-import { useState, useMemo, Fragment } from 'react';
-import { IconButton, makeStyles, Box } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import { DialogLauncher } from '../DialogLauncher/DialogLauncher';
-import { PipelineRunResult } from '../../models/pipelineRunResult';
-import { PipelineRunLogs } from '../PipelineRunLogs/PipelineRunLogs';
+import { Box, IconButton, makeStyles } from '@material-ui/core';
 import Tooltip from '@mui/material/Tooltip';
+import type { FC } from 'react';
+import { Fragment, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { PipelineRunResult } from '../../models/pipelineRunResult';
+import { DialogLauncher } from '../DialogLauncher/DialogLauncher';
 import { SBOMLinkIcon } from '../Icons/SBOMLink';
+import { PipelineRunLogs } from '../PipelineRunLogs/PipelineRunLogs';
 
 const useStyles = makeStyles(() => ({
   icon: {

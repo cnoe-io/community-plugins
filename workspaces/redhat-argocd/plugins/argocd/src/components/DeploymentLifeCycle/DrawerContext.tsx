@@ -13,14 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { useContext, createContext, ReactNode } from 'react';
 import {
   Application,
   History,
   RevisionInfo,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import type { FC } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 interface DrawerContextValue {
   application: Application;

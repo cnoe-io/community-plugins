@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import { useMemo } from 'react';
-import useAsync from 'react-use/esm/useAsync';
+import { Check } from '@backstage-community/plugin-tech-insights-common';
+import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { ErrorPanel, Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { ScorecardInfo } from '../ScorecardsInfo';
-import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { getCompoundEntityRef } from '@backstage/catalog-model';
-import { Check } from '@backstage-community/plugin-tech-insights-common';
+import { useMemo } from 'react';
+import useAsync from 'react-use/esm/useAsync';
 import { ScorecardsGauge } from '../ScorecardsGauge';
+import { ScorecardInfo } from '../ScorecardsInfo';
 
 export const ScorecardsCard = (props: {
   title: string;

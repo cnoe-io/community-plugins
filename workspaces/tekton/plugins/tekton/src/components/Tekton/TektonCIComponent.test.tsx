@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 import { usePermission } from '@backstage/plugin-permission-react';
-
 import { renderInTestApp } from '@backstage/test-utils';
-
 import { TektonCIComponent } from './TektonCIComponent';
 
 // mock useTektonObjectsResponse hook

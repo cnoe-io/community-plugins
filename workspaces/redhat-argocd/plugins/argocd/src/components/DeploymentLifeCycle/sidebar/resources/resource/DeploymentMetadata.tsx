@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Link, makeStyles, Theme } from '@material-ui/core';
-import { useDrawerContext } from '../../../DrawerContext';
 import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
-import { isAppHelmChartType } from '../../../../../utils/utils';
-import { useEntity } from '@backstage/plugin-catalog-react';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import { Link, makeStyles, Theme } from '@material-ui/core';
+import { useTranslation } from '../../../../../hooks/useTranslation';
+import { isAppHelmChartType } from '../../../../../utils/utils';
+import AppCommitLink from '../../../../Common/AppCommitLink';
 import Metadata from '../../../../Common/Metadata';
 import MetadataItem from '../../../../Common/MetadataItem';
 import MetadataItemWithTooltip from '../../../../Common/MetadataItemWithTooltip';
-import AppCommitLink from '../../../../Common/AppCommitLink';
+import { useDrawerContext } from '../../../DrawerContext';
 import { DeploymentHistory } from './DeploymentHistory';
-import { useTranslation } from '../../../../../hooks/useTranslation';
 
 const useDeploymentInfoStyles = makeStyles((theme: Theme) => ({
   latestDeploymentContainer: {

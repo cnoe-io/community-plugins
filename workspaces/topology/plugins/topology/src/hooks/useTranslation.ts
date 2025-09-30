@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import {
-  useTranslationRef,
   TranslationRef,
+  useTranslationRef,
 } from '@backstage/core-plugin-api/alpha';
 import { topologyTranslationRef } from '../translations';
 

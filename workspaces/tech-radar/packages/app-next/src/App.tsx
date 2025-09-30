@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createApp } from '@backstage/frontend-defaults';
-import {
-  createFrontendModule,
-  ApiBlueprint,
-  PageBlueprint,
-} from '@backstage/frontend-plugin-api';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
-import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
-import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
-import { Navigate } from 'react-router';
 import {
   TechRadarApi,
   techRadarApiRef,
 } from '@backstage-community/plugin-tech-radar';
 import { TechRadarLoaderResponse } from '@backstage-community/plugin-tech-radar-common';
 import techRadarPlugin from '@backstage-community/plugin-tech-radar/alpha';
+import { createApp } from '@backstage/frontend-defaults';
+import {
+  ApiBlueprint,
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
+import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
+import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
+import { Navigate } from 'react-router';
 
 const homePageExtension = PageBlueprint.make({
   name: 'homePage',

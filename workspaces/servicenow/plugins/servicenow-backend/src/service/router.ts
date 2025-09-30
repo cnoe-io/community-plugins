@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { InputError } from '@backstage/errors';
-import { validateIncidentQueryParams } from './validator';
 import { HttpAuthService, LoggerService } from '@backstage/backend-plugin-api';
+import { InputError } from '@backstage/errors';
 import express from 'express';
 import Router from 'express-promise-router';
-import { DefaultServiceNowClient } from '../service-now-rest/client';
 import { ServiceNowConfig } from '../../config';
+import { DefaultServiceNowClient } from '../service-now-rest/client';
+import { validateIncidentQueryParams } from './validator';
 
 export interface RouterOptions {
   logger: LoggerService;

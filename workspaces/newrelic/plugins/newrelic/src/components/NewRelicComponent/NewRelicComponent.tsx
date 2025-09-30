@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import Grid from '@material-ui/core/Grid';
-import NewRelicFetchComponent from '../NewRelicFetchComponent';
 import {
-  Header,
-  Page,
   Content,
   ContentHeader,
+  Header,
   HeaderLabel,
+  Page,
   SupportButton,
 } from '@backstage/core-components';
+import Grid from '@material-ui/core/Grid';
+import NewRelicFetchComponent from '../NewRelicFetchComponent';
 
 export const NewRelicComponent = () => (
   <Page themeId="tool">

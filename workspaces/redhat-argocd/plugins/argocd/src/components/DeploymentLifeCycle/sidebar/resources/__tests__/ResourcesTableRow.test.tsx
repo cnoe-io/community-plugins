@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import moment from 'moment';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-
-import { ResourcesTableRow } from '../ResourcesTableRow';
-import { useArgoResources } from '../../rollouts/RolloutContext';
+import moment from 'moment';
 import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
+import { useArgoResources } from '../../rollouts/RolloutContext';
+import { ResourcesTableRow } from '../ResourcesTableRow';
 
 jest.mock('../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

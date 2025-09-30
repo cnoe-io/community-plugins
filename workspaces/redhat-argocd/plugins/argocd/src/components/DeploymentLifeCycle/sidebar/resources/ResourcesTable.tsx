@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { MouseEvent, ChangeEvent } from 'react';
-
-import { useMemo, FC, useCallback, useState } from 'react';
+import {
+  Order,
+  Resource,
+} from '@backstage-community/plugin-redhat-argocd-common';
 import {
   makeStyles,
   Table,
@@ -24,22 +25,19 @@ import {
   TablePagination,
   TableRow,
 } from '@material-ui/core';
-
-import { ResourcesTableBody } from './ResourcesTableBody';
-import { ResourcesTableHeader } from './ResourcesTableHeader';
-import { getResourcesColumnHeaders } from './ResourcesColumnHeader';
-import { ResourcesFilterBy } from './filters/ResourcesFilterBy';
-import {
-  Order,
-  Resource,
-} from '@backstage-community/plugin-redhat-argocd-common';
+import type { ChangeEvent, MouseEvent } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { FiltersType } from '../../../../types/resources';
 import {
   getResourceCreateTimestamp,
   sortValues,
 } from '../../../../utils/utils';
 import { useArgoResources } from '../rollouts/RolloutContext';
-import { useTranslation } from '../../../../hooks/useTranslation';
+import { ResourcesFilterBy } from './filters/ResourcesFilterBy';
+import { getResourcesColumnHeaders } from './ResourcesColumnHeader';
+import { ResourcesTableBody } from './ResourcesTableBody';
+import { ResourcesTableHeader } from './ResourcesTableHeader';
 
 interface ResourcesTableProps {
   resources: Resource[];

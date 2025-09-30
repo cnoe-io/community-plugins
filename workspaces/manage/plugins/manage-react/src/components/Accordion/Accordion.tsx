@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ComponentProps, PropsWithChildren, useCallback } from 'react';
-
-import { makeStyles } from '@mui/styles';
-import Accordion from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import { ComponentProps, PropsWithChildren, useCallback } from 'react';
 import { useAccordionKey, useUserSettings } from '../../hooks';
 
 const useStyles = makeStyles(theme => ({

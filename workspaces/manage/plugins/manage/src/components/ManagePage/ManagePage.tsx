@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 import {
-  ComponentType,
-  ReactNode,
-  ComponentProps,
-  PropsWithChildren,
-} from 'react';
-
-import { Content, Header, Page } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
-import {
   KindOrderProvider,
   manageApiRef,
   OwnedProvider,
 } from '@backstage-community/plugin-manage-react';
-
-import { ManagePageFilters } from '../ManagePageFilters/ManagePageFilters';
+import { Content, Header, Page } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import {
+  ComponentProps,
+  ComponentType,
+  PropsWithChildren,
+  ReactNode,
+} from 'react';
 import { useManagePageCombined } from '../ManagePageFilters';
+import { ManagePageFilters } from '../ManagePageFilters/ManagePageFilters';
 
 /**
  * Props for the {@link ManagePage} component.

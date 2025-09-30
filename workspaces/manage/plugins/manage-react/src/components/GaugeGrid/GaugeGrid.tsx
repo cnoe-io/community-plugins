@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ReactNode } from 'react';
-
-import { makeStyles } from '@mui/styles';
 import Box from '@mui/material/Box';
 import Grid, { GridOwnProps } from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { makeStyles } from '@mui/styles';
+import { ReactNode } from 'react';
 
 const useStyles = makeStyles(theme => ({
   gridRootWithoutBottomMargin: {

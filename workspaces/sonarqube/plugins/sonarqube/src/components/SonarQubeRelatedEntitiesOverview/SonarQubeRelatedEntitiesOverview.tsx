@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import useAsync from 'react-use/esm/useAsync';
-import { useEntity, useRelatedEntities } from '@backstage/plugin-catalog-react';
-import { useApi } from '@backstage/core-plugin-api';
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
-import { stringifyEntityRef } from '@backstage/catalog-model';
 import {
-  sonarQubeApiRef,
   getProjectInfo,
+  sonarQubeApiRef,
 } from '@backstage-community/plugin-sonarqube-react';
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import { useEntity, useRelatedEntities } from '@backstage/plugin-catalog-react';
+import useAsync from 'react-use/esm/useAsync';
 import { SonarQubeTable } from '../index.ts';
 
 /**

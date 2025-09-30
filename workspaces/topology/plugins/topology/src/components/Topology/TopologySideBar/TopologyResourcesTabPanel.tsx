@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { Status } from '@janus-idp/shared-react';
 import { V1Pod, V1Service, V1ServicePort } from '@kubernetes/client-node';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import { ChartLabel } from '@patternfly/react-charts/victory';
 import { BaseNode } from '@patternfly/react-topology';
-
-import { Status } from '@janus-idp/shared-react';
-
 import ResourceName from '../../../common/components/ResourceName';
 import ResourceStatus from '../../../common/components/ResourceStatus';
 import { MAXSHOWRESCOUNT } from '../../../const';
@@ -39,7 +37,6 @@ import { PodLogsDialog } from './PodLogs/PodLogsDialog';
 import IngressListSidebar from './Resources/IngressListSidebar';
 import RouteListSidebar from './Resources/RouteListSidebar';
 import TopologyResourcesTabPanelItem from './TopologyResourcesTabPaneltem';
-
 import './TopologyResourcesTabPanel.css';
 
 type TopologyResourcesTabPanelProps = { node: BaseNode };

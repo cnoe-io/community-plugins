@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 import { TableColumn } from '@backstage/core-components';
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import {
   EntityPeekAheadPopover,
   EntityRefLink,
 } from '@backstage/plugin-catalog-react';
+import { sonarqubeTranslationRef } from '../../translation';
 import {
   BugReportRatingCard,
   CodeSmellsRatingCard,
@@ -30,8 +32,6 @@ import {
   VulnerabilitiesRatingCard,
 } from '../SonarQubeCard/MetricInsights';
 import { SonarQubeTableRow } from './types';
-import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
-import { sonarqubeTranslationRef } from '../../translation';
 
 /**
  * Sort function for datetime columns.

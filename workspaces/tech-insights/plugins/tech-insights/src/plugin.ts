@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 import {
-  createPlugin,
-  createComponentExtension,
-  createRoutableExtension,
-  createApiFactory,
-  discoveryApiRef,
-  identityApiRef,
-} from '@backstage/core-plugin-api';
-import {
   techInsightsApiRef,
   TechInsightsClient,
 } from '@backstage-community/plugin-tech-insights-react';
+import {
+  createApiFactory,
+  createComponentExtension,
+  createPlugin,
+  createRoutableExtension,
+  discoveryApiRef,
+  identityApiRef,
+} from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
 
 /**

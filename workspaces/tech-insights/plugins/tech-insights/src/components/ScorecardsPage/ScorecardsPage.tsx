@@ -14,30 +14,30 @@
  * limitations under the License.
  */
 
-import { useMemo, useState } from 'react';
+import {
+  BulkCheckResponse,
+  Check,
+} from '@backstage-community/plugin-tech-insights-common';
+import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
 import {
   Content,
   ErrorPanel,
   Header,
   HeaderLabel,
   Page,
-  TableColumn,
   Table,
+  TableColumn,
   TableOptions,
 } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import {
-  Check,
-  BulkCheckResponse,
-} from '@backstage-community/plugin-tech-insights-common';
-import useAsync from 'react-use/lib/useAsync';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
-import { ScorecardsList } from '../ScorecardsList';
-import Grid from '@material-ui/core/Grid';
-import { Filters } from './Filters';
 import { ExportCsv as exportCsv } from '@material-table/exporters';
-import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import Grid from '@material-ui/core/Grid';
+import { useMemo, useState } from 'react';
+import useAsync from 'react-use/lib/useAsync';
 import { ScorecardsBadge } from '../ScorecardsBadge';
+import { ScorecardsList } from '../ScorecardsList';
+import { Filters } from './Filters';
 
 export const ScorecardsPage = (props: { badge?: boolean; dense?: boolean }) => {
   const api = useApi(techInsightsApiRef);

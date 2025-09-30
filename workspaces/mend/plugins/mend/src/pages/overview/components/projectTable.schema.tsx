@@ -1,7 +1,7 @@
-import type { CSSProperties, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
+import type { CSSProperties, ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { Tag, TagColor, type TableRowProjectProps } from '../../../components';
 import { dateTimeFormat, getObjValue } from '../../../utils';
 import { ProjectTableLanguages } from './ProjectTableLanguages';

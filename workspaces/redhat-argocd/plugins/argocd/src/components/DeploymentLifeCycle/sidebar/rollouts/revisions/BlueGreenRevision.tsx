@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
 import { Box, Card, CardContent, Grid, Typography } from '@material-ui/core';
-
+import type { FC } from 'react';
 import useBlueGreenMetadata from '../../../../../hooks/useBlueGreenMetadata';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 import { Revision } from '../../../../../types/revision';
 import AnalysisRuns from './AnalysisRuns/AnalysisRuns';
 import RevisionImage from './RevisionImage';
 import RevisionStatus from './RevisionStatus';
 import RevisionType from './RevisionType';
-import { useTranslation } from '../../../../../hooks/useTranslation';
 
 interface RevisionCardProps {
   revision: Revision;

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 import { render, screen } from '@testing-library/react';
-
 import { mockArgoResources } from '../../../../../../../dev/__data__/argoRolloutsObjects';
+import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
 import { Revision } from '../../../../../../types/revision';
 import { getRolloutUIResources } from '../../../../../../utils/rollout-utils';
 import BlueGreenRevision from '../BlueGreenRevision';
-import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
 
 jest.mock('../../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

@@ -16,12 +16,11 @@
 import { Entity } from '@backstage/catalog-model';
 import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-
-import { JfrogArtifactoryPage, jfrogArtifactoryPlugin } from '../src/plugin';
-import { jfrogArtifactoryApiRef, JfrogArtifactoryApiV1 } from '../src/api';
-import { mockTags } from '../src/__fixtures__/mockTags';
-import { TagsResponse } from '../src/types';
 import { TestApiProvider } from '@backstage/test-utils';
+import { mockTags } from '../src/__fixtures__/mockTags';
+import { jfrogArtifactoryApiRef, JfrogArtifactoryApiV1 } from '../src/api';
+import { JfrogArtifactoryPage, jfrogArtifactoryPlugin } from '../src/plugin';
+import { TagsResponse } from '../src/types';
 
 const mockEntity: Entity = {
   apiVersion: 'backstage.io/v1alpha1',

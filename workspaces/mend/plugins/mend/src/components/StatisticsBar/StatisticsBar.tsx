@@ -1,12 +1,12 @@
-import { ReactElement, useState } from 'react';
 import { makeStyles } from '@mui/styles';
+import { ReactElement, useState } from 'react';
 import { StatisticsBarScrap } from './internal/StatisticsBarScrap';
 import { StatisticsBarSegment } from './internal/StatisticsBarSegment';
-import { StatisticsBarProps } from './statisticsBar.types';
 import {
   getTotalFindings,
   getTotalFindingsByEngine,
 } from './statisticsBar.helpers';
+import { StatisticsBarProps } from './statisticsBar.types';
 
 const useStyles = makeStyles(() => ({
   container: {

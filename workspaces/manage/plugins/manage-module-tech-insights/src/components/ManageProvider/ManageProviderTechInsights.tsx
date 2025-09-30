@@ -13,29 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren, createContext, useContext, useMemo } from 'react';
-
-import useAsync from 'react-use/lib/useAsync';
-
-import { useApi } from '@backstage/core-plugin-api';
+import { useManagedEntities } from '@backstage-community/plugin-manage-react';
+import {
+  CheckResultRenderer,
+  techInsightsApiRef,
+} from '@backstage-community/plugin-tech-insights';
+import {
+  BulkCheckResponse,
+  CheckResult,
+} from '@backstage-community/plugin-tech-insights-common';
+import { Check } from '@backstage-community/plugin-tech-insights-common/client';
 import {
   Entity,
   parseEntityRef,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
-import {
-  CheckResultRenderer,
-  techInsightsApiRef,
-} from '@backstage-community/plugin-tech-insights';
-import { Check } from '@backstage-community/plugin-tech-insights-common/client';
-import {
-  BulkCheckResponse,
-  CheckResult,
-} from '@backstage-community/plugin-tech-insights-common';
-import { useManagedEntities } from '@backstage-community/plugin-manage-react';
-
-import { stringifyCheck } from '../../utils';
+import { useApi } from '@backstage/core-plugin-api';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
+import useAsync from 'react-use/lib/useAsync';
 import { manageTechInsightsApiRef } from '../../api/api';
+import { stringifyCheck } from '../../utils';
 
 /**
  * @internal

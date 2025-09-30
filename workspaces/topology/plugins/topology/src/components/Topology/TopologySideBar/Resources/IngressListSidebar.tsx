@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import ResourceName from '../../../../common/components/ResourceName';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { IngressModel } from '../../../../models';
 import { IngressData } from '../../../../types/ingresses';
-import { useTranslation } from '../../../../hooks/useTranslation';
 import TopologyResourcesTabPanelItem from '../TopologyResourcesTabPaneltem';
 import IngressRules from './IngressRules';
 

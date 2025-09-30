@@ -16,24 +16,24 @@
 
 import type { LoggerService } from '@backstage/backend-plugin-api';
 import type { GroupEntity, UserEntity } from '@backstage/catalog-model';
-
 import type KeycloakAdminClient from '@keycloak/keycloak-admin-client';
 import type GroupRepresentation from '@keycloak/keycloak-admin-client/lib/defs/groupRepresentation';
 import type UserRepresentation from '@keycloak/keycloak-admin-client/lib/defs/userRepresentation';
 import type { Groups } from '@keycloak/keycloak-admin-client/lib/resources/groups';
 import type { Users } from '@keycloak/keycloak-admin-client/lib/resources/users';
+import { Attributes, Counter } from '@opentelemetry/api';
 import { LimitFunction } from 'p-limit';
-
+import { ensureTokenValid } from './authenticate';
 import { KeycloakProviderConfig } from './config';
 import {
+  KEYCLOAK_BRIEF_REPRESENTATION_DEFAULT,
   KEYCLOAK_ENTITY_QUERY_SIZE,
   KEYCLOAK_ID_ANNOTATION,
   KEYCLOAK_REALM_ANNOTATION,
-  KEYCLOAK_BRIEF_REPRESENTATION_DEFAULT,
 } from './constants';
 import {
-  sanitizeUserNameTransformer,
   sanitizeGroupNameTransformer,
+  sanitizeUserNameTransformer,
 } from './transformers';
 import {
   GroupRepresentationWithParent,
@@ -42,8 +42,6 @@ import {
   UserRepresentationWithEntity,
   UserTransformer,
 } from './types';
-import { ensureTokenValid } from './authenticate';
-import { Attributes, Counter } from '@opentelemetry/api';
 
 export const parseGroup = async (
   keycloakGroup: GroupRepresentationWithParent,

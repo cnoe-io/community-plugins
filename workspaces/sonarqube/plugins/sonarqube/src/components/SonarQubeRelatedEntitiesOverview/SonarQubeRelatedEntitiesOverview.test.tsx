@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren, ReactElement } from 'react';
-import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import {
+  SONARQUBE_PROJECT_KEY_ANNOTATION,
+  sonarQubeApiRef,
+} from '@backstage-community/plugin-sonarqube-react';
 import { Entity, RELATION_HAS_PART } from '@backstage/catalog-model';
 import { catalogApiRef, EntityProvider } from '@backstage/plugin-catalog-react';
-import {
-  sonarQubeApiRef,
-  SONARQUBE_PROJECT_KEY_ANNOTATION,
-} from '@backstage-community/plugin-sonarqube-react';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { PropsWithChildren, ReactElement } from 'react';
 import { SonarQubeRelatedEntitiesOverview } from './SonarQubeRelatedEntitiesOverview.tsx';
 
 const sonarQubeApi = {

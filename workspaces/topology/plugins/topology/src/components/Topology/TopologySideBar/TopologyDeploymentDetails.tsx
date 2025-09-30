@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { V1Deployment } from '@kubernetes/client-node';
-
 import { useTranslation } from '../../../hooks/useTranslation';
 import TopologySideBarDetailsItem from './TopologySideBarDetailsItem';
 import TopologyWorkloadDetails from './TopologyWorkloadDetails';

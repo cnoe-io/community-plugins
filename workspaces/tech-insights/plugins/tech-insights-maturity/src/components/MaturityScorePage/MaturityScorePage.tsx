@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import useAsyncRetry from 'react-use/lib/useAsync';
-
+import { Rank } from '@backstage-community/plugin-tech-insights-maturity-common';
+import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { EmptyState, InfoCard, Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-import { getCompoundEntityRef } from '@backstage/catalog-model';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import Grid from '@mui/material/Grid';
 import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import useAsyncRetry from 'react-use/lib/useAsync';
 import { maturityApiRef } from '../../api';
 import { MaturityRankInfoCard } from '../MaturityRankInfoCard';
-import { Rank } from '@backstage-community/plugin-tech-insights-maturity-common';
-import Box from '@mui/material/Box';
 import { MaturityCheckTable } from './maturityTableRows';
 
 export const MaturityScorePage = () => {

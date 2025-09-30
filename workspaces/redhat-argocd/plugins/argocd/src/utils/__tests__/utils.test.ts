@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { mockApplication, mockEntity } from '../../../dev/__data__';
 import {
   Application,
   History,
   Status,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { mockApplication, mockEntity } from '../../../dev/__data__';
 import {
   ArgoCdLabels,
   getAppOperationState,
@@ -28,10 +28,10 @@ import {
   getGitProvider,
   getInstanceName,
   getProjectName,
-  getUniqueRevisions,
   getResourceCreateTimestamp,
-  sortValues,
+  getUniqueRevisions,
   removeDuplicateRevisions,
+  sortValues,
 } from '../utils';
 
 describe('Utils', () => {

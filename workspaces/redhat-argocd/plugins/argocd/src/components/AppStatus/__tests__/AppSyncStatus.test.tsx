@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 import { render, screen } from '@testing-library/react';
-
 import { mockApplication } from '../../../../dev/__data__';
-import AppSyncStatus from '../AppSyncStatus';
 import { mockUseTranslation } from '../../../test-utils/mockTranslations';
+import AppSyncStatus from '../AppSyncStatus';
 
 jest.mock('../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

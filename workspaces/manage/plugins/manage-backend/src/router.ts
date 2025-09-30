@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import express from 'express';
-import Router from 'express-promise-router';
-
 import {
   HttpAuthService,
   UserInfoService,
 } from '@backstage/backend-plugin-api';
 import { InputError } from '@backstage/errors';
-
+import express from 'express';
+import Router from 'express-promise-router';
 import { ManageService } from './services/Manage';
 
 export async function createRouter({

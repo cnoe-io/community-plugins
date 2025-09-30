@@ -15,10 +15,8 @@
  */
 import { ConfigReader } from '@backstage/config';
 import { createMockActionContext } from '@backstage/plugin-scaffolder-node-test-utils';
-
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-
 import { deleteRecordAction } from '.';
 import resSysId404 from './__fixtures__/{tableName}/{sys_id}/404.json';
 import res401 from './__fixtures__/{tableName}/401.json';

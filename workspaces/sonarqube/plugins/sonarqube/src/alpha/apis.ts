@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ApiBlueprint } from '@backstage/frontend-plugin-api';
-import { SonarQubeClient } from '../api';
 import { sonarQubeApiRef } from '@backstage-community/plugin-sonarqube-react';
 import { discoveryApiRef, fetchApiRef } from '@backstage/core-plugin-api';
+import { ApiBlueprint } from '@backstage/frontend-plugin-api';
+import { SonarQubeClient } from '../api';
 
 /**
  * @alpha

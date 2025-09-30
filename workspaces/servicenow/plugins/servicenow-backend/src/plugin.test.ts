@@ -18,11 +18,10 @@ import {
   coreServices,
   createServiceFactory,
 } from '@backstage/backend-plugin-api';
-import { startTestBackend, mockServices } from '@backstage/backend-test-utils';
-
-import { createRouter } from './service/router';
+import { mockServices, startTestBackend } from '@backstage/backend-test-utils';
 import { readServiceNowConfig } from './config';
 import { servicenowPlugin } from './plugin';
+import { createRouter } from './service/router';
 
 jest.mock('./service/router');
 jest.mock('./config');

@@ -14,12 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import fs from 'fs-extra';
-import { getPackages } from '@manypkg/get-packages';
-import { resolve, join } from 'path';
-import arrayToTable from 'array-to-table';
+import { join, resolve } from 'path';
 import * as url from 'url';
+import { getPackages } from '@manypkg/get-packages';
+import arrayToTable from 'array-to-table';
+import fs from 'fs-extra';
 import { listWorkspaces } from './list-workspaces.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));

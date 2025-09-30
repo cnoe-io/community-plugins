@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
 import { V1CronJob } from '@kubernetes/client-node';
-import { LocalizedTimestamp } from '../../LocalizedTimestamp';
-
+import type { FC } from 'react';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { LocalizedTimestamp } from '../../LocalizedTimestamp';
 import TopologySideBarDetailsItem from './TopologySideBarDetailsItem';
 import TopologyWorkloadDetails from './TopologyWorkloadDetails';
 

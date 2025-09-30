@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import { InputError } from '@backstage/errors';
-import { validateIncidentQueryParams } from './validator';
 import { ParsedQs } from 'qs';
+import { validateIncidentQueryParams } from './validator';
 
 describe('validateIncidentQueryParams', () => {
   it('should validate with userEmail only', () => {

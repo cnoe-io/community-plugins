@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { PropsWithChildren, ChangeEvent } from 'react';
-
-import { useState } from 'react';
-
 import Divider from '@mui/material/Divider';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import { BaseNode } from '@patternfly/react-topology';
-
+import type { ChangeEvent, PropsWithChildren } from 'react';
+import { useState } from 'react';
 import { useTranslation } from '../../../hooks/useTranslation';
 import TopologyDetailsTabPanel from './TopologyDetailsTabPanel';
 import TopologyResourcesTabPanel from './TopologyResourcesTabPanel';
-
 import './TopologySideBarBody.css';
 
 interface TabPanelProps {

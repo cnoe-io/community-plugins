@@ -14,6 +14,11 @@
  * limitations under the License.
  */
 import {
+  NpmAnnotation,
+  NpmRegistryClient,
+  NpmRegistryPackageInfo,
+} from '@backstage-community/plugin-npm-common';
+import {
   BackstageCredentials,
   BackstageUserPrincipal,
   LoggerService,
@@ -21,15 +26,8 @@ import {
 } from '@backstage/backend-plugin-api';
 import { NotFoundError } from '@backstage/errors';
 import { CatalogService } from '@backstage/plugin-catalog-node';
-
-import {
-  NpmAnnotation,
-  NpmRegistryClient,
-  NpmRegistryPackageInfo,
-} from '@backstage-community/plugin-npm-common';
-
-import { NpmRegistryService } from './NpmRegistryService';
 import { Config } from '../../config';
+import { NpmRegistryService } from './NpmRegistryService';
 
 export type Options = {
   logger: LoggerService;

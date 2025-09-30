@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { compatWrapper } from '@backstage/core-compat-api';
 import {
   ApiBlueprint,
   createFrontendPlugin,
   discoveryApiRef,
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
-import { compatWrapper } from '@backstage/core-compat-api';
 import {
   EntityCardBlueprint,
   EntityContentBlueprint,

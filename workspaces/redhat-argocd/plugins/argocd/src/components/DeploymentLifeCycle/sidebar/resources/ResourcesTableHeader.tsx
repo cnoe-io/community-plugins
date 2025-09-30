@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { MouseEvent, FC } from 'react';
+import { Order } from '@backstage-community/plugin-redhat-argocd-common';
 import {
   makeStyles,
   TableCell,
@@ -21,10 +21,9 @@ import {
   TableRow,
   TableSortLabel,
 } from '@material-ui/core';
-
-import { getResourcesColumnHeaders } from './ResourcesColumnHeader';
-import { Order } from '@backstage-community/plugin-redhat-argocd-common';
+import type { FC, MouseEvent } from 'react';
 import { useTranslation } from '../../../../hooks/useTranslation';
+import { getResourcesColumnHeaders } from './ResourcesColumnHeader';
 
 interface ResourcesTableHeaderProps {
   onRequestSort: (

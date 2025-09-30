@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { fireEvent, render, screen } from '@testing-library/react';
-
-import { mockApplication, mockEntity } from '../../../../dev/__data__';
-import { useArgocdConfig } from '../../../hooks/useArgocdConfig';
 import {
   Application,
   Source,
 } from '@backstage-community/plugin-redhat-argocd-common';
-import DeploymentLifecycleCard from '../DeploymentLifecycleCard';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { mockApplication, mockEntity } from '../../../../dev/__data__';
+import { useArgocdConfig } from '../../../hooks/useArgocdConfig';
 import { mockUseTranslation } from '../../../test-utils/mockTranslations';
+import DeploymentLifecycleCard from '../DeploymentLifecycleCard';
 
 jest.mock('../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

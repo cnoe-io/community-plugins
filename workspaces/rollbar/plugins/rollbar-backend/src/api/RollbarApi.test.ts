@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { getRequestHeaders, RollbarApi } from './RollbarApi';
 import {
   mockServices,
   registerMswTestHooks,
 } from '@backstage/backend-test-utils';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
+import { getRequestHeaders, RollbarApi } from './RollbarApi';
 import { RollbarProjectAccessToken } from './types';
 
 describe('RollbarApi', () => {

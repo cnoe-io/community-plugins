@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { createElement } from 'react';
+import { SelectItem } from '@backstage/core-components';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { SelectItem } from '@backstage/core-components';
-
+import { createElement } from 'react';
 import { IncidentEnumFilter } from './IncidentEnumFilter';
 
 const mockSet = jest.fn();

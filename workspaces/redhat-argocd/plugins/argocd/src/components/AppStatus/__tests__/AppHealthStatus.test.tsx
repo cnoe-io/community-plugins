@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { render, screen } from '@testing-library/react';
-
 import { mockApplication } from '../../../../dev/__data__';
 import { mockUseTranslation } from '../../../test-utils/mockTranslations';
 import AppHealthStatus from '../AppHealthStatus';

@@ -13,24 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ReactNode, useCallback, useMemo } from 'react';
-
-import { makeStyles, useTheme } from '@mui/styles';
-import Box from '@mui/material/Box';
-import Tooltip from '@mui/material/Tooltip';
-
-import { useApi } from '@backstage/core-plugin-api';
 import {
-  useCurrentKinds,
-  useOwnedEntities,
   GaugeGrid,
   ManageAccordion,
+  useCurrentKinds,
+  useOwnedEntities,
 } from '@backstage-community/plugin-manage-react';
-
-import {
-  ResponsesForCheck,
-  useManageTechInsightsForEntities,
-} from '../ManageProvider/ManageProviderTechInsights';
+import { useApi } from '@backstage/core-plugin-api';
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import { makeStyles, useTheme } from '@mui/styles';
+import { ReactNode, useCallback, useMemo } from 'react';
 import { manageTechInsightsApiRef } from '../../api';
 import {
   isTitleAsObject,
@@ -38,6 +31,10 @@ import {
   ManageTechInsightsTitle,
 } from '../../title';
 import { useAccordionTitle } from '../../utils';
+import {
+  ResponsesForCheck,
+  useManageTechInsightsForEntities,
+} from '../ManageProvider/ManageProviderTechInsights';
 
 const useStyles = makeStyles({
   root: {

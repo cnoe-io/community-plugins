@@ -19,9 +19,8 @@ import {
   discoveryApiRef,
   fetchApiRef,
 } from '@backstage/core-plugin-api';
-
-import type { ManageApi } from './ManageApi';
 import { DefaultManageApi } from './DefaultManageApi';
+import type { ManageApi } from './ManageApi';
 import { ManageModuleApiRef } from './types';
 
 /**

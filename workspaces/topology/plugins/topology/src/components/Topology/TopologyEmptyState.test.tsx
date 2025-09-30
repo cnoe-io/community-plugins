@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 // CRITICAL: Import mocks BEFORE components
+
+// Component imports AFTER mocks
+import { render } from '@testing-library/react';
 import { mockUseTranslation } from '../../test-utils/mockTranslations';
+import { TopologyEmptyState } from './TopologyEmptyState';
 
 jest.mock('../../hooks/useTranslation', () => ({
   useTranslation: mockUseTranslation,
 }));
-
-// Component imports AFTER mocks
-import { render } from '@testing-library/react';
-import { TopologyEmptyState } from './TopologyEmptyState';
 
 describe('TopologyEmptyState', () => {
   it('should render TopologyEmptyState', () => {

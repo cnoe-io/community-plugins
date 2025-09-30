@@ -15,11 +15,11 @@
  */
 
 import { Entity } from '@backstage/catalog-model';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import {
   ROLLBAR_ANNOTATION,
   ROLLBAR_ENVIRONMENT_ANNOTATION,
 } from '../constants';
-import { useApi, configApiRef } from '@backstage/core-plugin-api';
 
 export function useProjectSlugFromEntity(entity: Entity) {
   const configApi = useApi(configApiRef);

@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useContext } from 'react';
-
+import { RequirePermission } from '@backstage/plugin-permission-react';
 import { V1Pod } from '@kubernetes/client-node';
 import { fireEvent, render } from '@testing-library/react';
-
+import { useContext } from 'react';
 import { mockKubernetesResponse } from '../../../../__fixtures__/1-deployments';
 import { mockUseTranslation } from '../../../../test-utils/mockTranslations';
 import { PodLogsDialog } from './PodLogsDialog';
@@ -25,7 +24,6 @@ import { PodLogsDialog } from './PodLogsDialog';
 jest.mock('../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),
 }));
-import { RequirePermission } from '@backstage/plugin-permission-react';
 
 jest.mock('@backstage/plugin-permission-react', () => ({
   RequirePermission: jest.fn(),

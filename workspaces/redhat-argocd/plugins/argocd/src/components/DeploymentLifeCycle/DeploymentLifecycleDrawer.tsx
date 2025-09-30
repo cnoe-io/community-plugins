@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
 import { useEntity } from '@backstage/plugin-catalog-react';
-
 import {
   Card,
   CardContent,
@@ -29,18 +26,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
-
+import type { FC } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 import { isAppHelmChartType } from '../../utils/utils';
-import AppNamespace from '../Common/AppNamespace';
 import StatusHeading from '../AppStatus/StatusHeading';
-import DeploymentLifecycledHeader from './DeploymentLifecycleHeader';
-import { ResourcesTable } from './sidebar/resources/ResourcesTable';
-import { useDrawerContext } from './DrawerContext';
+import AppCommitLink from '../Common/AppCommitLink';
+import AppNamespace from '../Common/AppNamespace';
+import AppServerLink from '../Common/AppServerLink';
 import Metadata from '../Common/Metadata';
 import MetadataItem from '../Common/MetadataItem';
-import AppServerLink from '../Common/AppServerLink';
-import AppCommitLink from '../Common/AppCommitLink';
-import { useTranslation } from '../../hooks/useTranslation';
+import DeploymentLifecycledHeader from './DeploymentLifecycleHeader';
+import { useDrawerContext } from './DrawerContext';
+import { ResourcesTable } from './sidebar/resources/ResourcesTable';
 
 interface DeploymentLifecycleDrawerProps {
   isOpen: boolean;

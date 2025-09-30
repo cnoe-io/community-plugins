@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import querystring from 'querystring';
 import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import { examples } from './createSonarQubeProject.examples';
-
-import querystring from 'querystring';
 
 const id = 'sonarqube:create-project';
 

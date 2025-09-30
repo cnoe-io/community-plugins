@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, screen, fireEvent } from '@testing-library/react';
-
-import { ResourcesSearchBar } from '../ResourcesSearchBar';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
+import { ResourcesSearchBar } from '../ResourcesSearchBar';
 
 jest.mock('../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

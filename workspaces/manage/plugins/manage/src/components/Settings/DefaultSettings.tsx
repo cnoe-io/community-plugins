@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 import Grid from '@mui/material/Grid';
-
-import { TabOrderCard } from './TabOrderCard';
 import { KindOrderCard } from './KindOrderCard';
+import { TabOrderCard } from './TabOrderCard';
 
 /**
  * A component that renders the default settings. These are the `TabOrderCard`

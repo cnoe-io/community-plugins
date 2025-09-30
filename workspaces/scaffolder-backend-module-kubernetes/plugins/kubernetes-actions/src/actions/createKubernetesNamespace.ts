@@ -19,7 +19,6 @@ import {
   createTemplateAction,
   type ActionContext,
 } from '@backstage/plugin-scaffolder-node';
-
 import {
   CoreV1Api,
   CoreV1ApiCreateNamespaceRequest,

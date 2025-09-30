@@ -69,6 +69,7 @@ In your `packages/app/src/components/Catalog/EntityPage.tsx` file:
 ```tsx
 // ... other imports here
 import { MendTab } from '@backstage-community/plugin-mend';
+
 // ... other components
 const serviceEntityPage = (
   <EntityLayout>
@@ -92,6 +93,7 @@ In your `packages/app/src/App.tsx` file:
 ```tsx
 // ... other imports here
 import { MendPage } from '@backstage-community/plugin-mend';
+
 // ... other components
 const routes = (
   <FlatRoutes>
@@ -113,6 +115,7 @@ In your `packages/app/src/components/Root/Root.tsx` file:
 ```tsx
 // ... other imports here
 import { MendSidebar } from '@backstage-community/plugin-mend';
+
 // ... other components
 export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>

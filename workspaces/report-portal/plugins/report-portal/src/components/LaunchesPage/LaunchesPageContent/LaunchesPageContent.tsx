@@ -13,8 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, useState } from 'react';
-
+import {
+  LaunchDetailsResponse,
+  PageType,
+} from '@backstage-community/plugin-report-portal-common';
 import {
   AppIcon,
   ErrorPanel,
@@ -23,22 +25,16 @@ import {
   TableColumn,
 } from '@backstage/core-components';
 import { useApi, useRouteRef } from '@backstage/core-plugin-api';
-
-import Launch from '@mui/icons-material/Launch';
-import { DateTime } from 'luxon';
-import useDebounce from 'react-use/lib/useDebounce';
-
-import { reportPortalApiRef } from '../../../api';
-
-import {
-  LaunchDetailsResponse,
-  PageType,
-} from '@backstage-community/plugin-report-portal-common';
 import { catalogApiRef, entityRouteRef } from '@backstage/plugin-catalog-react';
+import Launch from '@mui/icons-material/Launch';
 import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { DateTime } from 'luxon';
+import { useEffect, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
+import useDebounce from 'react-use/lib/useDebounce';
+import { reportPortalApiRef } from '../../../api';
 
 type LaunchDetails = {
   id: number;

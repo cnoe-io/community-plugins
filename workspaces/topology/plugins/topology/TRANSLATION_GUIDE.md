@@ -110,20 +110,20 @@ const MyComponent = () => {
 
 ```typescript
 // CRITICAL: Import mocks BEFORE components
+
+// Component imports AFTER mocks
+import { render, screen } from '@testing-library/react';
 import {
   MockTrans,
   mockUseTranslation,
 } from '../../test-utils/mockTranslations';
+import MyComponent from './MyComponent';
 
 jest.mock('../../hooks/useTranslation', () => ({
   useTranslation: mockUseTranslation,
 }));
 
 jest.mock('../Trans', () => ({ Trans: MockTrans }));
-
-// Component imports AFTER mocks
-import { render, screen } from '@testing-library/react';
-import MyComponent from './MyComponent';
 
 describe('MyComponent', () => {
   it('renders translated content', () => {

@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-
 import { useEntity } from '@backstage/plugin-catalog-react';
 import { useKubernetesObjects } from '@backstage/plugin-kubernetes-react';
-
+import { useState } from 'react';
 import { K8sResourcesContextData } from '../types/types';
 import { useAllWatchResources } from './useAllWatchResources';
 import { useK8sResourcesClusters } from './useK8sResourcesClusters';

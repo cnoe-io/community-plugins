@@ -16,8 +16,8 @@
 
 import { Entity } from '@backstage/catalog-model';
 import {
-  useEntity,
   MissingAnnotationEmptyState,
+  useEntity,
 } from '@backstage/plugin-catalog-react';
 import { Route, Routes } from 'react-router-dom';
 import { ROLLBAR_ANNOTATION } from '../constants';

@@ -16,12 +16,10 @@
 
 import { Content, PageWithHeader } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
-
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-
-import { GlobalPageContent } from './GlobalPageContent';
 import { ReportPortalSearchBar } from '../ReportPortalSearchBar';
+import { GlobalPageContent } from './GlobalPageContent';
 
 /** @public */
 export type ReportPortalGlobalPageProps = {

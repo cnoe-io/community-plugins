@@ -1,10 +1,9 @@
-import type { MouseEvent } from 'react';
+import IconButton from '@mui/material/IconButton';
 import type { Theme } from '@mui/material/styles';
 import { useTheme } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
 import SvgIcon from '@mui/material/SvgIcon';
-
 import { makeStyles } from '@mui/styles';
+import type { MouseEvent } from 'react';
 
 type TablePaginationActionsProps = {
   count: number;

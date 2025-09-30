@@ -15,9 +15,9 @@
  */
 
 import { renderInTestApp } from '@backstage/test-utils';
-import { ConsumerGroupOffsets } from './ConsumerGroupOffsets';
-import * as data from './__fixtures__/consumer-group-offsets.json';
 import { ConsumerGroupOffsetsResponse } from '../../api/types';
+import * as data from './__fixtures__/consumer-group-offsets.json';
+import { ConsumerGroupOffsets } from './ConsumerGroupOffsets';
 
 const consumerGroupOffsets = data as ConsumerGroupOffsetsResponse;
 

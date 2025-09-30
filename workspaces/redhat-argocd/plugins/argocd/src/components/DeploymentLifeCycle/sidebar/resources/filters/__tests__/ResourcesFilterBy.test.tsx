@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, fireEvent, screen } from '@testing-library/react';
-
-import { ResourcesFilterBy } from '../ResourcesFilterBy';
-import { FiltersType } from '../../../../../../types/resources';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
+import { FiltersType } from '../../../../../../types/resources';
+import { ResourcesFilterBy } from '../ResourcesFilterBy';
 
 jest.mock('../../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

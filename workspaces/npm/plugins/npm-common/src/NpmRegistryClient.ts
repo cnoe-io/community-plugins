@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { ResponseError } from '@backstage/errors';
-
 import { NpmRegistryPackageInfo } from './types';
 
 /**

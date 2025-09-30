@@ -17,15 +17,16 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
+import { CatalogClient } from '@backstage/catalog-client';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 import { eventsServiceRef } from '@backstage/plugin-events-node';
 import { notificationService } from '@backstage/plugin-notifications-node';
-import { CatalogClient } from '@backstage/catalog-client';
-
-import { ScaffolderRelationEntityProcessor } from './ScaffolderRelationEntityProcessor';
-import { handleTemplateUpdateNotifications } from './templateVersionUtils';
-import { readScaffolderRelationProcessorConfig } from './templateVersionUtils';
 import { TEMPLATE_VERSION_UPDATED_TOPIC } from './constants';
+import { ScaffolderRelationEntityProcessor } from './ScaffolderRelationEntityProcessor';
+import {
+  handleTemplateUpdateNotifications,
+  readScaffolderRelationProcessorConfig,
+} from './templateVersionUtils';
 
 /**
  * Catalog processor that adds link relation between scaffolder templates and their generated entities

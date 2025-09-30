@@ -1,20 +1,20 @@
 import { Entity } from '@backstage/catalog-model';
 import { match } from 'path-to-regexp';
 import type { QueryParams } from '../api';
+import { AZURE_HOST_NAME } from '../constants';
 import {
-  ProjectStatisticsSuccessResponseData,
+  CodeFindingSuccessResponseData,
+  ContainersFindingSuccessResponseData,
+  DependenciesFindingSuccessResponseData,
   EntityURL,
+  Finding,
   OrganizationProjectSuccessResponseData,
   PaginationQueryParams,
   Project,
-  CodeFindingSuccessResponseData,
-  DependenciesFindingSuccessResponseData,
-  ContainersFindingSuccessResponseData,
-  Finding,
+  ProjectStatisticsSuccessResponseData,
   StatisticsEngine,
   StatisticsName,
 } from './data.service.types';
-import { AZURE_HOST_NAME } from '../constants';
 
 enum FINDING_TYPE {
   DEPENDENCIES = 'ALERTS',

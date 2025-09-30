@@ -14,9 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import fs from 'fs';
-import { resolve, join } from 'path';
+import { join, resolve } from 'path';
 import * as url from 'url';
 import * as codeowners from 'codeowners-utils';
 import { listWorkspaces } from './list-workspaces.js';

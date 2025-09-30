@@ -13,31 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { CSSProperties, useCallback, useMemo } from 'react';
-
-import { useTheme } from '@mui/styles';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-
 import {
-  DndContext,
-  useSensors,
-  useSensor,
-  PointerSensor,
   closestCenter,
+  DndContext,
   DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
 } from '@dnd-kit/core';
+import {
+  restrictToHorizontalAxis,
+  restrictToParentElement,
+} from '@dnd-kit/modifiers';
 import {
   arrayMove,
   horizontalListSortingStrategy,
   SortableContext,
   useSortable,
 } from '@dnd-kit/sortable';
-import {
-  restrictToHorizontalAxis,
-  restrictToParentElement,
-} from '@dnd-kit/modifiers';
 import { CSS } from '@dnd-kit/utilities';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
+import { useTheme } from '@mui/styles';
+import { CSSProperties, useCallback, useMemo } from 'react';
 
 /**
  * Props for {@link ReorderableTabs}

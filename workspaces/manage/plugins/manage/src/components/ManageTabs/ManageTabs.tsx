@@ -14,31 +14,27 @@
  * limitations under the License.
  */
 
-import { Fragment, ComponentProps, ReactNode, useMemo } from 'react';
-
+import {
+  arrayify,
+  CurrentKindProvider,
+  pluralizeKind,
+  useKindOrder,
+  useOrder,
+  useOwnedKinds,
+} from '@backstage-community/plugin-manage-react';
+import { RoutedTabs, TableOptions } from '@backstage/core-components';
 import Alert from '@mui/material/Alert';
 import { capitalize } from '@mui/material/utils';
-
-import { RoutedTabs, TableOptions } from '@backstage/core-components';
-
+import { ComponentProps, Fragment, ReactNode, useMemo } from 'react';
 import {
-  CurrentKindProvider,
-  useKindOrder,
-  useOwnedKinds,
-  arrayify,
-  pluralizeKind,
-  useOrder,
-} from '@backstage-community/plugin-manage-react';
-
-import {
-  TableColumn,
   ManageEntitiesTable,
+  TableColumn,
   TableRow,
 } from '../ManageEntitiesList';
 import { useManagePageCombined } from '../ManagePageFilters';
-import { MANAGE_KIND_COMMON } from './types';
 import { Settings } from '../Settings';
 import { TabsOrderProvider, useTabsOrder } from '../TabsOrder';
+import { MANAGE_KIND_COMMON } from './types';
 
 /** @public */
 export type SubRouteTab = ComponentProps<typeof RoutedTabs>['routes'][number];

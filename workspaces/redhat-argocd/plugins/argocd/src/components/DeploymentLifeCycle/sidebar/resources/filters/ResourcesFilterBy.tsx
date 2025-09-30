@@ -13,34 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { MouseEvent } from 'react';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
 import {
-  Toolbar,
-  ToolbarItem,
-  ToolbarContent,
-  ToolbarFilter,
-  ToolbarGroup,
   Badge,
   MenuToggle,
   SearchInput,
   Select,
+  Toolbar,
+  ToolbarContent,
+  ToolbarFilter,
+  ToolbarGroup,
+  ToolbarItem,
 } from '@patternfly/react-core';
 import FilterIcon from '@patternfly/react-icons/dist/esm/icons/filter-icon';
-import {
-  resourcesFiltersMenuItems,
-  syncStatusMenuItems,
-  kindFilterMenuItems,
-  healthStatusMenuItems,
-} from './Filters';
-import { handleDelete, handleDeleteGroup } from './filterHelpers';
-import {
-  FiltersType,
-  ResourcesFilters,
-  getResourceFilterTranslation,
-} from '../../../../../types/resources';
+import type { MouseEvent } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import { useDarkTheme } from '../../../../../hooks/useDarkTheme';
 import { useTranslation } from '../../../../../hooks/useTranslation';
+import {
+  FiltersType,
+  getResourceFilterTranslation,
+  ResourcesFilters,
+} from '../../../../../types/resources';
+import { handleDelete, handleDeleteGroup } from './filterHelpers';
+import {
+  healthStatusMenuItems,
+  kindFilterMenuItems,
+  resourcesFiltersMenuItems,
+  syncStatusMenuItems,
+} from './Filters';
 
 interface ResourcesFilterByProps {
   filters: FiltersType;

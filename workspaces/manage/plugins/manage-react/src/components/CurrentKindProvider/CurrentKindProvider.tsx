@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
-
-import { useOwnedKinds } from '../OwnedProvider/OwnedProvider';
 import { pluralizeKind } from '../../utils';
+import { useOwnedKinds } from '../OwnedProvider/OwnedProvider';
 import { KindStarred, KindStarredType } from './types';
 
 interface CurrentKindContext {

@@ -247,8 +247,8 @@ Configure the backend by [configuring the permission policy](https://github.com/
 ```typescript
 import { createBackendModule } from '@backstage/backend-plugin-api';
 import {
-  PolicyDecision,
   AuthorizeResult,
+  PolicyDecision,
 } from '@backstage/plugin-permission-common';
 import {
   PermissionPolicy,

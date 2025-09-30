@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 import ResourceName from '../../../../common/components/ResourceName';
+import { useTranslation } from '../../../../hooks/useTranslation';
 import { RouteModel } from '../../../../models';
 import { RouteData } from '../../../../types/route';
-import { useTranslation } from '../../../../hooks/useTranslation';
 import TopologyResourcesTabPanelItem from '../TopologyResourcesTabPaneltem';
 
 const RouteListSidebar = ({ routesData }: { routesData: RouteData[] }) => {

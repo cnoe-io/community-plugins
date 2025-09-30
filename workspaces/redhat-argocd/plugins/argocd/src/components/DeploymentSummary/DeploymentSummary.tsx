@@ -13,23 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ReactNode } from 'react';
-
-import { Table, TableColumn } from '@backstage/core-components';
-import { useEntity } from '@backstage/plugin-catalog-react';
-
-import { IconButton, Link } from '@material-ui/core';
-import ExternalLinkIcon from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
-import moment from 'moment';
-
-import { useApplications } from '../../hooks/useApplications';
-import { useArgocdConfig } from '../../hooks/useArgocdConfig';
-import { useArgocdViewPermission } from '../../hooks/useArgocdViewPermission';
 import {
   Application,
   HealthStatus,
   SyncStatuses,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { Table, TableColumn } from '@backstage/core-components';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import { IconButton, Link } from '@material-ui/core';
+import ExternalLinkIcon from '@patternfly/react-icons/dist/esm/icons/external-link-alt-icon';
+import moment from 'moment';
+import type { ReactNode } from 'react';
+import { useApplications } from '../../hooks/useApplications';
+import { useArgocdConfig } from '../../hooks/useArgocdConfig';
+import { useArgocdViewPermission } from '../../hooks/useArgocdViewPermission';
+import { useTranslation } from '../../hooks/useTranslation';
 import {
   getArgoCdAppConfig,
   getCommitUrl,
@@ -38,7 +36,6 @@ import {
 } from '../../utils/utils';
 import AppSyncStatus from '../AppStatus/AppSyncStatus';
 import { AppHealthIcon } from '../AppStatus/StatusIcons';
-import { useTranslation } from '../../hooks/useTranslation';
 
 const DeploymentSummary = () => {
   const { entity } = useEntity();

@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 import '@testing-library/jest-dom';
-
-import { screen, waitFor } from '@testing-library/react';
-import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { kubernetesProxyApiRef } from '@backstage/plugin-kubernetes-react';
-
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { screen, waitFor } from '@testing-library/react';
 import { mockKubernetesPlrResponse } from '../../../__fixtures__/1-pipelinesData';
 import { acsImageCheckResults } from '../../../__fixtures__/advancedClusterSecurityData';
 import { enterpriseContractResult } from '../../../__fixtures__/enterpriseContractData';

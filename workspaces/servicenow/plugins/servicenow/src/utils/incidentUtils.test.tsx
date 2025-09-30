@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 import { render, screen } from '@testing-library/react';
-import { getPriorityValue, getIncidentStateValue } from './incidentUtils';
+import { getIncidentStateValue, getPriorityValue } from './incidentUtils';
 
 describe('incidentUtils', () => {
   describe('getPriorityValue', () => {

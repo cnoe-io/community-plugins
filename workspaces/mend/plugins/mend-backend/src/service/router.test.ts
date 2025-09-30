@@ -2,8 +2,8 @@ import { mockServices } from '@backstage/backend-test-utils';
 import { ConfigReader } from '@backstage/config';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import express from 'express';
-import request from 'supertest';
 import jwt from 'jsonwebtoken';
+import request from 'supertest';
 import { createRouter } from './router';
 
 const mockedAuthorize: jest.MockedFunction<PermissionEvaluator['authorize']> =

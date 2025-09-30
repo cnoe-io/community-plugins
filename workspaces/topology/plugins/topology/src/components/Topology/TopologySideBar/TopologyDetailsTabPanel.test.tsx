@@ -15,7 +15,6 @@
  */
 import { BaseNode } from '@patternfly/react-topology';
 import { render } from '@testing-library/react';
-
 import {
   workloadNode,
   workloadNode2,

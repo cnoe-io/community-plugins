@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
+import { Header, Page, TabbedLayout } from '@backstage/core-components';
 import { createDevApp } from '@backstage/dev-utils';
-import { Page, Header, TabbedLayout } from '@backstage/core-components';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { KubernetesApi } from '@backstage/plugin-kubernetes-react';
-import { mockApis, TestApiProvider } from '@backstage/test-utils';
-import { AuthorizeResult } from '@backstage/plugin-permission-common';
-import { permissionApiRef } from '@backstage/plugin-permission-react';
 import {
+  KubernetesApi,
   kubernetesApiRef,
   kubernetesAuthProvidersApiRef,
 } from '@backstage/plugin-kubernetes-react';
+import { AuthorizeResult } from '@backstage/plugin-permission-common';
+import { permissionApiRef } from '@backstage/plugin-permission-react';
+import { mockApis, TestApiProvider } from '@backstage/test-utils';
 import { mockKubernetesResponse } from '../src/__fixtures__/1-deployments';
 import { TopologyPage, topologyPlugin } from '../src/plugin';
 import { topologyTranslations } from '../src/translations';

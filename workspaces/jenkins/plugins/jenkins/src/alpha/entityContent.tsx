@@ -18,8 +18,8 @@ import {
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { rootRouteRef } from '../plugin';
 import { isJenkinsAvailable } from '../components/Router';
+import { rootRouteRef } from '../plugin';
 
 /**
  * @alpha

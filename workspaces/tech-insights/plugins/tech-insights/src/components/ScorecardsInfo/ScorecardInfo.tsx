@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import { ReactElement, ReactNode } from 'react';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
-import Alert from '@material-ui/lab/Alert';
-import { ScorecardsList } from '../ScorecardsList';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import { Entity } from '@backstage/catalog-model';
+import { MarkdownContent } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
-import { useApi } from '@backstage/core-plugin-api';
-import { Entity } from '@backstage/catalog-model';
-import { MarkdownContent } from '@backstage/core-components';
-import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Alert from '@material-ui/lab/Alert';
+import { ReactElement, ReactNode } from 'react';
+import { ScorecardsList } from '../ScorecardsList';
 
 const useStyles = makeStyles(theme => ({
   subheader: {

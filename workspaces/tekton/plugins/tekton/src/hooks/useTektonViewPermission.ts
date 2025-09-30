@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { usePermission } from '@backstage/plugin-permission-react';
-
 import {
   kubernetesClustersReadPermission,
   kubernetesResourcesReadPermission,
 } from '@backstage/plugin-kubernetes-common';
+import { usePermission } from '@backstage/plugin-permission-react';
 
 export const useTektonViewPermission = () => {
   const clusterReadPermission = usePermission({

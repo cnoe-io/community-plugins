@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 import { render, screen } from '@testing-library/react';
-
 import { mockArgoResources } from '../../../../../../../dev/__data__/argoRolloutsObjects';
+import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
 import { ReplicaSet } from '../../../../../../types/resources';
 import RevisionImage from '../RevisionImage';
-import { mockUseTranslation } from '../../../../../../test-utils/mockTranslations';
 
 jest.mock('../../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

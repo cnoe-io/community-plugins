@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ComponentType, ReactNode } from 'react';
-
 import type { Entity } from '@backstage/catalog-model';
+import type { ComponentType, ReactNode } from 'react';
 
 /** @public */
 export type ManageProvider = ComponentType<{

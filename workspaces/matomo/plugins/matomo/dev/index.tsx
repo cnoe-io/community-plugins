@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createDevApp } from '@backstage/dev-utils';
-import { matomoPlugin, MatomoPage } from '../src/plugin';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { ComponentEntity } from '@backstage/catalog-model';
+import { createDevApp } from '@backstage/dev-utils';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
+import { MatomoPage, matomoPlugin } from '../src/plugin';
 
 const entity: ComponentEntity = {
   apiVersion: 'backstage.io/v1alpha1',

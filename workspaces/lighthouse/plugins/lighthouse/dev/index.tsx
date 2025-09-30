@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import ReactDOM from 'react-dom/client';
 import { createApp } from '@backstage/frontend-defaults';
-import lighthousePlugin from '../src/alpha';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
-import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
 import {
   ApiBlueprint,
   createFrontendModule,
 } from '@backstage/frontend-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
+import ReactDOM from 'react-dom/client';
 import { LIGHTHOUSE_WEBSITE_URL_ANNOTATION } from '../constants';
+import lighthousePlugin from '../src/alpha';
 
 const entities = [
   {

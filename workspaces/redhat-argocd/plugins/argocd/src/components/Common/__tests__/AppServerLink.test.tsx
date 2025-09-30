@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, screen } from '@testing-library/react';
-
-import { mockApplication } from '../../../../dev/__data__';
 import { Application } from '@backstage-community/plugin-redhat-argocd-common';
-import AppServerLink from '../AppServerLink';
+import { render, screen } from '@testing-library/react';
+import { mockApplication } from '../../../../dev/__data__';
 import { mockUseTranslation } from '../../../test-utils/mockTranslations';
+import AppServerLink from '../AppServerLink';
 
 jest.mock('../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

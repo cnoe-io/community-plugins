@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { TechInsightsClient } from './TechInsightsClient';
-import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
-import { CompoundEntityRef } from '@backstage/catalog-model';
 import {
   BulkCheckResponse,
   Check,
 } from '@backstage-community/plugin-tech-insights-common';
+import { CompoundEntityRef } from '@backstage/catalog-model';
+import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
+import { TechInsightsClient } from './TechInsightsClient';
 
 jest.mock('@backstage/core-plugin-api');
 jest.mock('@backstage/catalog-model');

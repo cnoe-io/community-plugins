@@ -1841,11 +1841,11 @@
   `packages/app/src/apis.ts`:
 
   ```ts
-  import { createApiFactory } from '@backstage/core';
   import {
     MockSentryApi,
     sentryApiRef,
   } from '@backstage-community/plugin-sentry';
+  import { createApiFactory } from '@backstage/core';
 
   export const apis = [
     // ...

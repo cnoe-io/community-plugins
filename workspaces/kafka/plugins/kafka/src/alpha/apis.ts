@@ -20,9 +20,9 @@ import {
   discoveryApiRef,
   identityApiRef,
 } from '@backstage/frontend-plugin-api';
-import { kafkaApiRef, kafkaDashboardApiRef } from '../api/types';
 import { KafkaBackendClient } from '../api/KafkaBackendClient';
 import { KafkaDashboardClient } from '../api/KafkaDashboardClient';
+import { kafkaApiRef, kafkaDashboardApiRef } from '../api/types';
 
 /**
  * @alpha

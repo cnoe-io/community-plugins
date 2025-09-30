@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 import { Entity } from '@backstage/catalog-model';
+import { configApiRef } from '@backstage/core-plugin-api';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
+import { TestApiProvider } from '@backstage/test-utils';
 import { renderHook } from '@testing-library/react';
 import { PropsWithChildren } from 'react';
 import { useConsumerGroupsForEntity } from './useConsumerGroupsForEntity';
-import { TestApiProvider } from '@backstage/test-utils';
-import { configApiRef } from '@backstage/core-plugin-api';
 
 const mockConfigApi: jest.Mocked<Partial<typeof configApiRef.T>> = {
   getConfigArray: jest.fn(_ => []),

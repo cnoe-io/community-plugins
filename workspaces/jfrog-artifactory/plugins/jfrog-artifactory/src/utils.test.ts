@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { formatByteSize, formatDate } from './utils';
 import { DateTime } from 'luxon';
+import { formatByteSize, formatDate } from './utils';
 
 describe('formatByteSize', () => {
   it('should return N/A if sizeInBytes is not defined', () => {

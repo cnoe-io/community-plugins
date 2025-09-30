@@ -13,31 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useMemo } from 'react';
-
-import Tooltip from '@mui/material/Tooltip';
+import {
+  ColumnIconError,
+  ColumnIconPercent,
+  ProgressColor,
+  type GetColumnFunc,
+  type ManageColumn,
+} from '@backstage-community/plugin-manage-react';
+import { TechInsightsCheckIcon } from '@backstage-community/plugin-tech-insights';
+import type { Check } from '@backstage-community/plugin-tech-insights-common/client';
+import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
+import { useApi } from '@backstage/core-plugin-api';
+import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import Grid from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
-import { useApi } from '@backstage/core-plugin-api';
-import { Entity, stringifyEntityRef } from '@backstage/catalog-model';
-import { TechInsightsCheckIcon } from '@backstage-community/plugin-tech-insights';
-import type { Check } from '@backstage-community/plugin-tech-insights-common/client';
-import {
-  ColumnIconError,
-  ColumnIconPercent,
-  type ManageColumn,
-  type GetColumnFunc,
-  ProgressColor,
-} from '@backstage-community/plugin-manage-react';
-
-import { eqCheck } from '../utils';
+import { useMemo } from 'react';
 import { manageTechInsightsApiRef } from '../api';
-
+import { eqCheck } from '../utils';
 import { useEntityInsights, UseEntityInsightsResult } from './hooks';
 import { NoData } from './NoData';
 

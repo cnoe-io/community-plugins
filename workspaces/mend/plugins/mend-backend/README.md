@@ -21,10 +21,11 @@ Here is a sample:
 ```ts
 // ... other imports here
 import {
-  mendReadPermission,
-  mendConditions,
   createMendProjectConditionalDecision,
+  mendConditions,
+  mendReadPermission,
 } from '@backstage-community/plugin-mend-backend';
+
 // ... other polices
 export class OrganizationPolicy implements PermissionPolicy {
   async handle(

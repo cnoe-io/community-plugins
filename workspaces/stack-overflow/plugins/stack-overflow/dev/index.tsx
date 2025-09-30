@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import ReactDOM from 'react-dom/client';
 import { createApp } from '@backstage/frontend-defaults';
-import stackOverflowPlugin from '../src/alpha';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
-import searchPlugin from '@backstage/plugin-search/alpha';
-import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
 import {
   ApiBlueprint,
   createFrontendModule,
 } from '@backstage/frontend-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import { searchApiRef } from '@backstage/plugin-search-react';
+import searchPlugin from '@backstage/plugin-search/alpha';
+import ReactDOM from 'react-dom/client';
+import stackOverflowPlugin from '../src/alpha';
 
 const entities = [
   {

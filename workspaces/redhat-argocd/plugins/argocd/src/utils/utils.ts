@@ -13,9 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Entity } from '@backstage/catalog-model';
-import pluralize from 'pluralize';
-
 import {
   Application,
   OperationPhases,
@@ -23,6 +20,8 @@ import {
   Resource,
   RevisionInfo,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { Entity } from '@backstage/catalog-model';
+import pluralize from 'pluralize';
 import { ArgoResources } from '../types/resources';
 
 export const enum ArgoCdLabels {

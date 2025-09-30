@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC, MouseEvent } from 'react';
 import {
   Application,
-  RevisionInfo,
   History,
+  RevisionInfo,
 } from '@backstage-community/plugin-redhat-argocd-common';
+import { Entity } from '@backstage/catalog-model';
 import {
   Chip,
-  Typography,
-  Tooltip,
   makeStyles,
   Theme,
+  Tooltip,
+  Typography,
 } from '@material-ui/core';
-import GitLabIcon from '@patternfly/react-icons/dist/esm/icons/gitlab-icon';
 import { Skeleton } from '@material-ui/lab';
+import GitLabIcon from '@patternfly/react-icons/dist/esm/icons/gitlab-icon';
+import type { FC, MouseEvent } from 'react';
 import { getCommitUrl } from '../../utils/utils';
-import { Entity } from '@backstage/catalog-model';
 
 interface CommitLinkProps {
   entity: Entity;

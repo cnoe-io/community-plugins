@@ -18,8 +18,8 @@ import {
   discoveryApiRef,
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
-import { linkerdPluginRef } from '../plugin';
 import { LinkerdClient } from '../api/client';
+import { linkerdPluginRef } from '../plugin';
 
 export const linkerdApi = ApiBlueprint.make({
   params: defineParams =>

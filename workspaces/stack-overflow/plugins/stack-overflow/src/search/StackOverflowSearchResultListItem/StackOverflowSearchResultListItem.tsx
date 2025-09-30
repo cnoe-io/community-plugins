@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-import type { ReactNode } from 'react';
 import { Link } from '@backstage/core-components';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import Box from '@material-ui/core/Box';
-import Chip from '@material-ui/core/Chip';
 import { useAnalytics } from '@backstage/core-plugin-api';
 import type { ResultHighlight } from '@backstage/plugin-search-common';
 import { HighlightedSearchResultText } from '@backstage/plugin-search-react';
+import Box from '@material-ui/core/Box';
+import Chip from '@material-ui/core/Chip';
+import Divider from '@material-ui/core/Divider';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import type { ReactNode } from 'react';
 import { decodeHtml } from '../../util';
 
 /**

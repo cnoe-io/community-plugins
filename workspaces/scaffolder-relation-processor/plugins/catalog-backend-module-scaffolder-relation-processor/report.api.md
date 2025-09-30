@@ -4,12 +4,14 @@
 
 ```ts
 import { BackendFeature } from '@backstage/backend-plugin-api';
-import { CatalogProcessor } from '@backstage/plugin-catalog-node';
-import { CatalogProcessorCache } from '@backstage/plugin-catalog-node';
-import { CatalogProcessorEmit } from '@backstage/plugin-catalog-node';
 import { Entity } from '@backstage/catalog-model';
-import type { EventsService } from '@backstage/plugin-events-node';
 import type { LocationSpec } from '@backstage/plugin-catalog-common';
+import {
+  CatalogProcessor,
+  CatalogProcessorCache,
+  CatalogProcessorEmit,
+} from '@backstage/plugin-catalog-node';
+import type { EventsService } from '@backstage/plugin-events-node';
 
 // @public
 const catalogModuleScaffolderRelationProcessor: BackendFeature;

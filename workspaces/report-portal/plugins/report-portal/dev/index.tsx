@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 import { createDevApp } from '@backstage/dev-utils';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
+import Grid from '@mui/material/Grid';
+import { mockEntity } from '../src/mocks';
 import {
-  reportPortalPlugin,
   ReportPortalGlobalPage,
   ReportPortalOverviewCard,
+  reportPortalPlugin,
 } from '../src/plugin';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { mockEntity } from '../src/mocks';
-import Grid from '@mui/material/Grid';
 
 createDevApp()
   .registerPlugin(reportPortalPlugin)

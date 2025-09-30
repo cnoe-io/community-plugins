@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ReactNode, ComponentType } from 'react';
-import { Navigate, Route } from 'react-router-dom';
-
+import { argocdTranslations } from '@backstage-community/plugin-redhat-argocd/alpha';
 import { createApp } from '@backstage/app-defaults';
 import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
@@ -48,12 +46,12 @@ import {
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { UserSettingsPage } from '@backstage/plugin-user-settings';
-
+import type { ComponentType, ReactNode } from 'react';
+import { Navigate, Route } from 'react-router-dom';
 import { apis } from './apis';
 import { entityPage } from './components/catalog/EntityPage';
 import { Root } from './components/Root';
 import { searchPage } from './components/search/SearchPage';
-import { argocdTranslations } from '@backstage-community/plugin-redhat-argocd/alpha';
 
 const app = createApp({
   apis,

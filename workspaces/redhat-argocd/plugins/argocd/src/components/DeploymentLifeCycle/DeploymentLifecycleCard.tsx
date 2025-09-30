@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
+import {
+  Application,
+  RevisionInfo,
+} from '@backstage-community/plugin-redhat-argocd-common';
 import { useEntity } from '@backstage/plugin-catalog-react';
-
 import {
   Card,
   CardContent,
@@ -26,21 +27,17 @@ import {
   makeStyles,
   Theme,
 } from '@material-ui/core';
-
-import {
-  Application,
-  RevisionInfo,
-} from '@backstage-community/plugin-redhat-argocd-common';
-import { isAppHelmChartType } from '../../utils/utils';
-import AppNamespace from '../Common/AppNamespace';
-import StatusHeading from '../AppStatus/StatusHeading';
-import DeploymentLifecycleHeader from './DeploymentLifecycleHeader';
-import MetadataItem from '../Common/MetadataItem';
-import Metadata from '../Common/Metadata';
-import AppServerLink from '../Common/AppServerLink';
-import AppCommitLink from '../Common/AppCommitLink';
-import MetadataItemWithTooltip from '../Common/MetadataItemWithTooltip';
+import type { FC } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
+import { isAppHelmChartType } from '../../utils/utils';
+import StatusHeading from '../AppStatus/StatusHeading';
+import AppCommitLink from '../Common/AppCommitLink';
+import AppNamespace from '../Common/AppNamespace';
+import AppServerLink from '../Common/AppServerLink';
+import Metadata from '../Common/Metadata';
+import MetadataItem from '../Common/MetadataItem';
+import MetadataItemWithTooltip from '../Common/MetadataItemWithTooltip';
+import DeploymentLifecycleHeader from './DeploymentLifecycleHeader';
 
 const useCardStyles = makeStyles<Theme>(theme =>
   createStyles({

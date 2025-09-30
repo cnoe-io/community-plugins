@@ -14,15 +14,12 @@
  * limitations under the License.
  */
 
-import ReactDOM from 'react-dom/client';
-
 import { createApp } from '@backstage/frontend-defaults';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
-
-import { kafkaApiRef, kafkaDashboardApiRef } from '../../src/api/types';
+import ReactDOM from 'react-dom/client';
 import kafkaPlugin from '../../src/alpha';
-
+import { kafkaApiRef, kafkaDashboardApiRef } from '../../src/api/types';
 import { catalogApi } from './catalogApiMock';
 import { kafkaApi, kafkaDashboardApi } from './kafkaApisMock';
 

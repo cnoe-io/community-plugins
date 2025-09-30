@@ -1,8 +1,8 @@
 import type { Theme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import { makeStyles } from '@mui/styles';
-import { StatisticsBarSegmentProps } from '../statisticsBar.types';
 import { linearGradient } from '../statisticsBar.helpers';
+import { StatisticsBarSegmentProps } from '../statisticsBar.types';
 
 const useStyles = makeStyles<
   Theme,

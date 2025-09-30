@@ -9,22 +9,23 @@
  * State is owned by the parent; this component receives current selections and
  * a setter via props and renders accordingly.
  */
+import { SelectItem } from '@backstage/core-components';
+import Cancel from '@mui/icons-material/Cancel';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
 import Chip from '@mui/material/Chip';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import ListItemText from '@mui/material/ListItemText';
+import type { MenuProps as MUIMenuProps } from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Select from '@mui/material/Select';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import { SelectItem } from '@backstage/core-components';
-import type { MenuProps as MUIMenuProps } from '@mui/material/Menu';
 import type { SelectChangeEvent } from '@mui/material/Select';
-import Cancel from '@mui/icons-material/Cancel';
 import { useTheme } from '@mui/material/styles';
+import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+
 /**
  * Props for ProjectFilterComponent.
  *

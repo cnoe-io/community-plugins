@@ -15,16 +15,16 @@
  */
 
 import {
-  ApiBlueprint,
-  createFrontendPlugin,
-  identityApiRef,
-  discoveryApiRef,
-} from '@backstage/frontend-plugin-api';
-import {
   compatWrapper,
   convertLegacyRouteRef,
   convertLegacyRouteRefs,
 } from '@backstage/core-compat-api';
+import {
+  ApiBlueprint,
+  createFrontendPlugin,
+  discoveryApiRef,
+  identityApiRef,
+} from '@backstage/frontend-plugin-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import { todoApiRef, TodoClient } from '../api';
 import { rootRouteRef } from '../routes';

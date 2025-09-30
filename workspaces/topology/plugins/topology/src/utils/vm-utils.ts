@@ -16,7 +16,6 @@
 import { V1Pod } from '@kubernetes/client-node';
 import * as _ from 'lodash';
 import { flatMap, get, uniq } from 'lodash';
-
 import {
   TEMPLATE_OS_LABEL,
   TEMPLATE_OS_NAME_ANNOTATION,

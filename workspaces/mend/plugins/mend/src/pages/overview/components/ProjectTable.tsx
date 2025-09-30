@@ -1,8 +1,8 @@
-import { Project } from '../../../models';
 import { Table } from '../../../components';
+import { Project } from '../../../models';
 import { ProjectData } from '../../../queries';
-import { projectTableColumnSchema } from './projectTable.schema';
 import { getProjetStatistics } from './projectTable.helpers';
+import { projectTableColumnSchema } from './projectTable.schema';
 
 export const ProjectTable = ({
   projectData,

@@ -5,24 +5,26 @@
 ```ts
 /// <reference types="react" />
 
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { BooleanCheck } from '@backstage-community/plugin-tech-insights-react';
-import { Check } from '@backstage-community/plugin-tech-insights-common';
-import { CheckResult } from '@backstage-community/plugin-tech-insights-common';
-import { CheckResultRenderer } from '@backstage-community/plugin-tech-insights-react';
+import {
+  Check,
+  CheckResult,
+  InsightFacts,
+} from '@backstage-community/plugin-tech-insights-common';
+import {
+  BooleanCheck,
+  CheckResultRenderer,
+  jsonRulesEngineCheckResultRenderer,
+  ResultCheckIconBaseComponentProps,
+  ResultCheckIconProps,
+  ResultLinksMenuInfo,
+  TechInsightsApi,
+  techInsightsApiRef,
+  TechInsightsClient,
+} from '@backstage-community/plugin-tech-insights-react';
 import { Entity } from '@backstage/catalog-model';
-import { InsightFacts } from '@backstage-community/plugin-tech-insights-common';
-import { jsonRulesEngineCheckResultRenderer } from '@backstage-community/plugin-tech-insights-react';
+import { BackstagePlugin, RouteRef } from '@backstage/core-plugin-api';
+import { PropsWithChildren, ReactNode } from 'react';
 import { JSX as JSX_2 } from 'react/jsx-runtime';
-import { PropsWithChildren } from 'react';
-import { ReactNode } from 'react';
-import { ResultCheckIconBaseComponentProps } from '@backstage-community/plugin-tech-insights-react';
-import { ResultCheckIconProps } from '@backstage-community/plugin-tech-insights-react';
-import { ResultLinksMenuInfo } from '@backstage-community/plugin-tech-insights-react';
-import { RouteRef } from '@backstage/core-plugin-api';
-import { TechInsightsApi } from '@backstage-community/plugin-tech-insights-react';
-import { techInsightsApiRef } from '@backstage-community/plugin-tech-insights-react';
-import { TechInsightsClient } from '@backstage-community/plugin-tech-insights-react';
 
 export { BooleanCheck };
 

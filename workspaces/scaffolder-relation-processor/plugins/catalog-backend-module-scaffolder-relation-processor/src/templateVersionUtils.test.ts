@@ -14,20 +14,19 @@
  * limitations under the License.
  */
 
-import type { Entity } from '@backstage/catalog-model';
-import { CatalogClient } from '@backstage/catalog-client';
-import type { NotificationService } from '@backstage/plugin-notifications-node';
 import { mockServices } from '@backstage/backend-test-utils';
-
-import {
-  handleTemplateUpdateNotifications,
-  readScaffolderRelationProcessorConfig,
-} from './templateVersionUtils';
+import { CatalogClient } from '@backstage/catalog-client';
+import type { Entity } from '@backstage/catalog-model';
+import type { NotificationService } from '@backstage/plugin-notifications-node';
 import {
   DEFAULT_NOTIFICATION_DESCRIPTION,
   DEFAULT_NOTIFICATION_ENABLED,
   DEFAULT_NOTIFICATION_TITLE,
 } from './constants';
+import {
+  handleTemplateUpdateNotifications,
+  readScaffolderRelationProcessorConfig,
+} from './templateVersionUtils';
 
 // Mock external dependencies
 jest.mock('@backstage/catalog-client');

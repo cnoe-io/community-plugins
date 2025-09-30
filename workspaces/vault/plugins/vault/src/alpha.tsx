@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
 import {
   ApiBlueprint,
   createFrontendPlugin,
@@ -20,10 +21,8 @@ import {
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
-
-import { isVaultAvailable } from './conditions';
 import { vaultApiRef, VaultClient } from './api';
+import { isVaultAvailable } from './conditions';
 
 /**
  * An API to communicate with the Vault backend.

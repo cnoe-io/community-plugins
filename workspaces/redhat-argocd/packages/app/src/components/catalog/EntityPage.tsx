@@ -13,7 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { JSX } from 'react';
+import {
+  ArgocdDeploymentLifecycle,
+  ArgocdDeploymentSummary,
+  isArgocdConfigured,
+} from '@backstage-community/plugin-redhat-argocd';
 import {
   RELATION_API_CONSUMED_BY,
   RELATION_API_PROVIDED_BY,
@@ -58,6 +62,10 @@ import {
   EntityCatalogGraphCard,
 } from '@backstage/plugin-catalog-graph';
 import {
+  EntityKubernetesContent,
+  isKubernetesAvailable,
+} from '@backstage/plugin-kubernetes';
+import {
   EntityGroupProfileCard,
   EntityMembersListCard,
   EntityOwnershipCard,
@@ -66,19 +74,9 @@ import {
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
-
-import {
-  EntityKubernetesContent,
-  isKubernetesAvailable,
-} from '@backstage/plugin-kubernetes';
-
-import {
-  ArgocdDeploymentLifecycle,
-  ArgocdDeploymentSummary,
-  isArgocdConfigured,
-} from '@backstage-community/plugin-redhat-argocd';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
+import type { JSX } from 'react';
 
 const techdocsContent = (
   <EntityTechdocsContent>

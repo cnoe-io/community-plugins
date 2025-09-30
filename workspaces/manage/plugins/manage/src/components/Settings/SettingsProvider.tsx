@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useContext, createContext, PropsWithChildren, useMemo } from 'react';
+import { createContext, PropsWithChildren, useContext, useMemo } from 'react';
 
 export interface SettingsContext {
   tabs: { path: string; title: string }[];

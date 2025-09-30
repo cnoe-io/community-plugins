@@ -23,7 +23,7 @@ import {
   SearchFilterResultTypeBlueprint,
   SearchResultListItemBlueprint,
 } from '@backstage/plugin-search-react/alpha';
-import { StackOverflowClient, stackOverflowApiRef } from './api';
+import { stackOverflowApiRef, StackOverflowClient } from './api';
 import { StackOverflowIcon } from './icons';
 
 /** @alpha */

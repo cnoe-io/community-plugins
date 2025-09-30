@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { act } from 'react';
-
-import { renderHook } from '@testing-library/react';
-
 import { useKubernetesObjects } from '@backstage/plugin-kubernetes-react';
-
+import { renderHook } from '@testing-library/react';
+import { act } from 'react';
 import { watchResourcesData } from '../__fixtures__/k8sResourcesContextData';
 import { kubernetesObject } from '../__fixtures__/kubernetesObject';
 import { ModelsPlural } from '../models';

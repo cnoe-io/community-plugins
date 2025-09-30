@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+import { mockServices } from '@backstage/backend-test-utils';
 import { ConfigReader } from '@backstage/config';
 import express from 'express';
 import request from 'supertest';
 import { RollbarApi } from '../api';
-import { createRouter } from './router';
 import { RollbarProject, RollbarTopActiveItem } from '../api/types';
-import { mockServices } from '@backstage/backend-test-utils';
+import { createRouter } from './router';
 
 describe('createRouter', () => {
   let rollbarApi: jest.Mocked<RollbarApi>;

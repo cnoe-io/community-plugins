@@ -13,6 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { LighthouseRestApi } from '@backstage-community/plugin-lighthouse-common';
+import {
+  compatWrapper,
+  convertLegacyRouteRef,
+} from '@backstage/core-compat-api';
 import {
   ApiBlueprint,
   configApiRef,
@@ -20,18 +25,13 @@ import {
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
 import {
-  compatWrapper,
-  convertLegacyRouteRef,
-} from '@backstage/core-compat-api';
-import { rootRouteRef } from '../plugin';
-import { lighthouseApiRef } from '../api';
-import { LighthouseRestApi } from '@backstage-community/plugin-lighthouse-common';
-import {
   EntityCardBlueprint,
   EntityContentBlueprint,
 } from '@backstage/plugin-catalog-react/alpha';
-import { isLighthouseAvailable } from '../Router';
 import Highlight from '@material-ui/icons/Highlight';
+import { lighthouseApiRef } from '../api';
+import { rootRouteRef } from '../plugin';
+import { isLighthouseAvailable } from '../Router';
 
 export const lighthousePage = PageBlueprint.make({
   params: {

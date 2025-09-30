@@ -16,7 +16,6 @@
 
 import { render, screen } from '@testing-library/react';
 import type { IncidentsData } from '../../types';
-
 import { IncidentsTableBody } from './IncidentsTableBody';
 
 const mockRows: IncidentsData[] = [

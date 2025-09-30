@@ -14,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -140,9 +139,21 @@ function generateDashboard(workspaces, tiers, latestVersion) {
   }
   const totalUpToDate = workspaces.length - totalOutdated;
 
-  output += generateTierSummary(tiers.tier1.length, '🔴', '≥ 3 minor versions behind');
-  output += generateTierSummary(tiers.tier2.length, '🟠', '2 minor versions behind');
-  output += generateTierSummary(tiers.tier3.length, '🟡', '1 minor version behind');
+  output += generateTierSummary(
+    tiers.tier1.length,
+    '🔴',
+    '≥ 3 minor versions behind',
+  );
+  output += generateTierSummary(
+    tiers.tier2.length,
+    '🟠',
+    '2 minor versions behind',
+  );
+  output += generateTierSummary(
+    tiers.tier3.length,
+    '🟡',
+    '1 minor version behind',
+  );
   output += generateTierSummary(totalUpToDate, '🟢', 'up to date');
   output += '\n';
 

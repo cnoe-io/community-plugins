@@ -13,15 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { ReactElement } from 'react';
-
-import { useState, useRef, useMemo, memo } from 'react';
-
 import { ChartDonut } from '@patternfly/react-charts/victory';
 import { Tooltip } from '@patternfly/react-core';
 import * as _ from 'lodash';
-
+import type { ReactElement } from 'react';
+import { memo, useMemo, useRef, useState } from 'react';
 import { useForceUpdate } from '../../hooks/useForceUpdate';
+import { useTranslation } from '../../hooks/useTranslation';
 import { getSize } from '../../utils/pod-ring-utils';
 import {
   calculateRadius,
@@ -29,8 +27,6 @@ import {
   podStatus,
 } from '../../utils/workload-node-utils';
 import { AllPodStatus, podColor } from './pod';
-import { useTranslation } from '../../hooks/useTranslation';
-
 import './PodStatus.css';
 
 const ANIMATION_DURATION = 350;

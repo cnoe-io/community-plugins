@@ -14,28 +14,22 @@
  * limitations under the License.
  */
 
-import { EntityProvider, catalogApiRef } from '@backstage/plugin-catalog-react';
+import { ServiceAnnotationFieldName } from '@backstage-community/plugin-servicenow-common';
 import {
-  identityApiRef,
   alertApiRef,
   errorApiRef,
+  identityApiRef,
 } from '@backstage/core-plugin-api';
 import { translationApiRef } from '@backstage/core-plugin-api/alpha';
+import { catalogApiRef, EntityProvider } from '@backstage/plugin-catalog-react';
 import { TestApiProvider } from '@backstage/test-utils';
-import { ServiceAnnotationFieldName } from '@backstage-community/plugin-servicenow-common';
-
+import { createTheme, ThemeProvider } from '@material-ui/core';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import { MemoryRouter } from 'react-router-dom';
-
-import { ThemeProvider, createTheme } from '@material-ui/core';
-
 import { of } from 'rxjs';
-
-import { serviceNowApiRef } from '../../api/ServiceNowBackendClient';
 import { mockRefinedIncidentData } from '../../__fixtures__/mockRefinedIncidentData';
-
+import { serviceNowApiRef } from '../../api/ServiceNowBackendClient';
 import { EntityServicenowContent } from './EntityServicenowContent';
 
 const mockEntity = {

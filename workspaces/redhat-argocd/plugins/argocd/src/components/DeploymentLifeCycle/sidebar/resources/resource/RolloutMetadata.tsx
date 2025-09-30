@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
-import { useArgoResources } from '../../rollouts/RolloutContext';
-import Rollout from '../../rollouts/Rollout';
+import { useTranslation } from '../../../../../hooks/useTranslation';
 import { RolloutUI } from '../../../../../types/revision';
-import RolloutStatus from '../../rollouts/RolloutStatus';
 import Metadata from '../../../../Common/Metadata';
 import MetadataItem from '../../../../Common/MetadataItem';
-import { useTranslation } from '../../../../../hooks/useTranslation';
+import Rollout from '../../rollouts/Rollout';
+import { useArgoResources } from '../../rollouts/RolloutContext';
+import RolloutStatus from '../../rollouts/RolloutStatus';
 
 const RolloutMetadata = ({ resource }: { resource: Resource }) => {
   const { rollouts } = useArgoResources();

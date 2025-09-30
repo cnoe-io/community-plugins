@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
-import { IncidentsTableRow } from './IncidentsTableRow';
 import type { IncidentsData } from '../../types';
+import { IncidentsTableRow } from './IncidentsTableRow';
 
 jest.mock('@mui/styles', () => ({
   makeStyles: () => () => ({}),

@@ -14,22 +14,20 @@
  * limitations under the License.
  */
 import {
-  coreServices,
-  createBackendPlugin,
-} from '@backstage/backend-plugin-api';
-import { catalogServiceRef } from '@backstage/plugin-catalog-node';
-
-import {
   ownedEntitesExtensionRef,
   OwnedEntitiesService,
   ownershipExtensionRef,
   OwnershipService,
 } from '@backstage-community/plugin-manage-node';
-
-import { OwnershipServiceImpl } from './services/OwnershipService';
-import { OwnedEntitiesImpl } from './services/OwnedEntities';
-import { ManageServiceImpl } from './services/Manage';
+import {
+  coreServices,
+  createBackendPlugin,
+} from '@backstage/backend-plugin-api';
+import { catalogServiceRef } from '@backstage/plugin-catalog-node';
 import { createRouter } from './router';
+import { ManageServiceImpl } from './services/Manage';
+import { OwnedEntitiesImpl } from './services/OwnedEntities';
+import { OwnershipServiceImpl } from './services/OwnershipService';
 
 /**
  * managePlugin backend plugin

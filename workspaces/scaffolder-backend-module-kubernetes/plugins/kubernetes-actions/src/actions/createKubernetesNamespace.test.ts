@@ -15,11 +15,9 @@
  */
 import type { CatalogClient } from '@backstage/catalog-client';
 import { createMockActionContext } from '@backstage/plugin-scaffolder-node-test-utils';
-
 import type { V1Namespace } from '@kubernetes/client-node';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-
 import {
   convertLabelsToObject,
   createKubernetesNamespaceAction,

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { SchedulerService } from '@backstage/backend-plugin-api';
-import { CATALOG_FILTER_EXISTS, CatalogApi } from '@backstage/catalog-client';
-import { Config } from '@backstage/config';
 import { LighthouseRestApi } from '@backstage-community/plugin-lighthouse-common';
-import { stringifyEntityRef } from '@backstage/catalog-model';
-import { LighthouseAuditScheduleImpl } from '../config';
 import {
   AuthService,
   DiscoveryService,
   LoggerService,
+  SchedulerService,
 } from '@backstage/backend-plugin-api';
+import { CATALOG_FILTER_EXISTS, CatalogApi } from '@backstage/catalog-client';
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import { Config } from '@backstage/config';
+import { LighthouseAuditScheduleImpl } from '../config';
 
 /** @internal */
 export interface CreateLighthouseSchedulerOptions {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import { createDevApp } from '@backstage/dev-utils';
-import { octopusDeployPlugin } from '../src/plugin';
 import { EntityPageOctopusDeploy } from '../src/components/EntityPageOctopusDeploy';
+import { octopusDeployPlugin } from '../src/plugin';
 
 createDevApp()
   .registerPlugin(octopusDeployPlugin)

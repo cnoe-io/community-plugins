@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
-
-import { useState, useMemo } from 'react';
+import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
 import {
   Box,
   Collapse,
@@ -24,15 +22,15 @@ import {
   TableCell,
   TableRow,
 } from '@material-ui/core';
-import moment from 'moment';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-import { ResourceSyncStatus } from './ResourcesSyncStatus';
-import { ResourceHealthStatus } from './ResourcesHealthStatus';
-import { Resource } from '@backstage-community/plugin-redhat-argocd-common';
-import ResourceMetadata from './resource/ResourceMetadata';
+import moment from 'moment';
+import type { FC } from 'react';
+import { useMemo, useState } from 'react';
 import { useTranslation } from '../../../../hooks/useTranslation';
+import ResourceMetadata from './resource/ResourceMetadata';
+import { ResourceHealthStatus } from './ResourcesHealthStatus';
+import { ResourceSyncStatus } from './ResourcesSyncStatus';
 
 type ResourcesTableRowProps = {
   uid: string;

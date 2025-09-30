@@ -18,8 +18,8 @@ import {
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-import { rootRouteRef } from '../plugin';
 import { isSentryAvailable } from '../components';
+import { rootRouteRef } from '../plugin';
 
 /**
  * @alpha

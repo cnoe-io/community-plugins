@@ -13,9 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ComponentProps, ReactNode } from 'react';
-
 import { GaugeCard, GaugePropsGetColor } from '@backstage/core-components';
+import { ComponentProps, ReactNode } from 'react';
 
 /** @public */
 export type GaugeCardProps = Pick<

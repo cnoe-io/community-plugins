@@ -16,20 +16,20 @@
 
 import {
   BulkCheckResponse,
+  Check,
   CheckResult,
   FactSchema,
-  Check,
   InsightFacts,
 } from '@backstage-community/plugin-tech-insights-common';
-import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
-import { ResponseError } from '@backstage/errors';
+import { AuthService } from '@backstage/backend-plugin-api';
 import {
   CompoundEntityRef,
   stringifyEntityRef,
 } from '@backstage/catalog-model';
-import qs from 'qs';
-import { AuthService } from '@backstage/backend-plugin-api';
+import { DiscoveryApi, IdentityApi } from '@backstage/core-plugin-api';
+import { ResponseError } from '@backstage/errors';
 import stableStringify from 'fast-json-stable-stringify';
+import qs from 'qs';
 
 /**
  * Client to fetch data from tech-insights backend

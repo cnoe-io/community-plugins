@@ -1,19 +1,19 @@
-import type { ReactElement, ReactNode, Ref } from 'react';
-import { useRef, forwardRef, useState, useMemo } from 'react';
 import {
-  Table as TableBackstage,
   SelectItem,
+  Table as TableBackstage,
 } from '@backstage/core-components';
-import SvgIcon from '@mui/material/SvgIcon';
-import { ProjectFilterComponent } from './ProjectFilterComponent';
 import type { Theme } from '@mui/material/styles';
+import SvgIcon from '@mui/material/SvgIcon';
 import { makeStyles } from '@mui/styles';
-import { Project, Finding, Statistics } from '../../models';
-import { TableMessage } from './TableMessage';
-import { TableHeader } from './TableHeader';
-import { TablePagination } from './TablePagination';
+import type { ReactElement, ReactNode, Ref } from 'react';
+import { forwardRef, useMemo, useRef, useState } from 'react';
+import { Finding, Project, Statistics } from '../../models';
+import { ProjectFilterComponent } from './ProjectFilterComponent';
 import { tableBackstageIcons, TableIcon } from './table.icons';
 import { TableBar } from './TableBar';
+import { TableHeader } from './TableHeader';
+import { TableMessage } from './TableMessage';
+import { TablePagination } from './TablePagination';
 import { TablePaper } from './TablePaper';
 
 type MaterialTable = {

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FC } from 'react';
 import { Application } from '@backstage-community/plugin-redhat-argocd-common';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+import type { FC } from 'react';
 import { useTranslation } from '../../hooks/useTranslation';
 
 interface AppServerLinkProps {

@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import type { PropsWithChildren } from 'react';
-
 import { useTranslation } from '../../../hooks/useTranslation';
 import './TopologyResourcesTabPanelItem.css';
 

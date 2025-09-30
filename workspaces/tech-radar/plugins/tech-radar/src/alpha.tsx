@@ -15,24 +15,24 @@
  */
 
 import {
+  compatWrapper,
+  convertLegacyRouteRef,
+  convertLegacyRouteRefs,
+} from '@backstage/core-compat-api';
+import {
   discoveryApiRef,
   fetchApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
 import {
   ApiBlueprint,
+  createFrontendPlugin,
   NavItemBlueprint,
   PageBlueprint,
-  createFrontendPlugin,
 } from '@backstage/frontend-plugin-api';
+import MapIcon from '@material-ui/icons/MyLocation';
 import { techRadarApiRef } from './api';
 import { DefaultTechRadarApi } from './defaultApi';
-import {
-  compatWrapper,
-  convertLegacyRouteRef,
-  convertLegacyRouteRefs,
-} from '@backstage/core-compat-api';
-import MapIcon from '@material-ui/icons/MyLocation';
 import { rootRouteRef } from './plugin';
 
 /** @alpha */

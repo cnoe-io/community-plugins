@@ -16,9 +16,9 @@
 import { convertLegacyRouteRefs } from '@backstage/core-compat-api';
 import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
 import {
-  sentryApi,
   entitySentryCard,
   entitySentryContent,
+  sentryApi,
 } from './alpha/index';
 import { rootRouteRef } from './plugin';
 

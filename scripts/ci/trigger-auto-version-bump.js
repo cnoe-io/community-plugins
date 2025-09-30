@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import semver from 'semver';
 import { promises as fs } from 'fs';
 import { EOL } from 'os';
+import semver from 'semver';
 
 const BACKSTAGE_MANIFEST_URL =
   'https://versions.backstage.io/v1/tags/main/manifest.json';

@@ -14,44 +14,40 @@
  * limitations under the License.
  */
 
-import { useEffect, useState, MouseEvent, ChangeEvent } from 'react';
+import {
+  Order,
+  ServiceAnnotationFieldName,
+  SortingOrderEnum,
+} from '@backstage-community/plugin-servicenow-common';
+import { Table } from '@backstage/core-components';
 import { identityApiRef, useApi } from '@backstage/core-plugin-api';
-
 import {
   CatalogFilterLayout,
   useEntity,
 } from '@backstage/plugin-catalog-react';
-import { Table } from '@backstage/core-components';
-
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import TableBody from '@mui/material/TableBody';
-import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 import TablePagination from '@mui/material/TablePagination';
-
-import {
-  Order,
-  SortingOrderEnum,
-  ServiceAnnotationFieldName,
-} from '@backstage-community/plugin-servicenow-common';
-
-import { IncidentsFilter } from './IncidentsFilter';
-import { IncidentsListColumns } from './IncidentsListColumns';
-import { IncidentsTableBody } from './IncidentsTableBody';
-import { IncidentsTableHeader } from './IncidentsTableHeader';
+import TableRow from '@mui/material/TableRow';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { serviceNowApiRef } from '../../api/ServiceNowBackendClient';
+import { useDebouncedValue } from '../../hooks/useDebouncedValue';
+import { useQueryArrayState } from '../../hooks/useQueryArrayState';
+import { useUpdateQueryParams } from '../../hooks/useQueryHelpers';
+import { useQueryState } from '../../hooks/useQueryState';
+import useUserEmail from '../../hooks/useUserEmail';
 import {
   IncidentTableFieldEnum,
   type IncidentsData,
   type IncidentTableField,
 } from '../../types';
 import { buildIncidentQueryParams } from '../../utils/queryParamsUtils';
-import { useDebouncedValue } from '../../hooks/useDebouncedValue';
-import { useQueryState } from '../../hooks/useQueryState';
-import { useQueryArrayState } from '../../hooks/useQueryArrayState';
-import { serviceNowApiRef } from '../../api/ServiceNowBackendClient';
-import useUserEmail from '../../hooks/useUserEmail';
-import { useUpdateQueryParams } from '../../hooks/useQueryHelpers';
+import { IncidentsFilter } from './IncidentsFilter';
+import { IncidentsListColumns } from './IncidentsListColumns';
+import { IncidentsTableBody } from './IncidentsTableBody';
+import { IncidentsTableHeader } from './IncidentsTableHeader';
 
 export const EntityServicenowContent = () => {
   const { entity } = useEntity();

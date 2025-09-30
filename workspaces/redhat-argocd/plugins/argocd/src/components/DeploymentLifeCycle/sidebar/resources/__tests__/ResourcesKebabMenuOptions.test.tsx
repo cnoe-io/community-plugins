@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { render, screen, fireEvent } from '@testing-library/react';
-
-import { ResourcesKebabMenuOptions } from '../ResourcesKebabMenuOptions';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
+import { ResourcesKebabMenuOptions } from '../ResourcesKebabMenuOptions';
 
 jest.mock('../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

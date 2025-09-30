@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 import { Entity, RELATION_OWNED_BY } from '@backstage/catalog-model';
-
 import { arrayify } from '../utils';
 
 /**

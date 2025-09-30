@@ -1,5 +1,3 @@
-import type { Ref } from 'react';
-import { forwardRef } from 'react';
 import AddBox from '@mui/icons-material/AddBox';
 import ArrowUpward from '@mui/icons-material/ArrowUpward';
 import Check from '@mui/icons-material/Check';
@@ -10,12 +8,14 @@ import DeleteOutline from '@mui/icons-material/DeleteOutline';
 import Edit from '@mui/icons-material/Edit';
 import FilterList from '@mui/icons-material/FilterList';
 import FirstPage from '@mui/icons-material/FirstPage';
+import Resize from '@mui/icons-material/Height';
 import LastPage from '@mui/icons-material/LastPage';
 import Remove from '@mui/icons-material/Remove';
+import Retry from '@mui/icons-material/Replay';
 import SaveAlt from '@mui/icons-material/SaveAlt';
 import ViewColumn from '@mui/icons-material/ViewColumn';
-import Retry from '@mui/icons-material/Replay';
-import Resize from '@mui/icons-material/Height';
+import type { Ref } from 'react';
+import { forwardRef } from 'react';
 
 export const tableBackstageIcons = {
   Add: forwardRef((props, ref: Ref<SVGSVGElement>) => (

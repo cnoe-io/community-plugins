@@ -20,7 +20,6 @@ import {
 } from '@backstage/backend-test-utils';
 import express from 'express';
 import request from 'supertest';
-
 import { createRouter } from './router';
 import { ManageService } from './services/Manage';
 

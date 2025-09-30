@@ -19,8 +19,8 @@ import {
   OrganizationGraph,
 } from '@backstage-community/plugin-manage';
 import {
-  manageTechInsightsColumns,
   ManageTechInsightsCards,
+  manageTechInsightsColumns,
   ManageTechInsightsGrid,
 } from '@backstage-community/plugin-manage-module-tech-insights';
 

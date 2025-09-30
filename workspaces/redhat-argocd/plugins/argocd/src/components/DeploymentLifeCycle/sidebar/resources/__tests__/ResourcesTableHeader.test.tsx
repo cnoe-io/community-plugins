@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import { render, screen, fireEvent } from '@testing-library/react';
-
-import { ResourcesTableHeader } from '../ResourcesTableHeader';
 import { Order } from '@backstage-community/plugin-redhat-argocd-common';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { mockUseTranslation } from '../../../../../test-utils/mockTranslations';
+import { ResourcesTableHeader } from '../ResourcesTableHeader';
 
 jest.mock('../../../../../hooks/useTranslation', () => ({
   useTranslation: () => mockUseTranslation(),

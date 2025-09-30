@@ -13,27 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ReactNode, useCallback } from 'react';
-
-import { makeStyles } from '@mui/styles';
-import Box from '@mui/material/Box';
-import Grid, { GridOwnProps } from '@mui/material/Grid';
-import Tooltip from '@mui/material/Tooltip';
-
-import { useApi } from '@backstage/core-plugin-api';
-import { GaugePropsGetColor } from '@backstage/core-components';
 import {
-  useCurrentKinds,
-  useOwnedEntities,
   GaugeCard,
   GaugeCardProps,
   ManageAccordion,
+  useCurrentKinds,
+  useOwnedEntities,
 } from '@backstage-community/plugin-manage-react';
-
-import {
-  ResponsesForCheck,
-  useManageTechInsightsForEntities,
-} from '../ManageProvider/ManageProviderTechInsights';
+import { GaugePropsGetColor } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import Box from '@mui/material/Box';
+import Grid, { GridOwnProps } from '@mui/material/Grid';
+import Tooltip from '@mui/material/Tooltip';
+import { makeStyles } from '@mui/styles';
+import { ReactNode, useCallback } from 'react';
 import { manageTechInsightsApiRef } from '../../api';
 import {
   isTitleAsObject,
@@ -41,6 +34,10 @@ import {
   ManageTechInsightsTitle,
 } from '../../title';
 import { useAccordionTitle } from '../../utils';
+import {
+  ResponsesForCheck,
+  useManageTechInsightsForEntities,
+} from '../ManageProvider/ManageProviderTechInsights';
 
 const useStyles = makeStyles({
   root: {

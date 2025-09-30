@@ -13,15 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import {
-  OctopusEnvironment,
-  OctopusPluginConfig,
-  OctopusProject,
-  OctopusReleaseProgression,
-} from '../../api';
-
 import {
   Link,
   ResponseErrorPanel,
@@ -34,6 +25,14 @@ import {
   Table,
   TableColumn,
 } from '@backstage/core-components';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import {
+  OctopusEnvironment,
+  OctopusPluginConfig,
+  OctopusProject,
+  OctopusReleaseProgression,
+} from '../../api';
 import { OctopusDeployIcon } from '../OctopusDeployIcon';
 
 type ReleaseTableProps = {

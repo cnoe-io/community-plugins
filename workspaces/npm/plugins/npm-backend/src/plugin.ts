@@ -18,7 +18,6 @@ import {
   createBackendPlugin,
 } from '@backstage/backend-plugin-api';
 import { catalogServiceRef } from '@backstage/plugin-catalog-node';
-
 import { createRouter } from './router';
 import { NpmRegistryServiceImpl } from './services/NpmRegistryServiceImpl';
 

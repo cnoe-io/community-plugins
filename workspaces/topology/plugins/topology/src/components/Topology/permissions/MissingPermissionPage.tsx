@@ -30,17 +30,16 @@
  * limitations under the License.
  */
 
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import MissingPermissionImg from '../../../imgs/MissingPermission.svg';
-import { useNavigate } from 'react-router-dom';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/styles';
 import type { Permission } from '@backstage/plugin-permission-common';
-
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../../hooks/useTranslation';
+import MissingPermissionImg from '../../../imgs/MissingPermission.svg';
 import { Trans } from '../../Trans';
 
 const StyledBox = styled(Box)(() => ({

@@ -1,6 +1,6 @@
-import { useRef, useState, useCallback } from 'react';
 import Typography from '@mui/material/Typography';
 import { makeStyles } from '@mui/styles';
+import { useCallback, useRef, useState } from 'react';
 import { Tag, Tooltip } from '../../../components';
 import { useResize } from '../../../hooks';
 

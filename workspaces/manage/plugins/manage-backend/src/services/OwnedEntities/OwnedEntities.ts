@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { OwnedEntitiesService } from '@backstage-community/plugin-manage-node';
+import {
+  BackstageCredentials,
+  BackstageUserPrincipal,
+} from '@backstage/backend-plugin-api';
 import {
   Entity,
   parseEntityRef,
   RELATION_OWNER_OF,
 } from '@backstage/catalog-model';
 import { CatalogService } from '@backstage/plugin-catalog-node';
-
-import { OwnedEntitiesService } from '@backstage-community/plugin-manage-node';
-import {
-  BackstageCredentials,
-  BackstageUserPrincipal,
-} from '@backstage/backend-plugin-api';
 
 export class OwnedEntitiesImpl implements OwnedEntitiesService {
   constructor(private readonly catalog: CatalogService) {}

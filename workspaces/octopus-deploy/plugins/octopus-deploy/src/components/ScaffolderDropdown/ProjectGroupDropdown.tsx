@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import { useState } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
 import { Select, SelectItem } from '@backstage/core-components';
-import { useProjectGroups } from '../../hooks/useProjectGroups';
-import { ScaffolderField } from '@backstage/plugin-scaffolder-react/alpha';
 import { FieldExtensionComponentProps } from '@backstage/plugin-scaffolder-react';
+import { ScaffolderField } from '@backstage/plugin-scaffolder-react/alpha';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import { useState } from 'react';
+import { useProjectGroups } from '../../hooks/useProjectGroups';
 
 export const ProjectGroupDropdown = ({
   onChange,
