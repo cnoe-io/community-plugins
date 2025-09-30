@@ -1,5 +1,29 @@
 # @backstage-community/plugin-sonarqube-backend
 
+## 0.13.0
+
+### Minor Changes
+
+- 28530b1: Backstage version bump to v1.43.2
+
+## 0.12.0
+
+### Minor Changes
+
+- dcffece: Backstage version bump to v1.42.3
+
+## 0.11.0
+
+### Minor Changes
+
+- 6d6b976: Backstage version bump to v1.41.1
+
+## 0.10.0
+
+### Minor Changes
+
+- ad4279b: Backstage version bump to v1.40.2
+
 ## 0.9.2
 
 ### Patch Changes

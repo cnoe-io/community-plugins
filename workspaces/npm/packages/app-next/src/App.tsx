@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import { Navigate } from 'react-router';
 import { createApp } from '@backstage/frontend-defaults';
 import {
@@ -29,7 +28,7 @@ import npmPlugin from '@backstage-community/plugin-npm/alpha';
 const homePageExtension = PageBlueprint.make({
   name: 'homePage',
   params: {
-    defaultPath: '/',
+    path: '/',
     loader: () => Promise.resolve(<Navigate to="catalog" />),
   },
 });

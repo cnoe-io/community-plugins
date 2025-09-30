@@ -20,27 +20,20 @@ const useStyles = makeStyles(_ => ({
   lightMode: {
     '--background': 'white',
     '--input-container': '#282828',
-    '--bot-response': '#F3F3F3',
-    '--user-response': '#A2DCE8',
-    '--greeting-text-color': '#1F3C61',
+    '--bot-response': '#e9e9e9',
+    '--user-response': '#a7e4fa',
+    '--greeting-text-color': '#282828',
     '--tab-bg': 'white',
-    '--tab-text': '#1F3C61',
-    '--tab-hover-bg': 'linear-gradient(to right, #9345E1,#2979C7,#00C4D3)',
+    '--tab-text': '#0078d4',
+    '--tab-hover-bg': 'linear-gradient(to right, #00cad1, #0075ab)',
     '--tab-hover-text': 'rgb(255, 255, 255)',
-    '--tab-outline': '#2979C7',
     '--assistant-message-bg': '#282828',
     '--assistant-message-text': 'white',
-    '--feedback-button-bg':
-      'linear-gradient(to right, #9345E1,#2979C7,#00C4D3)',
+    '--feedback-button-bg': 'linear-gradient(to right, #00cad1, #0075ab)',
     '--feedback-button-text': 'white',
     '--input-bg': '#ffffff',
     '--input-text': '#4d4b4b',
-    '--feedback-option-bg': '#F3F3F3',
-    '--feedback-option-text': '#303030',
-    '--feedback-option-hover-bg': '#d3d3d3',
-    '--feedback-option-selected-bg': '#d3d3d3',
-    '--feedback-option-selected-text': '#303030',
-    '--feedback-option-outline': '#999',
+    '--typing-indicator-color': '#00BFFF',
   },
   darkMode: {
     '--background': '#1d1d1d',
@@ -48,24 +41,22 @@ const useStyles = makeStyles(_ => ({
     '--bot-response': '#3a3939',
     '--user-response': '#525151',
     '--greeting-text-color': 'white',
-    '--tab-bg': '#1d1d1d',
-    '--tab-text': 'white',
-    '--tab-hover-bg': 'linear-gradient(to right, #9345E1,#2979C7,#00C4D3)',
-    '--tab-hover-text': 'white',
-    '--tab-outline': 'linear-gradient(to right, #9345E1,#2979C7,#00C4D3)',
-    '--assistant-message-bg': 'linear-gradient(to right, #1896d1, #0c4d6b)',
+    '--tab-bg': '#2d2d2d',
+    '--tab-text': '#0078d4',
+    '--tab-hover-bg': 'linear-gradient(to right, #00cad1, #0075ab)',
+    '--tab-hover-text': 'rgb(255, 255, 255)',
+    '--assistant-message-bg': '#282828',
     '--assistant-message-text': 'white',
-    '--outline-color': 'black',
-    '--feedback-button-bg': '#2979C7',
+    '--outline-color': '#424242',
+    '--feedback-button-bg': 'linear-gradient(to right, #00cad1, #0075ab)',
     '--feedback-button-text': 'white',
-    '--input-bg': '#1d1d1d',
-    '--input-text': 'white',
-    '--feedback-option-bg': '#3a3939',
-    '--feedback-option-text': 'white',
-    '--feedback-option-hover-bg': '#505050',
-    '--feedback-option-selected-bg': '#d3d3d3',
-    '--feedback-option-selected-text': 'black',
-    '--feedback-option-outline': 'white',
+    '--input-bg': '#1e1e1e',
+    '--input-text': '#ffffff',
+    '--feedback-option-bg': '#2d2d2d',
+    '--feedback-option-text': '#ffffff',
+    '--feedback-option-selected-bg': '#0078d4',
+    '--feedback-option-selected-border': '#0078d4',
+    '--typing-indicator-color': '#00BFFF',
   },
 
   // Specific Classes
@@ -96,15 +87,17 @@ const useStyles = makeStyles(_ => ({
 
   chatPanelMaximized: {
     position: 'fixed',
-    bottom: 0,
+    top: 0,
+    left: 0,
     right: 0,
-    width: '85%',
-    height: '85%',
+    bottom: 0,
+    width: '100vw',
+    height: '100vh',
     backgroundColor: 'var(--background)',
     boxShadow: '0 0 20px rgba(0, 0, 0, 0.1)',
-    transform: 'translateY(100%)',
+    transform: 'translateY(0)',
     transition: 'transform 0.3s ease',
-    zIndex: 999,
+    zIndex: 9999,
     display: 'flex',
     flexDirection: 'column',
     outline: '1px solid var(--outline-color)',
@@ -516,7 +509,7 @@ const useStyles = makeStyles(_ => ({
   dot: {
     width: '8px',
     height: '8px',
-    backgroundColor: '#049fd9',
+    backgroundColor: 'var(--typing-indicator-color, #00BFFF)',
     borderRadius: '50%',
     margin: '0 2px',
     animation: '$blink 1s infinite',
@@ -534,12 +527,45 @@ const useStyles = makeStyles(_ => ({
     },
   },
 
+  typingIndicatorContainer: {
+    padding: '8px 0',
+  },
+
+  typingBar: {
+    backgroundColor: 'var(--typing-indicator-color, #00BFFF)',
+    borderRadius: '6px',
+    opacity: 0.2,
+    animation: '$typingPulse 3s ease-in-out infinite',
+
+    '&:nth-child(1)': {
+      animationDelay: '0s',
+    },
+    '&:nth-child(2)': {
+      animationDelay: '0.5s',
+    },
+    '&:nth-child(3)': {
+      animationDelay: '1s',
+    },
+  },
+
   '@keyframes blink': {
     '0%': {
       opacity: 0.2,
     },
     ' 20%': {
       opacity: 1,
+    },
+    '100%': {
+      opacity: 0.2,
+    },
+  },
+
+  '@keyframes typingPulse': {
+    '0%': {
+      opacity: 0.2,
+    },
+    '50%': {
+      opacity: 0.6,
     },
     '100%': {
       opacity: 0.2,

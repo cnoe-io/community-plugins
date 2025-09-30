@@ -33,21 +33,65 @@ import { SonarQubeTableRow } from './types';
 import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import { sonarqubeTranslationRef } from '../../translation';
 
+/**
+ * Sort function for datetime columns.
+ *
+ * The dates are sorted from oldest to newest.
+ * All undefined values are sorted to the end.
+ * @internal
+ */
+export function datetimeSort<T = SonarQubeTableRow>(
+  dataAccessor: (data: T) => string | undefined,
+) {
+  return (data1: T, data2: T, _type: any) => {
+    const a: number = Date.parse(dataAccessor(data1) || '');
+    const b: number = Date.parse(dataAccessor(data2) || '');
+
+    if (isNaN(a) && isNaN(b)) {
+      return 0; // both NaN
+    } else if (isNaN(a)) {
+      return 1; // only first NaN
+    } else if (isNaN(b)) {
+      return -1; // only second NaN
+    }
+    return a - b;
+  };
+}
+
+/**
+ * Sort function for numeric columns.
+ *
+ * The numbers are sorted from lowest to highest.
+ * All undefined values are sorted to the end.
+ * @internal
+ */
+export function numericSort<T = SonarQubeTableRow>(
+  dataAccessor: (data: T) => string | undefined,
+) {
+  return (data1: T, data2: T, _type: any) => {
+    const a: number = Number(dataAccessor(data1));
+    const b: number = Number(dataAccessor(data2));
+
+    if (isNaN(a) && isNaN(b)) {
+      return 0; // both NaN
+    } else if (isNaN(a)) {
+      return 1; // only first NaN
+    } else if (isNaN(b)) {
+      return -1; // only second NaN
+    }
+    return a - b;
+  };
+}
+
 export const getColumns = (
   t: TranslationFunction<typeof sonarqubeTranslationRef.T>,
 ): TableColumn<SonarQubeTableRow>[] => {
   return [
     {
-      title: t('sonarQubeTable.columnsTitle.component'),
+      title: t('sonarQubeTable.columnsTitle.name'),
       field: 'resolved.name',
       type: 'string',
       highlight: true,
-      align: 'center',
-      width: '25%',
-      cellStyle: {
-        wordBreak: 'inherit',
-        padding: '10px 20px',
-      },
       render: ({ resolved }) => {
         if (!resolved?.name) {
           return null;
@@ -63,44 +107,51 @@ export const getColumns = (
     },
     {
       title: t('sonarQubeTable.columnsTitle.qualityGate'),
-      field: 'resolved?.findings?.metrics.alert_status',
+      field: 'resolved.findings.metrics.alert_status',
       type: 'string',
-      align: 'center',
-      sorting: false,
-      width: '35%',
       render: ({ resolved, id }) => {
         if (resolved?.findings?.metrics) {
-          return (
-            <div>
-              <QualityBadge value={resolved?.findings} />
-              <br />
-              <LastAnalyzedRatingCard value={resolved?.findings} />
-            </div>
-          );
+          return <QualityBadge value={resolved?.findings} compact />;
         }
         return <NoSonarQubeCard value={resolved} sonarQubeComponentKey={id} />;
       },
+    },
+    {
+      title: t('sonarQubeTable.columnsTitle.lastAnalysis'),
+      field: 'resolved.findings.lastAnalysis',
+      align: 'right',
+      type: 'datetime',
+      width: '8%',
+      customSort: datetimeSort(data => data.resolved.findings?.lastAnalysis),
+      render: ({ resolved }) =>
+        resolved?.findings?.metrics && (
+          <LastAnalyzedRatingCard value={resolved?.findings} />
+        ),
     },
     {
       title: t('sonarQubeTable.columnsTitle.bugs'),
       field: 'resolved.findings.metrics.bugs',
       align: 'center',
       type: 'numeric',
-      width: '5%',
+      width: '7%',
+      customSort: numericSort(data => data.resolved.findings?.metrics?.bugs),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <BugReportRatingCard value={resolved?.findings} />
+          <BugReportRatingCard value={resolved?.findings} compact />
         ),
     },
     {
       title: t('sonarQubeTable.columnsTitle.vulnerabilities'),
       field: 'resolved.findings.metrics.vulnerabilities',
       align: 'center',
-      width: '5%',
+      width: '7%',
       type: 'numeric',
+      customSort: numericSort(
+        data => data.resolved.findings?.metrics?.vulnerabilities,
+      ),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <VulnerabilitiesRatingCard value={resolved?.findings} />
+          <VulnerabilitiesRatingCard value={resolved?.findings} compact />
         ),
     },
     {
@@ -108,10 +159,13 @@ export const getColumns = (
       field: 'resolved.findings.metrics.code_smells',
       align: 'center',
       type: 'numeric',
-      width: '5%',
+      width: '7%',
+      customSort: numericSort(
+        data => data.resolved.findings?.metrics?.code_smells,
+      ),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <CodeSmellsRatingCard value={resolved?.findings} />
+          <CodeSmellsRatingCard value={resolved?.findings} compact />
         ),
     },
     {
@@ -119,10 +173,13 @@ export const getColumns = (
       field: 'resolved.findings.metrics.security_hotspots_reviewed',
       align: 'center',
       type: 'numeric',
-      width: '5%',
+      width: '7%',
+      customSort: numericSort(
+        data => data.resolved.findings?.metrics?.security_hotspots_reviewed,
+      ),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <HotspotsReviewed value={resolved?.findings} />
+          <HotspotsReviewed value={resolved?.findings} compact />
         ),
     },
     {
@@ -130,20 +187,27 @@ export const getColumns = (
       field: 'resolved.findings.metrics.coverage',
       align: 'center',
       type: 'numeric',
-      width: '10%',
+      width: '7%',
+      customSort: numericSort(
+        data => data.resolved.findings?.metrics?.coverage,
+      ),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <CoverageRatingCard value={resolved?.findings} />
+          <CoverageRatingCard value={resolved?.findings} compact />
         ),
     },
     {
       title: t('sonarQubeTable.columnsTitle.duplications'),
       field: 'resolved.findings.metrics.duplicated_lines_density',
+      align: 'center',
       type: 'numeric',
-      width: '10%',
+      width: '7%',
+      customSort: numericSort(
+        data => data.resolved.findings?.metrics?.duplicated_lines_density,
+      ),
       render: ({ resolved }) =>
         resolved?.findings?.metrics && (
-          <DuplicationsRatingCard value={resolved?.findings} />
+          <DuplicationsRatingCard value={resolved?.findings} compact />
         ),
     },
   ];

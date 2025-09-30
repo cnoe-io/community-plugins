@@ -4,6 +4,8 @@ metadata:
   name: create-react-app-template-with-timestamp-entityRef
   title: Create React App Template
   description: Create a new CRA website project
+  annotations:
+    backstage.io/template-version: 0.0.1
   tags:
     - react
     - cra
@@ -83,6 +85,11 @@ spec:
           custom.io/annotation: ${{ parameters.annotation }}
           custom.io/other: 'value'
 
+    # this step is an example of using the `catalog:template:version` action
+    - id: version-templateRef
+      name: Append the version of this template to the entityRef
+      action: catalog:template:version
+
     # this step is an example of using the `catalog:scaffolded-from` action
     - id: append-templateRef
       name: Append the entityRef of this template to the entityRef
@@ -92,8 +99,6 @@ spec:
       name: Publish
       action: publish:github
       input:
-        allowedHosts:
-          - github.com
         description: This is ${{ parameters.component_id }}
         repoUrl: ${{ parameters.repoUrl }}
         repoVisibility: public

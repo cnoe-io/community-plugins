@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import logo from '../icons/jarvis.png';
+/* eslint-disable react/react-in-jsx-scope*/
+
+import logo from '../icons/caipe.png';
 import useStyles from './useStyles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -23,10 +25,15 @@ import Button from '@mui/material/Button';
 interface ChatTabsProps {
   handleMessageSubmit: (msg?: string) => void;
   isFullScreen?: boolean;
+  suggestions: string[] | [];
 }
-const suggestions: any[] = [];
+// const suggestions: any[] = ["hello", "bello"];
 
-function ChatTabs({ handleMessageSubmit, isFullScreen }: ChatTabsProps) {
+function ChatTabs({
+  handleMessageSubmit,
+  isFullScreen,
+  suggestions,
+}: ChatTabsProps) {
   const handleTabClick = (message: string) => () => {
     handleMessageSubmit(message);
   };
@@ -36,7 +43,7 @@ function ChatTabs({ handleMessageSubmit, isFullScreen }: ChatTabsProps) {
   if (isFullScreen) {
     return (
       <Box
-        width="60%"
+        width="100%"
         height="100%"
         margin="auto"
         display="flex"
@@ -44,6 +51,7 @@ function ChatTabs({ handleMessageSubmit, isFullScreen }: ChatTabsProps) {
         flexDirection="column"
         justifyItems="center"
         alignItems="center"
+        padding={4}
       >
         <div className={styles.greetingSection}>
           <img className={styles.greetingLogo} src={logo} alt="Logo" />
@@ -51,19 +59,25 @@ function ChatTabs({ handleMessageSubmit, isFullScreen }: ChatTabsProps) {
         </div>
         <Grid
           container
-          display="none"
-          maxHeight="70%"
-          marginBottom={10}
-          gap={2}
+          height="80%"
+          gap={3}
           alignItems="center"
           justifyContent="center"
           overflow="auto"
-          marginBlockEnd="150px"
+          padding={2}
         >
           {suggestions.map(s => (
-            <Grid item key={s} xs={4} sx={{ width: 100, height: 100 }}>
+            <Grid item key={s} xs={12} sm={6} md={4} lg={3} xl={2}>
               <Button
-                style={{ width: '100%', height: '100%' }}
+                style={{
+                  width: '100%',
+                  height: '120px',
+                  minHeight: '80px',
+                  fontSize: '14px',
+                  textAlign: 'center',
+                  whiteSpace: 'normal',
+                  wordWrap: 'break-word',
+                }}
                 className={styles.tabButton}
                 onClick={handleTabClick(s)}
               >
@@ -87,7 +101,17 @@ function ChatTabs({ handleMessageSubmit, isFullScreen }: ChatTabsProps) {
     >
       <div className={styles.greetingSection}>
         <img className={styles.greetingLogo} src={logo} alt="Logo" />
-        <div className={styles.greetingText}>Hi there.</div>
+      </div>
+      <div className={styles.tabs}>
+        {suggestions.map(s => (
+          <Button
+            key={s}
+            className={styles.tabButton}
+            onClick={handleTabClick(s)}
+          >
+            {s}
+          </Button>
+        ))}
       </div>
     </div>
   );

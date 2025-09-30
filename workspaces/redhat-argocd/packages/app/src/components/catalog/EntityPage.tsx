@@ -68,7 +68,13 @@ import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 
 import {
+  EntityKubernetesContent,
+  isKubernetesAvailable,
+} from '@backstage/plugin-kubernetes';
+
+import {
   ArgocdDeploymentLifecycle,
+  ArgocdDeploymentSummary,
   isArgocdConfigured,
 } from '@backstage-community/plugin-redhat-argocd';
 import Button from '@mui/material/Button';
@@ -89,6 +95,10 @@ const cdContent = (
     <EntitySwitch.Case if={e => Boolean(isArgocdConfigured(e))}>
       <Grid item sm={12}>
         <ArgocdDeploymentLifecycle />
+      </Grid>
+      <br />
+      <Grid item sm={12}>
+        <ArgocdDeploymentSummary />
       </Grid>
     </EntitySwitch.Case>
     <EntitySwitch.Case>
@@ -165,6 +175,14 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/cd" title="CD">
       {cdContent}
+    </EntityLayout.Route>
+
+    <EntityLayout.Route
+      path="/kubernetes"
+      title="Kubernetes"
+      if={isKubernetesAvailable}
+    >
+      <EntityKubernetesContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">

@@ -1,5 +1,30 @@
 # @backstage-community/plugin-kiali-backend
 
+## 1.24.0
+
+### Minor Changes
+
+- 7989c3b: Issue #4995 related with cookie token. Make it configurable
+
+## 1.23.0
+
+### Minor Changes
+
+- 1c08f79: Upgrade backstage to 1.39.1
+
+## 1.22.2
+
+### Patch Changes
+
+- 4c49556: Updated dependency `@types/express` to `4.17.23`.
+
+## 1.22.1
+
+### Patch Changes
+
+- 6a59fcf: remove support and lifecycle keywords in package.json
+- 098b200: Updated dependency `@types/express` to `4.17.22`.
+
 ## 1.22.0
 
 ### Minor Changes
