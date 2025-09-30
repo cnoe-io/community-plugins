@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AnnouncementsDatabase } from './AnnouncementsDatabase';
-import { CategoriesDatabase } from './CategoriesDatabase';
 import {
   DatabaseService,
   resolvePackagePath,
 } from '@backstage/backend-plugin-api';
+import { AnnouncementsDatabase } from './AnnouncementsDatabase';
+import { CategoriesDatabase } from './CategoriesDatabase';
+import { TagsDatabase } from './TagsDatabase';
 
 const migrationsDir = resolvePackagePath(
   '@backstage-community/plugin-announcements-backend',
@@ -33,6 +34,7 @@ const migrationsDir = resolvePackagePath(
 export type PersistenceContext = {
   announcementsStore: AnnouncementsDatabase;
   categoriesStore: CategoriesDatabase;
+  tagsStore: TagsDatabase;
 };
 
 /**
@@ -54,5 +56,6 @@ export const initializePersistenceContext = async (
   return {
     announcementsStore: new AnnouncementsDatabase(client),
     categoriesStore: new CategoriesDatabase(client),
+    tagsStore: new TagsDatabase(client),
   };
 };

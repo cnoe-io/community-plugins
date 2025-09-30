@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState } from 'react';
-
+import { RoleBasedPolicy } from '@backstage-community/plugin-rbac-common';
+import { MarkdownContent } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-
 import CloseIcon from '@mui/icons-material/Close';
 import ErrorIcon from '@mui/icons-material/Error';
 import Alert from '@mui/material/Alert';
@@ -29,10 +28,10 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-import { RoleBasedPolicy } from '@backstage-community/plugin-rbac-common';
-
+import { useState } from 'react';
 import { rbacApiRef } from '../../api/RBACBackendClient';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useTranslation } from '../../hooks/useTranslation';
 import { getMembers } from '../../utils/rbac-utils';
 import {
   removeConditions,
@@ -57,6 +56,8 @@ const DeleteRoleDialog = ({
   propOptions,
 }: DeleteRoleDialogProps) => {
   const { setToastMessage } = useToast();
+  const { t } = useTranslation();
+  const locale = useLanguage();
   const [deleteRoleValue, setDeleteRoleValue] = useState<string>();
   const [disableDelete, setDisableDelete] = useState(false);
   const [error, setError] = useState<string>('');
@@ -75,20 +76,20 @@ const DeleteRoleDialog = ({
         const allowedPolicies = policies.filter(
           (policy: RoleBasedPolicy) => policy.effect !== 'deny',
         );
-        await removePermissions(roleName, allowedPolicies, rbacApi);
+        await removePermissions(roleName, allowedPolicies, rbacApi, t);
       }
 
       if (Array.isArray(conditionalPolicies)) {
         const conditionalPoliciesIds = conditionalPolicies.map(cp => cp.id);
-        await removeConditions(conditionalPoliciesIds, rbacApi);
+        await removeConditions(conditionalPoliciesIds, rbacApi, t);
       }
 
       const response = await rbacApi.deleteRole(roleName);
       if (response.status === 200 || response.status === 204) {
-        setToastMessage(`Role ${roleName} deleted successfully`);
+        setToastMessage(t('deleteDialog.successMessage' as any, { roleName }));
         closeDialog();
       } else {
-        setError(`Unable to delete the role. ${response.statusText}`);
+        setError(`${t('errors.deleteRole')} ${response.statusText}`);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : `${err}`);
@@ -106,11 +107,19 @@ const DeleteRoleDialog = ({
     }
   };
 
+  const content = t('deleteDialog.confirmation' as any, {
+    roleName,
+    members: getMembers(propOptions.memberRefs, t).toLocaleLowerCase(
+      locale ?? 'en',
+    ),
+    permissions: propOptions.permissions.toString(),
+  });
+
   return (
     <Dialog maxWidth="md" open={open} onClose={closeDialog}>
       <DialogTitle
         id="delete-role"
-        title="Delete Role"
+        title={t('deleteDialog.title')}
         sx={{
           marginBottom: '0 !important',
           backgroundColor: dialogBackgroundColor,
@@ -135,7 +144,7 @@ const DeleteRoleDialog = ({
               }}
               fontSize="small"
             />{' '}
-            Delete this role?
+            {t('deleteDialog.question')}
           </Typography>
 
           <IconButton
@@ -153,27 +162,7 @@ const DeleteRoleDialog = ({
         </Box>
       </DialogTitle>
       <DialogContent sx={{ backgroundColor: dialogBackgroundColor }}>
-        Are you sure you want to delete the role{' '}
-        <Typography component="span" sx={{ fontWeight: 'bold' }}>
-          {roleName}
-        </Typography>{' '}
-        ?
-        <br />
-        <br />
-        Deleting this role is irreversible and will remove its functionality
-        from the system. Proceed with caution.
-        <br />
-        <br />
-        The{' '}
-        <Typography component="span" sx={{ fontWeight: 'bold' }}>{`${getMembers(
-          propOptions.memberRefs,
-        ).toLocaleLowerCase('en-US')}`}</Typography>{' '}
-        associated with this role will lose access to all the{' '}
-        <Typography
-          component="span"
-          sx={{ fontWeight: 'bold' }}
-        >{`${propOptions.permissions} permission policies`}</Typography>{' '}
-        specified in this role.
+        <MarkdownContent content={content} />
         <br />
         <TextField
           name="delete-role"
@@ -184,9 +173,9 @@ const DeleteRoleDialog = ({
           }}
           required
           variant="outlined"
-          label="Role name"
+          label={t('deleteDialog.roleNameLabel')}
           defaultValue={deleteRoleValue}
-          helperText="Type the name of the role to confirm"
+          helperText={t('deleteDialog.roleNameHelper')}
           onChange={({ target: { value } }) => onTextInput(value)}
           onBlur={({ target: { value } }) => onTextInput(value)}
         />
@@ -215,10 +204,10 @@ const DeleteRoleDialog = ({
           onClick={deleteRole}
           disabled={disableDelete || !deleteRoleValue}
         >
-          Delete
+          {t('deleteDialog.deleteButton')}
         </Button>
         <Button variant="outlined" onClick={closeDialog}>
-          Cancel
+          {t('deleteDialog.cancelButton')}
         </Button>
       </DialogActions>
     </Dialog>

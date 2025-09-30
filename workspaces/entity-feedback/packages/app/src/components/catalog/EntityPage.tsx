@@ -13,8 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { Grid } from '@material-ui/core';
+import {
+  EntityFeedbackResponseContent,
+  EntityLikeDislikeRatingsCard,
+  LikeDislikeButtons,
+} from '@backstage-community/plugin-entity-feedback';
 import { InfoCard } from '@backstage/core-components';
 import {
   EntityAboutCard,
@@ -26,15 +29,15 @@ import {
   EntityHasSystemsCard,
   EntityLayout,
   EntityLinksCard,
-  EntitySwitch,
   EntityOrphanWarning,
   EntityProcessingErrorsPanel,
+  EntityRelationWarning,
+  EntitySwitch,
+  hasCatalogProcessingErrors,
+  hasRelationWarnings,
   isComponentType,
   isKind,
-  hasCatalogProcessingErrors,
   isOrphan,
-  hasRelationWarnings,
-  EntityRelationWarning,
 } from '@backstage/plugin-catalog';
 import {
   EntityGroupProfileCard,
@@ -42,11 +45,7 @@ import {
   EntityOwnershipCard,
   EntityUserProfileCard,
 } from '@backstage/plugin-org';
-import {
-  EntityFeedbackResponseContent,
-  EntityLikeDislikeRatingsCard,
-  LikeDislikeButtons,
-} from '@backstage-community/plugin-entity-feedback';
+import { Grid } from '@material-ui/core';
 
 const entityWarningContent = (
   <>

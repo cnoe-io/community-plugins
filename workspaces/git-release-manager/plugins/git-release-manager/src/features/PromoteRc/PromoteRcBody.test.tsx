@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
 import { mockReleaseCandidateCalver } from '../../test-helpers/test-helpers';
 import { TEST_IDS } from '../../test-helpers/test-ids';
 import { PromoteRcBody } from './PromoteRcBody';

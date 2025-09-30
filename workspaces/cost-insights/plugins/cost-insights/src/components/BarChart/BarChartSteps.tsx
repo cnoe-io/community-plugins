@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import * as React from 'react';
 import { useBarChartStepperStyles as useStyles } from '../../utils/styles';
 
 export type BarChartStepsProps = {

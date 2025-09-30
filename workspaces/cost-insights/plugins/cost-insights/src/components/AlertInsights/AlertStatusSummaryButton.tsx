@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import React, { useState, MouseEventHandler, PropsWithChildren } from 'react';
-import classnames from 'classnames';
 import Button from '@material-ui/core/Button';
 import { default as ExpandMoreIcon } from '@material-ui/icons/ExpandMore';
+import classnames from 'classnames';
+import { MouseEventHandler, PropsWithChildren, useState } from 'react';
 import { useAlertStatusSummaryButtonStyles as useStyles } from '../../utils/styles';
 
 type AlertStatusSummaryButtonProps = {

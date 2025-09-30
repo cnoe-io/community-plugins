@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen } from '@testing-library/react';
-import { AnnouncementsCard } from './AnnouncementsCard';
+import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
+import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
+import { permissionApiRef } from '@backstage/plugin-permission-react';
 import {
   mockApis,
-  TestApiProvider,
   renderInTestApp,
+  TestApiProvider,
 } from '@backstage/test-utils';
-import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
-import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
+import { screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
 import { rootRouteRef } from '../../routes';
-import { permissionApiRef } from '@backstage/plugin-permission-react';
+import { AnnouncementsCard } from './AnnouncementsCard';
 
 const mockAnnouncementsApi = (announcements: AnnouncementsList) => ({
   announcements: jest.fn().mockResolvedValue(announcements),
@@ -93,6 +93,7 @@ describe('AnnouncementsCard', () => {
           created_at: '2025-01-01',
           active: true,
           start_at: '2025-01-01',
+          until_date: '2025-02-01',
         },
         {
           id: '2',
@@ -103,6 +104,7 @@ describe('AnnouncementsCard', () => {
           created_at: '2025-01-02',
           active: true,
           start_at: '2025-01-02',
+          until_date: '2025-02-02',
         },
       ],
     };
@@ -129,6 +131,7 @@ describe('AnnouncementsCard', () => {
           created_at: today,
           active: true,
           start_at: today,
+          until_date: DateTime.now().plus({ days: 7 }).toISODate(),
         },
       ],
     };
@@ -150,6 +153,7 @@ describe('AnnouncementsCard', () => {
           created_at: '2025-01-01',
           active: true,
           start_at: '2025-01-01',
+          until_date: '2025-02-01',
         },
       ],
     };

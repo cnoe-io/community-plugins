@@ -13,13 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SetStateAction, Dispatch } from 'react';
-
 import { PermissionCondition } from '@backstage/plugin-permission-common';
-
 import RemoveIcon from '@mui/icons-material/Remove';
 import IconButton from '@mui/material/IconButton';
-
+import type { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 import {
   getNestedRuleErrors,
   getRowKey,
@@ -74,6 +72,8 @@ export const ComplexConditionRow = ({
   nestedConditionIndex,
   activeNestedCriteria,
 }: ComplexConditionRowProps) => {
+  const { t } = useTranslation();
+
   const handleRemoveSimpleConditionRule = (
     index: number,
     ruleList: PermissionCondition[],
@@ -247,7 +247,7 @@ export const ComplexConditionRow = ({
           updateRules={isNestedCondition ? updateRules : undefined}
         />
         <IconButton
-          title="Remove"
+          title={t('common.remove')}
           sx={{
             color: theme => theme.palette.grey[500],
             flexGrow: 0,

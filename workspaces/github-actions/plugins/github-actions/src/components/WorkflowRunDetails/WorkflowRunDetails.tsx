@@ -15,6 +15,7 @@
  */
 
 import { Entity } from '@backstage/catalog-model';
+import { Breadcrumbs, Link } from '@backstage/core-components';
 import Accordion from '@material-ui/core/Accordion';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -23,24 +24,24 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExternalLinkIcon from '@material-ui/icons/Launch';
 import { DateTime } from 'luxon';
 import { Job, Jobs, Step } from '../../api';
+import { getHostnameFromEntity } from '../getHostnameFromEntity';
 import { getProjectNameFromEntity } from '../getProjectNameFromEntity';
+import { WorkflowRunLogs } from '../WorkflowRunLogs';
 import { WorkflowRunStatus } from '../WorkflowRunStatus';
 import { useWorkflowRunJobs } from './useWorkflowRunJobs';
 import { useWorkflowRunsDetails } from './useWorkflowRunsDetails';
-import { WorkflowRunLogs } from '../WorkflowRunLogs';
-import { Breadcrumbs, Link } from '@backstage/core-components';
-import { getHostnameFromEntity } from '../getHostnameFromEntity';
 
 const useStyles = makeStyles<Theme>(theme => ({
   root: {
@@ -220,6 +221,19 @@ export const WorkflowRunDetails = ({ entity }: { entity: Entity }) => {
                   status={details.value?.status || undefined}
                   conclusion={details.value?.conclusion || undefined}
                 />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>
+                <Typography noWrap>Age</Typography>
+              </TableCell>
+              <TableCell>
+                <Tooltip title={details.value?.updated_at ?? ''}>
+                  <Typography noWrap>{`${(details.value?.updated_at
+                    ? DateTime.fromISO(details.value?.updated_at)
+                    : DateTime.now()
+                  ).toRelative()}`}</Typography>
+                </Tooltip>
               </TableCell>
             </TableRow>
             <TableRow>

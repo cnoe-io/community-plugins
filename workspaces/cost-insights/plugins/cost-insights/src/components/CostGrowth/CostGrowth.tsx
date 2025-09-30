@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import classnames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import { CurrencyType, Duration, GrowthType } from '../../types';
 import { ChangeStatistic } from '@backstage-community/plugin-cost-insights-common';
-import { rateOf } from '../../utils/currency';
-import { growthOf } from '../../utils/change';
-import { useCostGrowthStyles as useStyles } from '../../utils/styles';
-import { formatPercent, formatCurrency } from '../../utils/formatters';
-import { indefiniteArticleOf } from '../../utils/grammar';
+import Typography from '@material-ui/core/Typography';
+import classnames from 'classnames';
 import { useConfig, useCurrency } from '../../hooks';
+import { CurrencyType, Duration, GrowthType } from '../../types';
 import { notEmpty } from '../../utils/assert';
+import { growthOf } from '../../utils/change';
+import { rateOf } from '../../utils/currency';
+import { formatCurrency, formatPercent } from '../../utils/formatters';
+import { indefiniteArticleOf } from '../../utils/grammar';
+import { useCostGrowthStyles as useStyles } from '../../utils/styles';
 
 /** @public */
 export type CostGrowthProps = {

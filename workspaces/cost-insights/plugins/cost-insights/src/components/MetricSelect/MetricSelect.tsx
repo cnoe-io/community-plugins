@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import {
   Maybe,
   Metric,
 } from '@backstage-community/plugin-cost-insights-common';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import type { ChangeEvent } from 'react';
 import { useSelectStyles as useStyles } from '../../utils/styles';
 
 export type MetricSelectProps = {
@@ -38,7 +38,7 @@ export const MetricSelect = ({
 }: MetricSelectProps) => {
   const classes = useStyles();
 
-  function onChange(e: React.ChangeEvent<{ value: unknown }>) {
+  function onChange(e: ChangeEvent<{ value: unknown }>) {
     if (e.target.value === 'none') {
       onSelect(null);
     } else {

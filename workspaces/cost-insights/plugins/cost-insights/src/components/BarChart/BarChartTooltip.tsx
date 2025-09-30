@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import React, { ReactNode, PropsWithChildren } from 'react';
-import classnames from 'classnames';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import classnames from 'classnames';
+import { PropsWithChildren, ReactNode } from 'react';
 import { useTooltipStyles as useStyles } from '../../utils/styles';
 
 /** @public */

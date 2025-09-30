@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { waitFor, screen, render } from '@testing-library/react';
-
+import { errorApiRef } from '@backstage/core-plugin-api';
+import { translationApiRef } from '@backstage/core-plugin-api/alpha';
+import { MockErrorApi, TestApiProvider } from '@backstage/test-utils';
+import { MockTranslationApi } from '@backstage/test-utils/alpha';
+import { render, screen, waitFor } from '@testing-library/react';
+import { mockApiClient } from '../../test-helpers/mock-api-client';
 import {
   mockBumpedTag,
   mockCalverProject,
+  mockCtaMessage,
   mockReleaseBranch,
   mockReleaseCandidateCalver,
   mockReleaseVersionCalver,
   mockTagParts,
-  mockCtaMessage,
 } from '../../test-helpers/test-helpers';
-import { mockApiClient } from '../../test-helpers/mock-api-client';
-import { PatchBody } from './PatchBody';
 import { TEST_IDS } from '../../test-helpers/test-ids';
-import { MockErrorApi, TestApiProvider } from '@backstage/test-utils';
-import { translationApiRef } from '@backstage/core-plugin-api/alpha';
-import { MockTranslationApi } from '@backstage/test-utils/alpha';
-import { errorApiRef } from '@backstage/core-plugin-api';
+import { PatchBody } from './PatchBody';
 
 jest.mock('@backstage/core-plugin-api', () => ({
   ...jest.requireActual('@backstage/core-plugin-api'),

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen, fireEvent, waitFor } from '@testing-library/react';
-import { TestApiProvider, renderInTestApp } from '@backstage/test-utils';
-import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
 import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
+import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { NewAnnouncementBanner } from './NewAnnouncementBanner';
 import { rootRouteRef } from '../../routes';
+import { NewAnnouncementBanner } from './NewAnnouncementBanner';
 
 const mockAnnouncementsApi = (announcements: AnnouncementsList) => ({
   announcements: jest.fn().mockResolvedValue(announcements),
@@ -58,6 +58,7 @@ describe('NewAnnouncementBanner', () => {
           created_at: DateTime.now().toISO(),
           active: true,
           start_at: DateTime.now().toISO(),
+          until_date: DateTime.now().plus({ days: 7 }).toISO(),
         },
       ],
     };
@@ -81,6 +82,7 @@ describe('NewAnnouncementBanner', () => {
           created_at: DateTime.now().toISO(),
           active: true,
           start_at: DateTime.now().toISO(),
+          until_date: DateTime.now().plus({ days: 7 }).toISO(),
         },
       ],
     });

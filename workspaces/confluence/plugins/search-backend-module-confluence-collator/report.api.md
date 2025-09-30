@@ -5,12 +5,17 @@
 ```ts
 /// <reference types="node" />
 
-import { BackendFeature } from '@backstage/backend-plugin-api';
-import { Config } from '@backstage/config';
-import { DocumentCollatorFactory } from '@backstage/plugin-search-common';
-import { IndexableDocument } from '@backstage/plugin-search-common';
-import { LoggerService } from '@backstage/backend-plugin-api';
 import { Readable } from 'stream';
+import {
+  BackendFeature,
+  CacheService,
+  LoggerService,
+} from '@backstage/backend-plugin-api';
+import { Config } from '@backstage/config';
+import {
+  DocumentCollatorFactory,
+  IndexableDocument,
+} from '@backstage/plugin-search-common';
 
 // @public
 export class ConfluenceCollatorFactory implements DocumentCollatorFactory {
@@ -40,10 +45,20 @@ export type ConfluenceCollatorFactoryOptions = {
   parallelismLimit?: number;
   maxRequestsPerSecond?: number;
   logger: LoggerService;
+  cache?: CacheService;
+  documentCacheTtl?: number;
 };
 
 // @public
 export type ConfluenceDocument = ConfluenceDocumentMetadata & {
+  type:
+    | 'page'
+    | 'blogpost'
+    | 'comment'
+    | 'attachment'
+    | 'folder'
+    | 'embed'
+    | 'database';
   body: {
     storage: {
       value: string;
@@ -51,7 +66,10 @@ export type ConfluenceDocument = ConfluenceDocumentMetadata & {
   };
   version: {
     by: {
+      displayName: string;
       publicName: string;
+      email?: string;
+      accountStatus?: string;
     };
     when: string;
     friendlyWhen: string;
@@ -76,12 +94,22 @@ export type ConfluenceDocumentList = {
 
 // @public
 export type ConfluenceDocumentMetadata = {
+  id: string;
   title: string;
   status: string;
   _links: {
-    self: string;
+    base?: string;
     webui: string;
   };
+  version?: {
+    when: string;
+  };
+};
+
+// @public
+export type DocumentMetadata = {
+  url: string;
+  versionWhen?: string;
 };
 
 // @public

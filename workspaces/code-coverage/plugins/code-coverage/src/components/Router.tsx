@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { Entity } from '@backstage/catalog-model';
 import {
-  useEntity,
   MissingAnnotationEmptyState,
+  useEntity,
 } from '@backstage/plugin-catalog-react';
 import { CodeCoveragePage } from './CodeCoveragePage';
 

@@ -5,13 +5,14 @@
 ```ts
 /// <reference types="react" />
 
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { IndexableDocument } from '@backstage/plugin-search-common';
 import { InfoCardVariants } from '@backstage/core-components';
-import { JSX as JSX_2 } from 'react/jsx-runtime';
-import { ResultHighlight } from '@backstage/plugin-search-common';
-import { RouteRef } from '@backstage/core-plugin-api';
+import { BackstagePlugin, RouteRef } from '@backstage/core-plugin-api';
+import {
+  IndexableDocument,
+  ResultHighlight,
+} from '@backstage/plugin-search-common';
 import { SearchResultListItemExtensionProps } from '@backstage/plugin-search-react';
+import { JSX as JSX_2 } from 'react/jsx-runtime';
 
 // @public (undocumented)
 export const AnnouncementsAdminPortal: (
@@ -33,6 +34,7 @@ export const AnnouncementsCard: ({
   variant,
   sortBy,
   order,
+  current,
   hideStartAt,
 }: {
   title?: string | undefined;
@@ -42,6 +44,7 @@ export const AnnouncementsCard: ({
   variant?: InfoCardVariants | undefined;
   sortBy?: 'created_at' | 'start_at' | undefined;
   order?: 'desc' | 'asc' | undefined;
+  current?: boolean | undefined;
   hideStartAt?: boolean | undefined;
 }) => JSX_2.Element;
 
@@ -99,6 +102,7 @@ export const AnnouncementsTimeline: ({
   hideInactive,
   sortBy,
   order,
+  current,
 }: AnnouncementsTimelineProps) => JSX_2.Element;
 
 // @public
@@ -109,6 +113,7 @@ export type AnnouncementsTimelineProps = {
   hideInactive?: boolean;
   sortBy?: 'created_at' | 'start_at';
   order?: 'asc' | 'desc';
+  current?: boolean;
 };
 
 // @public
@@ -120,6 +125,8 @@ export const NewAnnouncementBanner: (props: {
   max?: number | undefined;
   category?: string | undefined;
   active?: boolean | undefined;
+  current?: boolean | undefined;
+  tags?: string[] | undefined;
 }) => JSX_2.Element | null;
 
 // (No @packageDocumentation comment for this package)

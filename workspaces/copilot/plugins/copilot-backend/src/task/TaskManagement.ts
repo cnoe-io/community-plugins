@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Config } from '@backstage/config';
 import { LoggerService } from '@backstage/backend-plugin-api';
+import { Config } from '@backstage/config';
 import { GithubClient } from '../client/GithubClient';
 import { DatabaseHandler } from '../db/DatabaseHandler';
-import { discoverOrganizationMetrics } from './OrganizationTask';
-import { discoverOrganizationTeamMetrics } from './OrganizationTeamTask';
 import { discoverEnterpriseMetrics } from './EnterpriseTask';
 import { discoverEnterpriseTeamMetrics } from './EnterpriseTeamTask';
+import { discoverOrganizationMetrics } from './OrganizationTask';
+import { discoverOrganizationTeamMetrics } from './OrganizationTeamTask';
 
 export type TaskOptions = {
   api: GithubClient;
@@ -57,10 +57,12 @@ export default class TaskManagement {
         if (e instanceof Error) {
           this.options.logger.error(
             `[TaskManagement] Failed to process task: ${e.message}`,
+            e,
           );
         } else {
           this.options.logger.error(
-            `[TaskManagement] Failed to process task: ${e}`,
+            '[TaskManagement] Failed to process task',
+            e,
           );
         }
       }

@@ -36,8 +36,8 @@ To install the plugin using the old method:
 1. In your `packages/backend/src/plugins/copilot.ts` file, add the following code:
 
    ```typescript
-   import { SchedulerServiceTaskScheduleDefinition } from '@backstage/backend-plugin-api';
    import { createRouterFromConfig } from '@backstage-community/plugin-copilot-backend';
+   import { SchedulerServiceTaskScheduleDefinition } from '@backstage/backend-plugin-api';
 
    export default async function createPlugin(): Promise<void> {
      const schedule: SchedulerServiceTaskScheduleDefinition = {
@@ -117,7 +117,7 @@ To ensure the GitHub Copilot plugin operates correctly within your organization 
 
 ```yaml
 copilot:
-  scheduler:
+  schedule:
     frequency:
       hours: 2
     timeout:

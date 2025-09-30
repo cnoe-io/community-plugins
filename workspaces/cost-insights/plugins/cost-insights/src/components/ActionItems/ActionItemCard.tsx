@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { MouseEventHandler } from 'react';
-import classnames from 'classnames';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
+import classnames from 'classnames';
+import { MouseEventHandler } from 'react';
 import { useScroll } from '../../hooks';
 import { Alert } from '../../types';
 import { useActionItemCardStyles as useStyles } from '../../utils/styles';

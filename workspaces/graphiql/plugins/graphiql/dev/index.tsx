@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { createDevApp } from '@backstage/dev-utils';
 import {
-  githubAuthApiRef,
   errorApiRef,
+  githubAuthApiRef,
   IconComponent,
 } from '@backstage/core-plugin-api';
+import { createDevApp } from '@backstage/dev-utils';
 import {
-  graphiqlPlugin,
   GraphiQLIcon,
-  GraphQLEndpoints,
-  graphQlBrowseApiRef,
   GraphiQLPage,
+  graphiqlPlugin,
+  graphQlBrowseApiRef,
+  GraphQLEndpoints,
 } from '../src';
 
 createDevApp()

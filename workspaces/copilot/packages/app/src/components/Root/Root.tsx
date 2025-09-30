@@ -13,20 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren } from 'react';
-import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
-import LogoFull from './LogoFull';
-import LogoIcon from './LogoIcon';
+import { CopilotSidebar } from '@backstage-community/plugin-copilot';
 import {
-  Settings as SidebarSettings,
-  UserSettingsSignInAvatar,
-} from '@backstage/plugin-user-settings';
-import { SidebarSearchModal } from '@backstage/plugin-search';
-import {
+  Link,
   Sidebar,
   sidebarConfig,
   SidebarDivider,
@@ -36,11 +25,21 @@ import {
   SidebarScrollWrapper,
   SidebarSpace,
   useSidebarOpenState,
-  Link,
 } from '@backstage/core-components';
+import { SidebarSearchModal } from '@backstage/plugin-search';
+import {
+  Settings as SidebarSettings,
+  UserSettingsSignInAvatar,
+} from '@backstage/plugin-user-settings';
+import { makeStyles } from '@material-ui/core';
+import ExtensionIcon from '@material-ui/icons/Extension';
+import HomeIcon from '@material-ui/icons/Home';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import { CopilotSidebar } from '@backstage-community/plugin-copilot';
+import { PropsWithChildren } from 'react';
+import LogoFull from './LogoFull';
+import LogoIcon from './LogoIcon';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -83,7 +82,6 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
         <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
         <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
         <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
         {/* End global nav */}
         <SidebarDivider />
         <SidebarScrollWrapper>

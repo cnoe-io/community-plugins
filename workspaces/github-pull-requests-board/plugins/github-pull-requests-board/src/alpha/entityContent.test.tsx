@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen, waitFor } from '@testing-library/react';
+import { Entity } from '@backstage/catalog-model';
 import {
   createExtensionTester,
   renderInTestApp,
   TestApiProvider,
 } from '@backstage/frontend-test-utils';
-import * as content from './entityContent';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { Entity } from '@backstage/catalog-model';
-import React from 'react';
+import { screen, waitFor } from '@testing-library/react';
+import * as content from './entityContent';
 
 jest.mock('../hooks/useUserRepositoriesAndTeam', () => {
   return {

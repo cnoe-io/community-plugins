@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import { LinearProgressWithLabel, testables } from './LinearProgressWithLabel';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { LinearProgressWithLabel, testables } from './LinearProgressWithLabel';
 
 const { ICONS } = testables;
 

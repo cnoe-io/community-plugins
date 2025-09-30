@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 import {
-  MetricsType,
   CopilotMetrics,
+  MetricsType,
 } from '@backstage-community/plugin-copilot-common';
 import { batchInsertInChunks } from '../utils/batchInsert';
 import {
-  filterBaseMetrics,
-  filterNewMetricsV2,
-  filterIdeCompletionMetrics,
-  filterIdeCompletionLanguageMetrics,
-  filterIdeCompletionEditorMetrics,
-  filterIdeCompletionEditorModelMetrics,
-  filterIdeCompletionEditorModelLanguageMetrics,
-  filterIdeChatMetrics,
-  filterIdeEditorMetrics,
-  filterIdeChatEditorModelMetrics,
   convertToSeatAnalysis,
+  filterBaseMetrics,
+  filterIdeChatEditorModelMetrics,
+  filterIdeChatMetrics,
+  filterIdeCompletionEditorMetrics,
+  filterIdeCompletionEditorModelLanguageMetrics,
+  filterIdeCompletionEditorModelMetrics,
+  filterIdeCompletionLanguageMetrics,
+  filterIdeCompletionMetrics,
+  filterIdeEditorMetrics,
+  filterNewMetricsV2,
 } from '../utils/metricHelpers';
 import { TaskOptions } from './TaskManagement';
 
@@ -154,7 +154,8 @@ export async function discoverOrganizationMetrics({
     }
   } catch (error) {
     logger.error(
-      `[discoverOrganizationMetrics] An error occurred while processing Github Copilot metrics: ${error}`,
+      '[discoverOrganizationMetrics] An error occurred while processing Github Copilot metrics',
+      error,
     );
     throw error;
   }

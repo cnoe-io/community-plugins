@@ -13,12 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { PropsWithChildren } from 'react';
-import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import LogoFull from './LogoFull';
-import LogoIcon from './LogoIcon';
 import {
+  Link,
   Sidebar,
   sidebarConfig,
   SidebarDivider,
@@ -27,10 +23,14 @@ import {
   SidebarPage,
   SidebarSpace,
   useSidebarOpenState,
-  Link,
 } from '@backstage/core-components';
-import MenuIcon from '@material-ui/icons/Menu';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { makeStyles } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import MenuIcon from '@material-ui/icons/Menu';
+import { PropsWithChildren } from 'react';
+import LogoFull from './LogoFull';
+import LogoIcon from './LogoIcon';
 
 const useSidebarLogoStyles = makeStyles({
   root: {

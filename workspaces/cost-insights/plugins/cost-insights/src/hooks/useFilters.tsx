@@ -14,7 +14,10 @@
  * limitations under the License.
  */
 
-import React, {
+import { Maybe } from '@backstage-community/plugin-cost-insights-common';
+import Alert from '@material-ui/lab/Alert';
+import {
+  createContext,
   Dispatch,
   PropsWithChildren,
   SetStateAction,
@@ -22,18 +25,16 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { PageFilters, ProductFilters } from '../types';
-import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { PageFilters, ProductFilters } from '../types';
 import {
-  stringify,
-  validate,
   getInitialPageState,
   getInitialProductState,
+  stringify,
+  validate,
 } from '../utils/history';
-import { useGroups } from './useGroups';
 import { useConfig } from './useConfig';
+import { useGroups } from './useGroups';
 
 export type FilterContextProps = {
   pageFilters: PageFilters;
@@ -44,9 +45,9 @@ export type FilterContextProps = {
 
 export type MapFiltersToProps<T> = (props: FilterContextProps) => T;
 
-export const FilterContext = React.createContext<
-  FilterContextProps | undefined
->(undefined);
+export const FilterContext = createContext<FilterContextProps | undefined>(
+  undefined,
+);
 
 export const FilterProvider = ({ children }: PropsWithChildren<{}>) => {
   const config = useConfig();

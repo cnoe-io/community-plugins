@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import pluralize from 'pluralize';
-import { ProjectGrowthAlertChart } from './ProjectGrowthAlertChart';
-import { ProjectGrowthData } from '../../types';
 import { InfoCard } from '@backstage/core-components';
+import pluralize from 'pluralize';
+import { ProjectGrowthData } from '../../types';
+import { ProjectGrowthAlertChart } from './ProjectGrowthAlertChart';
 
 type ProjectGrowthAlertProps = {
   alert: ProjectGrowthData;

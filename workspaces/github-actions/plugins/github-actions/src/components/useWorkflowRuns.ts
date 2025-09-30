@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { errorApiRef, useApi } from '@backstage/core-plugin-api';
+import { DateTime } from 'luxon';
 import { useState } from 'react';
 import useAsyncRetry from 'react-use/esm/useAsyncRetry';
-import { githubActionsApiRef } from '../api/GithubActionsApi';
-import { useApi, errorApiRef } from '@backstage/core-plugin-api';
 import { Branch } from '../api';
+import { githubActionsApiRef } from '../api/GithubActionsApi';
 
 export type WorkflowRun = {
   workflowName?: string;
@@ -33,6 +34,8 @@ export type WorkflowRun = {
     };
   };
   status?: string;
+  statusDate?: string;
+  statusAge?: string;
   conclusion?: string;
   onReRunClick: () => void;
 };
@@ -148,6 +151,12 @@ export function useWorkflowRuns({
         },
       },
       status: run.status ?? undefined,
+      statusDate: run.updated_at,
+      statusAge:
+        (run.updated_at
+          ? DateTime.fromISO(run.updated_at)
+          : DateTime.now()
+        ).toRelative() ?? undefined,
       conclusion: run.conclusion ?? undefined,
       url: run.url,
       githubUrl: run.html_url,

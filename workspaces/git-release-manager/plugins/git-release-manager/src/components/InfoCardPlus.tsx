@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { makeStyles } from '@material-ui/core';
-import { TEST_IDS } from '../test-helpers/test-ids';
 import { InfoCard } from '@backstage/core-components';
+import { makeStyles } from '@material-ui/core';
+import type { ReactNode } from 'react';
+import { TEST_IDS } from '../test-helpers/test-ids';
 
 const useStyles = makeStyles(() => ({
   feature: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 /** @public */
-export const InfoCardPlus = (props: { children?: React.ReactNode }) => {
+export const InfoCardPlus = (props: { children?: ReactNode }) => {
   const classes = useStyles();
 
   return (

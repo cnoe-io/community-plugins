@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ReactNode } from 'react';
-import { formOf } from './alerts';
+import { forwardRef, ReactNode } from 'react';
 import { AlertAcceptForm, AlertDismissForm, AlertSnoozeForm } from '../forms';
-import { Alert, AlertStatus, AlertFormProps } from '../types';
+import { Alert, AlertFormProps, AlertStatus } from '../types';
+import { formOf } from './alerts';
 
 type Props = AlertFormProps<Alert, any>;
 
 const createMockForm = (children: ReactNode) =>
-  React.forwardRef<HTMLFormElement, Props>((props, ref) => (
+  forwardRef<HTMLFormElement, Props>((props, ref) => (
     <form ref={ref} onSubmit={props.onSubmit}>
       {children}
     </form>

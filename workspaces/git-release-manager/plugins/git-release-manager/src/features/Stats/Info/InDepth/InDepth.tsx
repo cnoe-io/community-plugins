@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import {
   Box,
   Button,
@@ -22,13 +21,12 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import { BarChart, Bar, XAxis, YAxis, Legend, Tooltip } from 'recharts';
-
-import { AverageReleaseTime } from './AverageReleaseTime';
+import { Bar, BarChart, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 import { LinearProgressWithLabel } from '../../../../components/ResponseStepDialog/LinearProgressWithLabel';
-import { LongestReleaseTime } from './LongestReleaseTime';
-import { useGetReleaseTimes } from '../hooks/useGetReleaseTimes';
 import { useReleaseStatsContext } from '../../contexts/ReleaseStatsContext';
+import { useGetReleaseTimes } from '../hooks/useGetReleaseTimes';
+import { AverageReleaseTime } from './AverageReleaseTime';
+import { LongestReleaseTime } from './LongestReleaseTime';
 
 export function InDepth() {
   const {

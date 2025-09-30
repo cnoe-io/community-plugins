@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import classnames from 'classnames';
-import Typography, { TypographyProps } from '@material-ui/core/Typography';
-import { default as ArrowDropUp } from '@material-ui/icons/ArrowDropUp';
-import { default as ArrowDropDown } from '@material-ui/icons/ArrowDropDown';
-import { growthOf } from '../../utils/change';
-import { GrowthType } from '../../types';
-import { useCostGrowthStyles as useStyles } from '../../utils/styles';
 import {
   ChangeStatistic,
   Maybe,
 } from '@backstage-community/plugin-cost-insights-common';
+import Typography, { TypographyProps } from '@material-ui/core/Typography';
+import { default as ArrowDropDown } from '@material-ui/icons/ArrowDropDown';
+import { default as ArrowDropUp } from '@material-ui/icons/ArrowDropUp';
+import classnames from 'classnames';
 import { useConfig } from '../../hooks';
+import { GrowthType } from '../../types';
+import { growthOf } from '../../utils/change';
+import { useCostGrowthStyles as useStyles } from '../../utils/styles';
 
 /** @public */
 export type CostGrowthIndicatorProps = TypographyProps & {

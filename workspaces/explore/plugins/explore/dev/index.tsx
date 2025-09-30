@@ -14,87 +14,75 @@
  * limitations under the License.
  */
 
-import { Entity } from '@backstage/catalog-model';
-import { createDevApp } from '@backstage/dev-utils';
-import { CatalogEntityPage, EntityLayout } from '@backstage/plugin-catalog';
-import { CatalogApi, catalogApiRef } from '@backstage/plugin-catalog-react';
-import { exploreToolsConfigRef } from '@backstage-community/plugin-explore-react';
-import { ExplorePage, explorePlugin } from '../src';
-import { exampleTools } from '../src/util/examples';
+import { createApp } from '@backstage/frontend-defaults';
+import {
+  ApiBlueprint,
+  createFrontendModule,
+} from '@backstage/frontend-plugin-api';
+import { catalogApiRef } from '@backstage/plugin-catalog-react';
+import { catalogApiMock } from '@backstage/plugin-catalog-react/testUtils';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
+import ReactDOM from 'react-dom/client';
+import explorePlugin from '../src/alpha';
 
-const catalogApi: Partial<CatalogApi> = {
-  async getEntityByRef(): Promise<Entity | undefined> {
-    return {
-      apiVersion: 'backstage.io/v1alpha1',
-      kind: 'Component',
-      metadata: {
-        name: 'example',
-        annotations: {
-          'backstage.io/managed-by-location': 'file:/path/to/catalog-info.yaml',
-        },
+const components = [
+  {
+    apiVersion: 'backstage.io/v1alpha1',
+    kind: 'Component',
+    metadata: {
+      name: 'example',
+      annotations: {
+        'backstage.io/managed-by-location': 'file:/path/to/catalog-info.yaml',
       },
-      spec: {
-        type: 'service',
-        lifecycle: 'production',
-        owner: 'guest',
-      },
-    } as Entity;
+    },
+    spec: {
+      type: 'service',
+      lifecycle: 'production',
+      owner: 'guest',
+    },
   },
-  async getEntities() {
-    const domainNames = [
-      'playback',
-      'artists',
-      'payments',
-      'analytics',
-      'songs',
-      'devops',
-    ];
-    return {
-      items: domainNames.map(
-        (n, i) =>
-          ({
-            apiVersion: 'backstage.io/v1alpha1',
-            kind: 'Domain',
-            metadata: {
-              name: n,
-              description: `Everything about ${n}`,
-              tags: i % 2 === 0 ? [n] : undefined,
-            },
-            spec: {
-              owner: `${n}@example.com`,
-            },
-          } as Entity),
-      ),
-    };
-  },
-};
+];
 
-createDevApp()
-  .registerPlugin(explorePlugin)
-  .registerApi({
-    api: exploreToolsConfigRef,
-    deps: {},
-    factory: () => ({
-      async getTools() {
-        return exampleTools;
-      },
+const domains = [
+  'playback',
+  'artists',
+  'payments',
+  'analytics',
+  'songs',
+  'devops',
+].map((domainName, domainIndex) => ({
+  apiVersion: 'backstage.io/v1alpha1',
+  kind: 'Domain',
+  metadata: {
+    name: domainName,
+    description: `Everything about ${domainName}`,
+    tags: domainIndex % 2 === 0 ? [domainName] : undefined,
+  },
+  spec: {
+    owner: `${domainName}@example.com`,
+  },
+}));
+
+const catalogApi = catalogApiMock({ entities: [...components, ...domains] });
+
+const catalogPluginOverrides = createFrontendModule({
+  pluginId: 'catalog',
+  extensions: [
+    ApiBlueprint.make({
+      params: defineParams =>
+        defineParams({
+          api: catalogApiRef,
+          deps: {},
+          factory: () => catalogApi,
+        }),
     }),
-  })
-  .registerApi({
-    api: catalogApiRef,
-    deps: {},
-    factory: () => catalogApi as CatalogApi,
-  })
-  .addPage({ element: <ExplorePage />, title: 'Explore' })
-  .addPage({
-    path: '/catalog/:namespace/:kind/:name',
-    element: <CatalogEntityPage />,
-    children: (
-      <EntityLayout>
-        <EntityLayout.Route path="/" title="Overview">
-          <h1>Some Content Here</h1>
-        </EntityLayout.Route>
-      </EntityLayout>
-    ),
-  })
-  .render();
+  ],
+});
+
+const app = createApp({
+  features: [explorePlugin, catalogPlugin, catalogPluginOverrides],
+});
+
+const root = app.createRoot();
+
+ReactDOM.createRoot(document.getElementById('root')!).render(root);

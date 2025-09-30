@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-import React, {
+import { Maybe } from '@backstage-community/plugin-cost-insights-common';
+import { useApi } from '@backstage/core-plugin-api';
+import Alert from '@material-ui/lab/Alert';
+import {
+  createContext,
   PropsWithChildren,
   useContext,
   useEffect,
   useState,
 } from 'react';
 import * as yup from 'yup';
-import Alert from '@material-ui/lab/Alert';
 import { costInsightsApiRef } from '../api';
-import { MapLoadingToProps, useLoading } from './useLoading';
 import { DefaultLoadingAction } from '../utils/loading';
-import { Maybe } from '@backstage-community/plugin-cost-insights-common';
-import { useApi } from '@backstage/core-plugin-api';
+import { MapLoadingToProps, useLoading } from './useLoading';
 
 type BillingDateProviderLoadingProps = {
   dispatchLoadingBillingDate: (isLoading: boolean) => void;
@@ -43,7 +44,7 @@ export type BillingDateContextProps = {
   lastCompleteBillingDate: string; // YYYY-MM-DD
 };
 
-export const BillingDateContext = React.createContext<
+export const BillingDateContext = createContext<
   BillingDateContextProps | undefined
 >(undefined);
 

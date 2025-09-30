@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { createDevApp } from '@backstage/dev-utils';
-import { codeCoveragePlugin, EntityCodeCoverageContent } from '../src/plugin';
 import { CompoundEntityRef, Entity } from '@backstage/catalog-model';
+import { createDevApp } from '@backstage/dev-utils';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { codeCoverageApiRef, CodeCoverageApi } from '../src/api';
+import { CodeCoverageApi, codeCoverageApiRef } from '../src/api';
+import { codeCoveragePlugin, EntityCodeCoverageContent } from '../src/plugin';
 import coverageForEntity from './__fixtures__/coverage-for-entity.json';
 import coverageHistoryForEntity from './__fixtures__/coverage-history-for-entity.json';
 import fileContentFromEntity from './__fixtures__/get-file-content-from-entity';

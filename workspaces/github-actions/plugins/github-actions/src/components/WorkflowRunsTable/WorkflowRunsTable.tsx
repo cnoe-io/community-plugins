@@ -13,29 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import Button from '@material-ui/core/Button';
-import RetryIcon from '@material-ui/icons/Replay';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import { Link as RouterLink } from 'react-router-dom';
-import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
-import { WorkflowRunStatus } from '../WorkflowRunStatus';
-import SyncIcon from '@material-ui/icons/Sync';
-import { buildRouteRef } from '../../routes';
-import { getProjectNameFromEntity } from '../getProjectNameFromEntity';
 import { Entity } from '@backstage/catalog-model';
-
 import {
   EmptyState,
+  Link,
   Table,
   TableColumn,
-  Link,
 } from '@backstage/core-components';
 import { useRouteRef } from '@backstage/core-plugin-api';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import RetryIcon from '@material-ui/icons/Replay';
+import SyncIcon from '@material-ui/icons/Sync';
+import { Link as RouterLink } from 'react-router-dom';
+import { buildRouteRef } from '../../routes';
 import { getHostnameFromEntity } from '../getHostnameFromEntity';
+import { getProjectNameFromEntity } from '../getProjectNameFromEntity';
+import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
+import { WorkflowRunStatus } from '../WorkflowRunStatus';
 import { getStatusDescription } from '../WorkflowRunStatus/WorkflowRunStatus';
 
 // Utility function to truncate string at the first newline character
@@ -96,8 +95,18 @@ const generatedColumns: TableColumn<Partial<WorkflowRun>>[] = [
       return getStatusDescription(d1).localeCompare(getStatusDescription(d2));
     },
     render: row => (
-      <Box display="flex" alignItems="center">
+      <Box display="flex" justifyContent="center" alignItems="center">
         <WorkflowRunStatus status={row.status} conclusion={row.conclusion} />
+      </Box>
+    ),
+  },
+  {
+    title: 'Age',
+    render: row => (
+      <Box display="flex" justifyContent="center" alignItems="center">
+        <Tooltip title={row.statusDate ?? ''}>
+          <Box>{row.statusAge}</Box>
+        </Tooltip>
       </Box>
     ),
   },

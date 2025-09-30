@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { getByRole, screen, waitFor } from '@testing-library/react';
+import { Group } from '@backstage-community/plugin-cost-insights-common';
 import { renderInTestApp } from '@backstage/test-utils';
+import { getByRole, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { PeriodSelect, getDefaultOptions } from './PeriodSelect';
-import { getDefaultPageFilters } from '../../utils/filters';
 import { MockBillingDateProvider } from '../../testUtils';
 import { Duration } from '../../types';
-import { Group } from '@backstage-community/plugin-cost-insights-common';
+import { getDefaultPageFilters } from '../../utils/filters';
+import { getDefaultOptions, PeriodSelect } from './PeriodSelect';
 
 const DefaultPageFilters = getDefaultPageFilters([{ id: 'tools' }] as Group[]);
 const lastCompleteBillingDate = '2020-05-01';

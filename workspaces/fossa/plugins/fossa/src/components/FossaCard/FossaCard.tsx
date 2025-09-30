@@ -15,31 +15,29 @@
  */
 
 import {
-  useEntity,
-  MissingAnnotationEmptyState,
-} from '@backstage/plugin-catalog-react';
-import Grid from '@material-ui/core/Grid';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import { DateTime } from 'luxon';
-import React, { PropsWithChildren } from 'react';
-import useAsync from 'react-use/esm/useAsync';
-import { fossaApiRef } from '../../api';
-import {
-  FOSSA_PROJECT_NAME_ANNOTATION,
-  getProjectName,
-} from '../getProjectName';
-
-import {
   EmptyState,
   InfoCard,
   InfoCardVariants,
   Progress,
   ResponseErrorPanel,
 } from '@backstage/core-components';
-
 import { useApi } from '@backstage/core-plugin-api';
+import {
+  MissingAnnotationEmptyState,
+  useEntity,
+} from '@backstage/plugin-catalog-react';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import { DateTime } from 'luxon';
+import { PropsWithChildren } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import { fossaApiRef } from '../../api';
+import {
+  FOSSA_PROJECT_NAME_ANNOTATION,
+  getProjectName,
+} from '../getProjectName';
 
 const useStyles = makeStyles(theme => ({
   numberError: {

@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { renderInTestApp } from '@backstage/test-utils';
-import { ProductEntityDialog } from './ProductEntityDialog';
-import { screen } from '@testing-library/react';
 import { Entity } from '@backstage-community/plugin-cost-insights-common';
+import { renderInTestApp } from '@backstage/test-utils';
+import { screen } from '@testing-library/react';
 import { MockConfigProvider } from '../../testUtils';
+import { ProductEntityDialog } from './ProductEntityDialog';
 
 const atomicEntity: Entity = {
   id: null,

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FunctionComponent } from 'react';
-import { Typography, Box, Tooltip, Chip } from '@material-ui/core';
-import { getElapsedTime, decorateCommitStatus } from '../../utils/functions';
-import { UserHeader } from '../UserHeader';
-import { DraftPrIcon } from '../icons/DraftPr';
+import { Box, Chip, Tooltip, Typography } from '@material-ui/core';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import { FunctionComponent } from 'react';
+import { decorateCommitStatus, getElapsedTime } from '../../utils/functions';
 import { Label, Status } from '../../utils/types';
+import { DraftPrIcon } from '../icons/DraftPr';
+import { UserHeader } from '../UserHeader';
 import { useFormClasses } from './styles';
 
 type Props = {

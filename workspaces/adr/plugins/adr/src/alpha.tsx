@@ -15,24 +15,23 @@
  */
 
 import {
-  ApiBlueprint,
-  createApiFactory,
-  discoveryApiRef,
-  fetchApiRef,
-  createFrontendPlugin,
-} from '@backstage/frontend-plugin-api';
+  AdrDocument,
+  isAdrAvailable,
+} from '@backstage-community/plugin-adr-common';
 import {
   compatWrapper,
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
-import { SearchResultListItemBlueprint } from '@backstage/plugin-search-react/alpha';
-import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
 import {
-  AdrDocument,
-  isAdrAvailable,
-} from '@backstage-community/plugin-adr-common';
-import { rootRouteRef } from './routes';
+  ApiBlueprint,
+  createFrontendPlugin,
+  discoveryApiRef,
+  fetchApiRef,
+} from '@backstage/frontend-plugin-api';
+import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
+import { SearchResultListItemBlueprint } from '@backstage/plugin-search-react/alpha';
 import { adrApiRef, AdrClient } from './api';
+import { rootRouteRef } from './routes';
 
 export * from './translations';
 
@@ -74,8 +73,8 @@ export const adrSearchResultListItemExtension =
 export const adrEntityContentExtension = EntityContentBlueprint.make({
   name: 'entity',
   params: {
-    defaultPath: '/adrs',
-    defaultTitle: 'ADRs',
+    path: '/adrs',
+    title: 'ADRs',
     filter: isAdrAvailable,
     routeRef: convertLegacyRouteRef(rootRouteRef),
     loader: async () => {
@@ -90,8 +89,8 @@ export const adrEntityContentExtension = EntityContentBlueprint.make({
 /** @alpha */
 export const adrApiExtension = ApiBlueprint.make({
   name: 'adr-api',
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: adrApiRef,
       deps: {
         discoveryApi: discoveryApiRef,
@@ -101,12 +100,11 @@ export const adrApiExtension = ApiBlueprint.make({
         return new AdrClient({ discoveryApi, fetchApi });
       },
     }),
-  },
 });
 
 /** @alpha */
 export default createFrontendPlugin({
-  id: 'adr',
+  pluginId: 'adr',
   extensions: [
     adrSearchResultListItemExtension,
     adrEntityContentExtension,

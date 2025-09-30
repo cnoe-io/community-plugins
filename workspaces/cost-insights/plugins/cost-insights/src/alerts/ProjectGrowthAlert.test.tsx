@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import pluralize from 'pluralize';
 import { renderInTestApp } from '@backstage/test-utils';
-import { ProjectGrowthAlert } from './ProjectGrowthAlert';
-import { ProjectGrowthData } from '../types';
+import pluralize from 'pluralize';
 import {
-  MockCurrencyProvider,
-  MockConfigProvider,
   MockBillingDateProvider,
+  MockConfigProvider,
+  MockCurrencyProvider,
 } from '../testUtils';
+import { ProjectGrowthData } from '../types';
+import { ProjectGrowthAlert } from './ProjectGrowthAlert';
 
 const mockData: ProjectGrowthData = {
   project: 'test-project',

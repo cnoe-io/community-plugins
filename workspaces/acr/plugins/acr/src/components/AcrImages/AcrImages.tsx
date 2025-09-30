@@ -15,10 +15,9 @@
  */
 import { ErrorPanel, Table } from '@backstage/core-components';
 import { Box } from '@material-ui/core';
-import { formatDate } from '@janus-idp/shared-react';
-
 import { useTags } from '../../hooks/useTags';
 import { Tag, TagRow } from '../../types';
+import { formatDate } from '../../utils/acr-utils';
 import { columns } from './tableHeading';
 
 type AcrImagesProps = {

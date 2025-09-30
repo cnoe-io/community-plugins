@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react';
-import Collapse from '@material-ui/core/Collapse';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import Badge from '@material-ui/core/Badge';
-import { useNavigationStyles as useStyles } from '../../utils/styles';
-import { useConfig, useScroll } from '../../hooks';
-import { findAlways } from '../../utils/assert';
-import {
-  DefaultNavigation,
-  NavigationItem,
-  getDefaultNavigationItems,
-} from '../../utils/navigation';
 import {
   Maybe,
   Product,
 } from '@backstage-community/plugin-cost-insights-common';
+import Badge from '@material-ui/core/Badge';
+import Collapse from '@material-ui/core/Collapse';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+import Typography from '@material-ui/core/Typography';
+import { cloneElement, memo, useEffect, useState } from 'react';
+import { useConfig, useScroll } from '../../hooks';
+import { findAlways } from '../../utils/assert';
+import {
+  DefaultNavigation,
+  getDefaultNavigationItems,
+  NavigationItem,
+} from '../../utils/navigation';
+import { useNavigationStyles as useStyles } from '../../utils/styles';
 
 type CostInsightsNavigationProps = {
   alerts: number;
@@ -57,7 +57,7 @@ const NavigationMenuItem = ({ navigation, icon, title }: NavigationItem) => {
   );
 };
 
-export const CostInsightsNavigation = React.memo(
+export const CostInsightsNavigation = memo(
   ({ alerts, products }: CostInsightsNavigationProps) => {
     const classes = useStyles();
     const { icons } = useConfig();
@@ -92,12 +92,12 @@ export const CostInsightsNavigation = React.memo(
             icon={
               item.navigation === DefaultNavigation.AlertInsightsHeader ? (
                 <Badge badgeContent={alerts} color="secondary">
-                  {React.cloneElement(item.icon, {
+                  {cloneElement(item.icon, {
                     className: classes.navigationIcon,
                   })}
                 </Badge>
               ) : (
-                React.cloneElement(item.icon, {
+                cloneElement(item.icon, {
                   className: classes.navigationIcon,
                 })
               )
@@ -109,7 +109,7 @@ export const CostInsightsNavigation = React.memo(
             <NavigationMenuItem
               key={`navigation-menu-item-${item.navigation}`}
               navigation={item.navigation}
-              icon={React.cloneElement(item.icon, {
+              icon={cloneElement(item.icon, {
                 className: classes.navigationIcon,
               })}
               title={item.title}

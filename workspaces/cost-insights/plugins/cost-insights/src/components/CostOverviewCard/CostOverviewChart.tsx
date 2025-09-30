@@ -13,42 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { DateTime } from 'luxon';
-import Box from '@material-ui/core/Box';
-import { useTheme } from '@material-ui/core/styles';
-import {
-  ComposedChart,
-  XAxis,
-  YAxis,
-  Tooltip as RechartsTooltip,
-  CartesianGrid,
-  Area,
-  Line,
-  ResponsiveContainer,
-} from 'recharts';
-import { ChartData, DEFAULT_DATE_FORMAT, CostInsightsTheme } from '../../types';
 import {
   Cost,
   Maybe,
   Metric,
   MetricData,
 } from '@backstage-community/plugin-cost-insights-common';
+import Box from '@material-ui/core/Box';
+import { useTheme } from '@material-ui/core/styles';
+import { DateTime } from 'luxon';
+import {
+  Area,
+  CartesianGrid,
+  ComposedChart,
+  Line,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from 'recharts';
+import { useConfig } from '../../hooks';
+import {
+  ChartData,
+  CostInsightsTheme,
+  DEFAULT_DATE_FORMAT,
+  TooltipRenderer,
+} from '../../types';
+import { groupByDate, trendFrom } from '../../utils/charts';
+import {
+  formatGraphValue,
+  isInvalid,
+  overviewGraphTickFormatter,
+} from '../../utils/graphs';
+import { aggregationSort } from '../../utils/sort';
+import { useCostOverviewStyles as useStyles } from '../../utils/styles';
 import {
   BarChartTooltip as Tooltip,
   BarChartTooltipItem as TooltipItem,
 } from '../BarChart';
-import {
-  overviewGraphTickFormatter,
-  formatGraphValue,
-  isInvalid,
-} from '../../utils/graphs';
-import { useCostOverviewStyles as useStyles } from '../../utils/styles';
-import { groupByDate, trendFrom } from '../../utils/charts';
-import { aggregationSort } from '../../utils/sort';
 import { CostOverviewLegend } from './CostOverviewLegend';
-import { TooltipRenderer } from '../../types';
-import { useConfig } from '../../hooks';
 
 type CostOverviewChartProps = {
   metric: Maybe<Metric>;

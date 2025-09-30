@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { NavItemBlueprint } from '@backstage/frontend-plugin-api/';
 import { convertLegacyRouteRef } from '@backstage/core-compat-api';
+import { NavItemBlueprint } from '@backstage/frontend-plugin-api/';
+import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import { rootRouteRef } from '../routes';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 
 /**
  * @alpha
@@ -25,7 +25,7 @@ export const announcementsNavItem = NavItemBlueprint.make({
   params: {
     title: 'Announcements',
     routeRef: convertLegacyRouteRef(rootRouteRef),
-    icon: NotificationsIcon,
+    icon: RecordVoiceOverIcon,
   },
 });
 

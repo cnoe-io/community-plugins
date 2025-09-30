@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-import { BitriseBuildDetailsDialog } from './BitriseBuildDetailsDialog';
-import { BitriseBuildResult } from '../../api/bitriseApi.model';
 import userEvent from '@testing-library/user-event';
+import { BitriseBuildResult } from '../../api/bitriseApi.model';
+import { BitriseBuildDetailsDialog } from './BitriseBuildDetailsDialog';
 
 jest.mock('../BitriseArtifactsComponent', () => ({
   BitriseArtifactsComponent: (_props: { build: string }) => <>VISIBLE</>,

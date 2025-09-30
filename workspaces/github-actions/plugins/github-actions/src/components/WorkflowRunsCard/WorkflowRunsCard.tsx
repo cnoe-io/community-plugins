@@ -13,34 +13,33 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ChangeEvent, useEffect, useState } from 'react';
-import Typography from '@material-ui/core/Typography';
+import { Entity } from '@backstage/catalog-model';
+import { InfoCard, Link, LinkButton } from '@backstage/core-components';
+import { useRouteRef } from '@backstage/core-plugin-api';
 import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import Grid from '@material-ui/core/Grid';
-import TablePagination from '@material-ui/core/TablePagination';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { LinkButton, Link, InfoCard } from '@backstage/core-components';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import TablePagination from '@material-ui/core/TablePagination';
+import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import GitHubIcon from '@material-ui/icons/GitHub';
+import ExternalLinkIcon from '@material-ui/icons/Launch';
 import RetryIcon from '@material-ui/icons/Replay';
 import SyncIcon from '@material-ui/icons/Sync';
-import ExternalLinkIcon from '@material-ui/icons/Launch';
-import { useRouteRef } from '@backstage/core-plugin-api';
+import Alert, { Color } from '@material-ui/lab/Alert';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { buildRouteRef } from '../../routes';
+import { getHostnameFromEntity } from '../getHostnameFromEntity';
+import { getProjectNameFromEntity } from '../getProjectNameFromEntity';
 import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
 import { WorkflowRunStatus } from '../WorkflowRunStatus';
-import { buildRouteRef } from '../../routes';
-import { getProjectNameFromEntity } from '../getProjectNameFromEntity';
-import { getHostnameFromEntity } from '../getHostnameFromEntity';
-
-import Alert, { Color } from '@material-ui/lab/Alert';
-import { Entity } from '@backstage/catalog-model';
-import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -192,10 +191,25 @@ export const WorkflowRunsCardView = ({
                       {run.id}
                     </Typography>
                   </Box>
-                  <WorkflowRunStatus
-                    status={run.status}
-                    conclusion={run.conclusion}
-                  />
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <WorkflowRunStatus
+                      status={run.status}
+                      conclusion={run.conclusion}
+                    />
+                  </Box>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                  >
+                    <Tooltip title={run.statusDate ?? ''}>
+                      <Box>{run.statusAge}</Box>
+                    </Tooltip>
+                  </Box>
                   <Box
                     display="flex"
                     flexDirection="column"

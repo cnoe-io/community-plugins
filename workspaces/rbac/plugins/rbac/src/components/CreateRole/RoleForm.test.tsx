@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { forwardRef } from 'react';
-
 import { errorApiRef } from '@backstage/core-plugin-api';
 import { translationApiRef } from '@backstage/core-plugin-api/alpha';
 import { MockErrorApi, TestApiProvider } from '@backstage/test-utils';
 import { MockTranslationApi } from '@backstage/test-utils/alpha';
-
 import { fireEvent, render, screen } from '@testing-library/react';
 import { useFormik } from 'formik';
-
+import { forwardRef } from 'react';
+import { mockUseLanguage } from '../../test-utils/mockTranslations';
 import { RoleForm } from './RoleForm';
+
+jest.mock('../../hooks/useLanguage', () => ({
+  useLanguage: mockUseLanguage,
+}));
 
 jest.mock('@mui/styles', () => ({
   ...jest.requireActual('@mui/styles'),

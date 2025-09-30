@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { default as HappyFace } from '@material-ui/icons/SentimentSatisfiedAlt';
-import { renderInTestApp } from '@backstage/test-utils';
-import { CostInsightsNavigation } from './CostInsightsNavigation';
-import { Icon } from '../../types';
 import { Product } from '@backstage-community/plugin-cost-insights-common';
+import { renderInTestApp } from '@backstage/test-utils';
+import { default as HappyFace } from '@material-ui/icons/SentimentSatisfiedAlt';
+import type { ReactNode } from 'react';
 import { MockConfigProvider, MockScrollProvider } from '../../testUtils';
+import { Icon } from '../../types';
 import { getDefaultNavigationItems } from '../../utils/navigation';
+import { CostInsightsNavigation } from './CostInsightsNavigation';
 
 const mockIcons: Icon[] = [
   {
@@ -37,7 +37,7 @@ const mockProducts: Product[] = [
   },
 ];
 
-const renderWrapped = (children: React.ReactNode) =>
+const renderWrapped = (children: ReactNode) =>
   renderInTestApp(
     <MockConfigProvider products={mockProducts} icons={mockIcons}>
       <MockScrollProvider>{children}</MockScrollProvider>

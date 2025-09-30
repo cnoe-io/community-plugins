@@ -13,20 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { ApiBlueprint, githubAuthApiRef } from '@backstage/frontend-plugin-api';
 import { scmIntegrationsApiRef } from '@backstage/integration-react';
-import {
-  ApiBlueprint,
-  createApiFactory,
-  githubAuthApiRef,
-} from '@backstage/frontend-plugin-api';
-import { githubDeploymentsApiRef, GithubDeploymentsApiClient } from '../api';
+import { GithubDeploymentsApiClient, githubDeploymentsApiRef } from '../api';
 
 /**
  * @alpha
  */
 export const githubDeploymentsApiExtension = ApiBlueprint.make({
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: githubDeploymentsApiRef,
       deps: {
         scmIntegrationsApi: scmIntegrationsApiRef,
@@ -35,5 +31,4 @@ export const githubDeploymentsApiExtension = ApiBlueprint.make({
       factory: ({ scmIntegrationsApi, githubAuthApi }) =>
         new GithubDeploymentsApiClient({ scmIntegrationsApi, githubAuthApi }),
     }),
-  },
 });

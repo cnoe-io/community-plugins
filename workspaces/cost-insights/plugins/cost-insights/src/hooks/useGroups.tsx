@@ -14,19 +14,20 @@
  * limitations under the License.
  */
 
-import React, {
+import { Group, Maybe } from '@backstage-community/plugin-cost-insights-common';
+import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
+import { identityApiRef, useApi } from '@backstage/core-plugin-api';
+import Alert from '@material-ui/lab/Alert';
+import {
+  createContext,
   PropsWithChildren,
   useContext,
   useEffect,
   useState,
 } from 'react';
-import Alert from '@material-ui/lab/Alert';
 import { costInsightsApiRef } from '../api';
-import { MapLoadingToProps, useLoading } from './useLoading';
-import { Group, Maybe } from '@backstage-community/plugin-cost-insights-common';
 import { DefaultLoadingAction } from '../utils/loading';
-import { useApi, identityApiRef } from '@backstage/core-plugin-api';
-import { DEFAULT_NAMESPACE, parseEntityRef } from '@backstage/catalog-model';
+import { MapLoadingToProps, useLoading } from './useLoading';
 
 type GroupsProviderLoadingProps = {
   dispatchLoadingGroups: (isLoading: boolean) => void;
@@ -43,9 +44,9 @@ export type GroupsContextProps = {
   groups: Group[];
 };
 
-export const GroupsContext = React.createContext<
-  GroupsContextProps | undefined
->(undefined);
+export const GroupsContext = createContext<GroupsContextProps | undefined>(
+  undefined,
+);
 
 export const GroupsProvider = ({ children }: PropsWithChildren<{}>) => {
   const identityApi = useApi(identityApiRef);

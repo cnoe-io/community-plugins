@@ -15,16 +15,16 @@
  */
 
 import {
-  StatusPending,
-  StatusRunning,
-  StatusOK,
-  StatusWarning,
   StatusAborted,
   StatusError,
+  StatusOK,
+  StatusPending,
+  StatusRunning,
+  StatusWarning,
 } from '@backstage/core-components';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles(() => ({
   statusIcon: {
@@ -40,7 +40,7 @@ export const WorkflowRunStatus = (props: {
 }) => {
   const classes = useStyles();
   return (
-    <Box display="flex" justifyContent="center" alignItems="center">
+    <Box display="flex" alignItems="center">
       <Box className={classes.statusIcon}>
         <WorkflowIcon {...props} />
       </Box>

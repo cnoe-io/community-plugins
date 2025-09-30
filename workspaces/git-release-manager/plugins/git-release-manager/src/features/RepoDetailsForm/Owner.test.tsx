@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { render, waitFor, screen } from '@testing-library/react';
-
+import { render, screen, waitFor } from '@testing-library/react';
+import { useProjectContext } from '../../contexts/ProjectContext';
+import { mockApiClient } from '../../test-helpers/mock-api-client';
 import {
   mockCalverProject,
   mockSearchCalver,
   mockUser,
 } from '../../test-helpers/test-helpers';
 import { TEST_IDS } from '../../test-helpers/test-ids';
-import { useProjectContext } from '../../contexts/ProjectContext';
 import { Owner } from './Owner';
-import { mockApiClient } from '../../test-helpers/mock-api-client';
 
 jest.mock('react-router-dom', () => ({
   useNavigate: jest.fn(),

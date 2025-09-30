@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import Box from '@material-ui/core/Box';
-import { KubernetesMigrationBarChartLegend } from './KubernetesMigrationBarChartLegend';
-import { KubernetesMigrationBarChart } from './KubernetesMigrationBarChart';
-import { KubernetesMigrationData } from '../../alerts';
 import { InfoCard } from '@backstage/core-components';
+import Box from '@material-ui/core/Box';
+import { KubernetesMigrationData } from '../../alerts';
+import { KubernetesMigrationBarChart } from './KubernetesMigrationBarChart';
+import { KubernetesMigrationBarChartLegend } from './KubernetesMigrationBarChartLegend';
 
 type KubernetesMigrationAlertProps = {
   data: KubernetesMigrationData;

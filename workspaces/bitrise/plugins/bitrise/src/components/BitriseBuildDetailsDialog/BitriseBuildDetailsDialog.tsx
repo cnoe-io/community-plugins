@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
-import { BitriseBuildResult } from '../../api/bitriseApi.model';
-import { BitriseArtifactsComponent } from '../BitriseArtifactsComponent';
 import Chip from '@material-ui/core/Chip';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
-import CloudDownload from '@material-ui/icons/CloudDownload';
 import CloseIcon from '@material-ui/icons/Close';
+import CloudDownload from '@material-ui/icons/CloudDownload';
+import { useState } from 'react';
+import { BitriseBuildResult } from '../../api/bitriseApi.model';
+import { BitriseArtifactsComponent } from '../BitriseArtifactsComponent';
 
 type BitriseBuildDetailsDialogProps = {
   build: BitriseBuildResult;

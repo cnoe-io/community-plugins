@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SignalsService } from '@backstage/plugin-signals-node';
-import { AnnouncementModel } from './model';
 import {
   AnnouncementSignal,
   SIGNALS_CHANNEL_ANNOUNCEMENTS,
 } from '@backstage-community/plugin-announcements-common';
+import { SignalsService } from '@backstage/plugin-signals-node';
+import { AnnouncementModel } from './model';
 
 /**
  * Forwards an announcement to the signals service.
@@ -48,6 +48,9 @@ export const signalAnnouncement = async (
         ...announcement,
         created_at: announcement.created_at.toString(),
         start_at: announcement.start_at.toString(),
+        until_date: announcement.until_date
+          ? announcement.until_date.toString()
+          : null,
       },
     },
   });

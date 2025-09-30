@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import { PermissionCondition } from '@backstage/plugin-permission-common';
-
 import { RJSFValidationError } from '@rjsf/utils';
-
 import {
-  conditionButtons,
   criterias,
+  getConditionButtons,
 } from '../components/ConditionalAccess/const';
 import {
   AccessConditionsErrors,
@@ -29,6 +28,7 @@ import {
   NestedCriteriaErrors,
   NotConditionType,
 } from '../components/ConditionalAccess/types';
+import { rbacTranslationRef } from '../translations';
 
 export const ruleOptionDisabled = (
   ruleOption: string,
@@ -37,9 +37,11 @@ export const ruleOptionDisabled = (
   return !!(conditions || []).find(con => con.rule === ruleOption);
 };
 
-export const nestedConditionButtons = conditionButtons.filter(
-  button => button.val !== 'condition',
-);
+export const nestedConditionButtons = (
+  t: TranslationFunction<typeof rbacTranslationRef.T>,
+) => {
+  return getConditionButtons(t).filter(button => button.val !== 'condition');
+};
 
 export const extractNestedConditions = (
   conditions: Condition[],

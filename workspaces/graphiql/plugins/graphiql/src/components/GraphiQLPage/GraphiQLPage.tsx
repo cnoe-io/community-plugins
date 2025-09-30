@@ -13,13 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import { useApi } from '@backstage/core-plugin-api';
 import useAsync from 'react-use/esm/useAsync';
 import 'graphiql/graphiql.css';
-import { graphQlBrowseApiRef } from '../../lib/api';
-import { GraphiQLBrowser } from '../GraphiQLBrowser';
-import Typography from '@material-ui/core/Typography';
 import {
   Content,
   Header,
@@ -27,6 +23,9 @@ import {
   Page,
   Progress,
 } from '@backstage/core-components';
+import Typography from '@material-ui/core/Typography';
+import { graphQlBrowseApiRef } from '../../lib/api';
+import { GraphiQLBrowser } from '../GraphiQLBrowser';
 
 /** @public */
 export const GraphiQLPage = () => {

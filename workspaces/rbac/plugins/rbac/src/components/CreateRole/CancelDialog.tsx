@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { MarkdownContent } from '@backstage/core-components';
 import CloseIcon from '@mui/icons-material/Close';
+import WarningOutlinedIcon from '@mui/icons-material/WarningOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -22,7 +24,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import WarningOutlinedIcon from '@mui/icons-material/WarningOutlined';
+import { useTranslation } from '../../hooks/useTranslation';
 
 type CancelDialogProps = {
   open: boolean;
@@ -37,6 +39,7 @@ const CancelDialog = ({
   closeDialog,
   navigateTo,
 }: CancelDialogProps) => {
+  const { t } = useTranslation();
   const dialogBackgroundColor = (theme: { palette: { mode: string } }) =>
     theme.palette.mode === 'dark' ? '#1b1d21' : '#fff';
 
@@ -45,7 +48,7 @@ const CancelDialog = ({
       <Box sx={{ backgroundColor: dialogBackgroundColor }}>
         <DialogTitle
           id="cancel-dialog"
-          title="Cancel role creation"
+          title={t('dialog.cancelRoleCreation')}
           sx={{
             marginBottom: '0 !important',
             p: 2,
@@ -73,7 +76,9 @@ const CancelDialog = ({
                 }}
                 fontSize="small"
               />{' '}
-              {`Exit role ${editForm ? 'editing' : 'creation'}?`}
+              {editForm
+                ? t('dialog.exitRoleEditing')
+                : t('dialog.exitRoleCreation')}
             </Typography>
 
             <IconButton
@@ -90,10 +95,7 @@ const CancelDialog = ({
           </Box>
         </DialogTitle>
         <DialogContent sx={{ p: 2 }}>
-          Exiting this page will permanently discard the information you
-          entered.
-          <br />
-          Are you sure you want to exit?
+          <MarkdownContent content={t('dialog.exitWarning')} />
         </DialogContent>
         <DialogActions
           sx={{
@@ -102,10 +104,10 @@ const CancelDialog = ({
           }}
         >
           <Button variant="contained" onClick={navigateTo}>
-            Discard
+            {t('dialog.discard')}
           </Button>
           <Button variant="outlined" onClick={closeDialog}>
-            Cancel
+            {t('dialog.cancel')}
           </Button>
         </DialogActions>
       </Box>

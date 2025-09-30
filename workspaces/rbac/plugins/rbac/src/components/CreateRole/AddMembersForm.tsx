@@ -13,18 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useEffect, useMemo } from 'react';
-
 import { stringifyEntityRef } from '@backstage/catalog-model';
-
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import Autocomplete from '@mui/material/Autocomplete';
 import FormHelperText from '@mui/material/FormHelperText';
+import IconButton from '@mui/material/IconButton';
 import LinearProgress from '@mui/material/LinearProgress';
 import TextField from '@mui/material/TextField';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import IconButton from '@mui/material/IconButton';
 import { FormikErrors } from 'formik';
-
+import { useEffect, useMemo, useState } from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useTranslation } from '../../hooks/useTranslation';
+import { rbacTranslationRef } from '../../translations';
 import { MemberEntity } from '../../types';
 import {
   getChildGroupsCount,
@@ -45,34 +46,45 @@ type AddMembersFormProps = {
   ) => Promise<FormikErrors<RoleFormValues>> | Promise<void>;
 };
 
+const getDescription = (
+  member: MemberEntity,
+  t: TranslationFunction<typeof rbacTranslationRef.T>,
+) => {
+  const memberCount = getMembersCount(member);
+  const parentCount = getParentGroupsCount(member);
+  const childCount = getChildGroupsCount(member);
+
+  return member.kind === 'Group'
+    ? [
+        memberCount > 0
+          ? t('common.membersCount' as any, { count: memberCount })
+          : '',
+        parentCount > 0
+          ? t('common.parentGroupCount' as any, { count: parentCount })
+          : '',
+        childCount > 0
+          ? t('common.childGroupsCount' as any, { count: childCount })
+          : '',
+      ]
+        .filter(Boolean) // Remove any empty strings
+        .join(', ')
+    : undefined;
+};
+
 export const AddMembersForm = ({
   selectedMembers,
   selectedMembersError,
   setFieldValue,
   membersData,
 }: AddMembersFormProps) => {
+  const locale = useLanguage();
+  const { t } = useTranslation();
   const [search, setSearch] = useState<string>('');
   const [selectedMember, setSelectedMember] =
     useState<SelectedMember[]>(selectedMembers);
   useEffect(() => {
     setSelectedMember(selectedMembers);
   }, [selectedMembers]);
-
-  const getDescription = (member: MemberEntity) => {
-    const memberCount = getMembersCount(member);
-    const parentCount = getParentGroupsCount(member);
-    const childCount = getChildGroupsCount(member);
-
-    return member.kind === 'Group'
-      ? [
-          memberCount > 0 ? `${memberCount} members` : '',
-          parentCount > 0 ? `${parentCount} parent group` : '',
-          childCount > 0 ? `${childCount} child groups` : '',
-        ]
-          .filter(Boolean) // Remove any empty strings
-          .join(', ')
-      : undefined;
-  };
 
   const membersOptions: SelectedMember[] = useMemo(() => {
     return membersData.members
@@ -83,7 +95,7 @@ export const AddMembersForm = ({
           return {
             id: tag,
             label: member.spec?.profile?.displayName ?? member.metadata.name,
-            description: getDescription(member),
+            description: getDescription(member, t),
             etag: tag,
             type: member.kind,
             namespace: member.metadata.namespace,
@@ -92,21 +104,21 @@ export const AddMembersForm = ({
           };
         })
       : ([] as SelectedMember[]);
-  }, [membersData.members]);
+  }, [membersData.members, t]);
 
   const filteredMembers = useMemo(() => {
     if (search) {
       return membersOptions
         .filter(m =>
           m.label
-            .toLocaleLowerCase('en-US')
-            .includes(search.toLocaleLowerCase('en-US')),
+            .toLocaleLowerCase(locale)
+            .includes(search.toLocaleLowerCase(locale)),
         )
         .slice(0, 99);
     }
 
     return membersOptions.slice(0, 99);
-  }, [membersOptions, search]);
+  }, [membersOptions, search, locale]);
 
   const handleIsOptionEqualToValue = (
     option: SelectedMember,
@@ -118,10 +130,7 @@ export const AddMembersForm = ({
 
   return (
     <>
-      <FormHelperText>
-        Search and select users and groups to be added. Selected users and
-        groups will appear in the table below.
-      </FormHelperText>
+      <FormHelperText>{t('common.searchAndSelectUsersGroups')}</FormHelperText>
       <br />
       <Autocomplete
         disableCloseOnSelect
@@ -147,7 +156,7 @@ export const AddMembersForm = ({
         renderOption={(props, option: SelectedMember, state) => (
           <MembersDropdownOption props={props} option={option} state={state} />
         )}
-        noOptionsText="No users and groups found."
+        noOptionsText={t('common.noUsersAndGroupsFound')}
         clearOnEscape
         renderInput={params => (
           <TextField
@@ -155,7 +164,7 @@ export const AddMembersForm = ({
             {...params}
             name="add-users-and-groups"
             variant="outlined"
-            label="Select users and groups"
+            label={t('common.selectUsersAndGroups')}
             error={!!selectedMembersError}
             helperText={selectedMembersError ?? ''}
             required
@@ -174,7 +183,7 @@ export const AddMembersForm = ({
                       onClick={() => {
                         setSearch('');
                       }}
-                      aria-label="clear search"
+                      aria-label={t('common.clearSearch')}
                     >
                       <HighlightOffIcon fontSize="small" />
                     </IconButton>
@@ -189,7 +198,9 @@ export const AddMembersForm = ({
       <br />
       {membersData.error?.message && (
         <FormHelperText error={!!membersData.error}>
-          {`Error fetching user and groups: ${membersData.error.message}`}
+          {t('common.errorFetchingUserGroups' as any, {
+            error: membersData.error.message,
+          })}
         </FormHelperText>
       )}
     </>

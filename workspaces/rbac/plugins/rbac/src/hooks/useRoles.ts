@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useState, useEffect, useMemo } from 'react';
-import { useAsync, useAsyncRetry, useInterval } from 'react-use';
-
-import { useApi } from '@backstage/core-plugin-api';
-import { usePermission } from '@backstage/plugin-permission-react';
-
 import {
   PluginPermissionMetaData,
   policyEntityCreatePermission,
   Role,
   RoleBasedPolicy,
 } from '@backstage-community/plugin-rbac-common';
-
+import { useApi } from '@backstage/core-plugin-api';
+import { usePermission } from '@backstage/plugin-permission-react';
+import { useEffect, useMemo, useState } from 'react';
+import { useAsync, useAsyncRetry, useInterval } from 'react-use';
 import { rbacApiRef } from '../api/RBACBackendClient';
 import { RolesData } from '../types';
 import {
@@ -80,7 +77,7 @@ export const useRoles = (
     value: members,
     error: membersError,
   } = useAsync(async () => {
-    return await rbacApi.getMembers();
+    return await rbacApi.getMembers(1, 1);
   });
 
   const {
@@ -205,7 +202,7 @@ export const useRoles = (
                     getPluginInfo(
                       permissionPolicies as PluginPermissionMetaData[],
                       po,
-                    ).pluginId,
+                    )?.pluginId,
                 );
                 accPls = [...accPls, ...pls].filter(val => !!val) as string[];
               }

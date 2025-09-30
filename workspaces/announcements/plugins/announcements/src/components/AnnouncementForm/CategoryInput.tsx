@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SetStateAction } from 'react';
-import TextField from '@mui/material/TextField';
-import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import { Category } from '@backstage-community/plugin-announcements-common';
 import {
   useAnnouncementsTranslation,
   useCategories,
 } from '@backstage-community/plugin-announcements-react';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
+import { SetStateAction } from 'react';
 
 type CategoryInputProps = {
   setForm: (
     value: SetStateAction<{
       category: string | undefined;
+      tags: string[] | undefined;
       id: string;
       publisher: string;
       title: string;
@@ -35,10 +36,13 @@ type CategoryInputProps = {
       created_at: string;
       active: boolean;
       start_at: string;
+      until_date: string;
+      sendNotification: boolean;
     }>,
   ) => void;
   form: {
     category: string | undefined;
+    tags: string[] | undefined;
     id: string;
     publisher: string;
     title: string;
@@ -47,6 +51,8 @@ type CategoryInputProps = {
     created_at: string;
     active: boolean;
     start_at: string;
+    until_date: string;
+    sendNotification: boolean;
   };
   initialValue: string;
 };

@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FunctionComponent } from 'react';
-import { Typography, Box, Avatar, makeStyles } from '@material-ui/core';
+import { Avatar, Box, makeStyles, Typography } from '@material-ui/core';
+import { FunctionComponent } from 'react';
 
 type Props = {
   name: string;

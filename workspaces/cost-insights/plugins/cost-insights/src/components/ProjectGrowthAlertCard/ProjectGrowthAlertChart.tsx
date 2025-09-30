@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { DateTime } from 'luxon';
 import Box from '@material-ui/core/Box';
-import { BarChart, BarChartLegend, BarChartLegendOptions } from '../BarChart';
-import { LegendItem } from '../LegendItem';
-import { CostGrowth } from '../CostGrowth';
+import { DateTime } from 'luxon';
 import { Duration, ProjectGrowthData } from '../../types';
-import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
 import { resourceOf } from '../../utils/graphs';
+import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
+import { BarChart, BarChartLegend, BarChartLegendOptions } from '../BarChart';
+import { CostGrowth } from '../CostGrowth';
+import { LegendItem } from '../LegendItem';
 
 type ProjectGrowthAlertChartProps = {
   alert: ProjectGrowthData;

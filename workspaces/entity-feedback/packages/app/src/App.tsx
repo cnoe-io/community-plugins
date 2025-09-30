@@ -13,21 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { Navigate, Route } from 'react-router-dom';
-import { CatalogEntityPage, CatalogIndexPage } from '@backstage/plugin-catalog';
-import { apis } from './apis';
-import { entityPage } from './components/catalog/EntityPage';
-import { Root } from './components/Root';
-
+import { createApp } from '@backstage/app-defaults';
+import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
   AlertDisplay,
   OAuthRequestDialog,
   SignInPage,
 } from '@backstage/core-components';
-import { createApp } from '@backstage/app-defaults';
-import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
+import { CatalogEntityPage, CatalogIndexPage } from '@backstage/plugin-catalog';
 import { NotificationsPage } from '@backstage/plugin-notifications';
+import { Navigate, Route } from 'react-router-dom';
+import { apis } from './apis';
+import { entityPage } from './components/catalog/EntityPage';
+import { Root } from './components/Root';
 
 const app = createApp({
   apis,

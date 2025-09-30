@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { Box, Paper, CardActionArea } from '@material-ui/core';
-import CardHeader from './CardHeader';
+import { Box, CardActionArea, Paper } from '@material-ui/core';
+import { FunctionComponent, PropsWithChildren } from 'react';
+import * as React from 'react';
 import { Label, Status } from '../../utils/types';
+import CardHeader from './CardHeader';
 
 type Props = {
   title: string;

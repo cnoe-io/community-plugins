@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
-import CircularProgress from '@mui/material/CircularProgress';
-import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 import {
   useAnnouncementsTranslation,
   useCatalogEntities,
 } from '@backstage-community/plugin-announcements-react';
-import useAsync from 'react-use/esm/useAsync';
-import { useMemo } from 'react';
 import { stringifyEntityRef } from '@backstage/catalog-model';
+import { identityApiRef, useApi } from '@backstage/core-plugin-api';
+import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useMemo } from 'react';
+import useAsync from 'react-use/esm/useAsync';
 
 type OnBehalfTeamDropdownProps = {
   selectedTeam: string;
@@ -52,7 +52,7 @@ export default function OnBehalfTeamDropdown({
   }, [identityApi]);
 
   const { entities: teams, loading: teamsLoading } = useCatalogEntities(
-    userOwns ?? [], // refs
+    userOwns, // refs
     '', // searchTerm
     25, // limit
     'Group', // kind

@@ -33,10 +33,8 @@ backend.start();
 1. Create a new file `packages/backend/src/plugins/feedback.ts` and add the following:
 
    ```ts title="packages/backend/src/plugins/feedback.ts"
-   import { Router } from 'express';
-
    import { createRouter } from '@backstage-community/plugin-feedback-backend';
-
+   import { Router } from 'express';
    import { PluginEnvironment } from '../types';
 
    export default async function createPlugin(
@@ -79,6 +77,10 @@ feedback:
         # set hostType: CLOUD to make api work
         # default value is SERVER
         hostType: CLOUD
+        # (optional) When using a scoped API token with Jira cloud, provide the API host
+        # in the format https://api.atlassian.com/ex/jira/<cloudId>
+        # Defaults to the value of host if not set.
+        apiHost: ${JIRA_API_HOST_URL}
 
     email:
       ## Email integration uses nodemailer to send emails

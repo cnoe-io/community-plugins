@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import { Differ } from './Differ';
-import { TEST_IDS } from '../test-helpers/test-ids';
 import {
   mockReleaseCandidateCalver,
   mockReleaseVersionCalver,
   mockReleaseVersionSemver,
 } from '../test-helpers/test-helpers';
+import { TEST_IDS } from '../test-helpers/test-ids';
+import { Differ } from './Differ';
 
 describe('Differ', () => {
   it('should render icon and `none` for missing current & next', () => {

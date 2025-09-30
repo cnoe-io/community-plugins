@@ -15,6 +15,7 @@
  */
 
 import { Entity, RELATION_OWNED_BY } from '@backstage/catalog-model';
+import { Content, Header, Page } from '@backstage/core-components';
 import { createDevApp } from '@backstage/dev-utils';
 import {
   CatalogApi,
@@ -22,12 +23,10 @@ import {
   EntityProvider,
 } from '@backstage/plugin-catalog-react';
 import Grid from '@material-ui/core/Grid';
-import React from 'react';
 import { EntityFossaCard, fossaPlugin } from '../src';
 import { FindingSummary, FossaApi, fossaApiRef } from '../src/api';
 import { FossaPage } from '../src/components/FossaPage';
 import { FOSSA_PROJECT_NAME_ANNOTATION } from '../src/components/getProjectName';
-import { Content, Header, Page } from '@backstage/core-components';
 
 const entity = (name?: string) =>
   ({

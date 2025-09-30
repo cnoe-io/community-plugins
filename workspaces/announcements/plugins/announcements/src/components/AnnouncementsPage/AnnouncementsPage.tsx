@@ -13,53 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { MouseEvent, useState, ReactNode } from 'react';
-import { useLocation } from 'react-router-dom';
-import { usePermission } from '@backstage/plugin-permission-react';
 import {
-  announcementCreatePermission,
-  announcementUpdatePermission,
-  announcementDeletePermission,
   Announcement,
+  announcementCreatePermission,
+  announcementDeletePermission,
+  announcementUpdatePermission,
 } from '@backstage-community/plugin-announcements-common';
-import { DateTime } from 'luxon';
-import {
-  Page,
-  Header,
-  Content,
-  Link,
-  ItemCardGrid,
-  Progress,
-  ContentHeader,
-  LinkButton,
-} from '@backstage/core-components';
-import { alertApiRef, useApi, useRouteRef } from '@backstage/core-plugin-api';
-import {
-  EntityPeekAheadPopover,
-  EntityRefLink,
-} from '@backstage/plugin-catalog-react';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {
-  announcementCreateRouteRef,
-  announcementEditRouteRef,
-  announcementViewRouteRef,
-  rootRouteRef,
-} from '../../routes';
-import { DeleteAnnouncementDialog } from './DeleteAnnouncementDialog';
-import { useDeleteAnnouncementDialogState } from './useDeleteAnnouncementDialogState';
-import { ContextMenu } from './ContextMenu';
 import {
   announcementsApiRef,
   useAnnouncements,
   useAnnouncementsTranslation,
 } from '@backstage-community/plugin-announcements-react';
 import {
+  Content,
+  ContentHeader,
+  Header,
+  ItemCardGrid,
+  Link,
+  LinkButton,
+  Page,
+  Progress,
+} from '@backstage/core-components';
+import { alertApiRef, useApi, useRouteRef } from '@backstage/core-plugin-api';
+import { EntityRefLink } from '@backstage/plugin-catalog-react';
+import { usePermission } from '@backstage/plugin-permission-react';
+import {
   Box,
   Card,
   CardContent,
   CardHeader,
+  Chip,
   IconButton,
   ListItemIcon,
   makeStyles,
@@ -68,9 +51,24 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Alert, Pagination } from '@material-ui/lab';
-import { formatAnnouncementStartTime } from '../utils/announcementDateUtils';
+import { DateTime } from 'luxon';
+import { MouseEvent, ReactNode, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import {
+  announcementCreateRouteRef,
+  announcementEditRouteRef,
+  announcementViewRouteRef,
+  rootRouteRef,
+} from '../../routes';
 import { MarkdownRendererTypeProps } from '../MarkdownRenderer/MarkdownRenderer';
+import { formatAnnouncementStartTime } from '../utils/announcementDateUtils';
+import { ContextMenu } from './ContextMenu';
+import { DeleteAnnouncementDialog } from './DeleteAnnouncementDialog';
+import { useDeleteAnnouncementDialogState } from './useDeleteAnnouncementDialogState';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -129,14 +127,10 @@ const AnnouncementCard = ({
     <>
       <Typography variant="body2" color="textSecondary" component="span">
         {t('announcementsPage.card.by')}{' '}
-        <EntityPeekAheadPopover
+        <EntityRefLink
           entityRef={announcement.on_behalf_of || announcement.publisher}
-        >
-          <EntityRefLink
-            entityRef={announcement.on_behalf_of || announcement.publisher}
-            hideIcon
-          />
-        </EntityPeekAheadPopover>
+          hideIcon
+        />
         {announcement.category && (
           <>
             {' '}
@@ -164,6 +158,23 @@ const AnnouncementCard = ({
           </Typography>
         )}
       </Box>
+      {announcement.tags && announcement.tags.length > 0 && (
+        <Typography variant="body2" color="textSecondary">
+          <Box mt={1}>
+            {announcement.tags.map(tag => (
+              <Chip
+                key={tag.slug}
+                size="small"
+                label={tag.title}
+                component={Link}
+                to={`${announcementsLink()}?tags=${tag.slug}`}
+                clickable
+                style={{ marginRight: 4, marginBottom: 4 }}
+              />
+            ))}
+          </Box>
+        </Typography>
+      )}
     </>
   );
   const { loading: loadingDeletePermission, allowed: canDelete } =
@@ -243,6 +254,7 @@ const AnnouncementCard = ({
 const AnnouncementsGrid = ({
   maxPerPage,
   category,
+  tags,
   cardTitleLength,
   active,
   sortBy,
@@ -251,6 +263,7 @@ const AnnouncementsGrid = ({
 }: {
   maxPerPage: number;
   category?: string;
+  tags?: string[];
   cardTitleLength?: number;
   active?: boolean;
   sortBy?: 'created_at' | 'start_at';
@@ -260,11 +273,18 @@ const AnnouncementsGrid = ({
   const classes = useStyles();
   const announcementsApi = useApi(announcementsApiRef);
   const alertApi = useApi(alertApiRef);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
 
   const [page, setPage] = useState(1);
   const handleChange = (_event: any, value: number) => {
     setPage(value);
   };
+
+  const tagsParam = queryParams.get('tags');
+  const tagsFromUrl = useMemo(() => {
+    return tagsParam ? tagsParam.split(',') : undefined;
+  }, [tagsParam]);
 
   const {
     announcements,
@@ -276,11 +296,12 @@ const AnnouncementsGrid = ({
       max: maxPerPage,
       page: page,
       category,
+      tags: tags || tagsFromUrl,
       active,
       sortBy,
       order,
     },
-    { dependencies: [maxPerPage, page, category] },
+    { dependencies: [maxPerPage, page, category, tagsFromUrl] },
   );
 
   const { t } = useAnnouncementsTranslation();
@@ -365,6 +386,7 @@ export type AnnouncementsPageProps = {
   subtitle?: ReactNode;
   maxPerPage?: number;
   category?: string;
+  tags?: string[];
   buttonOptions?: AnnouncementCreateButtonProps;
   cardOptions?: AnnouncementCardProps;
   hideContextMenu?: boolean;
@@ -423,8 +445,9 @@ export const AnnouncementsPage = (props: AnnouncementsPageProps) => {
         <AnnouncementsGrid
           maxPerPage={maxPerPage ?? 10}
           category={category ?? queryParams.get('category') ?? undefined}
+          tags={props.tags}
           cardTitleLength={cardOptions?.titleLength}
-          active={hideInactive ? true : false}
+          active={!!hideInactive}
           sortBy={sortby ?? 'created_at'}
           order={order ?? 'desc'}
           hideStartAt={hideStartAt}

@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import pluralize from 'pluralize';
+import {
+  ChangeStatistic,
+  Entity,
+} from '@backstage-community/plugin-cost-insights-common';
+import { Lifecycle } from '@backstage/core-components';
 import Typography from '@material-ui/core/Typography';
-import { KubernetesMigrationAlertCard } from '../components';
+import pluralize from 'pluralize';
 import { CostInsightsApi } from '../../api';
 import {
   Alert,
   AlertForm,
   AlertOptions,
-  AlertStatus,
   AlertSnoozeFormData,
+  AlertStatus,
 } from '../../types';
-import {
-  ChangeStatistic,
-  Entity,
-} from '@backstage-community/plugin-cost-insights-common';
+import { KubernetesMigrationAlertCard } from '../components';
 import {
   KubernetesMigrationDismissForm,
   KubernetesMigrationDismissFormData,
 } from '../forms';
-import { Lifecycle } from '@backstage/core-components';
 
 export interface KubernetesMigrationData {
   startDate: string;

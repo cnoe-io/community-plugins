@@ -13,32 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Route } from 'react-router-dom';
 import {
-  CatalogEntityPage,
-  CatalogIndexPage,
-  catalogPlugin,
-} from '@backstage/plugin-catalog';
-import { SearchPage } from '@backstage/plugin-search';
-import { UserSettingsPage } from '@backstage/plugin-user-settings';
-import { apis } from './apis';
-import { entityPage } from './components/EntityPage';
-import { searchPage } from './components/SearchPage';
-import { Root } from './components/Root';
-
+  AnnouncementsAdminPortal,
+  AnnouncementsPage,
+} from '@backstage-community/plugin-announcements';
+import { createApp } from '@backstage/app-defaults';
+import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
   AlertDisplay,
   OAuthRequestDialog,
   SignInPage,
 } from '@backstage/core-components';
-import { createApp } from '@backstage/app-defaults';
-import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import {
-  AnnouncementsPage,
-  AnnouncementsAdminPortal,
-} from '@backstage-community/plugin-announcements';
-import { Home } from './components/HomePage';
+  CatalogEntityPage,
+  CatalogIndexPage,
+  catalogPlugin,
+} from '@backstage/plugin-catalog';
+import { NotificationsPage } from '@backstage/plugin-notifications';
+import { SearchPage } from '@backstage/plugin-search';
 import { SignalsDisplay } from '@backstage/plugin-signals';
+import { UserSettingsPage } from '@backstage/plugin-user-settings';
+import { Route } from 'react-router-dom';
+import { apis } from './apis';
+import { entityPage } from './components/EntityPage';
+import { Home } from './components/HomePage';
+import { Root } from './components/Root';
+import { searchPage } from './components/SearchPage';
 
 const app = createApp({
   apis,
@@ -73,6 +73,8 @@ const routes = (
     <Route path="/search" element={<SearchPage />}>
       {searchPage}
     </Route>
+
+    <Route path="/notifications" element={<NotificationsPage />} />
 
     <Route path="/settings" element={<UserSettingsPage />} />
   </FlatRoutes>

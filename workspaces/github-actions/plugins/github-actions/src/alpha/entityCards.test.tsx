@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen, waitFor } from '@testing-library/react';
 import {
   createExtensionTester,
   renderInTestApp,
   TestApiProvider,
 } from '@backstage/frontend-test-utils';
-import * as cards from './entityCards';
 import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { GithubActionsApi, githubActionsApiRef } from '../api';
+import { screen, waitFor } from '@testing-library/react';
 import { sampleEntity } from '../__fixtures__/entity';
+import { GithubActionsApi, githubActionsApiRef } from '../api';
+import * as cards from './entityCards';
 
 jest.mock('@backstage/core-plugin-api', () => ({
   ...jest.requireActual('@backstage/core-plugin-api'),
@@ -76,7 +76,7 @@ describe('Entity card extensions', () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText('Last master build')).toBeInTheDocument();
+        expect(screen.getByText('Last main build')).toBeInTheDocument();
       },
       { timeout: 5000 },
     );
@@ -95,7 +95,7 @@ describe('Entity card extensions', () => {
 
     await waitFor(
       () => {
-        expect(screen.getByText('Last master build')).toBeInTheDocument();
+        expect(screen.getByText('Recent main builds')).toBeInTheDocument();
       },
       { timeout: 5000 },
     );

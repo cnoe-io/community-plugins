@@ -13,8 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useParams } from 'react-router-dom';
-
 import {
   Content,
   ErrorPage,
@@ -23,15 +21,17 @@ import {
   Progress,
   useQueryParamState,
 } from '@backstage/core-components';
-
+import { useParams } from 'react-router-dom';
 import { usePermissionPolicies } from '../../hooks/usePermissionPolicies';
 import { useSelectedMembers } from '../../hooks/useSelectedMembers';
+import { useTranslation } from '../../hooks/useTranslation';
+import { capitalizeFirstLetter } from '../../utils/string-utils';
 import { RoleForm } from './RoleForm';
 import { RoleFormValues } from './types';
-import { capitalizeFirstLetter } from '../../utils/string-utils';
 
 export const EditRolePage = () => {
   const { roleName, roleNamespace, roleKind } = useParams();
+  const { t } = useTranslation();
   const [queryParamState] = useQueryParamState<number>('activeStep');
   const {
     selectedMembers,
@@ -75,20 +75,20 @@ export const EditRolePage = () => {
     );
   }
   if (!canReadUsersAndGroups) {
-    return <ErrorPage statusMessage="Unauthorized to edit role" />;
+    return <ErrorPage statusMessage={t('errors.unauthorized')} />;
   }
 
   return (
     <Page themeId="tool">
-      <Header title="Edit role" type="RBAC" typeLink=".." />
+      <Header title={t('page.editRole')} type="RBAC" typeLink=".." />
       <Content>
         <RoleForm
           initialValues={initialValues}
           titles={{
-            formTitle: 'Edit Role',
-            nameAndDescriptionTitle: 'Edit name and description of role ',
-            usersAndGroupsTitle: 'Edit users and groups',
-            permissionPoliciesTitle: 'Edit permission policies',
+            formTitle: t('roleForm.titles.editRole'),
+            nameAndDescriptionTitle: t('roleForm.titles.nameAndDescription'),
+            usersAndGroupsTitle: t('roleForm.titles.usersAndGroups'),
+            permissionPoliciesTitle: t('roleForm.titles.permissionPolicies'),
           }}
           roleName={roleName ? `${roleKind}:${roleNamespace}/${roleName}` : ''}
           step={Number(queryParamState)}
@@ -97,7 +97,7 @@ export const EditRolePage = () => {
             loading: loadingMembers,
             error: membersError,
           }}
-          submitLabel="Save"
+          submitLabel={t('roleForm.steps.update')}
         />
       </Content>
     </Page>

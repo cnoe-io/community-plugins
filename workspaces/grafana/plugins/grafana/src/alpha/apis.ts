@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 import {
-  configApiRef,
   ApiBlueprint,
-  createApiFactory,
+  configApiRef,
   discoveryApiRef,
   fetchApiRef,
   identityApiRef,
@@ -31,8 +30,8 @@ import {
  * @alpha
  */
 export const grafanaApiExtension = ApiBlueprint.make({
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: grafanaApiRef,
       deps: {
         discoveryApi: discoveryApiRef,
@@ -61,5 +60,4 @@ export const grafanaApiExtension = ApiBlueprint.make({
         });
       },
     }),
-  },
 });

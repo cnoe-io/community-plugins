@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
-import { capitalize } from '@material-ui/core/utils';
+import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
 import DialogContent from '@material-ui/core/DialogContent';
+import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
+import { capitalize } from '@material-ui/core/utils';
 import { default as CloseIcon } from '@material-ui/icons/Close';
-import { useAlertDialogStyles as useStyles } from '../../utils/styles';
+import { useEffect, useRef, useState } from 'react';
 import { Alert, AlertStatus } from '../../types';
-import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import { choose, formOf } from '../../utils/alerts';
+import { useAlertDialogStyles as useStyles } from '../../utils/styles';
 
 const DEFAULT_FORM_ID = 'alert-form';
 

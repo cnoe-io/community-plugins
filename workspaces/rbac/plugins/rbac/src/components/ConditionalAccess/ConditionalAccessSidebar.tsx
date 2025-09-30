@@ -18,7 +18,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
+import { useTranslation } from '../../hooks/useTranslation';
 import { ConditionsForm } from './ConditionsForm';
 import { ConditionsData, RulesData } from './types';
 
@@ -39,6 +39,8 @@ export const ConditionalAccessSidebar = ({
   conditionRulesData,
   conditionsFormVal,
 }: ConditionalAccessSidebarProps) => {
+  const { t } = useTranslation();
+
   return (
     <Drawer
       anchor="right"
@@ -76,7 +78,7 @@ export const ConditionalAccessSidebar = ({
           <Box>
             <Box sx={{ display: 'flex', gap: '5px' }}>
               <Typography sx={{ fontWeight: 500 }} variant="h5">
-                Configure access for the
+                {t('common.configureAccessFor')}
               </Typography>
               <Typography style={{ fontWeight: 600 }} variant="h5">
                 {selPluginResourceType}
@@ -91,14 +93,12 @@ export const ConditionalAccessSidebar = ({
               }}
               align="left"
             >
-              By default, the selected resource type is visible to all added
-              users. If you want to restrict or grant permission to specific
-              plugin rules, select them and add the parameters.
+              {t('common.defaultResourceTypeVisible')}
             </Typography>
           </Box>
           <IconButton
             key="dismiss"
-            title="Close the drawer"
+            title={t('common.closeDrawer')}
             onClick={onClose}
             color="inherit"
           >

@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { errorApiRef } from '@backstage/core-plugin-api';
+import { translationApiRef } from '@backstage/core-plugin-api/alpha';
+import { MockErrorApi, TestApiProvider } from '@backstage/test-utils';
+import { MockTranslationApi } from '@backstage/test-utils/alpha';
 import { render, waitFor } from '@testing-library/react';
-
-import { Features } from './Features';
+import { mockApiClient } from '../test-helpers/mock-api-client';
 import { mockCalverProject } from '../test-helpers/test-helpers';
 import { TEST_IDS } from '../test-helpers/test-ids';
-import { mockApiClient } from '../test-helpers/mock-api-client';
-import { MockErrorApi, TestApiProvider } from '@backstage/test-utils';
-import { translationApiRef } from '@backstage/core-plugin-api/alpha';
-import { MockTranslationApi } from '@backstage/test-utils/alpha';
-import { errorApiRef } from '@backstage/core-plugin-api';
+import { Features } from './Features';
 
 jest.mock('@backstage/core-plugin-api', () => ({
   ...jest.requireActual('@backstage/core-plugin-api'),

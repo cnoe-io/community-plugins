@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
 import {
-  ThemeProvider,
   createTheme as createMuiTheme,
+  Theme,
+  ThemeProvider,
 } from '@material-ui/core/styles';
-import { Theme } from '@material-ui/core/styles';
+import { PropsWithChildren } from 'react';
+import { CostInsightsTheme } from '../../types';
 import {
   costInsightsDarkTheme,
   costInsightsLightTheme,
 } from '../../utils/styles';
-import { CostInsightsTheme } from '../../types';
 
 export const CostInsightsThemeProvider = ({
   children,

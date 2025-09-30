@@ -17,16 +17,14 @@
 import { useApi } from '@backstage/core-plugin-api';
 import useAsync from 'react-use/esm/useAsync';
 import useAsyncFn from 'react-use/esm/useAsyncFn';
-import React from 'react';
-
-import { CalverTagParts } from '../../../helpers/tagParts/getCalverTagParts';
-import { getPatchCommitSuffix } from '../helpers/getPatchCommitSuffix';
 import { GetRecentCommitsResultSingle } from '../../../api/GitReleaseClient';
 import { gitReleaseManagerApiRef } from '../../../api/serviceApiRef';
-import { GitReleaseManagerError } from '../../../errors/GitReleaseManagerError';
 import { Project } from '../../../contexts/ProjectContext';
+import { GitReleaseManagerError } from '../../../errors/GitReleaseManagerError';
+import { CalverTagParts } from '../../../helpers/tagParts/getCalverTagParts';
 import { SemverTagParts } from '../../../helpers/tagParts/getSemverTagParts';
 import { useResponseSteps } from '../../../hooks/useResponseSteps';
+import { getPatchCommitSuffix } from '../helpers/getPatchCommitSuffix';
 
 export interface UsePatchDryRun {
   bumpedTag: string;

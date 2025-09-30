@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import TrendingDownIcon from '@material-ui/icons/TrendingDown';
 import TrendingFlatIcon from '@material-ui/icons/TrendingFlat';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import Alert from '@material-ui/lab/Alert';
 import { ClassNameMap } from '@material-ui/styles/withStyles';
-import React from 'react';
+import { DateTime } from 'luxon';
 import useAsync from 'react-use/esm/useAsync';
 import {
   CartesianGrid,
@@ -39,11 +41,6 @@ import {
   YAxis,
 } from 'recharts';
 import { codeCoverageApiRef } from '../../api';
-
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
-
-import { DateTime } from 'luxon';
 
 type Coverage = 'line' | 'branch';
 

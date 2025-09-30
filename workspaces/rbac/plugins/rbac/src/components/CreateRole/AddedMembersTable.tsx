@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 import { Table } from '@backstage/core-components';
-
 import Box from '@mui/material/Box';
 import { FormikErrors } from 'formik';
-
+import { useTranslation } from '../../hooks/useTranslation';
 import { getMembers } from '../../utils/rbac-utils';
 import { selectedMembersColumns } from './AddedMembersTableColumn';
 import { RoleFormValues, SelectedMember } from './types';
@@ -35,21 +34,27 @@ export const AddedMembersTable = ({
   selectedMembers,
   setFieldValue,
 }: AddedMembersTableProps) => {
+  const { t } = useTranslation();
+
   return (
     <Table
       title={
         selectedMembers.length > 0
-          ? `${getMembers(selectedMembers)}`
-          : 'No users and groups selected'
+          ? `${getMembers(selectedMembers, t)}`
+          : t('common.noUsersAndGroupsSelected')
       }
       data={selectedMembers}
-      columns={selectedMembersColumns(selectedMembers, setFieldValue)}
+      columns={selectedMembersColumns(selectedMembers, setFieldValue, t)}
       emptyContent={
         <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
-          Selected users and groups appear here.
+          {t('common.selectedUsersAndGroupsAppearHere')}
         </Box>
       }
       options={{ emptyRowsWhenPaging: false }}
+      localization={{
+        toolbar: { searchPlaceholder: t('table.searchPlaceholder') },
+        pagination: { labelRowsSelect: t('table.labelRowsSelect') },
+      }}
     />
   );
 };

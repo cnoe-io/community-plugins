@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import classnames from 'classnames';
-import Typography from '@material-ui/core/Typography';
-import { formatChange } from '../../utils/formatters';
-import { useEntityDialogStyles as useStyles } from '../../utils/styles';
-import { CostGrowthIndicator } from '../CostGrowth';
-import { BarChartOptions } from '../../types';
 import {
   ChangeStatistic,
   Entity,
 } from '@backstage-community/plugin-cost-insights-common';
 import { Table, TableColumn } from '@backstage/core-components';
+import Typography from '@material-ui/core/Typography';
+import classnames from 'classnames';
 import { useConfig } from '../../hooks';
+import { BarChartOptions } from '../../types';
+import { formatChange } from '../../utils/formatters';
+import { useEntityDialogStyles as useStyles } from '../../utils/styles';
+import { CostGrowthIndicator } from '../CostGrowth';
 
 export type ProductEntityTableOptions = Partial<
   Pick<BarChartOptions, 'previousName' | 'currentName'>

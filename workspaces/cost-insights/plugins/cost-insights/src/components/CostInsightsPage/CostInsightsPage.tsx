@@ -14,7 +14,15 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  Cost,
+  Maybe,
+  MetricData,
+  Product,
+  Project,
+} from '@backstage-community/plugin-cost-insights-common';
+import { Progress } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import Container from '@material-ui/core/Container';
@@ -22,20 +30,8 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { default as MaterialAlert } from '@material-ui/lab/Alert';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { costInsightsApiRef } from '../../api';
-import { ActionItems } from '../ActionItems';
-import { AlertInsights } from '../AlertInsights';
-import { CostInsightsLayout } from '../CostInsightsLayout';
-import { CopyUrlToClipboard } from '../CopyUrlToClipboard';
-import { CurrencySelect } from '../CurrencySelect';
-import { WhyCostsMatter } from '../WhyCostsMatter';
-import {
-  CostInsightsHeader,
-  CostInsightsHeaderNoGroups,
-} from '../CostInsightsHeader';
-import { CostInsightsNavigation } from '../CostInsightsNavigation';
-import { CostOverviewCard } from '../CostOverviewCard';
-import { ProductInsights } from '../ProductInsights';
 /* https://github.com/backstage/backstage/issues/2574 */
 // import { CostInsightsSupportButton } from '../CostInsightsSupportButton';
 import {
@@ -48,25 +44,28 @@ import {
 } from '../../hooks';
 import { Alert } from '../../types';
 import {
-  Cost,
-  Maybe,
-  MetricData,
-  Product,
-  Project,
-} from '@backstage-community/plugin-cost-insights-common';
-import { mapLoadingToProps } from './selector';
-import { ProjectSelect } from '../ProjectSelect';
-import { intervalsOf } from '../../utils/duration';
-import { useSubtleTypographyStyles } from '../../utils/styles';
-import {
-  isAlertActive,
   isAlertAccepted,
+  isAlertActive,
   isAlertDismissed,
   isAlertSnoozed,
 } from '../../utils/alerts';
-
-import { Progress } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
+import { intervalsOf } from '../../utils/duration';
+import { useSubtleTypographyStyles } from '../../utils/styles';
+import { ActionItems } from '../ActionItems';
+import { AlertInsights } from '../AlertInsights';
+import { CopyUrlToClipboard } from '../CopyUrlToClipboard';
+import {
+  CostInsightsHeader,
+  CostInsightsHeaderNoGroups,
+} from '../CostInsightsHeader';
+import { CostInsightsLayout } from '../CostInsightsLayout';
+import { CostInsightsNavigation } from '../CostInsightsNavigation';
+import { CostOverviewCard } from '../CostOverviewCard';
+import { CurrencySelect } from '../CurrencySelect';
+import { ProductInsights } from '../ProductInsights';
+import { ProjectSelect } from '../ProjectSelect';
+import { WhyCostsMatter } from '../WhyCostsMatter';
+import { mapLoadingToProps } from './selector';
 
 export const CostInsightsPage = () => {
   const classes = useSubtleTypographyStyles();

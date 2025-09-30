@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { Entity } from '@backstage/catalog-model';
+import { Content, Header, Page } from '@backstage/core-components';
 import { createDevApp } from '@backstage/dev-utils';
-import { ExampleCostInsightsClient } from '../src/example';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
+import Grid from '@material-ui/core/Grid';
 import { costInsightsApiRef } from '../src/api';
+import { ExampleCostInsightsClient } from '../src/example';
 import {
-  costInsightsPlugin,
-  CostInsightsPage,
-  CostInsightsProjectGrowthInstructionsPage,
   CostInsightsLabelDataflowInstructionsPage,
+  CostInsightsPage,
+  costInsightsPlugin,
+  CostInsightsProjectGrowthInstructionsPage,
   EntityCostInsightsContent,
 } from '../src/plugin';
-import { Content, Header, Page } from '@backstage/core-components';
-import Grid from '@material-ui/core/Grid';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { Entity } from '@backstage/catalog-model';
 
 const mockEntity: Entity = {
   apiVersion: 'backstage.io/v1alpha1',

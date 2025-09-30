@@ -15,28 +15,10 @@
  */
 
 import {
-  Entity,
   CompoundEntityRef,
+  Entity,
   RELATION_OWNED_BY,
 } from '@backstage/catalog-model';
-import {
-  catalogApiRef,
-  EntityRefLink,
-  EntityRefLinks,
-  humanizeEntityRef,
-  getEntityRelations,
-} from '@backstage/plugin-catalog-react';
-import Tooltip from '@material-ui/core/Tooltip';
-import Typography from '@material-ui/core/Typography';
-import Skeleton from '@material-ui/lab/Skeleton';
-import { DateTime } from 'luxon';
-import * as React from 'react';
-import { useMemo, useState } from 'react';
-import useAsync from 'react-use/esm/useAsync';
-import useDeepCompareEffect from 'react-use/esm/useDeepCompareEffect';
-import { FindingSummary, fossaApiRef } from '../../api';
-import { getProjectName } from '../getProjectName';
-
 import {
   Content,
   Header,
@@ -49,8 +31,23 @@ import {
   TableColumn,
   TableFilter,
 } from '@backstage/core-components';
-
 import { useApi } from '@backstage/core-plugin-api';
+import {
+  catalogApiRef,
+  EntityRefLink,
+  EntityRefLinks,
+  getEntityRelations,
+  humanizeEntityRef,
+} from '@backstage/plugin-catalog-react';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import Skeleton from '@material-ui/lab/Skeleton';
+import { DateTime } from 'luxon';
+import { useMemo, useState } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import useDeepCompareEffect from 'react-use/esm/useDeepCompareEffect';
+import { FindingSummary, fossaApiRef } from '../../api';
+import { getProjectName } from '../getProjectName';
 
 type FossaRow = {
   entity: Entity;

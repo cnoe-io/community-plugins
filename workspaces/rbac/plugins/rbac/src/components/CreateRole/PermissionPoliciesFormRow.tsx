@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SetStateAction, Dispatch } from 'react';
-
-import { useState, useEffect } from 'react';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import Box from '@mui/material/Box';
+import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
+import Link from '@mui/material/Link';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import type { Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
+import { useLanguage } from '../../hooks/useLanguage';
+import { useTranslation } from '../../hooks/useTranslation';
 import { PermissionsData } from '../../types';
 import { getRulesNumber } from '../../utils/create-role-utils';
 import { ConditionRulesData, ConditionsData } from '../ConditionalAccess/types';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
-import Collapse from '@mui/material/Collapse';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PermissionPoliciesFormNestedRow from './PermissionPoliciesFormNestedRow';
-import Link from '@mui/material/Link';
 
 type PermissionPoliciesFormRowProps = {
   rowData: any;
@@ -67,6 +67,8 @@ const PermissionPoliciesFormRow = ({
   onRemovePlugin,
   onAddConditions,
 }: PermissionPoliciesFormRowProps) => {
+  const { t } = useTranslation();
+  const locale = useLanguage();
   const [currentOpen, setCurrentOpen] = useState<boolean>(false);
 
   useEffect(() => {
@@ -94,10 +96,10 @@ const PermissionPoliciesFormRow = ({
 
   const getPermissionCellLabel = (plugin: string) => {
     if (permissionPoliciesRows.find(ppr => ppr.plugin === plugin)) {
-      return 'Edit...';
+      return t('common.editCell');
     }
 
-    return 'Select...';
+    return t('common.selectCell');
   };
 
   return (
@@ -113,7 +115,7 @@ const PermissionPoliciesFormRow = ({
           }}
         >
           <IconButton
-            aria-label="expand-row"
+            aria-label={t('common.expandRow')}
             size="small"
             onClick={() => setCurrentOpen(!currentOpen)}
             data-testid={`expand-row-${rowData.plugin}`}
@@ -136,7 +138,7 @@ const PermissionPoliciesFormRow = ({
         </TableCell>
         <TableCell align="right" sx={{ borderBottom: 'none' }}>
           <IconButton
-            aria-label="remove"
+            aria-label={t('common.remove').toLocaleLowerCase(locale ?? 'en')}
             size="small"
             onClick={() => onRemovePlugin(rowData.plugin)}
           >

@@ -13,13 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { parseEntityRef } from '@backstage/catalog-model';
-import {
-  ConfigApi,
-  createApiRef,
-  IdentityApi,
-} from '@backstage/core-plugin-api';
-
 import {
   PermissionAction,
   PluginPermissionMetaData,
@@ -27,7 +20,12 @@ import {
   RoleBasedPolicy,
   RoleConditionalPolicyDecision,
 } from '@backstage-community/plugin-rbac-common';
-
+import { parseEntityRef } from '@backstage/catalog-model';
+import {
+  ConfigApi,
+  createApiRef,
+  IdentityApi,
+} from '@backstage/core-plugin-api';
 import {
   MemberEntity,
   PluginConditionRules,
@@ -47,7 +45,10 @@ export type RBACAPI = {
   ) => Promise<RoleBasedPolicy[] | Response>;
   deleteRole: (role: string) => Promise<Response>;
   getRole: (role: string) => Promise<Role[] | Response>;
-  getMembers: () => Promise<MemberEntity[] | Response>;
+  getMembers: (
+    page?: number,
+    pageSize?: number,
+  ) => Promise<MemberEntity[] | Response>;
   listPermissions: () => Promise<PluginPermissionMetaData[] | Response>;
   createRole: (role: Role) => Promise<RoleError | Response>;
   updateRole: (oldRole: Role, newRole: Role) => Promise<RoleError | Response>;
@@ -194,18 +195,23 @@ export class RBACBackendClient implements RBACAPI {
     return jsonResponse.json();
   }
 
-  async getMembers() {
+  async getMembers(page?: number, pageSize?: number) {
     const { token: idToken } = await this.identityApi.getCredentials();
     const backendUrl = this.configApi.getString('backend.baseUrl');
-    const jsonResponse = await fetch(
-      `${backendUrl}/api/catalog/entities?filter=kind=user&filter=kind=group`,
-      {
-        headers: {
-          ...(idToken && { Authorization: `Bearer ${idToken}` }),
-          'Content-Type': 'application/json',
-        },
+    let url = `${backendUrl}/api/catalog/entities?filter=kind=user&filter=kind=group`;
+
+    if (page && pageSize) {
+      const limit = pageSize;
+      const offset = pageSize * (page - 1);
+      url += `&limit=${limit}&offset=${offset}`;
+    }
+
+    const jsonResponse = await fetch(url, {
+      headers: {
+        ...(idToken && { Authorization: `Bearer ${idToken}` }),
+        'Content-Type': 'application/json',
       },
-    );
+    });
     if (jsonResponse.status !== 200 && jsonResponse.status !== 204) {
       return jsonResponse;
     }

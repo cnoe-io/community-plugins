@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { AlertStatusSummary } from './AlertStatusSummary';
 import { render } from '@testing-library/react';
-import { Alert, AlertStatus } from '../../types';
 import { MockScrollProvider } from '../../testUtils';
+import { Alert, AlertStatus } from '../../types';
+import { AlertStatusSummary } from './AlertStatusSummary';
 
 const mockSnoozed: Alert = {
   title: 'snoozed-title',

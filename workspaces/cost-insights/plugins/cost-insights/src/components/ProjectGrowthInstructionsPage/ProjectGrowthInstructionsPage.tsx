@@ -14,24 +14,23 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { DateTime } from 'luxon';
+import {
+  Entity,
+  Product,
+} from '@backstage-community/plugin-cost-insights-common';
+import { InfoCard } from '@backstage/core-components';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import { AlertInstructionsLayout } from '../AlertInstructionsLayout';
-import { ProductInsightsChart } from '../ProductInsightsCard';
+import { DateTime } from 'luxon';
+import { ProjectGrowthAlert } from '../../alerts';
 import {
   Alert,
   DEFAULT_DATE_FORMAT,
   Duration,
   ProjectGrowthData,
 } from '../../types';
-import {
-  Entity,
-  Product,
-} from '@backstage-community/plugin-cost-insights-common';
-import { ProjectGrowthAlert } from '../../alerts';
-import { InfoCard } from '@backstage/core-components';
+import { AlertInstructionsLayout } from '../AlertInstructionsLayout';
+import { ProductInsightsChart } from '../ProductInsightsCard';
 
 const today = DateTime.now().toFormat(DEFAULT_DATE_FORMAT);
 

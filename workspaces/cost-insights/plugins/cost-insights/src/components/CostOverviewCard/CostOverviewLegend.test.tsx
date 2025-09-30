@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { screen } from '@testing-library/react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { CostOverviewLegend } from './CostOverviewLegend';
+import { screen } from '@testing-library/react';
 import {
   MockBillingDateProvider,
   MockConfigProvider,
-  MockFilterProvider,
   MockCurrencyProvider,
+  MockFilterProvider,
 } from '../../testUtils';
+import { CostOverviewLegend } from './CostOverviewLegend';
 
 function render(children: JSX.Element) {
   return renderInTestApp(

@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { BlackDuckConfig } from '@backstage-community/plugin-blackduck-node';
 import {
-  createBackendModule,
   coreServices,
+  createBackendModule,
 } from '@backstage/backend-plugin-api';
 import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
 import { createBlackduckProjectAction } from './actions';
-import { BlackDuckConfig } from '@backstage-community/plugin-blackduck-node';
 
 /**
  * @public
  */
 export const scaffolderModuleBlackduckModule = createBackendModule({
-  moduleId: 'scaffolder:backend:module:blackduck',
+  moduleId: 'blackduck',
   pluginId: 'scaffolder',
   register({ registerInit }) {
     registerInit({

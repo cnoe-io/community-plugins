@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { ProjectGrowthAlertCard } from './ProjectGrowthAlertCard';
 import {
   createMockProjectGrowthData,
-  MockCurrencyProvider,
-  MockConfigProvider,
   MockBillingDateProvider,
+  MockConfigProvider,
+  MockCurrencyProvider,
 } from '../../testUtils';
 import { AlertCost } from '../../types';
-import { defaultCurrencies } from '../../utils/currency';
 import { findAlways } from '../../utils/assert';
+import { defaultCurrencies } from '../../utils/currency';
+import { ProjectGrowthAlertCard } from './ProjectGrowthAlertCard';
 
 // suppress recharts componentDidUpdate deprecation warnings
 jest.spyOn(console, 'warn').mockImplementation(() => {});

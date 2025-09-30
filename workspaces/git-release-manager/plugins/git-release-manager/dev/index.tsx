@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { createDevApp } from '@backstage/dev-utils';
 import { Box, Button, Typography } from '@material-ui/core';
-
-import {
-  gitReleaseManagerPlugin,
-  GitReleaseManagerPage,
-  gitReleaseManagerApiRef,
-} from '../src/plugin';
 import { InfoCardPlus } from '../src/components/InfoCardPlus';
+import {
+  gitReleaseManagerApiRef,
+  GitReleaseManagerPage,
+  gitReleaseManagerPlugin,
+} from '../src/plugin';
 import { mockGitReleaseManagerApi } from './mock/github/client';
 
 createDevApp()

@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
 import { mockSearchSemver } from '../test-helpers/test-helpers';
 import { useQueryHandler } from './useQueryHandler';
 

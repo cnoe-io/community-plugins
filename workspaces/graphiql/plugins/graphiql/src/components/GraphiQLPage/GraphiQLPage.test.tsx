@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { GraphiQLPage } from './GraphiQLPage';
-import { act } from '@testing-library/react';
 import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { act } from '@testing-library/react';
 import { GraphQLBrowseApi, graphQlBrowseApiRef } from '../../lib/api';
+import { GraphiQLPage } from './GraphiQLPage';
 
 jest.mock('../GraphiQLBrowser', () => ({
   GraphiQLBrowser: () => '<GraphiQLBrowser />',

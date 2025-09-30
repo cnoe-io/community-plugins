@@ -17,10 +17,14 @@ import {
   coreServices,
   createBackendModule,
 } from '@backstage/backend-plugin-api';
-import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
-import { createAzureDevopsRunPipelineAction } from './actions/devopsRunPipeline';
-import { createAzureDevopsCreatePipelineAction } from './actions/devopsCreatePipeline';
 import { ScmIntegrations } from '@backstage/integration';
+import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
+import { createAzureDevopsCreatePipelineAction } from './actions/devopsCreatePipeline';
+import { createAzureDevopsCreatePullRequestAction } from './actions/devopsCreatePullRequest';
+import { createAzureDevopsPermitPipelineAction } from './actions/devopsPermitPipeline';
+import { createAzureDevOpsCloneRepoAction } from './actions/devopsRepoClone';
+import { createAzureDevOpsPushRepoAction } from './actions/devopsRepoPush';
+import { createAzureDevopsRunPipelineAction } from './actions/devopsRunPipeline';
 
 /**
  * A backend module that registers the action into the scaffolder
@@ -38,8 +42,12 @@ export const scaffolderModule = createBackendModule({
       async init({ scaffolderActions, config }) {
         const integrations = ScmIntegrations.fromConfig(config);
         scaffolderActions.addActions(
+          createAzureDevOpsCloneRepoAction({ integrations }),
           createAzureDevopsRunPipelineAction({ integrations }),
           createAzureDevopsCreatePipelineAction({ integrations }),
+          createAzureDevopsPermitPipelineAction({ integrations }),
+          createAzureDevopsCreatePullRequestAction({ integrations }),
+          createAzureDevOpsPushRepoAction({ integrations, config: config }),
         );
       },
     });

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { ReactNode, FunctionComponent } from 'react';
+import { Box, Tooltip } from '@material-ui/core';
 import { ToggleButton, ToggleButtonGroup } from '@material-ui/lab';
-import { Tooltip, Box } from '@material-ui/core';
+import { FunctionComponent, ReactNode } from 'react';
 import { PRCardFormating } from '../../utils/types';
 
 type Option = {

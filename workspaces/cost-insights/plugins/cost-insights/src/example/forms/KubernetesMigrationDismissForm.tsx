@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import React, {
-  useEffect,
-  useState,
-  forwardRef,
-  FormEventHandler,
-  ChangeEvent,
-} from 'react';
+import { Entity } from '@backstage-community/plugin-cost-insights-common';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import Typography from '@material-ui/core/Typography';
+import {
+  ChangeEvent,
+  FormEventHandler,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 import { AlertFormProps } from '../../types';
-import { Entity } from '@backstage-community/plugin-cost-insights-common';
-import { KubernetesMigrationAlert } from '../alerts';
 import { findAlways } from '../../utils/assert';
+import { KubernetesMigrationAlert } from '../alerts';
 
 export type KubernetesMigrationDismissFormData = {
   services: Entity[];

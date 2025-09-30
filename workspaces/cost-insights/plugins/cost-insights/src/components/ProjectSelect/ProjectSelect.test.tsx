@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import React, { ComponentType } from 'react';
+import { renderInTestApp } from '@backstage/test-utils';
 import { getByRole, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { ProjectSelect } from './ProjectSelect';
+import { ComponentType } from 'react';
 import { MockFilterProvider } from '../../testUtils';
-import { renderInTestApp } from '@backstage/test-utils';
+import { ProjectSelect } from './ProjectSelect';
 
 const mockProjects = [
   { id: 'project1' },

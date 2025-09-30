@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { BarChartLegend } from './BarChartLegend';
 import { MockConfigProvider } from '../../testUtils';
+import { BarChartLegend } from './BarChartLegend';
 
 describe('<BarChartLegend />', () => {
   it(`Should display the correct cost start and end`, async () => {

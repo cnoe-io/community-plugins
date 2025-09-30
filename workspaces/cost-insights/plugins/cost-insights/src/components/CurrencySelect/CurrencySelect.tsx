@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select, { SelectProps } from '@material-ui/core/Select';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Select, { SelectProps } from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import { Currency, CurrencyType } from '../../types';
 import { findAlways } from '../../utils/assert';

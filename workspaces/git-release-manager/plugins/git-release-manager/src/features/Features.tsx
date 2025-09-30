@@ -14,23 +14,21 @@
  * limitations under the License.
  */
 
-import React, { ComponentProps } from 'react';
+import { ErrorBoundary, Progress } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import { Alert, AlertTitle } from '@material-ui/lab';
-
-import { CreateReleaseCandidate } from './CreateReleaseCandidate/CreateReleaseCandidate';
-import { GitReleaseManager } from '../GitReleaseManager';
+import { ComponentProps, Fragment } from 'react';
 import { gitReleaseManagerApiRef } from '../api/serviceApiRef';
+import { useProjectContext } from '../contexts/ProjectContext';
+import { RefetchContext } from '../contexts/RefetchContext';
+import { GitReleaseManager } from '../GitReleaseManager';
+import { validateTagName } from '../helpers/tagParts/validateTagName';
+import { useGetGitBatchInfo } from '../hooks/useGetGitBatchInfo';
+import { useVersioningStrategyMatchesRepoTags } from '../hooks/useVersioningStrategyMatchesRepoTags';
+import { CreateReleaseCandidate } from './CreateReleaseCandidate/CreateReleaseCandidate';
 import { Info } from './Info/Info';
 import { Patch } from './Patch/Patch';
 import { PromoteRc } from './PromoteRc/PromoteRc';
-import { RefetchContext } from '../contexts/RefetchContext';
-import { useGetGitBatchInfo } from '../hooks/useGetGitBatchInfo';
-import { useProjectContext } from '../contexts/ProjectContext';
-import { useVersioningStrategyMatchesRepoTags } from '../hooks/useVersioningStrategyMatchesRepoTags';
-import { validateTagName } from '../helpers/tagParts/validateTagName';
-
-import { ErrorBoundary, Progress } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
 
 export function Features({
   features,
@@ -98,9 +96,7 @@ export function Features({
     }) ?? null;
   if (Array.isArray(CustomFeatures)) {
     CustomFeatures = CustomFeatures.map((CustomFeature, index) => (
-      <React.Fragment key={`grm--custom-feature--${index}`}>
-        {CustomFeature}
-      </React.Fragment>
+      <Fragment key={`grm--custom-feature--${index}`}>{CustomFeature}</Fragment>
     ));
   }
 

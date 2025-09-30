@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { GraphiQLBrowser } from './GraphiQLBrowser';
-import { GraphiQLIcon } from '../../GraphiQLIcon';
 import userEvent from '@testing-library/user-event';
+import { GraphiQLIcon } from '../../GraphiQLIcon';
+import { GraphiQLBrowser } from './GraphiQLBrowser';
 
 describe('GraphiQLBrowser', () => {
   it('should render error text if there are no endpoints', async () => {

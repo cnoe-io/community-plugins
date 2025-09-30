@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { screen } from '@testing-library/react';
-import {
-  AnnouncementsTimeline,
-  AnnouncementsTimelineProps,
-} from './AnnouncementsTimeline';
-import { TestApiProvider, renderInTestApp } from '@backstage/test-utils';
-import { rootRouteRef } from '../../routes';
 import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
 import {
   AnnouncementsApi,
   announcementsApiRef,
 } from '@backstage-community/plugin-announcements-react';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { screen } from '@testing-library/react';
+import { rootRouteRef } from '../../routes';
+import {
+  AnnouncementsTimeline,
+  AnnouncementsTimelineProps,
+} from './AnnouncementsTimeline';
 
 const renderMockTimelineComponent = async ({
   announcements,
@@ -77,6 +77,7 @@ describe('AnnouncementsTimeline', () => {
           created_at: '2022-01-01',
           active: true,
           start_at: '2025-01-01',
+          until_date: '2025-02-01',
         },
         {
           id: '2',
@@ -87,6 +88,7 @@ describe('AnnouncementsTimeline', () => {
           created_at: '2022-01-02',
           active: true,
           start_at: '2022-01-02',
+          until_date: '2022-02-02',
         },
       ],
     };

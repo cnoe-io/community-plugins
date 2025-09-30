@@ -18,7 +18,7 @@ import { Message, Feedback } from '../types';
 import ChatMessages from './ChatMessages';
 import { alertApiRef, useApi } from '@backstage/core-plugin-api';
 import { ChatbotApi } from '../apis';
-import React from 'react';
+// React import removed - using new JSX transform
 
 interface ChatFeedbackProps {
   handleMessageSubmit: (msg?: string) => void;
@@ -34,6 +34,7 @@ interface ChatFeedbackProps {
   handleOptionSelection: (option: string) => void;
   renderOptions?: boolean;
   providerModelsMap: { [key: string]: string[] };
+  showFormMode?: boolean;
 }
 
 function ChatFeedback({
@@ -46,6 +47,7 @@ function ChatFeedback({
   setMessages,
   handleOptionSelection,
   providerModelsMap,
+  showFormMode = true,
 }: ChatFeedbackProps) {
   const alertApi = useApi(alertApiRef);
 
@@ -127,6 +129,7 @@ function ChatFeedback({
       handleOptionSelection={handleOptionSelection}
       setFeedback={setFeedback}
       providerModelsMap={providerModelsMap}
+      showFormMode={showFormMode}
     />
   );
 }

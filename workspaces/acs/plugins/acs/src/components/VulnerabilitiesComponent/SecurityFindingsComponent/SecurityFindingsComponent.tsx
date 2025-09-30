@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useCallback, useEffect, useState } from 'react';
-import DataTable from 'react-data-table-component';
-import ArrowDownward from '@material-ui/icons/ArrowDownward';
 import { useTheme } from '@material-ui/core/styles';
+import ArrowDownward from '@material-ui/icons/ArrowDownward';
+import { useCallback, useEffect, useState } from 'react';
+import * as React from 'react';
+import DataTable from 'react-data-table-component';
 import '@patternfly/react-core/dist/styles/base.css';
 import '@patternfly/react-styles';
-
 import { CVEEntityDetailsComponent } from '../CVEEntityDetailsComponent';
 
 interface SecurityFindingsProps {

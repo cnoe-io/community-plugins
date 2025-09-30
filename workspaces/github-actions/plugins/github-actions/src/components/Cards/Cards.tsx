@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-import { useEntity } from '@backstage/plugin-catalog-react';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import ExternalLinkIcon from '@material-ui/icons/Launch';
-import { useEffect } from 'react';
-import { GITHUB_ACTIONS_ANNOTATION } from '../getProjectNameFromEntity';
-import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
-import { WorkflowRunsTable } from '../WorkflowRunsTable';
-import { WorkflowRunStatus } from '../WorkflowRunStatus';
-import { errorApiRef, useApi } from '@backstage/core-plugin-api';
 import {
   InfoCard,
   InfoCardVariants,
   Link,
   StructuredMetadataTable,
 } from '@backstage/core-components';
-import { getHostnameFromEntity } from '../getHostnameFromEntity';
+import { errorApiRef, useApi } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import Box from '@material-ui/core/Box';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import ExternalLinkIcon from '@material-ui/icons/Launch';
+import { useEffect } from 'react';
+import { getHostnameFromEntity } from '../getHostnameFromEntity';
+import { GITHUB_ACTIONS_ANNOTATION } from '../getProjectNameFromEntity';
+import { useDefaultBranch } from '../useDefaultBranch';
+import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
+import { WorkflowRunsTable } from '../WorkflowRunsTable';
+import { WorkflowRunStatus } from '../WorkflowRunStatus';
 
 const useStyles = makeStyles({
   externalLinkIcon: {
@@ -45,7 +47,7 @@ const WidgetContent = (props: {
   error?: Error;
   loading?: boolean;
   lastRun: WorkflowRun;
-  branch: string;
+  branch?: string;
 }) => {
   const { error, loading, lastRun, branch } = props;
   const classes = useStyles();
@@ -62,6 +64,13 @@ const WidgetContent = (props: {
               status={lastRun.status}
               conclusion={lastRun.conclusion}
             />
+          </Box>
+        ),
+        age: (
+          <Box display="flex">
+            <Tooltip title={lastRun.statusDate ?? ''}>
+              <Box>{lastRun.statusAge}</Box>
+            </Tooltip>
           </Box>
         ),
         message: lastRun.message,
@@ -81,13 +90,19 @@ export const LatestWorkflowRunCard = (props: {
   branch?: string;
   variant?: InfoCardVariants;
 }) => {
-  const { branch = 'master', variant } = props;
+  const { variant } = props;
   const { entity } = useEntity();
   const errorApi = useApi(errorApiRef);
   const hostname = getHostnameFromEntity(entity);
   const [owner, repo] = (
     entity?.metadata.annotations?.[GITHUB_ACTIONS_ANNOTATION] ?? '/'
   ).split('/');
+  const defaultBranch = useDefaultBranch({
+    hostname,
+    owner,
+    repo,
+  }).branch;
+  const branch = props.branch ?? defaultBranch;
   const [{ runs, loading, error }] = useWorkflowRuns({
     hostname,
     owner,
@@ -119,11 +134,21 @@ export const LatestWorkflowsForBranchCard = (props: {
   branch?: string;
   variant?: InfoCardVariants;
 }) => {
-  const { branch = 'master', variant } = props;
+  const { variant } = props;
   const { entity } = useEntity();
+  const hostname = getHostnameFromEntity(entity);
+  const [owner, repo] = (
+    entity?.metadata.annotations?.[GITHUB_ACTIONS_ANNOTATION] ?? '/'
+  ).split('/');
+  const defaultBranch = useDefaultBranch({
+    hostname,
+    owner,
+    repo,
+  }).branch;
+  const branch = props.branch ?? defaultBranch;
 
   return (
-    <InfoCard title={`Last ${branch} build`} variant={variant}>
+    <InfoCard title={`Recent ${branch} builds`} variant={variant}>
       <WorkflowRunsTable branch={branch} entity={entity} />
     </InfoCard>
   );

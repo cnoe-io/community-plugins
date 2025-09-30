@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+import { renderInTestApp } from '@backstage/test-utils';
 import { waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MetricSelect, MetricSelectProps } from './MetricSelect';
-import { renderInTestApp } from '@backstage/test-utils';
 
 describe('<MetricSelect />', () => {
   it('should display a metric', async () => {

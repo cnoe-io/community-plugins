@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import {
   Button,
-  Dialog as MaterialDialog,
   DialogActions,
   DialogTitle,
+  Dialog as MaterialDialog,
 } from '@material-ui/core';
-
-import { LinearProgressWithLabel } from './LinearProgressWithLabel';
-import { ResponseStep } from '../../types/types';
-import { ResponseStepList } from './ResponseStepList';
-import { Transition } from '../Transition';
 import { useRefetchContext } from '../../contexts/RefetchContext';
+import { ResponseStep } from '../../types/types';
+import { Transition } from '../Transition';
+import { LinearProgressWithLabel } from './LinearProgressWithLabel';
+import { ResponseStepList } from './ResponseStepList';
 
 interface DialogProps {
   progress: number;

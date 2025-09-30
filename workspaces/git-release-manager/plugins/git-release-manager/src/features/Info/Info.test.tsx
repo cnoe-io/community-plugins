@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { renderInTestApp } from '@backstage/test-utils';
 import {
   mockCalverProject,
   mockReleaseBranch,
   mockReleaseCandidateCalver,
 } from '../../test-helpers/test-helpers';
 import { Info } from './Info';
-import { renderInTestApp } from '@backstage/test-utils';
 
 jest.mock('../../contexts/ProjectContext', () => ({
   useProjectContext: () => ({

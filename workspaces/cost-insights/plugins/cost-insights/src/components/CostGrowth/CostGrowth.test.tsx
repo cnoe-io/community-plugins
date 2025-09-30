@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { CostGrowth } from './CostGrowth';
+import { PropsWithChildren } from 'react';
+import { MockConfigProvider, MockCurrencyProvider } from '../../testUtils';
 import { ChangeThreshold, Currency, CurrencyType, Duration } from '../../types';
 import { findAlways } from '../../utils/assert';
-import { MockConfigProvider, MockCurrencyProvider } from '../../testUtils';
 import { defaultCurrencies } from '../../utils/currency';
+import { CostGrowth } from './CostGrowth';
 
 const engineers = findAlways(defaultCurrencies, c => c.kind === null);
 const usd = findAlways(defaultCurrencies, c => c.kind === CurrencyType.USD);

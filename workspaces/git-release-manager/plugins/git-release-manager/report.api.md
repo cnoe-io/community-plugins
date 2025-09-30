@@ -5,12 +5,10 @@
 ```ts
 /// <reference types="react" />
 
-import { ApiRef } from '@backstage/core-plugin-api';
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { PropsWithChildren } from 'react';
-import { default as React_2 } from 'react';
-import { ReactNode } from 'react';
-import { RouteRef } from '@backstage/core-plugin-api';
+import { ApiRef, BackstagePlugin, RouteRef } from '@backstage/core-plugin-api';
+import { PropsWithChildren, ReactNode } from 'react';
+import type { ReactElement } from 'react';
+import { JSX as JSX_2 } from 'react/jsx-runtime';
 
 // Warning: (ae-missing-release-tag) "A_CALVER_VERSION" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -142,7 +140,7 @@ export interface CreateRcOnSuccessArgs {
 // Warning: (ae-missing-release-tag) "Differ" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-const Differ: ({ current, next, icon }: DifferProps) => React_2.JSX.Element;
+const Differ: ({ current, next, icon }: DifferProps) => JSX_2.Element;
 
 // Warning: (ae-missing-release-tag) "DISABLE_CACHE" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -156,7 +154,7 @@ const DISABLE_CACHE: {
 // Warning: (ae-missing-release-tag) "Divider" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-const Divider: () => React_2.JSX.Element;
+const Divider: () => JSX_2.Element;
 
 // Warning: (ae-forgotten-export) The symbol "SemverTagParts" needs to be exported by the entry point index.d.ts
 //
@@ -285,9 +283,7 @@ declare namespace helpers {
 }
 
 // @public (undocumented)
-const InfoCardPlus: (props: {
-  children?: React_2.ReactNode;
-}) => React_2.JSX.Element;
+const InfoCardPlus: (props: { children?: ReactNode }) => JSX_2.Element;
 
 declare namespace internals {
   export { components, constants, helpers, testHelpers };
@@ -313,7 +309,7 @@ function isProjectValid(project: any): project is Project;
 function LinearProgressWithLabel(props: {
   progress: number;
   responseSteps: ResponseStep[];
-}): React_2.JSX.Element;
+}): JSX_2.Element;
 
 // Warning: (ae-missing-release-tag) "MOCK_RELEASE_BRANCH_NAME_CALVER" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -525,7 +521,7 @@ const mockUsername = 'mock_username';
 // Warning: (ae-missing-release-tag) "NoLatestRelease" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
 // @public (undocumented)
-const NoLatestRelease: () => React_2.JSX.Element;
+const NoLatestRelease: () => JSX_2.Element;
 
 // Warning: (ae-missing-release-tag) "PatchOnSuccessArgs" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //
@@ -603,7 +599,7 @@ const ResponseStepDialog: ({
   progress,
   responseSteps,
   title,
-}: DialogProps) => React_2.JSX.Element;
+}: DialogProps) => JSX_2.Element;
 
 // Warning: (ae-forgotten-export) The symbol "ResponseStepListProps" needs to be exported by the entry point index.d.ts
 // Warning: (ae-missing-release-tag) "ResponseStepList" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -615,7 +611,7 @@ const ResponseStepList: ({
   loading,
   denseList,
   children,
-}: PropsWithChildren<ResponseStepListProps>) => React_2.JSX.Element;
+}: PropsWithChildren<ResponseStepListProps>) => JSX_2.Element;
 
 // Warning: (ae-forgotten-export) The symbol "ResponseStepListItemProps" needs to be exported by the entry point index.d.ts
 // Warning: (ae-missing-release-tag) "ResponseStepListItem" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
@@ -624,7 +620,7 @@ const ResponseStepList: ({
 const ResponseStepListItem: ({
   responseStep,
   animationDelay,
-}: ResponseStepListItemProps) => React_2.JSX.Element;
+}: ResponseStepListItemProps) => JSX_2.Element;
 
 // Warning: (ae-missing-release-tag) "SEMVER_PARTS" is part of the package's API, but it is missing a release tag (@alpha, @beta, @public, or @internal)
 //

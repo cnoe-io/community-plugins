@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
+import { Entity } from '@backstage-community/plugin-cost-insights-common';
+import { HeaderTabs } from '@backstage/core-components';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import { default as CloseButton } from '@material-ui/icons/Close';
+import { useState } from 'react';
+import { findAlways } from '../../utils/assert';
 import { useEntityDialogStyles as useStyles } from '../../utils/styles';
-import { Entity } from '@backstage-community/plugin-cost-insights-common';
 import {
   ProductEntityTable,
   ProductEntityTableOptions,
 } from './ProductEntityTable';
-import { findAlways } from '../../utils/assert';
-import { HeaderTabs } from '@backstage/core-components';
 
 type ProductEntityDialogProps = {
   open: boolean;

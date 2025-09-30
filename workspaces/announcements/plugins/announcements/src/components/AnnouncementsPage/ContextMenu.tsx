@@ -13,26 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { useAnnouncementsTranslation } from '@backstage-community/plugin-announcements-react';
+import { useRouteRef } from '@backstage/core-plugin-api';
+import {
+  Box,
+  IconButton,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  MenuItem,
+  MenuList,
+  Popover,
+} from '@material-ui/core';
+import Description from '@material-ui/icons/Description';
+import MoreVert from '@material-ui/icons/MoreVert';
 import { SyntheticEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRouteRef } from '@backstage/core-plugin-api';
 import {
   announcementAdminRouteRef,
   categoriesListRouteRef,
+  tagsListRouteRef,
 } from '../../routes';
-import { useAnnouncementsTranslation } from '@backstage-community/plugin-announcements-react';
-import {
-  makeStyles,
-  Box,
-  IconButton,
-  Popover,
-  MenuList,
-  MenuItem,
-  ListItemIcon,
-  ListItemText,
-} from '@material-ui/core';
-import MoreVert from '@material-ui/icons/MoreVert';
-import Description from '@material-ui/icons/Description';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -45,6 +46,7 @@ export function ContextMenu() {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement>();
   const announcementsLink = useRouteRef(announcementAdminRouteRef);
   const categoriesLink = useRouteRef(categoriesListRouteRef);
+  const tagsLink = useRouteRef(tagsListRouteRef);
   const navigate = useNavigate();
   const { t } = useAnnouncementsTranslation();
 
@@ -90,6 +92,12 @@ export function ContextMenu() {
             <ListItemText
               primary={t('announcementsPage.contextMenu.categories')}
             />
+          </MenuItem>
+          <MenuItem onClick={() => navigate(tagsLink())}>
+            <ListItemIcon>
+              <Description fontSize="small" />
+            </ListItemIcon>
+            <ListItemText primary={t('announcementsPage.contextMenu.tags')} />
           </MenuItem>
         </MenuList>
       </Popover>

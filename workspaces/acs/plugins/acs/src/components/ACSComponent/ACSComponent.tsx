@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { Button, Grid, Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
-import { VulnerabilitiesComponent } from '../VulnerabilitiesComponent';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
-import { useApi, configApiRef } from '@backstage/core-plugin-api';
+import { Button, Grid, Typography } from '@material-ui/core';
+import { VulnerabilitiesComponent } from '../VulnerabilitiesComponent';
 
 export const ACSComponent = () => {
   const config = useApi(configApiRef);

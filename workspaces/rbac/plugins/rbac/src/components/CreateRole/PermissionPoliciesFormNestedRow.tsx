@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Checkbox from '@mui/material/Checkbox';
+import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { RowPolicy } from './types';
-import Tooltip from '@mui/material/Tooltip';
-import IconButton from '@mui/material/IconButton';
-import ChecklistRtlIcon from '@mui/icons-material/ChecklistRtl';
-import Badge from '@mui/material/Badge';
-import { ConditionRulesData, ConditionsData } from '../ConditionalAccess/types';
+import { useTranslation } from '../../hooks/useTranslation';
 import { ConditionalAccessSidebar } from '../ConditionalAccess/ConditionalAccessSidebar';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { ConditionRulesData, ConditionsData } from '../ConditionalAccess/types';
+import { RowPolicy } from './types';
 
 const PermissionPoliciesFormNestedRow = ({
   plugin,
@@ -65,12 +66,12 @@ const PermissionPoliciesFormNestedRow = ({
   onRemovePermission: (index: number) => void;
   onAddConditions: (index: number, conditions?: ConditionsData) => void;
 }) => {
+  const { t } = useTranslation();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const tooltipTitle = () => (
     <div>
       <Typography component="p" align="center">
-        Use advanced customized permissions to allow access to specific parts of
-        the selected resource type.
+        {t('permissionPolicies.advancedPermissionsTooltip')}
       </Typography>
     </div>
   );
@@ -103,7 +104,9 @@ const PermissionPoliciesFormNestedRow = ({
             {permissionPolicy.permission}
             {permissionPolicy.resourceType ? (
               <Tooltip
-                title={`resource type: ${permissionPolicy.resourceType}`}
+                title={t('permissionPolicies.resourceTypeTooltip' as any, {
+                  resourceType: permissionPolicy.resourceType,
+                })}
                 placement="top"
               >
                 <IconButton aria-label="info" size="small">

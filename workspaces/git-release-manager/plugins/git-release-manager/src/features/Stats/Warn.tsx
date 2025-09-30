@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Alert } from '@material-ui/lab';
 import { Box, Button } from '@material-ui/core';
-
+import { Alert } from '@material-ui/lab';
 import { useProjectContext } from '../../contexts/ProjectContext';
 import { useReleaseStatsContext } from './contexts/ReleaseStatsContext';
 

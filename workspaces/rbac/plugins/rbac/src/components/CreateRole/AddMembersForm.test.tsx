@@ -15,11 +15,13 @@
  */
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import '@testing-library/jest-dom';
-
 import { MemberEntity } from '../../types';
 import { AddMembersForm } from './AddMembersForm';
+
+jest.mock('../../hooks/useLanguage', () => ({
+  useLanguage: () => 'en',
+}));
 
 const membersData: {
   members: MemberEntity[];

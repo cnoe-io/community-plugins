@@ -13,14 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, {
-  Dispatch,
-  SetStateAction,
-  useState,
-  useContext,
-  PropsWithChildren,
-} from 'react';
 import { Maybe } from '@backstage-community/plugin-cost-insights-common';
+import {
+  createContext,
+  Dispatch,
+  PropsWithChildren,
+  SetStateAction,
+  useContext,
+  useState,
+} from 'react';
 
 export type ScrollTo = Maybe<string>;
 
@@ -29,9 +30,9 @@ export type ScrollContextProps = {
   setScroll: Dispatch<SetStateAction<ScrollTo>>;
 };
 
-export const ScrollContext = React.createContext<
-  ScrollContextProps | undefined
->(undefined);
+export const ScrollContext = createContext<ScrollContextProps | undefined>(
+  undefined,
+);
 
 export const ScrollProvider = ({ children }: PropsWithChildren<{}>) => {
   const [scroll, setScroll] = useState<ScrollTo>(null);

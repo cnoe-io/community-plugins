@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React, { ReactNode } from 'react';
 import { grey } from '@material-ui/core/colors';
 import Typography from '@material-ui/core/Typography';
 import CallSplitIcon from '@material-ui/icons/CallSplit';
@@ -22,7 +21,7 @@ import ChatIcon from '@material-ui/icons/Chat';
 import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-
+import { ReactNode } from 'react';
 import { GitReleaseManagerError } from '../errors/GitReleaseManagerError';
 import { TEST_IDS } from '../test-helpers/test-ids';
 

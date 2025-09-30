@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
-import { DialogContent, List } from '@material-ui/core';
-import { ResponseStep } from '../../types/types';
-
-import { ResponseStepListItem } from './ResponseStepListItem';
-import { TEST_IDS } from '../../test-helpers/test-ids';
 import { Progress } from '@backstage/core-components';
+import { DialogContent, List } from '@material-ui/core';
+import { PropsWithChildren } from 'react';
+import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ResponseStep } from '../../types/types';
+import { ResponseStepListItem } from './ResponseStepListItem';
 
 interface ResponseStepListProps {
   responseSteps: (ResponseStep | undefined)[];

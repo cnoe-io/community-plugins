@@ -5,21 +5,25 @@
 ```ts
 /// <reference types="react" />
 
-import { AnyApiFactory } from '@backstage/core-plugin-api';
-import { AnyExtensionDataRef } from '@backstage/frontend-plugin-api';
-import { AnyRouteRefParams } from '@backstage/frontend-plugin-api';
-import { ConfigurableExtensionDataRef } from '@backstage/frontend-plugin-api';
 import { Entity } from '@backstage/catalog-model';
-import { EntityPredicate } from '@backstage/plugin-catalog-react/alpha';
-import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
-import { ExtensionInput } from '@backstage/frontend-plugin-api';
-import { FrontendPlugin } from '@backstage/frontend-plugin-api';
-import { JSX as JSX_2 } from 'react';
-import { RouteRef } from '@backstage/frontend-plugin-api';
-import { SearchResultItemExtensionComponent } from '@backstage/plugin-search-react/alpha';
-import { SearchResultItemExtensionPredicate } from '@backstage/plugin-search-react/alpha';
-import { SearchResultListItemBlueprintParams } from '@backstage/plugin-search-react/alpha';
+import { AnyApiFactory, ApiFactory } from '@backstage/core-plugin-api';
 import { TranslationRef } from '@backstage/core-plugin-api/alpha';
+import {
+  AnyRouteRefParams,
+  ExtensionBlueprintParams,
+  ExtensionDataRef,
+  ExtensionDefinition,
+  ExtensionInput,
+  OverridableFrontendPlugin,
+  RouteRef,
+} from '@backstage/frontend-plugin-api';
+import { EntityPredicate } from '@backstage/plugin-catalog-react/alpha';
+import {
+  SearchResultItemExtensionComponent,
+  SearchResultItemExtensionPredicate,
+  SearchResultListItemBlueprintParams,
+} from '@backstage/plugin-search-react/alpha';
+import { JSX as JSX_2 } from 'react';
 
 // @alpha (undocumented)
 export const adrApiExtension: ExtensionDefinition<{
@@ -27,11 +31,17 @@ export const adrApiExtension: ExtensionDefinition<{
   name: 'adr-api';
   config: {};
   configInput: {};
-  output: ConfigurableExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
+  output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
   inputs: {};
-  params: {
-    factory: AnyApiFactory;
-  };
+  params: <
+    TApi,
+    TImpl extends TApi,
+    TDeps extends {
+      [x: string]: unknown;
+    },
+  >(
+    params: ApiFactory<TApi, TImpl, TDeps>,
+  ) => ExtensionBlueprintParams<AnyApiFactory>;
 }>;
 
 // @alpha (undocumented)
@@ -51,31 +61,31 @@ export const adrEntityContentExtension: ExtensionDefinition<{
     group?: string | false | undefined;
   };
   output:
-    | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-    | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-    | ConfigurableExtensionDataRef<
+    | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+    | ExtensionDataRef<string, 'core.routing.path', {}>
+    | ExtensionDataRef<
         RouteRef<AnyRouteRefParams>,
         'core.routing.ref',
         {
           optional: true;
         }
       >
-    | ConfigurableExtensionDataRef<string, 'catalog.entity-content-title', {}>
-    | ConfigurableExtensionDataRef<
+    | ExtensionDataRef<
         (entity: Entity) => boolean,
         'catalog.entity-filter-function',
         {
           optional: true;
         }
       >
-    | ConfigurableExtensionDataRef<
+    | ExtensionDataRef<
         string,
         'catalog.entity-filter-expression',
         {
           optional: true;
         }
       >
-    | ConfigurableExtensionDataRef<
+    | ExtensionDataRef<string, 'catalog.entity-content-title', {}>
+    | ExtensionDataRef<
         string,
         'catalog.entity-content-group',
         {
@@ -84,10 +94,12 @@ export const adrEntityContentExtension: ExtensionDefinition<{
       >;
   inputs: {};
   params: {
-    loader: () => Promise<JSX.Element>;
-    defaultPath: string;
-    defaultTitle: string;
-    defaultGroup?:
+    defaultPath?: [Error: "Use the 'path' param instead"] | undefined;
+    path: string;
+    defaultTitle?: [Error: "Use the 'title' param instead"] | undefined;
+    title: string;
+    defaultGroup?: [Error: "Use the 'group' param instead"] | undefined;
+    group?:
       | (string & {})
       | 'overview'
       | 'documentation'
@@ -96,6 +108,7 @@ export const adrEntityContentExtension: ExtensionDefinition<{
       | 'operation'
       | 'observability'
       | undefined;
+    loader: () => Promise<JSX.Element>;
     routeRef?: RouteRef<AnyRouteRefParams> | undefined;
     filter?: EntityPredicate | ((entity: Entity) => boolean) | undefined;
   };
@@ -113,7 +126,7 @@ export const adrSearchResultListItemExtension: ExtensionDefinition<{
   } & {
     noTrack?: boolean | undefined;
   };
-  output: ConfigurableExtensionDataRef<
+  output: ExtensionDataRef<
     {
       predicate?: SearchResultItemExtensionPredicate | undefined;
       component: SearchResultItemExtensionComponent;
@@ -123,7 +136,13 @@ export const adrSearchResultListItemExtension: ExtensionDefinition<{
   >;
   inputs: {
     [x: string]: ExtensionInput<
-      AnyExtensionDataRef,
+      ExtensionDataRef<
+        unknown,
+        string,
+        {
+          optional?: true | undefined;
+        }
+      >,
       {
         optional: boolean;
         singleton: boolean;
@@ -146,26 +165,28 @@ export const adrTranslationRef: TranslationRef<
 >;
 
 // @alpha (undocumented)
-const _default: FrontendPlugin<
+const _default: OverridableFrontendPlugin<
   {},
   {},
   {
-    [x: `api:${string}/adr-api`]: ExtensionDefinition<{
+    'api:adr/adr-api': ExtensionDefinition<{
       kind: 'api';
       name: 'adr-api';
       config: {};
       configInput: {};
-      output: ConfigurableExtensionDataRef<
-        AnyApiFactory,
-        'core.api.factory',
-        {}
-      >;
+      output: ExtensionDataRef<AnyApiFactory, 'core.api.factory', {}>;
       inputs: {};
-      params: {
-        factory: AnyApiFactory;
-      };
+      params: <
+        TApi,
+        TImpl extends TApi,
+        TDeps extends {
+          [x: string]: unknown;
+        },
+      >(
+        params: ApiFactory<TApi, TImpl, TDeps>,
+      ) => ExtensionBlueprintParams<AnyApiFactory>;
     }>;
-    [x: `entity-content:${string}/entity`]: ExtensionDefinition<{
+    'entity-content:adr/entity': ExtensionDefinition<{
       kind: 'entity-content';
       name: 'entity';
       config: {
@@ -181,35 +202,31 @@ const _default: FrontendPlugin<
         group?: string | false | undefined;
       };
       output:
-        | ConfigurableExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
-        | ConfigurableExtensionDataRef<string, 'core.routing.path', {}>
-        | ConfigurableExtensionDataRef<
+        | ExtensionDataRef<JSX_2.Element, 'core.reactElement', {}>
+        | ExtensionDataRef<string, 'core.routing.path', {}>
+        | ExtensionDataRef<
             RouteRef<AnyRouteRefParams>,
             'core.routing.ref',
             {
               optional: true;
             }
           >
-        | ConfigurableExtensionDataRef<
-            string,
-            'catalog.entity-content-title',
-            {}
-          >
-        | ConfigurableExtensionDataRef<
+        | ExtensionDataRef<
             (entity: Entity) => boolean,
             'catalog.entity-filter-function',
             {
               optional: true;
             }
           >
-        | ConfigurableExtensionDataRef<
+        | ExtensionDataRef<
             string,
             'catalog.entity-filter-expression',
             {
               optional: true;
             }
           >
-        | ConfigurableExtensionDataRef<
+        | ExtensionDataRef<string, 'catalog.entity-content-title', {}>
+        | ExtensionDataRef<
             string,
             'catalog.entity-content-group',
             {
@@ -218,10 +235,12 @@ const _default: FrontendPlugin<
           >;
       inputs: {};
       params: {
-        loader: () => Promise<JSX.Element>;
-        defaultPath: string;
-        defaultTitle: string;
-        defaultGroup?:
+        defaultPath?: [Error: "Use the 'path' param instead"] | undefined;
+        path: string;
+        defaultTitle?: [Error: "Use the 'title' param instead"] | undefined;
+        title: string;
+        defaultGroup?: [Error: "Use the 'group' param instead"] | undefined;
+        group?:
           | (string & {})
           | 'overview'
           | 'documentation'
@@ -230,11 +249,12 @@ const _default: FrontendPlugin<
           | 'operation'
           | 'observability'
           | undefined;
+        loader: () => Promise<JSX.Element>;
         routeRef?: RouteRef<AnyRouteRefParams> | undefined;
         filter?: EntityPredicate | ((entity: Entity) => boolean) | undefined;
       };
     }>;
-    [x: `search-result-list-item:${string}`]: ExtensionDefinition<{
+    'search-result-list-item:adr': ExtensionDefinition<{
       config: {
         lineClamp: number;
       } & {
@@ -245,7 +265,7 @@ const _default: FrontendPlugin<
       } & {
         noTrack?: boolean | undefined;
       };
-      output: ConfigurableExtensionDataRef<
+      output: ExtensionDataRef<
         {
           predicate?: SearchResultItemExtensionPredicate | undefined;
           component: SearchResultItemExtensionComponent;
@@ -255,7 +275,13 @@ const _default: FrontendPlugin<
       >;
       inputs: {
         [x: string]: ExtensionInput<
-          AnyExtensionDataRef,
+          ExtensionDataRef<
+            unknown,
+            string,
+            {
+              optional?: true | undefined;
+            }
+          >,
           {
             optional: boolean;
             singleton: boolean;

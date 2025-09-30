@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AnnouncementPage } from './AnnouncementPage';
-import { rootRouteRef } from '../../routes';
 import {
   AnnouncementsApi,
   announcementsApiRef,
 } from '@backstage-community/plugin-announcements-react';
-import { entityRouteRef } from '@backstage/plugin-catalog-react';
-import { TestApiProvider, renderInTestApp } from '@backstage/test-utils';
-import { Route } from 'react-router-dom';
 import { FlatRoutes } from '@backstage/core-app-api';
+import { entityRouteRef } from '@backstage/plugin-catalog-react';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { DateTime } from 'luxon';
+import { Route } from 'react-router-dom';
+import { rootRouteRef } from '../../routes';
+import { AnnouncementPage } from './AnnouncementPage';
 
 const announcementsApiMock: jest.Mocked<
   Pick<
@@ -66,6 +66,7 @@ describe('AnnouncementPage', () => {
     created_at: '2025-01-10T00:00:00.000Z',
     active: true,
     start_at: '2025-01-10T00:00:00.000Z',
+    until_date: '2025-02-10T00:00:00.000Z',
   };
 
   afterEach(() => {

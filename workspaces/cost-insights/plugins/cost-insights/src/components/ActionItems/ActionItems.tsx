@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { Fragment, MouseEventHandler } from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import { IconButtonProps } from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
+import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
+import Paper from '@material-ui/core/Paper';
+import Tooltip from '@material-ui/core/Tooltip';
 import { default as SnoozeIcon } from '@material-ui/icons/AccessTime';
 import { default as AcceptIcon } from '@material-ui/icons/Check';
 import { default as DismissIcon } from '@material-ui/icons/Delete';
-import { ActionItemCard } from './ActionItemCard';
+import { Fragment, MouseEventHandler } from 'react';
+import { ScrollType, useScroll } from '../../hooks';
 import { Alert, AlertStatus } from '../../types';
-import { useScroll, ScrollType } from '../../hooks';
 import { useActionItemCardStyles as useStyles } from '../../utils/styles';
+import { ActionItemCard } from './ActionItemCard';
 
 type AlertStatusButtonProps = {
   title: string;

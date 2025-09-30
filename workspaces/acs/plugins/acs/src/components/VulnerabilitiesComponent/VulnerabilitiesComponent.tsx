@@ -13,15 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react';
-import { Box, Typography } from '@material-ui/core';
 import { InfoCard } from '@backstage/core-components';
-import { makeStyles } from '@material-ui/core/styles';
+import { Box, Typography } from '@material-ui/core';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from '@material-ui/core/styles';
+import { useState } from 'react';
 import { useFetchACSData } from '../../common/useFetchACSData';
-import { SecurityFindingsComponent } from './SecurityFindingsComponent';
-
 import { DataFilterComponent } from '../DataFilterComponent';
+import { SecurityFindingsComponent } from './SecurityFindingsComponent';
 
 interface Filters {
   selectedEntity: string;

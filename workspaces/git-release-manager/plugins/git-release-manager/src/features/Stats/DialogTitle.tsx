@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import {
   createStyles,
   IconButton,
@@ -23,14 +22,14 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
-
+import CloseIcon from '@material-ui/icons/Close';
+import type { ComponentProps, ReactNode } from 'react';
 import { Stats } from './Stats';
 
 interface DialogTitleProps extends WithStyles<typeof styles> {
-  children: React.ReactNode;
-  setShowStats: React.ComponentProps<typeof Stats>['setShowStats'];
+  children: ReactNode;
+  setShowStats: ComponentProps<typeof Stats>['setShowStats'];
 }
 
 const styles = (theme: Theme) =>

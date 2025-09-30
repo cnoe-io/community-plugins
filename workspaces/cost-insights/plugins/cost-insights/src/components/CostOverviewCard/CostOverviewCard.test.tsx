@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { fireEvent } from '@testing-library/react';
-import { renderInTestApp } from '@backstage/test-utils';
-import { CostOverviewCard } from './CostOverviewCard';
 import { Cost } from '@backstage-community/plugin-cost-insights-common';
+import { renderInTestApp } from '@backstage/test-utils';
+import { fireEvent } from '@testing-library/react';
 import {
   changeOf,
   getGroupedProducts,
@@ -30,6 +28,7 @@ import {
   trendlineOf,
 } from '../../testUtils';
 import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
+import { CostOverviewCard } from './CostOverviewCard';
 
 const mockGroupDailyCost: Cost = {
   id: 'test-group',

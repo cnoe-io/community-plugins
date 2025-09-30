@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Alert } from '@material-ui/lab';
+import { Progress } from '@backstage/core-components';
 import {
   makeStyles,
   Table,
@@ -25,16 +24,15 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
-import { getMappedReleases } from './helpers/getMappedReleases';
-
-import { getReleaseStats } from './helpers/getReleaseStats';
-import { Info } from './Info/Info';
-import { ReleaseStatsContext } from './contexts/ReleaseStatsContext';
-import { Row } from './Row/Row';
-import { useGetStats } from './hooks/useGetStats';
+import { Alert } from '@material-ui/lab';
 import { useProjectContext } from '../../contexts/ProjectContext';
+import { ReleaseStatsContext } from './contexts/ReleaseStatsContext';
+import { getMappedReleases } from './helpers/getMappedReleases';
+import { getReleaseStats } from './helpers/getReleaseStats';
+import { useGetStats } from './hooks/useGetStats';
+import { Info } from './Info/Info';
+import { Row } from './Row/Row';
 import { Warn } from './Warn';
-import { Progress } from '@backstage/core-components';
 
 const useStyles = makeStyles({
   table: {

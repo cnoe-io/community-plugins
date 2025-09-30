@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { default as SnoozeIcon } from '@material-ui/icons/AccessTime';
 import { default as AcceptIcon } from '@material-ui/icons/Check';
 import { default as DismissIcon } from '@material-ui/icons/Delete';
-import { AlertInsightsSectionHeader } from './AlertInsightsSectionHeader';
 import { Alert } from '../../types';
 import {
-  isSnoozeEnabled,
   isAcceptEnabled,
   isDismissEnabled,
+  isSnoozeEnabled,
 } from '../../utils/alerts';
+import { AlertInsightsSectionHeader } from './AlertInsightsSectionHeader';
 
 type AlertInsightsSectionProps = {
   alert: Alert;

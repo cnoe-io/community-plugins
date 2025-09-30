@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { Group } from '@backstage-community/plugin-cost-insights-common';
+import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 import Typography from '@material-ui/core/Typography';
 import useAsync from 'react-use/esm/useAsync';
 import { useCostInsightsStyles } from '../../utils/styles';
-import { Group } from '@backstage-community/plugin-cost-insights-common';
-import { identityApiRef, useApi } from '@backstage/core-plugin-api';
 
 function useDisplayName(): string {
   const identityApi = useApi(identityApiRef);

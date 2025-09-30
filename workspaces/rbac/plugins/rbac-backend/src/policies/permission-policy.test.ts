@@ -13,6 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { resolve } from 'path';
+import type { RoleMetadata } from '@backstage-community/plugin-rbac-common';
 import type { LoggerService } from '@backstage/backend-plugin-api';
 import { mockServices } from '@backstage/backend-test-utils';
 import { Config } from '@backstage/config';
@@ -24,7 +26,6 @@ import type {
   PolicyQuery,
   PolicyQueryUser,
 } from '@backstage/plugin-permission-node';
-
 import {
   Adapter,
   Enforcer,
@@ -34,11 +35,11 @@ import {
 } from 'casbin';
 import * as Knex from 'knex';
 import { MockClient } from 'knex-mock-client';
-
-import type { RoleMetadata } from '@backstage-community/plugin-rbac-common';
-
-import { resolve } from 'path';
-
+import {
+  clearAuditorMock,
+  expectAuditorLogForPermission,
+} from '../../__fixtures__/auditor-test-utils';
+import { catalogMock, mockAuditorService } from '../../__fixtures__/mock-utils';
 import { ADMIN_ROLE_NAME } from '../admin-permissions/admin-creation';
 import { CasbinDBAdapterFactory } from '../database/casbin-adapter-factory';
 import { ConditionalStorage } from '../database/conditional-storage';
@@ -51,11 +52,6 @@ import { EnforcerDelegate } from '../service/enforcer-delegate';
 import { MODEL } from '../service/permission-model';
 import { PluginPermissionMetadataCollector } from '../service/plugin-endpoints';
 import { RBACPermissionPolicy } from './permission-policy';
-import { catalogMock, mockAuditorService } from '../../__fixtures__/mock-utils';
-import {
-  clearAuditorMock,
-  expectAuditorLogForPermission,
-} from '../../__fixtures__/auditor-test-utils';
 
 type PermissionAction = 'create' | 'read' | 'update' | 'delete';
 
@@ -1810,6 +1806,185 @@ describe('Policy checks for conditional policies', () => {
   });
 });
 
+describe('Policy checks with preferPermissionPolicy config', () => {
+  const allowReadAndCreatePolicies = [
+    // allow read for all resources
+    ['role:default/all_resource_reader', 'catalog-entity', 'read', 'allow'],
+    ['role:default/all_resource_reader', 'catalog-entity', 'create', 'allow'],
+  ];
+
+  const allowCreateButDenyReadPolicies = [
+    // deny read for all resources
+    ['role:default/all_resource_reader', 'catalog-entity', 'read', 'deny'],
+    ['role:default/all_resource_reader', 'catalog-entity', 'create', 'allow'],
+  ];
+
+  const allowOnlyCreateAndNoneReadPolicies = [
+    ['role:default/all_resource_reader', 'catalog-entity', 'create', 'allow'],
+  ];
+
+  const groupPolicies = [
+    ['user:default/mike', 'role:default/all_resource_reader'],
+    ['user:default/mike', 'role:default/owned_resource_reader'],
+  ];
+
+  const conditionalPolicy = [
+    {
+      id: 1,
+      pluginId: 'catalog',
+      resourceType: 'catalog-entity',
+      actions: ['read'],
+      roleEntityRef: 'role:default/owned_resource_reader',
+      result: AuthorizeResult.CONDITIONAL,
+      conditions: {
+        rule: 'IS_ENTITY_OWNER',
+        resourceType: 'catalog-entity',
+        params: {
+          claims: ['user:default/mike'],
+        },
+      },
+    },
+  ];
+
+  it('should allow "catalog read operation" when preferPermissionPolicy is true (permission policy first) and read policy has "allow" value', async () => {
+    const config = newConfig(undefined, undefined, undefined, 'basic');
+    const adapter = await newAdapter(config);
+    const enfDelegate = await newEnforcerDelegate(
+      adapter,
+      config,
+      allowReadAndCreatePolicies,
+      groupPolicies,
+    );
+    const policy = await newPermissionPolicy(config, enfDelegate);
+
+    // Mock conditionalStorage to return a conditional ALLOW for owned-reader
+    (
+      conditionalStorageMock.filterConditions as jest.Mock
+    ).mockResolvedValueOnce(conditionalPolicy);
+
+    const decision = await policy.handle(
+      newPolicyQueryWithResourcePermission(
+        'catalog.entity.read',
+        'catalog-entity',
+        'read',
+      ),
+      newPolicyQueryUser('user:default/mike', ['user:default/mike']), // user is owner
+    );
+    expect(decision).toStrictEqual({ result: AuthorizeResult.ALLOW });
+  });
+
+  it('should deny "catalog read operation" when preferPermissionPolicy is true (permission policy first) and read policy has "deny" value', async () => {
+    const config = newConfig(undefined, undefined, undefined, 'basic');
+    const adapter = await newAdapter(config);
+    const enfDelegate = await newEnforcerDelegate(
+      adapter,
+      config,
+      allowCreateButDenyReadPolicies,
+      groupPolicies,
+    );
+    const policy = await newPermissionPolicy(config, enfDelegate);
+
+    // Mock conditionalStorage to return a conditional ALLOW for owned-reader
+    (
+      conditionalStorageMock.filterConditions as jest.Mock
+    ).mockResolvedValueOnce(conditionalPolicy);
+
+    const decision = await policy.handle(
+      newPolicyQueryWithResourcePermission(
+        'catalog.entity.read',
+        'catalog-entity',
+        'read',
+      ),
+      newPolicyQueryUser('user:default/mike', ['user:default/mike']), // user is owner
+    );
+    expect(decision).toStrictEqual({ result: AuthorizeResult.DENY });
+  });
+
+  it('should return conditional result for "catalog read operation" when preferPermissionPolicy is true (permission policy first) and there is no read policy value', async () => {
+    const config = newConfig(undefined, undefined, undefined, 'basic');
+    const adapter = await newAdapter(config);
+    const enfDelegate = await newEnforcerDelegate(
+      adapter,
+      config,
+      allowOnlyCreateAndNoneReadPolicies,
+      groupPolicies,
+    );
+    const policy = await newPermissionPolicy(config, enfDelegate);
+
+    // Mock conditionalStorage to return a conditional ALLOW for owned-reader
+    (
+      conditionalStorageMock.filterConditions as jest.Mock
+    ).mockResolvedValueOnce(conditionalPolicy);
+
+    const decision = await policy.handle(
+      newPolicyQueryWithResourcePermission(
+        'catalog.entity.read',
+        'catalog-entity',
+        'read',
+      ),
+      newPolicyQueryUser('user:default/mike', ['user:default/mike']), // user is owner
+    );
+    expect(decision).toStrictEqual({
+      pluginId: 'catalog',
+      resourceType: 'catalog-entity',
+      result: AuthorizeResult.CONDITIONAL,
+      conditions: {
+        anyOf: [
+          {
+            rule: 'IS_ENTITY_OWNER',
+            resourceType: 'catalog-entity',
+            params: {
+              claims: ['user:default/mike'],
+            },
+          },
+        ],
+      },
+    });
+  });
+
+  it('should NOT allow read when preferPermissionPolicy is false by default (conditional policy first)', async () => {
+    const config = newConfig();
+    const adapter = await newAdapter(config);
+    const enfDelegate = await newEnforcerDelegate(
+      adapter,
+      config,
+      allowReadAndCreatePolicies,
+      groupPolicies,
+    );
+    const policy = await newPermissionPolicy(config, enfDelegate);
+
+    // Mock conditionalStorage to return a conditional ALLOW for owned-reader
+    (
+      conditionalStorageMock.filterConditions as jest.Mock
+    ).mockResolvedValueOnce(conditionalPolicy);
+
+    const decision = await policy.handle(
+      newPolicyQueryWithResourcePermission(
+        'catalog.entity.read',
+        'catalog-entity',
+        'read',
+      ),
+      newPolicyQueryUser('user:default/mike', ['user:default/mike']),
+    );
+    expect(decision).toStrictEqual({
+      pluginId: 'catalog',
+      resourceType: 'catalog-entity',
+      result: AuthorizeResult.CONDITIONAL,
+      conditions: {
+        anyOf: [
+          {
+            rule: 'IS_ENTITY_OWNER',
+            resourceType: 'catalog-entity',
+            params: {
+              claims: ['user:default/mike'],
+            },
+          },
+        ],
+      },
+    });
+  });
+});
+
 function newPolicyQueryWithBasicPermission(
   name: string,
   action?: 'create' | 'read' | 'update' | 'delete',
@@ -1867,6 +2042,7 @@ function newConfig(
   permFile?: string,
   users?: Array<{ name: string }>,
   superUsers?: Array<{ name: string }>,
+  policyDecisionPrecedence?: 'basic' | 'conditional',
 ): Config {
   const testUsers = [
     {
@@ -1887,6 +2063,7 @@ function newConfig(
             users: users || testUsers,
             superUsers: superUsers,
           },
+          policyDecisionPrecedence: policyDecisionPrecedence ?? 'conditional',
         },
       },
       backend: {

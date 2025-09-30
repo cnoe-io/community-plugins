@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react';
-
 import { configApiRef, useAnalytics, useApi } from '@backstage/core-plugin-api';
-
 import BugReportOutlined from '@mui/icons-material/BugReportOutlined';
 import BugReportTwoToneIcon from '@mui/icons-material/BugReportTwoTone';
 import CloseRounded from '@mui/icons-material/CloseRounded';
@@ -25,6 +22,7 @@ import SmsTwoTone from '@mui/icons-material/SmsTwoTone';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
+import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -37,8 +35,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import { styled, Theme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-import Dialog from '@mui/material/Dialog';
+import { FocusEvent, useState } from 'react';
 import { feedbackApiRef } from '../../api';
 import { FeedbackCategory } from '../../models/feedback.model';
 
@@ -159,7 +156,7 @@ export const CreateFeedbackModal = (props: {
   }
 
   function handleInputChange(
-    event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>,
+    event: FocusEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) {
     if (event.target.id === 'summary') {
       const _summary = event.target.value;
@@ -191,7 +188,7 @@ export const CreateFeedbackModal = (props: {
   }
 
   function handleValidation(
-    event: React.FocusEvent<HTMLTextAreaElement | HTMLInputElement>,
+    event: FocusEvent<HTMLTextAreaElement | HTMLInputElement>,
   ) {
     if (event.target.id === 'summary') {
       if (event.target.value.length === 0) {

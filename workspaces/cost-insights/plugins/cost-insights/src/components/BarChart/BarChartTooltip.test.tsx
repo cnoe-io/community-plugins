@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
+import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
 import { BarChartTooltip } from './BarChartTooltip';
 import { BarChartTooltipItem } from './BarChartTooltipItem';
-import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
 
 const items = [
   {

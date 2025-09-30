@@ -13,15 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { useEffect } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { GITHUB_ACTIONS_ANNOTATION } from '../getProjectNameFromEntity';
-import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
-import { WorkflowRunStatus } from '../WorkflowRunStatus';
-import Typography from '@material-ui/core/Typography';
-
-import { errorApiRef, useApi, useRouteRef } from '@backstage/core-plugin-api';
 import {
   ErrorPanel,
   InfoCard,
@@ -29,9 +20,18 @@ import {
   Link,
   Table,
 } from '@backstage/core-components';
+import { errorApiRef, useApi, useRouteRef } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import { useEffect } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import { buildRouteRef } from '../../routes';
 import { getHostnameFromEntity } from '../getHostnameFromEntity';
-import Box from '@material-ui/core/Box';
+import { GITHUB_ACTIONS_ANNOTATION } from '../getProjectNameFromEntity';
+import { useWorkflowRuns, WorkflowRun } from '../useWorkflowRuns';
+import { WorkflowRunStatus } from '../WorkflowRunStatus';
 
 const firstLine = (message: string): string => message.split('\n')[0];
 
@@ -119,6 +119,16 @@ export const RecentWorkflowRunsCard = (props: {
               render: p => (
                 <Box display="flex">
                   <WorkflowRunStatus {...p} />
+                </Box>
+              ),
+            },
+            {
+              title: 'Age',
+              render: row => (
+                <Box display="flex">
+                  <Tooltip title={row.statusDate ?? ''}>
+                    <Box>{row.statusAge}</Box>
+                  </Tooltip>
                 </Box>
               ),
             },

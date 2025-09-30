@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useParams } from 'react-router-dom';
-
+import { policyEntityReadPermission } from '@backstage-community/plugin-rbac-common';
 import { Header, Page, TabbedLayout } from '@backstage/core-components';
-
+import { RequirePermission } from '@backstage/plugin-permission-react';
 import Grid from '@mui/material/Grid';
-
+import { useParams } from 'react-router-dom';
 import { useLocationToast } from '../../hooks/useLocationToast';
 import { useMembers } from '../../hooks/useMembers';
+import { useTranslation } from '../../hooks/useTranslation';
 import { SnackbarAlert } from '../SnackbarAlert';
 import { useToast } from '../ToastContext';
 import { AboutCard } from './AboutCard';
 import { MembersCard } from './MembersCard';
 import { PermissionsCard } from './PermissionsCard';
-import { RequirePermission } from '@backstage/plugin-permission-react';
-import { policyEntityReadPermission } from '@backstage-community/plugin-rbac-common';
 
 export const RoleOverviewPage = () => {
+  const { t } = useTranslation();
   const { roleName, roleNamespace, roleKind } = useParams();
   const { toastMessage, setToastMessage } = useToast();
   const membersInfo = useMembers(`${roleKind}:${roleNamespace}/${roleName}`);
@@ -53,7 +52,7 @@ export const RoleOverviewPage = () => {
           typeLink=".."
         />
         <TabbedLayout>
-          <TabbedLayout.Route path="" title="Overview">
+          <TabbedLayout.Route path="" title={t('common.overview')}>
             <Grid container direction="row" spacing={2}>
               <Grid item lg={12} xs={12}>
                 <AboutCard

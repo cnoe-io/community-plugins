@@ -13,6 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import {
+  PermissionAction,
+  PluginPermissionMetaData,
+  Role,
+  RoleBasedPolicy,
+  RoleConditionalPolicyDecision,
+} from '@backstage-community/plugin-rbac-common';
 import { configApiRef } from '@backstage/core-plugin-api';
 import { createDevApp } from '@backstage/dev-utils';
 import { permissionApiRef } from '@backstage/plugin-permission-react';
@@ -21,15 +28,6 @@ import {
   MockPermissionApi,
   TestApiProvider,
 } from '@backstage/test-utils';
-
-import {
-  PermissionAction,
-  PluginPermissionMetaData,
-  Role,
-  RoleBasedPolicy,
-  RoleConditionalPolicyDecision,
-} from '@backstage-community/plugin-rbac-common';
-
 import { mockConditionRules } from '../src/__fixtures__/mockConditionRules';
 import { mockConditions } from '../src/__fixtures__/mockConditions';
 import { mockMembers } from '../src/__fixtures__/mockMembers';
@@ -37,6 +35,7 @@ import { mockPermissionPolicies } from '../src/__fixtures__/mockPermissionPolici
 import { mockPolicies } from '../src/__fixtures__/mockPolicies';
 import { RBACAPI, rbacApiRef } from '../src/api/RBACBackendClient';
 import { RbacPage, rbacPlugin } from '../src/plugin';
+import { rbacTranslations } from '../src/translations';
 import { MemberEntity, RoleBasedConditions, RoleError } from '../src/types';
 
 class MockRBACApi implements RBACAPI {
@@ -171,6 +170,9 @@ const mockConfigApi = new MockConfigApi({
 
 createDevApp()
   .registerPlugin(rbacPlugin)
+  .addTranslationResource(rbacTranslations)
+  .setAvailableLanguages(['en', 'de', 'fr', 'it', 'es'])
+  .setDefaultLanguage('en')
   .addPage({
     element: (
       <TestApiProvider

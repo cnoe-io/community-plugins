@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-
+import { fireEvent, render } from '@testing-library/react';
 import {
-  mockSemverProject,
   mockSearchCalver,
+  mockSemverProject,
 } from '../../test-helpers/test-helpers';
 import { VersioningStrategy } from './VersioningStrategy';
 

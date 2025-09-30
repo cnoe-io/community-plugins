@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { SetStateAction } from 'react';
+import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { TestApiProvider, renderInTestApp } from '@backstage/test-utils';
+import { SetStateAction } from 'react';
 import CategoryInput from './CategoryInput';
-import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
 
 const categories = [
   { title: 'Hello', slug: 'hello' },
@@ -49,6 +49,9 @@ describe('CategoryInput', () => {
       created_at: string;
       active: boolean;
       start_at: string;
+      until_date: string;
+      tags: string[] | undefined;
+      sendNotification: boolean;
     }>,
   ) => void = jest.fn();
 
@@ -62,6 +65,9 @@ describe('CategoryInput', () => {
     created_at: 'created_at',
     active: true,
     start_at: 'start_at',
+    until_date: 'until_date',
+    tags: ['kubernetes', 'go'],
+    sendNotification: false,
   };
 
   const announcementsApiMock = { categories: jest.fn() };

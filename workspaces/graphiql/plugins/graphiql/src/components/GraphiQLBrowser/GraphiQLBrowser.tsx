@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import React, { useState, Suspense } from 'react';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { makeStyles } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import Typography from '@material-ui/core/Typography';
+import { lazy, Suspense, useState } from 'react';
 import 'graphiql/graphiql.css';
-import { StorageBucket } from '../../lib/storage';
-import { GraphQLEndpoint } from '../../lib/api';
 import { Progress } from '@backstage/core-components';
+import { GraphQLEndpoint } from '../../lib/api';
+import { StorageBucket } from '../../lib/storage';
 
-const GraphiQL = React.lazy(() =>
+const GraphiQL = lazy(() =>
   import('graphiql').then(m => ({ default: m.GraphiQL })),
 );
 

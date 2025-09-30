@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useState } from 'react';
-
 import { parseEntityRef } from '@backstage/catalog-model';
 import { Progress, useQueryParamState } from '@backstage/core-components';
 import { alertApiRef, useApi } from '@backstage/core-plugin-api';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
-
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
 import BugReportOutlined from '@mui/icons-material/BugReportOutlined';
 import CloseRounded from '@mui/icons-material/CloseRounded';
@@ -44,7 +41,7 @@ import { styled, Theme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Zoom from '@mui/material/Zoom';
-
+import { JSX, useEffect, useState } from 'react';
 import { feedbackApiRef } from '../../api';
 import { FeedbackType } from '../../models/feedback.model';
 
@@ -107,7 +104,7 @@ export const FeedbackDetailsModal = () => {
     status: string | null;
     assignee: string | null;
     avatarUrls: {} | null;
-    element: React.JSX.Element | null;
+    element: JSX.Element | null;
   }>({ status: null, assignee: null, avatarUrls: null, element: null });
 
   const [isLoading, setIsLoading] = useState(true);

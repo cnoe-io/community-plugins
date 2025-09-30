@@ -13,23 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react';
+import { InfoCard, Progress } from '@backstage/core-components';
+import { useEntity } from '@backstage/plugin-catalog-react';
 import { Grid, Typography } from '@material-ui/core';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import PeopleIcon from '@material-ui/icons/People';
-
-import { Progress, InfoCard } from '@backstage/core-components';
-
+import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import { useState } from 'react';
+import { usePullRequestsByTeam } from '../../hooks/usePullRequestsByTeam';
+import { useUserRepositoriesAndTeam } from '../../hooks/useUserRepositoriesAndTeam';
+import { shouldDisplayCard } from '../../utils/functions';
+import { PRCardFormating } from '../../utils/types';
+import { DraftPrIcon } from '../icons/DraftPr';
 import { InfoCardHeader } from '../InfoCardHeader';
 import { PullRequestBoardOptions } from '../PullRequestBoardOptions';
-import { Wrapper } from '../Wrapper';
 import { PullRequestCard } from '../PullRequestCard';
-import { usePullRequestsByTeam } from '../../hooks/usePullRequestsByTeam';
-import { PRCardFormating } from '../../utils/types';
-import { shouldDisplayCard } from '../../utils/functions';
-import { DraftPrIcon } from '../icons/DraftPr';
-import { useUserRepositoriesAndTeam } from '../../hooks/useUserRepositoriesAndTeam';
-import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import { Wrapper } from '../Wrapper';
 
 /** @public */
 export interface EntityTeamPullRequestsCardProps {
@@ -39,12 +38,13 @@ export interface EntityTeamPullRequestsCardProps {
 const EntityTeamPullRequestsCard = (props: EntityTeamPullRequestsCardProps) => {
   const { pullRequestLimit } = props;
   const [infoCardFormat, setInfoCardFormat] = useState<PRCardFormating[]>([]);
+  const { entity: teamEntity } = useEntity();
   const {
     loading: loadingReposAndTeam,
     repositories,
     teamMembers,
     teamMembersOrganization,
-  } = useUserRepositoriesAndTeam();
+  } = useUserRepositoriesAndTeam(teamEntity);
   const {
     loading: loadingPRs,
     pullRequests,

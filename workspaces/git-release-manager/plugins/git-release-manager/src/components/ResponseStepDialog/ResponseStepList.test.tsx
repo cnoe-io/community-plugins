@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import { ResponseStepList } from './ResponseStepList';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ResponseStepList } from './ResponseStepList';
 
 describe('ResponseStepList', () => {
   it('should render loading state when loading', () => {

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
-import LensIcon from '@material-ui/icons/Lens';
+import Typography from '@material-ui/core/Typography';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
+import LensIcon from '@material-ui/icons/Lens';
+import { PropsWithChildren } from 'react';
 import { useCostGrowthLegendStyles } from '../../utils/styles';
 
 /** @public */

@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { BitriseBuildResult } from '../../api/bitriseApi.model';
-import Alert from '@material-ui/lab/Alert';
-import { BitriseDownloadArtifactComponent } from '../BitriseDownloadArtifactComponent';
-import { useBitriseArtifacts } from '../useBitriseArtifacts';
+import { Progress } from '@backstage/core-components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import { Progress } from '@backstage/core-components';
+import Alert from '@material-ui/lab/Alert';
+import { BitriseBuildResult } from '../../api/bitriseApi.model';
+import { BitriseDownloadArtifactComponent } from '../BitriseDownloadArtifactComponent';
+import { useBitriseArtifacts } from '../useBitriseArtifacts';
 
 type BitriseArtifactsComponentComponentProps = {
   build: BitriseBuildResult;

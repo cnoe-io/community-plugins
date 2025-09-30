@@ -17,12 +17,12 @@ yarn --cwd packages/app add @backstage-community/plugin-analytics-module-newreli
 
 ```tsx
 // packages/app/src/apis.ts
+import { NewRelicBrowser } from '@backstage-community/plugin-analytics-module-newrelic-browser';
 import {
   analyticsApiRef,
   configApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
-import { NewRelicBrowser } from '@backstage-community/plugin-analytics-module-newrelic-browser';
 
 export const apis: AnyApiFactory[] = [
   // Instantiate and register the New Relic Browser API Implementation.
@@ -68,7 +68,57 @@ app:
       ...
       distributedTracing: true
       cookiesEnabled: true
+      sessionReplay:
+        enabled: true
+        samplingRate: 90
+        errorSamplingRate: 90
+        # Optional:
+        # maskTextSelector: 'input[type="password"]'
+        # maskAllInputs: true
+        # blockSelector: '.private'
 ```
+
+See [`config.d.ts`](./config.d.ts) for all available options.
+
+## Session Replay
+
+Session Replay can be enabled via the `sessionReplay` config block. This allows you to record and replay user sessions for debugging and UX analysis.
+
+### Troubleshooting: Manual Session Replay
+
+If you notice that sessions are **not being recorded automatically**, you can force a manual session replay start by injecting the following React component into your app:
+
+```typescript
+import { useEffect } from 'react';
+
+const UseStartReplay = () => {
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if ((window?.newrelic as any)?.recordReplay) {
+        (window.newrelic as any).recordReplay();
+        clearInterval(interval);
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+  return null;
+};
+```
+
+Then, add it to your app’s router:
+
+```tsx
+<AppRouter>
+  <UseStartReplay />
+  <Root>{routes}</Root>
+</AppRouter>
+```
+
+This will ensure session recording starts as soon as the New Relic agent is ready.
+
+---
+
+For more details, see the [New Relic Browser documentation](https://docs.newrelic.com/docs/browser/).
 
 ### User IDs
 
@@ -78,12 +128,12 @@ By default the user ID is calculated as a SHA-256 hash of the current user's `us
 different value, provide a `userIdTransform` function alongside `identityApi` when you instantiate `NewRelicBrowser`. This function will be passed the `userEntityRef` as an argument and should resolve to the value you wish to set as the user ID. For example:
 
 ```typescript
+import { GoogleAnalytics } from '@backstage-community/plugin-analytics-module-newrelic-browser';
 import {
   analyticsApiRef,
   configApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
-import { GoogleAnalytics } from '@backstage-community/plugin-analytics-module-newrelic-browser';
 
 export const apis: AnyApiFactory[] = [
   createApiFactory({

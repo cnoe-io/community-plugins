@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import { screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { ACSComponent } from './ACSComponent';
 import { configApiRef } from '@backstage/core-plugin-api';
 import {
   renderInTestApp,
   TestApiProvider,
 } from '@backstage/frontend-test-utils';
 import { waitFor } from '@testing-library/react';
+import { ACSComponent } from './ACSComponent';
 
 jest.mock('@backstage/plugin-catalog-react', () => ({
   ...jest.requireActual('@backstage/plugin-catalog-react'),

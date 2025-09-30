@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Route, Routes } from 'react-router-dom';
-
+import { policyEntityCreatePermission } from '@backstage-community/plugin-rbac-common';
 import { ErrorPage } from '@backstage/core-components';
 import { configApiRef, useApi } from '@backstage/core-plugin-api';
 import { RequirePermission } from '@backstage/plugin-permission-react';
-
-import { policyEntityCreatePermission } from '@backstage-community/plugin-rbac-common';
-
+import { Route, Routes } from 'react-router-dom';
+import { useTranslation } from '../hooks/useTranslation';
 import { createRoleRouteRef, editRoleRouteRef, roleRouteRef } from '../routes';
 import { CreateRolePage } from './CreateRole/CreateRolePage';
 import { EditRolePage } from './CreateRole/EditRolePage';
@@ -34,14 +32,15 @@ import { ToastContextProvider } from './ToastContext';
  */
 export const Router = ({ useHeader = true }: { useHeader?: boolean }) => {
   const config = useApi(configApiRef);
+  const { t } = useTranslation();
   const isRBACPluginEnabled = config.getOptionalBoolean('permission.enabled');
 
   if (!isRBACPluginEnabled) {
     return (
       <ErrorPage
         status="404"
-        statusMessage="Enable the RBAC backend plugin to use this feature."
-        additionalInfo="To enable RBAC, set `permission.enabled` to `true` in the app-config file."
+        statusMessage={t('errors.rbacDisabled')}
+        additionalInfo={t('errors.rbacDisabledInfo')}
       />
     );
   }

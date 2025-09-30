@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { ChangeStatistic } from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
 import { CostGrowth, LegendItem } from '../../../components';
 import { CostInsightsTheme, Duration } from '../../../types';
-import { ChangeStatistic } from '@backstage-community/plugin-cost-insights-common';
 import { monthOf } from '../../../utils/formatters';
 
 export type MigrationBarChartLegendProps = {

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 import {
-  createPlugin,
   createComponentExtension,
+  createPlugin,
   createRoutableExtension,
 } from '@backstage/core-plugin-api';
 import { rootRouteRef } from './routes';
@@ -52,3 +52,6 @@ export const EntityTeamPullRequestsContent =
       mountPoint: rootRouteRef,
     }),
   );
+
+/** @public */
+export default githubPullRequestsBoardPlugin;

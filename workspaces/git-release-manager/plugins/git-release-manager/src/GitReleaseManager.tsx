@@ -14,32 +14,31 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import useAsync from 'react-use/esm/useAsync';
-import { Alert } from '@material-ui/lab';
-import { Box } from '@material-ui/core';
-import { useApi } from '@backstage/core-plugin-api';
 import { ContentHeader, Progress } from '@backstage/core-components';
-
+import { useApi } from '@backstage/core-plugin-api';
+import { Box } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import type { ReactElement } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import {
+  GetBranchResult,
+  GetLatestReleaseResult,
+  GetRepositoryResult,
+} from './api/GitReleaseClient';
+import { gitReleaseManagerApiRef } from './api/serviceApiRef';
+import { InfoCardPlus } from './components/InfoCardPlus';
+import { Project, ProjectContext } from './contexts/ProjectContext';
+import { UserContext } from './contexts/UserContext';
+import { Features } from './features/Features';
+import { RepoDetailsForm } from './features/RepoDetailsForm/RepoDetailsForm';
+import { isProjectValid } from './helpers/isProjectValid';
+import { useQueryHandler } from './hooks/useQueryHandler';
 import {
   ComponentConfig,
   CreateRcOnSuccessArgs,
   PatchOnSuccessArgs,
   PromoteRcOnSuccessArgs,
 } from './types/types';
-import { Features } from './features/Features';
-import { gitReleaseManagerApiRef } from './api/serviceApiRef';
-import { InfoCardPlus } from './components/InfoCardPlus';
-import { isProjectValid } from './helpers/isProjectValid';
-import { ProjectContext, Project } from './contexts/ProjectContext';
-import { RepoDetailsForm } from './features/RepoDetailsForm/RepoDetailsForm';
-import { useQueryHandler } from './hooks/useQueryHandler';
-import { UserContext } from './contexts/UserContext';
-import {
-  GetBranchResult,
-  GetLatestReleaseResult,
-  GetRepositoryResult,
-} from './api/GitReleaseClient';
 
 interface GitReleaseManagerProps {
   project?: Omit<Project, 'isProvidedViaProps'>;
@@ -60,7 +59,7 @@ interface GitReleaseManagerProps {
         project: Project;
         releaseBranch: GetBranchResult['branch'] | null;
         repository: GetRepositoryResult['repository'];
-      }) => React.ReactElement | React.ReactElement[];
+      }) => ReactElement | ReactElement[];
     };
   };
 }

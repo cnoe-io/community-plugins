@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import {
   Maybe,
   Project,
 } from '@backstage-community/plugin-cost-insights-common';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import type { ChangeEvent } from 'react';
 import { useSelectStyles as useStyles } from '../../utils/styles';
 
 type ProjectSelectProps = {
@@ -41,7 +41,7 @@ export const ProjectSelect = ({
       ((a.name ?? a.id) as string).localeCompare((b.name ?? b.id) as string),
     );
 
-  const handleOnChange = (e: React.ChangeEvent<{ value: unknown }>) => {
+  const handleOnChange = (e: ChangeEvent<{ value: unknown }>) => {
     onSelect(e.target.value as string);
   };
 

@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { CodeSnippet, Link } from '@backstage/core-components';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { AlertInstructionsLayout } from '../AlertInstructionsLayout';
-import { CodeSnippet, Link } from '@backstage/core-components';
 
 export const LabelDataflowInstructionsPage = () => {
   return (

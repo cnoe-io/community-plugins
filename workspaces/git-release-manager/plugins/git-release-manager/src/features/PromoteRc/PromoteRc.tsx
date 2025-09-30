@@ -14,16 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Alert, AlertTitle } from '@material-ui/lab';
 import { Box, Typography } from '@material-ui/core';
-
-import { ComponentConfig, PromoteRcOnSuccessArgs } from '../../types/types';
+import { Alert, AlertTitle } from '@material-ui/lab';
 import { GetLatestReleaseResult } from '../../api/GitReleaseClient';
 import { InfoCardPlus } from '../../components/InfoCardPlus';
 import { NoLatestRelease } from '../../components/NoLatestRelease';
-import { PromoteRcBody } from './PromoteRcBody';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ComponentConfig, PromoteRcOnSuccessArgs } from '../../types/types';
+import { PromoteRcBody } from './PromoteRcBody';
 
 interface PromoteRcProps {
   latestRelease: GetLatestReleaseResult['latestRelease'];

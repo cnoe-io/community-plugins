@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import useAsync from 'react-use/esm/useAsync';
-import { DateTime } from 'luxon';
-import { Box, Typography } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
-
-import { getDecimalNumber } from '../../helpers/getDecimalNumber';
-import { getTagDates } from '../../helpers/getTagDates';
-import { gitReleaseManagerApiRef } from '../../../../api/serviceApiRef';
-import { ReleaseStats } from '../../contexts/ReleaseStatsContext';
-import { useProjectContext } from '../../../../contexts/ProjectContext';
-
 import { Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import { Box, Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { DateTime } from 'luxon';
+import type { ReactNode } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import { gitReleaseManagerApiRef } from '../../../../api/serviceApiRef';
+import { useProjectContext } from '../../../../contexts/ProjectContext';
+import { ReleaseStats } from '../../contexts/ReleaseStatsContext';
+import { getDecimalNumber } from '../../helpers/getDecimalNumber';
+import { getTagDates } from '../../helpers/getTagDates';
 
 interface ReleaseTimeProps {
   releaseStat: ReleaseStats['releases']['0'];
@@ -126,7 +124,7 @@ export function ReleaseTime({ releaseStat }: ReleaseTimeProps) {
   );
 }
 
-function Wrapper({ children }: { children: React.ReactNode }) {
+function Wrapper({ children }: { children: ReactNode }) {
   return (
     <Box
       style={{

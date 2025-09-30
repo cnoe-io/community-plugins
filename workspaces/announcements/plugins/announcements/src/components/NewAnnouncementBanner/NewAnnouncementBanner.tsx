@@ -13,31 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useEffect, useState } from 'react';
-import { DateTime } from 'luxon';
-import { Link } from '@backstage/core-components';
-import { useApi, useRouteRef } from '@backstage/core-plugin-api';
-import { announcementViewRouteRef } from '../../routes';
-import {
-  announcementsApiRef,
-  useAnnouncements,
-  useAnnouncementsTranslation,
-} from '@backstage-community/plugin-announcements-react';
 import {
   Announcement,
   AnnouncementSignal,
   SIGNALS_CHANNEL_ANNOUNCEMENTS,
 } from '@backstage-community/plugin-announcements-common';
+import {
+  announcementsApiRef,
+  useAnnouncements,
+  useAnnouncementsTranslation,
+} from '@backstage-community/plugin-announcements-react';
+import { Link } from '@backstage/core-components';
+import { useApi, useRouteRef } from '@backstage/core-plugin-api';
 import { useSignal } from '@backstage/plugin-signals-react';
 import {
+  IconButton,
   makeStyles,
   Snackbar,
   SnackbarContent,
-  IconButton,
   Typography,
 } from '@material-ui/core';
 import Close from '@material-ui/icons/Close';
 import { Alert } from '@material-ui/lab';
+import { DateTime } from 'luxon';
+import { useEffect, useState } from 'react';
+import { announcementViewRouteRef } from '../../routes';
 
 const useStyles = makeStyles(theme => {
   return {
@@ -146,10 +146,12 @@ type NewAnnouncementBannerProps = {
   max?: number;
   category?: string;
   active?: boolean;
+  current?: boolean;
+  tags?: string[];
 };
 
 export const NewAnnouncementBanner = (props: NewAnnouncementBannerProps) => {
-  const { max, category, active, variant } = props;
+  const { max, category, tags, active, variant, current } = props;
 
   const announcementsApi = useApi(announcementsApiRef);
 
@@ -160,7 +162,9 @@ export const NewAnnouncementBanner = (props: NewAnnouncementBannerProps) => {
   const { announcements, loading, error } = useAnnouncements({
     max: max ?? 1,
     category,
+    tags,
     active,
+    current,
   });
   const lastSeen = announcementsApi.lastSeenDate();
 

@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { Button, Dialog, Theme, withStyles } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-
+import CloseIcon from '@material-ui/icons/Close';
+import type { Dispatch, SetStateAction } from 'react';
+import { Transition } from '../../components/Transition';
 import { DialogBody } from './DialogBody';
 import { DialogTitle } from './DialogTitle';
-import { Transition } from '../../components/Transition';
 
 const DialogContent = withStyles((theme: Theme) => ({
   root: {
@@ -38,7 +37,7 @@ const DialogActions = withStyles((theme: Theme) => ({
 }))(MuiDialogActions);
 
 interface StatsProps {
-  setShowStats: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowStats: Dispatch<SetStateAction<boolean>>;
 }
 
 export function Stats({ setShowStats }: StatsProps) {

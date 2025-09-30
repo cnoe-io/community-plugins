@@ -5,32 +5,32 @@
 ```ts
 /// <reference types="react" />
 
-import { ApiRef } from '@backstage/core-plugin-api';
-import { BackstagePalette } from '@backstage/theme';
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { BackstageTheme } from '@backstage/theme';
-import { ChangeStatistic as ChangeStatistic_2 } from '@backstage-community/plugin-cost-insights-common';
+import {
+  ChangeStatistic as ChangeStatistic_2,
+  Cost as Cost_2,
+  Entity as Entity_2,
+  Group as Group_2,
+  Maybe as Maybe_2,
+  Metric as Metric_2,
+  MetricData as MetricData_2,
+  Product as Product_2,
+  Project as Project_2,
+} from '@backstage-community/plugin-cost-insights-common';
 import * as common from '@backstage-community/plugin-cost-insights-common';
-import { Cost as Cost_2 } from '@backstage-community/plugin-cost-insights-common';
-import { Dispatch } from 'react';
-import { Entity as Entity_2 } from '@backstage-community/plugin-cost-insights-common';
-import { ForwardRefExoticComponent } from 'react';
-import { Group as Group_2 } from '@backstage-community/plugin-cost-insights-common';
-import { JSX as JSX_2 } from 'react';
-import { Maybe as Maybe_2 } from '@backstage-community/plugin-cost-insights-common';
-import { Metric as Metric_2 } from '@backstage-community/plugin-cost-insights-common';
-import { MetricData as MetricData_2 } from '@backstage-community/plugin-cost-insights-common';
+import { ApiRef, BackstagePlugin, RouteRef } from '@backstage/core-plugin-api';
+import { BackstagePalette, BackstageTheme } from '@backstage/theme';
 import { PaletteOptions } from '@material-ui/core/styles/createPalette';
-import { Product as Product_2 } from '@backstage-community/plugin-cost-insights-common';
-import { Project as Project_2 } from '@backstage-community/plugin-cost-insights-common';
-import { PropsWithChildren } from 'react';
-import { default as React_2 } from 'react';
-import { ReactNode } from 'react';
-import { RefAttributes } from 'react';
-import { RouteRef } from '@backstage/core-plugin-api';
-import { SetStateAction } from 'react';
-import { TooltipProps } from 'recharts';
 import { TypographyProps } from '@material-ui/core/Typography';
+import {
+  Dispatch,
+  ForwardRefExoticComponent,
+  PropsWithChildren,
+  ReactNode,
+  RefAttributes,
+  SetStateAction,
+} from 'react';
+import { JSX as JSX_2 } from 'react/jsx-runtime';
+import { TooltipProps } from 'recharts';
 
 // @public
 export type Alert = {
@@ -142,7 +142,7 @@ export enum AlertStatus {
 }
 
 // @public (undocumented)
-export const BarChart: (props: BarChartProps) => React_2.JSX.Element;
+export const BarChart: (props: BarChartProps) => JSX_2.Element;
 
 // @public @deprecated (undocumented)
 export interface BarChartData extends BarChartOptions {}
@@ -150,7 +150,7 @@ export interface BarChartData extends BarChartOptions {}
 // @public (undocumented)
 export const BarChartLegend: (
   props: PropsWithChildren<BarChartLegendProps>,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type BarChartLegendOptions = {
@@ -194,12 +194,12 @@ export type BarChartProps = {
 // @public (undocumented)
 export const BarChartTooltip: (
   props: PropsWithChildren<BarChartTooltipProps>,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export const BarChartTooltipItem: (
   props: BarChartTooltipItemProps,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type BarChartTooltipItemProps = {
@@ -250,12 +250,12 @@ export type ConfigContextProps = {
 export type Cost = common.Cost;
 
 // @public (undocumented)
-export const CostGrowth: (props: CostGrowthProps) => React_2.JSX.Element;
+export const CostGrowth: (props: CostGrowthProps) => JSX_2.Element;
 
 // @public (undocumented)
 export const CostGrowthIndicator: (
   props: CostGrowthIndicatorProps,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type CostGrowthIndicatorProps = TypographyProps & {
@@ -486,7 +486,7 @@ export enum IconType {
 // @public (undocumented)
 export const LegendItem: (
   props: PropsWithChildren<LegendItemProps>,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type LegendItemProps = {
@@ -510,7 +510,7 @@ export type MetricData = common.MetricData;
 // @public (undocumented)
 export const MockConfigProvider: (
   props: MockConfigProviderProps,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type MockConfigProviderProps = PropsWithChildren<
@@ -520,7 +520,7 @@ export type MockConfigProviderProps = PropsWithChildren<
 // @public (undocumented)
 export const MockCurrencyProvider: (
   props: MockCurrencyProviderProps,
-) => React_2.JSX.Element;
+) => JSX_2.Element;
 
 // @public (undocumented)
 export type MockCurrencyProviderProps = PropsWithChildren<
@@ -570,7 +570,7 @@ export class ProjectGrowthAlert implements Alert {
   // (undocumented)
   data: ProjectGrowthData;
   // (undocumented)
-  get element(): React_2.JSX.Element;
+  get element(): JSX_2.Element;
   // (undocumented)
   get subtitle(): string;
   // (undocumented)
@@ -626,7 +626,7 @@ export class UnlabeledDataflowAlert implements Alert {
   // (undocumented)
   data: UnlabeledDataflowData;
   // (undocumented)
-  get element(): React_2.JSX.Element;
+  get element(): JSX_2.Element;
   // (undocumented)
   status?: AlertStatus;
   // (undocumented)

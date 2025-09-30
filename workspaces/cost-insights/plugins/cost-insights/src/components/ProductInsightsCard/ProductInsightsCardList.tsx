@@ -14,17 +14,16 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import Box from '@material-ui/core/Box';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Collapse from '@material-ui/core/Collapse';
-import { ProductInsightsCard } from './ProductInsightsCard';
-import { Duration } from '../../types';
 import {
   Entity,
   Product,
 } from '@backstage-community/plugin-cost-insights-common';
+import Box from '@material-ui/core/Box';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Collapse from '@material-ui/core/Collapse';
+import { Duration } from '../../types';
 import { ProductState } from '../../utils/loading';
+import { ProductInsightsCard } from './ProductInsightsCard';
 
 type ProductInsightsCardListProps = {
   initialStates: ProductState[];

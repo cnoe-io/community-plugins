@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
-import React, {
+import {
+  Entity,
+  Maybe,
+  Product,
+} from '@backstage-community/plugin-cost-insights-common';
+import { InfoCard } from '@backstage/core-components';
+import Typography from '@material-ui/core/Typography';
+import { default as Alert } from '@material-ui/lab/Alert';
+import pluralize from 'pluralize';
+import {
   PropsWithChildren,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
-import pluralize from 'pluralize';
-import Typography from '@material-ui/core/Typography';
-import { default as Alert } from '@material-ui/lab/Alert';
-import { PeriodSelect } from '../PeriodSelect';
-import { ProductInsightsChart } from './ProductInsightsChart';
-import { useProductInsightsCardStyles as useStyles } from '../../utils/styles';
-import { DefaultLoadingAction } from '../../utils/loading';
-import { Duration } from '../../types';
-import {
-  Entity,
-  Maybe,
-  Product,
-} from '@backstage-community/plugin-cost-insights-common';
 import {
   MapLoadingToProps,
   useLastCompleteBillingDate,
   useLoading,
 } from '../../hooks';
+import { Duration } from '../../types';
 import { findAnyKey } from '../../utils/assert';
+import { DefaultLoadingAction } from '../../utils/loading';
 import { ScrollAnchor } from '../../utils/scroll';
-import { InfoCard } from '@backstage/core-components';
+import { useProductInsightsCardStyles as useStyles } from '../../utils/styles';
+import { PeriodSelect } from '../PeriodSelect';
+import { ProductInsightsChart } from './ProductInsightsChart';
 
 type LoadingProps = (isLoading: boolean) => void;
 

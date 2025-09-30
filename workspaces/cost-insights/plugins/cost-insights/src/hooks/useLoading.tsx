@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-import React, {
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {
   createContext,
   Dispatch,
   PropsWithChildren,
@@ -25,8 +27,6 @@ import React, {
   useReducer,
   useState,
 } from 'react';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { Loading } from '../types';
 import {
   DefaultLoadingAction,

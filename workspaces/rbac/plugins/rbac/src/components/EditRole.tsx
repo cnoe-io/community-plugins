@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { policyEntityUpdatePermission } from '@backstage-community/plugin-rbac-common';
 import { parseEntityRef } from '@backstage/catalog-model';
-
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { policyEntityUpdatePermission } from '@backstage-community/plugin-rbac-common';
 import { useNavigate } from 'react-router-dom';
 import { useActionPermissionTooltip } from '../hooks/useActionPermissionTooltip';
+import { useTranslation } from '../hooks/useTranslation';
 
 type EditRoleProps = {
   roleName: string;
@@ -37,6 +37,7 @@ const EditRole = ({
   tooltip,
   to,
 }: EditRoleProps) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { name, namespace, kind } = parseEntityRef(roleName);
 
@@ -56,9 +57,9 @@ const EditRole = ({
           navigate(to ?? `../role/${kind}/${namespace}/${name}`);
         }}
         data-testid={testIdText}
-        aria-label="Update"
+        aria-label={t('common.update')}
         disabled={disable}
-        title={tooltip ?? 'Edit Role'}
+        title={tooltip ?? t('common.editRole')}
         sx={{
           p: 1,
           borderRadius: '50%',

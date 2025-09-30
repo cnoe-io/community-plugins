@@ -14,35 +14,35 @@
  * limitations under the License.
  */
 
-import React, { useState, useCallback } from 'react';
+import Box from '@material-ui/core/Box';
+import { useTheme } from '@material-ui/core/styles';
+import { useCallback, useState } from 'react';
 import {
   Bar,
-  BarChart as RechartsBarChart,
   CartesianGrid,
+  BarChart as RechartsBarChart,
   Tooltip as RechartsTooltip,
   ResponsiveContainer,
   XAxis,
   YAxis,
 } from 'recharts';
-import Box from '@material-ui/core/Box';
-import { useTheme } from '@material-ui/core/styles';
-import { BarChartTick } from './BarChartTick';
-import { BarChartStepper } from './BarChartStepper';
-import { BarChartTooltip } from './BarChartTooltip';
-import { BarChartTooltipItem } from './BarChartTooltipItem';
-import { currencyFormatter } from '../../utils/formatters';
+import { useConfig } from '../../hooks';
 import {
-  ResourceData,
-  DataKey,
-  CostInsightsTheme,
   BarChartOptions,
+  CostInsightsTheme,
+  DataKey,
+  ResourceData,
+  TooltipRenderer,
 } from '../../types';
 import { notEmpty } from '../../utils/assert';
-import { useBarChartStyles } from '../../utils/styles';
-import { resourceSort } from '../../utils/sort';
+import { currencyFormatter } from '../../utils/formatters';
 import { isInvalid, titleOf, tooltipItemOf } from '../../utils/graphs';
-import { TooltipRenderer } from '../../types';
-import { useConfig } from '../../hooks';
+import { resourceSort } from '../../utils/sort';
+import { useBarChartStyles } from '../../utils/styles';
+import { BarChartStepper } from './BarChartStepper';
+import { BarChartTick } from './BarChartTick';
+import { BarChartTooltip } from './BarChartTooltip';
+import { BarChartTooltipItem } from './BarChartTooltipItem';
 
 const defaultTooltip = (baseCurrency: Intl.NumberFormat) => {
   const tooltip: TooltipRenderer = ({ label, payload = [] }) => {

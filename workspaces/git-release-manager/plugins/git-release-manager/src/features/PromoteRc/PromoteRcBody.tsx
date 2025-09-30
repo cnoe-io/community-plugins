@@ -14,14 +14,12 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Button, Typography, Box } from '@material-ui/core';
-
-import { ComponentConfig, PromoteRcOnSuccessArgs } from '../../types/types';
-import { Differ } from '../../components/Differ';
+import { Box, Button, Typography } from '@material-ui/core';
 import { GetLatestReleaseResult } from '../../api/GitReleaseClient';
+import { Differ } from '../../components/Differ';
 import { ResponseStepDialog } from '../../components/ResponseStepDialog/ResponseStepDialog';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ComponentConfig, PromoteRcOnSuccessArgs } from '../../types/types';
 import { usePromoteRc } from './hooks/usePromoteRc';
 
 interface PromoteRcBodyProps {

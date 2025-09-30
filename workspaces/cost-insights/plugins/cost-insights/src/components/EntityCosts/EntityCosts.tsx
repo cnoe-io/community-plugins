@@ -14,8 +14,14 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { CostOverviewCard } from '../CostOverviewCard';
+import { Cost, Maybe } from '@backstage-community/plugin-cost-insights-common';
+import { stringifyEntityRef } from '@backstage/catalog-model';
+import { Progress, WarningPanel } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
+import { useEntity } from '@backstage/plugin-catalog-react';
+import { default as MaterialAlert } from '@material-ui/lab/Alert';
+import { useCallback, useEffect, useState } from 'react';
+import { costInsightsApiRef } from '../../api';
 import {
   BillingDateProvider,
   ConfigProvider,
@@ -28,16 +34,10 @@ import {
   useLastCompleteBillingDate,
   useLoading,
 } from '../../hooks';
-import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
-import { Progress, WarningPanel } from '@backstage/core-components';
-import { default as MaterialAlert } from '@material-ui/lab/Alert';
-import { mapLoadingToProps } from '../CostInsightsPage/selector';
 import { intervalsOf } from '../../utils/duration';
-import { costInsightsApiRef } from '../../api';
-import { useApi } from '@backstage/core-plugin-api';
-import { useEntity } from '@backstage/plugin-catalog-react';
-import { Cost, Maybe } from '@backstage-community/plugin-cost-insights-common';
-import { stringifyEntityRef } from '@backstage/catalog-model';
+import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
+import { mapLoadingToProps } from '../CostInsightsPage/selector';
+import { CostOverviewCard } from '../CostOverviewCard';
 
 export const EntityCostsCard = () => {
   const client = useApi(costInsightsApiRef);

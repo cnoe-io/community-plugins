@@ -13,8 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
+import { Cost } from '@backstage-community/plugin-cost-insights-common';
+import { Entity } from '@backstage/catalog-model';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
 import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { CostInsightsApi, costInsightsApiRef } from '../../api';
+import { LoadingProvider } from '../../hooks';
 import {
   changeOf,
   MockAggregatedDailyCosts,
@@ -26,11 +30,6 @@ import {
 } from '../../testUtils';
 import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
 import { EntityCostsCard } from './EntityCosts';
-import { CostInsightsApi, costInsightsApiRef } from '../../api';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
-import { Entity } from '@backstage/catalog-model';
-import { LoadingProvider } from '../../hooks';
-import { Cost } from '@backstage-community/plugin-cost-insights-common';
 
 function renderInContext(children: JSX.Element) {
   const mockEntity = {

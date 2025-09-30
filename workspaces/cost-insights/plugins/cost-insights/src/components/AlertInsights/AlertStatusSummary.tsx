@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-import React, { Fragment } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Tooltip from '@material-ui/core/Tooltip';
+import { default as SnoozeIcon } from '@material-ui/icons/AccessTime';
 import { default as AcceptIcon } from '@material-ui/icons/Check';
 import { default as DismissIcon } from '@material-ui/icons/Delete';
-import { default as SnoozeIcon } from '@material-ui/icons/AccessTime';
-import { ActionItemCard } from '../ActionItems';
+import { Fragment } from 'react';
 import { Alert, AlertStatus } from '../../types';
 import { useActionItemCardStyles as useStyles } from '../../utils/styles';
+import { ActionItemCard } from '../ActionItems';
 
 type AlertGroupProps = {
   alerts: Alert[];

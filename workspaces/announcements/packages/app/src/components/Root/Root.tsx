@@ -13,17 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { PropsWithChildren } from 'react';
-import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import LogoFull from './LogoFull';
-import LogoIcon from './LogoIcon';
 import {
-  Settings as SidebarSettings,
-  UserSettingsSignInAvatar,
-} from '@backstage/plugin-user-settings';
-import {
+  Link,
   Sidebar,
   sidebarConfig,
   SidebarDivider,
@@ -32,12 +23,22 @@ import {
   SidebarPage,
   SidebarSpace,
   useSidebarOpenState,
-  Link,
 } from '@backstage/core-components';
+import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
 import { SidebarSearchModal } from '@backstage/plugin-search';
+import {
+  Settings as SidebarSettings,
+  UserSettingsSignInAvatar,
+} from '@backstage/plugin-user-settings';
+import { makeStyles } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
+import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
+import SearchIcon from '@material-ui/icons/Search';
+import { PropsWithChildren } from 'react';
+import LogoFull from './LogoFull';
+import LogoIcon from './LogoIcon';
 
 const useSidebarLogoStyles = makeStyles({
   root: {
@@ -98,6 +99,7 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
       </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
+      <NotificationsSidebarItem />
       <SidebarGroup
         label="Settings"
         icon={<UserSettingsSignInAvatar />}

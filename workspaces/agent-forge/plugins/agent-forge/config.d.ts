@@ -34,5 +34,10 @@ export interface Config {
      * @visibility frontend
      */
     botIcon?: string;
+
+    /**
+     * @visibility frontend
+     */
+    showOptions?: boolean;
   };
 }

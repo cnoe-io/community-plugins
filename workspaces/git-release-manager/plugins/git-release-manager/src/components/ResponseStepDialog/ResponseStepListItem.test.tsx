@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
-import { ResponseStepListItem } from './ResponseStepListItem';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ResponseStepListItem } from './ResponseStepListItem';
 
 describe('ResponseStepListItem', () => {
   it('should render', () => {

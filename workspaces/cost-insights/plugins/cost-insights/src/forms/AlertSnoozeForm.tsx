@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-import React, {
-  ChangeEvent,
-  useEffect,
-  useState,
-  forwardRef,
-  FormEventHandler,
-} from 'react';
-import { DateTime } from 'luxon';
+import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import Typography from '@material-ui/core/Typography';
+import { DateTime } from 'luxon';
+import {
+  ChangeEvent,
+  FormEventHandler,
+  forwardRef,
+  useEffect,
+  useState,
+} from 'react';
 import {
   Alert,
   AlertFormProps,
-  Duration,
-  DEFAULT_DATE_FORMAT,
   AlertSnoozeFormData,
   AlertSnoozeOptions,
+  DEFAULT_DATE_FORMAT,
+  Duration,
 } from '../types';
-import { Maybe } from '@backstage-community/plugin-cost-insights-common';
-import { useAlertDialogStyles as useStyles } from '../utils/styles';
 import { intervalsOf } from '../utils/duration';
+import { useAlertDialogStyles as useStyles } from '../utils/styles';
 
 export type AlertSnoozeFormProps = AlertFormProps<Alert, AlertSnoozeFormData>;
 

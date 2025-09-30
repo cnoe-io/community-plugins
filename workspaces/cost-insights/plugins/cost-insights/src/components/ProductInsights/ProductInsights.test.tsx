@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
-import { ProductInsights } from './ProductInsights';
-import { costInsightsApiRef, ProductInsightsOptions } from '../../api';
-import {
-  mockDefaultLoadingState,
-  MockConfigProvider,
-  MockCurrencyProvider,
-  MockFilterProvider,
-  MockBillingDateProvider,
-  MockScrollProvider,
-  MockLoadingProvider,
-} from '../../testUtils';
 import {
   Entity,
   Product,
 } from '@backstage-community/plugin-cost-insights-common';
+import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
+import { costInsightsApiRef, ProductInsightsOptions } from '../../api';
+import {
+  MockBillingDateProvider,
+  MockConfigProvider,
+  MockCurrencyProvider,
+  mockDefaultLoadingState,
+  MockFilterProvider,
+  MockLoadingProvider,
+  MockScrollProvider,
+} from '../../testUtils';
+import { ProductInsights } from './ProductInsights';
 
 // suppress recharts componentDidUpdate warnings
 jest.spyOn(console, 'warn').mockImplementation(() => {});

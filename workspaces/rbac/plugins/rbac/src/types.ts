@@ -13,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { GroupEntity, UserEntity } from '@backstage/catalog-model';
-
-import { RJSFSchema } from '@rjsf/utils';
-
 import {
   PermissionAction,
   RoleConditionalPolicyDecision,
 } from '@backstage-community/plugin-rbac-common';
-
+import { GroupEntity, UserEntity } from '@backstage/catalog-model';
+import { RJSFSchema } from '@rjsf/utils';
 import { ConditionsData } from './components/ConditionalAccess/types';
 import { RowPolicy } from './components/CreateRole/types';
 
@@ -56,6 +53,14 @@ export type PermissionsDataSet = {
   policyString?: Set<string>;
   isResourced?: boolean;
   resourceType?: string;
+  usingResourceType?: boolean;
+};
+
+export type PluginInfoType = {
+  pluginId: string;
+  isResourced: boolean;
+  resourceType?: string;
+  permissionName: string;
   usingResourceType?: boolean;
 };
 

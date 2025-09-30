@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
+import { Project } from '../contexts/ProjectContext';
 import {
   mockReleaseVersionCalver,
   mockReleaseVersionSemver,
   mockSemverProject,
 } from '../test-helpers/test-helpers';
-import { Project } from '../contexts/ProjectContext';
 import { useVersioningStrategyMatchesRepoTags } from './useVersioningStrategyMatchesRepoTags';
 
 const TEST_ID = 'grm--use-versioning-strategy-matches-repo-tags';

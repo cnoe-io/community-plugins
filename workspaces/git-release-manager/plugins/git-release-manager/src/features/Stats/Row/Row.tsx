@@ -14,8 +14,7 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import { Link } from '@backstage/core-components';
 import {
   Collapse,
   IconButton,
@@ -23,12 +22,12 @@ import {
   TableCell,
   TableRow,
 } from '@material-ui/core';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import { DateTime } from 'luxon';
+import { useState } from 'react';
 import { ReleaseStats } from '../contexts/ReleaseStatsContext';
-
 import { RowCollapsed } from './RowCollapsed/RowCollapsed';
-import { Link } from '@backstage/core-components';
 
 const useRowStyles = makeStyles({
   root: {

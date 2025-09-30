@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-import React, {
+import {
+  Metric,
+  Product,
+} from '@backstage-community/plugin-cost-insights-common';
+import { Config as BackstageConfig } from '@backstage/config';
+import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import {
   createContext,
   PropsWithChildren,
   useContext,
   useEffect,
   useState,
 } from 'react';
-import { Config as BackstageConfig } from '@backstage/config';
 import { Currency, EngineerThreshold, Icon } from '../types';
-import {
-  Metric,
-  Product,
-} from '@backstage-community/plugin-cost-insights-common';
-import { getIcon } from '../utils/navigation';
 import { validateCurrencies, validateMetrics } from '../utils/config';
 import { createCurrencyFormat, defaultCurrencies } from '../utils/currency';
-import { configApiRef, useApi } from '@backstage/core-plugin-api';
+import { getIcon } from '../utils/navigation';
 
 /*
  * Config schema 2021-08-05

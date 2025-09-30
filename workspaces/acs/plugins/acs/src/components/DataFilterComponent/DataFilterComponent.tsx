@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useState } from 'react';
-import { EntitySelectComponent } from './EntitySelectComponent';
-import { AttributeSelectComponent } from './AttributeSelectComponent';
-import { InputFieldComponent } from './InputFieldComponent';
-import { CheckboxSelectComponent } from './CheckboxSelectComponent';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
 import FormControl from '@material-ui/core/FormControl';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { useEffect, useState } from 'react';
+import { AttributeSelectComponent } from './AttributeSelectComponent';
+import { CheckboxSelectComponent } from './CheckboxSelectComponent';
+import { EntitySelectComponent } from './EntitySelectComponent';
+import { InputFieldComponent } from './InputFieldComponent';
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({

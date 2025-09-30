@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-import { Progress, TableColumn, Table, Link } from '@backstage/core-components';
 import { Entity } from '@backstage/catalog-model';
+import { Link, Progress, Table, TableColumn } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import {
   MissingAnnotationEmptyState,
   useEntity,
 } from '@backstage/plugin-catalog-react';
-import { useApi } from '@backstage/core-plugin-api';
-import { grafanaApiRef } from '../../api';
-import useAsync from 'react-use/lib/useAsync';
-import Alert from '@material-ui/lab/Alert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import { Dashboard, DashboardCardOpts } from '../../types';
+import Alert from '@material-ui/lab/Alert';
+import useAsync from 'react-use/lib/useAsync';
+import { grafanaApiRef } from '../../api';
 import {
   dashboardSelectorFromEntity,
   GRAFANA_ANNOTATION_DASHBOARD_SELECTOR,
   isDashboardSelectorAvailable,
 } from '../../constants';
+import { Dashboard, DashboardCardOpts } from '../../types';
 
 export const DashboardsTable = ({
   entity,
@@ -69,7 +69,7 @@ export const DashboardsTable = ({
         entity,
       )}" selector are displayed.`}
     >
-      <Typography>{opts.title || 'Dashboards'}</Typography>
+      <Typography variant="h5">{opts.title || 'Dashboards'}</Typography>
     </Tooltip>
   );
 

@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { renderInTestApp } from '@backstage/test-utils';
-
 import { Role } from '@backstage-community/plugin-rbac-common';
-
+import { renderInTestApp } from '@backstage/test-utils';
 import { useRole } from '../../hooks/useRole';
 import { AboutCard } from './AboutCard';
 
@@ -94,7 +92,7 @@ describe('AboutCard', () => {
       <AboutCard roleName="role:default/rbac_admin" />,
     );
     expect(
-      queryByText('Error: Something went wrong while fetching role'),
+      queryByText('Error: Something went wrong while fetching the role'),
     ).not.toBeNull();
     expect(queryByText('Role not found')).not.toBeNull();
   });

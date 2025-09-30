@@ -14,49 +14,48 @@
  * limitations under the License.
  */
 
-import React, { useMemo, useState } from 'react';
-import pluralize from 'pluralize';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { default as FullScreenIcon } from '@material-ui/icons/Fullscreen';
-import { LegendItem } from '../LegendItem';
-import { ProductEntityDialog } from './ProductEntityDialog';
-import { CostGrowth, CostGrowthIndicator } from '../CostGrowth';
-import {
-  BarChart,
-  BarChartLegend,
-  BarChartTooltip,
-  BarChartTooltipItem,
-  BarChartLegendOptions,
-} from '../BarChart';
-import {
-  findAlways,
-  notEmpty,
-  isUndefined,
-  findAnyKey,
-  assertAlways,
-} from '../../utils/assert';
-import { formatPeriod, formatChange } from '../../utils/formatters';
-import {
-  titleOf,
-  tooltipItemOf,
-  resourceOf,
-  isInvalid,
-  isLabeled,
-  isUnlabeled,
-} from '../../utils/graphs';
-import {
-  useProductInsightsChartStyles as useStyles,
-  useBarChartLayoutStyles as useLayoutStyles,
-} from '../../utils/styles';
-import { Duration } from '../../types';
 import {
   Entity,
   Maybe,
 } from '@backstage-community/plugin-cost-insights-common';
-import { choose } from '../../utils/change';
-import { TooltipRenderer } from '../../types';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { default as FullScreenIcon } from '@material-ui/icons/Fullscreen';
+import pluralize from 'pluralize';
+import { useMemo, useState } from 'react';
 import { useConfig } from '../../hooks';
+import { Duration, TooltipRenderer } from '../../types';
+import {
+  assertAlways,
+  findAlways,
+  findAnyKey,
+  isUndefined,
+  notEmpty,
+} from '../../utils/assert';
+import { choose } from '../../utils/change';
+import { formatChange, formatPeriod } from '../../utils/formatters';
+import {
+  isInvalid,
+  isLabeled,
+  isUnlabeled,
+  resourceOf,
+  titleOf,
+  tooltipItemOf,
+} from '../../utils/graphs';
+import {
+  useBarChartLayoutStyles as useLayoutStyles,
+  useProductInsightsChartStyles as useStyles,
+} from '../../utils/styles';
+import {
+  BarChart,
+  BarChartLegend,
+  BarChartLegendOptions,
+  BarChartTooltip,
+  BarChartTooltipItem,
+} from '../BarChart';
+import { CostGrowth, CostGrowthIndicator } from '../CostGrowth';
+import { LegendItem } from '../LegendItem';
+import { ProductEntityDialog } from './ProductEntityDialog';
 
 export type ProductInsightsChartProps = {
   billingDate: string;

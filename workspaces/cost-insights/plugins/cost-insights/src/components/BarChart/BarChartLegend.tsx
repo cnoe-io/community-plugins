@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
 import Box from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
-import { LegendItem } from '../LegendItem';
-import { currencyFormatter } from '../../utils/formatters';
-import { CostInsightsTheme } from '../../types';
-import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
+import { PropsWithChildren } from 'react';
 import { useConfig } from '../../hooks';
+import { CostInsightsTheme } from '../../types';
+import { currencyFormatter } from '../../utils/formatters';
+import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
+import { LegendItem } from '../LegendItem';
 
 /** @public */
 export type BarChartLegendOptions = {

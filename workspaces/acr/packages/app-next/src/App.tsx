@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { Navigate } from 'react-router';
+import acrPlugin from '@backstage-community/plugin-acr/alpha';
 import { createApp } from '@backstage/frontend-defaults';
 import {
   createFrontendModule,
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
-
-import acrPlugin from '@backstage-community/plugin-acr/alpha';
+import { Navigate } from 'react-router';
 
 const homePageExtension = PageBlueprint.make({
   name: 'homePage',
   params: {
-    defaultPath: '/',
+    path: '/',
     loader: () => Promise.resolve(<Navigate to="catalog" />),
   },
 });
@@ -37,7 +36,7 @@ export const app = createApp({
   features: [
     catalogPlugin,
     catalogImportPlugin,
-    userSettingsPlugin as any,
+    userSettingsPlugin,
     acrPlugin,
     createFrontendModule({
       pluginId: 'app',

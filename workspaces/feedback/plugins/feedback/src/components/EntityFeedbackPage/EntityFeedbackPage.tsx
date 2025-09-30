@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect, useState } from 'react';
-
+import { stringifyEntityRef } from '@backstage/catalog-model';
 import { Progress } from '@backstage/core-components';
 import {
   alertApiRef,
@@ -23,7 +22,6 @@ import {
   useApi,
 } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
-
 import Add from '@mui/icons-material/Add';
 import ArrowForwardRounded from '@mui/icons-material/ArrowForwardRounded';
 import Sync from '@mui/icons-material/Sync';
@@ -34,12 +32,11 @@ import Grid from '@mui/material/Grid';
 import { styled, Theme } from '@mui/material/styles';
 import Tooltip from '@mui/material/Tooltip';
 import Zoom from '@mui/material/Zoom';
-
+import { useEffect, useState } from 'react';
 import { CreateFeedbackModal } from '../CreateFeedbackModal/CreateFeedbackModal';
 import { FeedbackDetailsModal } from '../FeedbackDetailsModal';
 import { FeedbackTable } from '../FeedbackTable';
 import { CustomEmptyState } from './CustomEmptyState';
-import { stringifyEntityRef } from '@backstage/catalog-model';
 
 const PREFIX = 'EntityFeedbackPage';
 

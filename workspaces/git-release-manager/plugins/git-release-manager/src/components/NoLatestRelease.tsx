@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Alert } from '@material-ui/lab';
 import { Box } from '@material-ui/core';
-
+import { Alert } from '@material-ui/lab';
 import { TEST_IDS } from '../test-helpers/test-ids';
 
 export const NoLatestRelease = () => {

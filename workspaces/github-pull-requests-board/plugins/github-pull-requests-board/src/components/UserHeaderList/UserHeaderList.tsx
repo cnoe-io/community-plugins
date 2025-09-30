@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { FunctionComponent } from 'react';
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
+import { FunctionComponent } from 'react';
 import { filterSameUser } from '../../utils/functions';
-
-import { UserHeader } from '../UserHeader';
 import { Author } from '../../utils/types';
+import { UserHeader } from '../UserHeader';
 
 type Props = {
   label?: string;

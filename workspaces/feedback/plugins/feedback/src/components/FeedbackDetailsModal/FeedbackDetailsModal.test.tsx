@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 
 import {
   BackstageUserIdentity,
@@ -21,7 +20,6 @@ import {
   identityApiRef,
 } from '@backstage/core-plugin-api';
 import { renderInTestApp, TestApiProvider } from '@backstage/test-utils';
-
 import { FeedbackAPI, feedbackApiRef } from '../../api';
 import { mockFeedback, mockJiraDetails } from '../../mocks';
 import { rootRouteRef } from '../../routes';

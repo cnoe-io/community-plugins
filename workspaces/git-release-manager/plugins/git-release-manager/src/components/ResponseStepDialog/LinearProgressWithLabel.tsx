@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { Box, LinearProgress, Typography } from '@material-ui/core';
-
-import { ResponseStep } from '../../types/types';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ResponseStep } from '../../types/types';
 
 const STATUSES = {
   FAILURE: 'FAILURE',

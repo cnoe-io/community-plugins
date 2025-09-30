@@ -24,12 +24,11 @@ import {
 } from '@backstage/core-plugin-api';
 import { useAsyncEntity } from '@backstage/plugin-catalog-react';
 import IconButton from '@material-ui/core/IconButton';
-import StarOutlineIcon from '@material-ui/icons/StarOutline';
 import StarIcon from '@material-ui/icons/Star';
-import React, { ReactNode, useCallback, useState } from 'react';
+import StarOutlineIcon from '@material-ui/icons/StarOutline';
+import { ReactNode, useCallback, useState } from 'react';
 import useAsync from 'react-use/esm/useAsync';
 import useAsyncFn from 'react-use/esm/useAsyncFn';
-
 import { entityFeedbackApiRef } from '../../api';
 import {
   EntityFeedbackResponse,

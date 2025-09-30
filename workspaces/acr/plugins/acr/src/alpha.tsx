@@ -16,18 +16,16 @@
 import {
   ApiBlueprint,
   configApiRef,
-  createApiFactory,
   createFrontendPlugin,
   discoveryApiRef,
   identityApiRef,
 } from '@backstage/frontend-plugin-api';
 import { EntityContentBlueprint } from '@backstage/plugin-catalog-react/alpha';
-
-import { isAcrAvailable } from './utils/isAcrAvailable';
 import {
   AzureContainerRegistryApiClient,
   AzureContainerRegistryApiRef,
 } from './api';
+import { isAcrAvailable } from './utils/isAcrAvailable';
 
 /**
  * An API to communicate via the proxy to an ACR container registry.
@@ -36,8 +34,8 @@ import {
  */
 export const acrApi = ApiBlueprint.make({
   name: 'acrApi',
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: AzureContainerRegistryApiRef,
       deps: {
         discoveryApi: discoveryApiRef,
@@ -51,7 +49,6 @@ export const acrApi = ApiBlueprint.make({
           identityApi,
         }),
     }),
-  },
 });
 
 /**
@@ -59,11 +56,11 @@ export const acrApi = ApiBlueprint.make({
  *
  * @alpha
  */
-export const acrImagesEntityContent: any = EntityContentBlueprint.make({
+export const acrImagesEntityContent = EntityContentBlueprint.make({
   name: 'acrImagesEntityContent',
   params: {
-    defaultPath: 'acr-images',
-    defaultTitle: 'ACR images',
+    path: 'acr-images',
+    title: 'ACR images',
     filter: isAcrAvailable,
     loader: () =>
       import('./components/AcrImagesEntityContent').then(m => (
@@ -78,6 +75,6 @@ export const acrImagesEntityContent: any = EntityContentBlueprint.make({
  * @alpha
  */
 export default createFrontendPlugin({
-  id: 'acr',
+  pluginId: 'acr',
   extensions: [acrApi, acrImagesEntityContent],
 });

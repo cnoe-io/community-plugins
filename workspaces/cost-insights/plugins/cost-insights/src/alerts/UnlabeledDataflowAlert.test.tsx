@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import pluralize from 'pluralize';
 import { renderInTestApp } from '@backstage/test-utils';
-import { UnlabeledDataflowAlert } from './UnlabeledDataflowAlert';
-import { UnlabeledDataflowData } from '../types';
+import pluralize from 'pluralize';
 import {
-  MockCurrencyProvider,
-  MockConfigProvider,
   MockBillingDateProvider,
+  MockConfigProvider,
+  MockCurrencyProvider,
 } from '../testUtils';
+import { UnlabeledDataflowData } from '../types';
+import { UnlabeledDataflowAlert } from './UnlabeledDataflowAlert';
 
 const mockData: UnlabeledDataflowData = {
   periodStart: '2021-02-01',

@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import { Box } from '@material-ui/core';
-
 import { ReleaseStats } from '../../contexts/ReleaseStatsContext';
 import { ReleaseTagList } from './ReleaseTagList';
 import { ReleaseTime } from './ReleaseTime';

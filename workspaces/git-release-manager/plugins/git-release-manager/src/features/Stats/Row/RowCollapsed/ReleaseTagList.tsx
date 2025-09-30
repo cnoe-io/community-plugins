@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { Box, Typography } from '@material-ui/core';
-
 import { ReleaseStats } from '../../contexts/ReleaseStatsContext';
 
 export function ReleaseTagList({

@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import useAsync from 'react-use/esm/useAsync';
+import { Progress } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import {
+  Box,
   FormControl,
   FormHelperText,
   InputLabel,
   MenuItem,
   Select,
-  Box,
 } from '@material-ui/core';
-
+import { useNavigate } from 'react-router-dom';
+import useAsync from 'react-use/esm/useAsync';
 import { gitReleaseManagerApiRef } from '../../api/serviceApiRef';
+import { useProjectContext } from '../../contexts/ProjectContext';
+import { useUserContext } from '../../contexts/UserContext';
+import { useQueryHandler } from '../../hooks/useQueryHandler';
 import { TEST_IDS } from '../../test-helpers/test-ids';
 import { useFormClasses } from './styles';
-import { useProjectContext } from '../../contexts/ProjectContext';
-import { useQueryHandler } from '../../hooks/useQueryHandler';
-import { useUserContext } from '../../contexts/UserContext';
-
-import { Progress } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
 
 export function Owner() {
   const pluginApiClient = useApi(gitReleaseManagerApiRef);

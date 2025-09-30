@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select, { SelectProps } from '@material-ui/core/Select';
-import { Duration } from '../../types';
-import { formatLastTwoLookaheadQuarters } from '../../utils/formatters';
-import { findAlways } from '../../utils/assert';
-import { useSelectStyles as useStyles } from '../../utils/styles';
 import { useLastCompleteBillingDate } from '../../hooks';
+import { Duration } from '../../types';
+import { findAlways } from '../../utils/assert';
+import { formatLastTwoLookaheadQuarters } from '../../utils/formatters';
+import { useSelectStyles as useStyles } from '../../utils/styles';
 
 export type PeriodOption = {
   value: Duration;

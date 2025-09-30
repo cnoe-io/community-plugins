@@ -13,15 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ChangeEvent, useState } from 'react';
-import { Page, Header, Content } from '@backstage/core-components';
-import { AnnouncementsContent } from '../AnnouncementsContent';
-import { CategoriesContent } from '../CategoriesContent';
-import { RequirePermission } from '@backstage/plugin-permission-react';
+import { announcementCreatePermission } from '@backstage-community/plugin-announcements-common';
 import { useAnnouncementsTranslation } from '@backstage-community/plugin-announcements-react';
+import { Content, Header, Page } from '@backstage/core-components';
+import { RequirePermission } from '@backstage/plugin-permission-react';
 import { makeStyles, Tab } from '@material-ui/core';
 import { TabContext, TabList, TabPanel } from '@material-ui/lab';
-import { announcementCreatePermission } from '@backstage-community/plugin-announcements-common';
+import { ChangeEvent, useState } from 'react';
+import { AnnouncementsContent } from '../AnnouncementsContent';
+import { CategoriesContent } from '../CategoriesContent';
+import { TagsContent } from '../TagsContent';
 
 const useStyles = makeStyles(() => ({
   tabPanel: {
@@ -55,12 +56,16 @@ const AdminPortalContent = () => {
           label={t('admin.adminPortal.categoriesLabel')}
           value="categories"
         />
+        <Tab label={t('admin.adminPortal.tagsLabel')} value="tags" />
       </TabList>
       <TabPanel value="announcements" className={classes.tabPanel}>
         <AnnouncementsContent />
       </TabPanel>
       <TabPanel value="categories" className={classes.tabPanel}>
         <CategoriesContent />
+      </TabPanel>
+      <TabPanel value="tags" className={classes.tabPanel}>
+        <TagsContent />
       </TabPanel>
     </TabContext>
   );

@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect } from 'react';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import type { ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 
 interface CheckboxSelectProps {
   setSelectedOptions: any;
@@ -32,7 +33,7 @@ export const CheckboxSelectComponent = ({
   dropdownName,
 }: CheckboxSelectProps) => {
   /* eslint @typescript-eslint/no-shadow: ["error", { "allow": ["options"] }]*/
-  const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -45,7 +46,7 @@ export const CheckboxSelectComponent = ({
     },
   };
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
     setSelectedItems(event.target.value as string[]);
   };
 

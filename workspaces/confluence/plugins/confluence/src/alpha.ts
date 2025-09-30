@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { createElement } from 'react';
 import { convertLegacyRouteRefs } from '@backstage/core-compat-api';
 import { createFrontendPlugin } from '@backstage/frontend-plugin-api';
 import {
   SearchFilterResultTypeBlueprint,
   SearchResultListItemBlueprint,
 } from '@backstage/plugin-search-react/alpha';
+import { createElement } from 'react';
 import { ConfluenceSearchIcon } from './icons';
 import { rootRouteRef } from './routes';
 
@@ -51,7 +51,7 @@ const confluenceSearchFilterResultType = SearchFilterResultTypeBlueprint.make({
  * @alpha
  */
 export default createFrontendPlugin({
-  id: 'confluence',
+  pluginId: 'confluence',
   routes: convertLegacyRouteRefs({
     entityContent: rootRouteRef,
   }),

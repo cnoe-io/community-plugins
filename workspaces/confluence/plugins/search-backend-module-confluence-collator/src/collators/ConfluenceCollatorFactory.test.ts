@@ -14,23 +14,22 @@
  * limitations under the License.
  */
 import {
-  ConfluenceCollatorFactory,
-  ConfluenceCollatorFactoryOptions,
-} from './ConfluenceCollatorFactory';
-import {
   mockServices,
   registerMswTestHooks,
 } from '@backstage/backend-test-utils';
-import { TestPipeline } from '@backstage/plugin-search-backend-node';
 import { ConfigReader } from '@backstage/config';
-import { setupServer } from 'msw/node';
+import { TestPipeline } from '@backstage/plugin-search-backend-node';
 import { rest, RestRequest } from 'msw';
+import { setupServer } from 'msw/node';
+import {
+  ConfluenceCollatorFactory,
+  ConfluenceCollatorFactoryOptions,
+} from './ConfluenceCollatorFactory';
 
 const logger = mockServices.logger.mock();
 
 const BASE_URL = 'http://confluence.example.com';
-const CONFLUENCE_API_PATH =
-  '/rest/api/content/search?limit=1000&status=current&cql=';
+const CONFLUENCE_API_PATH = '/rest/api/content/search';
 
 /* eslint jest/expect-expect: ["warn", { "assertFunctionNames": ["expect", "testSearchQuery"] }]  */
 const testSearchQuery = (
@@ -134,6 +133,7 @@ describe('ConfluenceCollatorFactory', () => {
     const expectedSearch = {
       limit: '1000',
       status: 'current',
+      expand: 'version',
       cql: 'type IN (page, blogpost, comment, attachment)',
     };
     testSearchQuery(request, expectedSearch);
@@ -171,7 +171,80 @@ describe('ConfluenceCollatorFactory', () => {
     const expectedSearch = {
       limit: '1000',
       status: 'current',
+      expand: 'version',
       cql: '(space="SPACE1" or space="SPACE2") and (type = page)',
+    };
+    testSearchQuery(request, expectedSearch);
+  });
+
+  it('uses only spaces when only spaces is present in config', async () => {
+    const configWithSpacesOnly = new ConfigReader({
+      confluence: {
+        baseUrl: BASE_URL,
+        auth: {
+          type: 'basic',
+          token: 'AA',
+          email: 'user@example.com',
+        },
+        spaces: ['SPACE1', 'SPACE2'],
+      },
+    });
+    const factoryWithConfig = ConfluenceCollatorFactory.fromConfig(
+      configWithSpacesOnly,
+      options,
+    );
+    let request;
+    worker.use(
+      rest.get(BASE_URL + CONFLUENCE_API_PATH, (req, res, ctx) => {
+        request = req;
+        return res(ctx.status(200), ctx.json({}));
+      }),
+    );
+
+    const collator = await factoryWithConfig.getCollator();
+    const pipeline = TestPipeline.fromCollator(collator);
+    await pipeline.execute();
+    const expectedSearch = {
+      limit: '1000',
+      status: 'current',
+      cql: 'space="SPACE1" or space="SPACE2"',
+      expand: 'version',
+    };
+    testSearchQuery(request, expectedSearch);
+  });
+
+  it('uses only query when only query is present in config', async () => {
+    const configWithQueryOnly = new ConfigReader({
+      confluence: {
+        baseUrl: BASE_URL,
+        auth: {
+          type: 'basic',
+          token: 'AA',
+          email: 'user@example.com',
+        },
+        query: 'type = page',
+      },
+    });
+    const factoryWithConfig = ConfluenceCollatorFactory.fromConfig(
+      configWithQueryOnly,
+      options,
+    );
+    let request;
+    worker.use(
+      rest.get(BASE_URL + CONFLUENCE_API_PATH, (req, res, ctx) => {
+        request = req;
+        return res(ctx.status(200), ctx.json({}));
+      }),
+    );
+
+    const collator = await factoryWithConfig.getCollator();
+    const pipeline = TestPipeline.fromCollator(collator);
+    await pipeline.execute();
+    const expectedSearch = {
+      limit: '1000',
+      status: 'current',
+      cql: 'type = page',
+      expand: 'version',
     };
     testSearchQuery(request, expectedSearch);
   });

@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import {
   FormControl,
   FormControlLabel,
@@ -23,11 +21,12 @@ import {
   Radio,
   RadioGroup,
 } from '@material-ui/core';
-
-import { TEST_IDS } from '../../test-helpers/test-ids';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { VERSIONING_STRATEGIES } from '../../constants/constants';
 import { useProjectContext } from '../../contexts/ProjectContext';
 import { useQueryHandler } from '../../hooks/useQueryHandler';
-import { VERSIONING_STRATEGIES } from '../../constants/constants';
+import { TEST_IDS } from '../../test-helpers/test-ids';
 
 export function VersioningStrategy() {
   const navigate = useNavigate();

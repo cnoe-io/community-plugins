@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { PropsWithChildren, FunctionComponent } from 'react';
-import { Grid, Box } from '@material-ui/core';
+import { Box, Grid } from '@material-ui/core';
+import { FunctionComponent, PropsWithChildren } from 'react';
 
 type Props = {
   fullscreen: boolean;

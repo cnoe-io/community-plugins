@@ -13,32 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { convertLegacyApp } from '@backstage/core-compat-api';
 import { createApp } from '@backstage/frontend-defaults';
 import {
-  configApiRef,
-  ApiBlueprint,
-  createApiFactory,
   createFrontendModule,
   PageBlueprint,
   SignInPageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import {
-  ScmAuth,
-  ScmIntegrationsApi,
-  scmIntegrationsApiRef,
-} from '@backstage/integration-react';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import { Navigate, Route } from 'react-router';
-
-import { navigationExtension } from './components/Sidebar';
 import { SignInPage } from './components/auth/SignInPage';
-
-import githubActionsPlugin from '@backstage-community/plugin-github-actions/alpha';
+import { navigationExtension } from './components/Sidebar';
 
 const signInPage = SignInPageBlueprint.make({
   params: {
@@ -49,7 +39,7 @@ const signInPage = SignInPageBlueprint.make({
 const homePageExtension = PageBlueprint.make({
   name: 'home',
   params: {
-    defaultPath: '/',
+    path: '/',
     loader: () => Promise.resolve(<Navigate to="catalog" />),
   },
 });
@@ -60,24 +50,6 @@ const collectedLegacyPlugins = convertLegacyApp(
   </FlatRoutes>,
 );
 
-const scmAuthApi = ApiBlueprint.make({
-  name: 'scm-auth',
-  params: {
-    factory: ScmAuth.createDefaultApiFactory(),
-  },
-});
-
-const scmIntegrationsApi = ApiBlueprint.make({
-  name: 'scm-integrations',
-  params: {
-    factory: createApiFactory({
-      api: scmIntegrationsApiRef,
-      deps: { configApi: configApiRef },
-      factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
-    }),
-  },
-});
-
 export const app = createApp({
   features: [
     catalogPlugin,
@@ -87,13 +59,7 @@ export const app = createApp({
     ...collectedLegacyPlugins,
     createFrontendModule({
       pluginId: 'app',
-      extensions: [
-        signInPage,
-        homePageExtension,
-        scmAuthApi,
-        scmIntegrationsApi,
-        navigationExtension,
-      ],
+      extensions: [signInPage, homePageExtension, navigationExtension],
     }),
   ],
 });

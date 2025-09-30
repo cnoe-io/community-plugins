@@ -15,7 +15,6 @@
  */
 import { createBackendModule } from '@backstage/backend-plugin-api';
 import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
-
 import {
   createAnnotatorAction,
   createScaffoldedFromAction,
@@ -25,7 +24,7 @@ import {
 
 /***/
 /**
- * The annotator module for @backstage/plugin-scaffolder-backend.
+ * The annotator module for \@backstage/plugin-scaffolder-backend.
  *
  * @alpha
  */

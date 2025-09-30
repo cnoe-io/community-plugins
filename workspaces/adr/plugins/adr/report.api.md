@@ -5,17 +5,21 @@
 ```ts
 /// <reference types="react" />
 
-import { AdrDocument } from '@backstage-community/plugin-adr-common';
-import { AdrFilePathFilterFn } from '@backstage-community/plugin-adr-common';
-import { ApiRef } from '@backstage/core-plugin-api';
-import { BackstagePlugin } from '@backstage/core-plugin-api';
-import { DiscoveryApi } from '@backstage/core-plugin-api';
-import { FetchApi } from '@backstage/core-plugin-api';
-import { isAdrAvailable } from '@backstage-community/plugin-adr-common';
-import { JSX as JSX_2 } from 'react/jsx-runtime';
-import { ReactNode } from 'react';
+import {
+  AdrDocument,
+  AdrFilePathFilterFn,
+  isAdrAvailable,
+} from '@backstage-community/plugin-adr-common';
+import {
+  ApiRef,
+  BackstagePlugin,
+  DiscoveryApi,
+  FetchApi,
+  RouteRef,
+} from '@backstage/core-plugin-api';
 import { ResultHighlight } from '@backstage/plugin-search-common';
-import { RouteRef } from '@backstage/core-plugin-api';
+import { ReactNode } from 'react';
+import { JSX as JSX_2 } from 'react/jsx-runtime';
 
 // @public
 export interface AdrApi {
@@ -47,6 +51,7 @@ export interface AdrClientOptions {
 export type AdrContentDecorator = (adrInfo: {
   baseUrl: string;
   content: string;
+  filename?: string;
 }) => {
   content: string;
 };

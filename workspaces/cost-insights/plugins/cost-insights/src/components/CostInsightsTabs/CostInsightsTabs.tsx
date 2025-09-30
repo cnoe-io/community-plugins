@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
+import { Group } from '@backstage-community/plugin-cost-insights-common';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { mapLoadingToProps, mapFiltersToProps } from './selector';
-import { Group } from '@backstage-community/plugin-cost-insights-common';
+import { useState } from 'react';
 import { useFilters, useLoading } from '../../hooks';
 import { useCostInsightsTabsStyles as useStyles } from '../../utils/styles';
+import { mapFiltersToProps, mapLoadingToProps } from './selector';
 
 export type CostInsightsTabsProps = {
   groups: Group[];

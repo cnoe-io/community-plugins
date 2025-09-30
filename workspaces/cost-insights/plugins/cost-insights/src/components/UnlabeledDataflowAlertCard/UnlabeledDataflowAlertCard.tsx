@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import pluralize from 'pluralize';
-import Box from '@material-ui/core/Box';
-import { BarChart, BarChartLegend } from '../BarChart';
-import { UnlabeledDataflowData, ResourceData } from '../../types';
-import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
 import { InfoCard } from '@backstage/core-components';
+import Box from '@material-ui/core/Box';
+import pluralize from 'pluralize';
+import { ResourceData, UnlabeledDataflowData } from '../../types';
+import { useBarChartLayoutStyles as useStyles } from '../../utils/styles';
+import { BarChart, BarChartLegend } from '../BarChart';
 
 type UnlabeledDataflowAlertProps = {
   alert: UnlabeledDataflowData;

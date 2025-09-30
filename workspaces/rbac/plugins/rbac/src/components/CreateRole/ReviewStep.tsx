@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 import { StructuredMetadataTable } from '@backstage/core-components';
-
+import { TranslationFunction } from '@backstage/core-plugin-api/alpha';
 import Typography from '@mui/material/Typography';
-
+import { useTranslation } from '../../hooks/useTranslation';
+import { rbacTranslationRef } from '../../translations';
 import { getPermissionsNumber } from '../../utils/create-role-utils';
 import { getMembers } from '../../utils/rbac-utils';
 import { reviewStepMemebersTableColumns } from './AddedMembersTableColumn';
@@ -24,16 +25,22 @@ import { ReviewStepTable } from './ReviewStepTable';
 import { selectedPermissionPoliciesColumn } from './SelectedPermissionPoliciesColumn';
 import { RoleFormValues } from './types';
 
-const tableMetadata = (values: RoleFormValues) => {
+const tableMetadata = (
+  values: RoleFormValues,
+  t: TranslationFunction<typeof rbacTranslationRef.T>,
+) => {
   const membersKey =
     values.selectedMembers.length > 0
-      ? `Users and groups (${getMembers(values.selectedMembers)})`
-      : 'Users and groups';
+      ? `${t('table.headers.usersAndGroups')} (${getMembers(
+          values.selectedMembers,
+          t,
+        )})`
+      : t('table.headers.usersAndGroups');
   const permissionPoliciesKey = `Permission policies (${getPermissionsNumber(
     values,
   )})`;
   return {
-    'Name, description, and owner of role': (
+    [t('roleForm.review.nameDescriptionOwner')]: (
       <>
         <Typography sx={{ margin: '0px' }}>{values.name}</Typography>
         <br />
@@ -47,14 +54,14 @@ const tableMetadata = (values: RoleFormValues) => {
     [membersKey]: (
       <ReviewStepTable
         rows={values.selectedMembers}
-        columns={reviewStepMemebersTableColumns()}
+        columns={reviewStepMemebersTableColumns(t)}
         tableWrapperWidth={550}
       />
     ),
     [permissionPoliciesKey]: (
       <ReviewStepTable
         rows={values.permissionPoliciesRows}
-        columns={selectedPermissionPoliciesColumn()}
+        columns={selectedPermissionPoliciesColumn(t)}
         tableWrapperWidth={700}
       />
     ),
@@ -68,14 +75,18 @@ export const ReviewStep = ({
   values: RoleFormValues;
   isEditing: boolean;
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div style={{ overflow: 'auto' }}>
       <Typography variant="h6">
-        {isEditing ? 'Review and save' : 'Review and create'}
+        {isEditing
+          ? t('roleForm.review.reviewAndSave')
+          : t('roleForm.review.reviewAndCreate')}
       </Typography>
       <StructuredMetadataTable
         dense
-        metadata={tableMetadata(values)}
+        metadata={tableMetadata(values, t)}
         options={{ titleFormat: (key: string) => key }}
       />
     </div>

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Slide from '@material-ui/core/Slide';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import { useEffect, useState } from 'react';
+import { useBarChartStepperStyles } from '../../utils/styles';
 import { BarChartStepperButton } from './BarChartStepperButton';
 import { BarChartSteps } from './BarChartSteps';
-import { useBarChartStepperStyles } from '../../utils/styles';
 
 type BarChartStepperProps = {
   disableScroll: boolean;

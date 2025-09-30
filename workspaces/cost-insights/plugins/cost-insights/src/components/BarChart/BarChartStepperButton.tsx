@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import React, { forwardRef, PropsWithChildren, Ref } from 'react';
 import ButtonBase, { ButtonBaseProps } from '@material-ui/core/ButtonBase';
+import { forwardRef, PropsWithChildren, Ref } from 'react';
 import { useBarChartStepperButtonStyles as useStyles } from '../../utils/styles';
 
 interface BarChartStepperButtonProps extends ButtonBaseProps {

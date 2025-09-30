@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useEffect } from 'react';
-
+import { useEffect } from 'react';
 import '@one-platform/opc-feedback';
-
 import {
   alertApiRef,
   configApiRef,
@@ -25,7 +23,6 @@ import {
   useRouteRef,
 } from '@backstage/core-plugin-api';
 import { useTheme } from '@mui/material/styles';
-
 import { feedbackApiRef } from '../../api';
 import { FeedbackCategory } from '../../models/feedback.model';
 import { rootRouteRef, viewDocsRouteRef } from '../../routes';

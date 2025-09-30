@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { bitriseApiRef } from '../../plugin';
-import { BitriseClientApi } from '../../api/bitriseApi.client';
-import { setupServer } from 'msw/node';
+import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 import {
-  setupRequestMockHandlers,
   renderInTestApp,
+  setupRequestMockHandlers,
   TestApiRegistry,
 } from '@backstage/test-utils';
+import { setupServer } from 'msw/node';
+import { BitriseClientApi } from '../../api/bitriseApi.client';
 import { useBitriseBuilds } from '../../hooks/useBitriseBuilds';
+import { bitriseApiRef } from '../../plugin';
 import { BitriseBuildsTable } from './BitriseBuildsTableComponent';
-import { ApiProvider, UrlPatternDiscovery } from '@backstage/core-app-api';
 
 jest.mock('../../hooks/useBitriseBuilds', () => ({
   useBitriseBuilds: jest.fn(),

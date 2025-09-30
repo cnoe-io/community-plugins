@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { AmplicationTemplatesProcessor } from './AmplicationTemplatesProcessor';
 import {
   LoggerService,
   RootConfigService,
 } from '@backstage/backend-plugin-api';
 import { mockServices } from '@backstage/backend-test-utils';
 import { LocationSpec } from '@backstage/plugin-catalog-common';
-import { CatalogProcessorCache } from '@backstage/plugin-catalog-node/index';
-
+import { CatalogProcessorCache } from '@backstage/plugin-catalog-node';
 import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
+import { AmplicationTemplatesProcessor } from './AmplicationTemplatesProcessor';
 
 describe('AmplicationTemplatesProcessor Name', () => {
   it('runs successfully', async () => {

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-import { screen } from '@testing-library/react';
-import { AnnouncementsContent } from './AnnouncementsContent';
+import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
+import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
+import { permissionApiRef } from '@backstage/plugin-permission-react';
 import {
   mockApis,
-  TestApiProvider,
   renderInTestApp,
+  TestApiProvider,
 } from '@backstage/test-utils';
-import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
-import { AnnouncementsList } from '@backstage-community/plugin-announcements-common';
+import { screen } from '@testing-library/react';
 import { DateTime } from 'luxon';
-import { permissionApiRef } from '@backstage/plugin-permission-react';
+import { AnnouncementsContent } from './AnnouncementsContent';
 
 const mockAnnouncementsApi = (announcements: AnnouncementsList) => ({
   announcements: jest.fn().mockResolvedValue(announcements),
@@ -71,6 +71,7 @@ describe('AnnouncementsContent', () => {
           created_at: DateTime.now().toISO(),
           active: true,
           start_at: DateTime.now().toISO(),
+          until_date: DateTime.now().plus({ days: 7 }).toISO(),
         },
         {
           id: '2',
@@ -81,6 +82,7 @@ describe('AnnouncementsContent', () => {
           created_at: DateTime.now().toISO(),
           active: false,
           start_at: DateTime.now().toISO(),
+          until_date: DateTime.now().plus({ days: 7 }).toISO(),
         },
       ],
     };

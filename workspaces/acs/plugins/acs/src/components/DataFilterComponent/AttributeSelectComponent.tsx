@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import type { ChangeEvent } from 'react';
+import { useState } from 'react';
 
 interface AttributeSelectProps {
   options: string[];
@@ -27,9 +28,9 @@ export const AttributeSelectComponent = ({
   setSelectedAttribute,
 }: AttributeSelectProps) => {
   /* eslint @typescript-eslint/no-shadow: ["error", { "allow": ["isOpen"] }]*/
-  const [selected, setSelected] = React.useState<string>(options[0]);
+  const [selected, setSelected] = useState<string>(options[0]);
 
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
     setSelected(event.target.value as string);
     setSelectedAttribute(event.target.value as string);
   };

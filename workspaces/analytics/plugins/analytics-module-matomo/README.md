@@ -19,13 +19,12 @@ yarn workspace app add @backstage-community/plugin-analytics-module-matomo
 
 ```tsx
 // packages/app/src/apis.ts
+import { MatomoAnalytics } from '@backstage-community/plugin-analytics-module-matomo';
 import {
   analyticsApiRef,
   configApiRef,
   identityApiRef,
 } from '@backstage/core-plugin-api';
-
-import { MatomoAnalytics } from '@backstage-community/plugin-analytics-module-matomo';
 
 export const apis: AnyApiFactory[] = [
   // Instantiate and register the Matomo Analytics API Implementation.
@@ -50,6 +49,7 @@ app:
       host: ${ANALYTICS_MATOMO_INSTANCE_URL}
       siteId: ${ANALYTICS_MATOMO_SITE_ID}
       identity: optional # (optional) to enable user tracking. Is disabled by default
+      sendPlainUserId: optional # (optional) to not hash User ID when user tracking is enabled. User ID is hashed by default.
 ```
 
 4. Update CSP in your `app-config.yaml`:(optional)

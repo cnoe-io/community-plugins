@@ -14,33 +14,33 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react';
-import pluralize from 'pluralize';
+import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 import { default as MuiAlert } from '@material-ui/lab/Alert';
-import { AlertDialog } from './AlertDialog';
-import { AlertStatusSummary } from './AlertStatusSummary';
-import { AlertStatusSummaryButton } from './AlertStatusSummaryButton';
-import { AlertInsightsHeader } from './AlertInsightsHeader';
-import { AlertInsightsSection } from './AlertInsightsSection';
+import pluralize from 'pluralize';
+import { useEffect, useState } from 'react';
 import {
-  useScroll,
-  useLoading,
-  ScrollType,
   MapLoadingToProps,
+  ScrollType,
+  useLoading,
+  useScroll,
 } from '../../hooks';
-import { DefaultLoadingAction } from '../../utils/loading';
 import { Alert, AlertOptions, AlertStatus } from '../../types';
-import { Maybe } from '@backstage-community/plugin-cost-insights-common';
 import {
-  isStatusSnoozed,
   isStatusAccepted,
   isStatusDismissed,
+  isStatusSnoozed,
   sumOfAllAlerts,
 } from '../../utils/alerts';
+import { DefaultLoadingAction } from '../../utils/loading';
 import { ScrollAnchor } from '../../utils/scroll';
+import { AlertDialog } from './AlertDialog';
+import { AlertInsightsHeader } from './AlertInsightsHeader';
+import { AlertInsightsSection } from './AlertInsightsSection';
+import { AlertStatusSummary } from './AlertStatusSummary';
+import { AlertStatusSummaryButton } from './AlertStatusSummaryButton';
 
 type MapLoadingtoAlerts = (isLoading: boolean) => void;
 

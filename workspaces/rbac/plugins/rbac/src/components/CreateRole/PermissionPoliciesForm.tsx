@@ -13,25 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { FocusEventHandler } from 'react';
-import { useAsync } from 'react-use';
-
 import { Progress } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
-
+import Box from '@mui/material/Box';
 import FormHelperText from '@mui/material/FormHelperText';
 import { FormikErrors } from 'formik';
-
+import type { FocusEventHandler } from 'react';
+import { useAsync } from 'react-use';
 import { rbacApiRef } from '../../api/RBACBackendClient';
 import { useConditionRules } from '../../hooks/useConditionRules';
+import { useTranslation } from '../../hooks/useTranslation';
 import { PermissionsData, SelectedPlugin } from '../../types';
 import { getPluginsPermissionPoliciesData } from '../../utils/create-role-utils';
+import { capitalizeFirstLetter } from '../../utils/string-utils';
 import { ConditionsData } from '../ConditionalAccess/types';
-import { RoleFormValues } from './types';
 import PermissionPoliciesFormTable from './PermissionPoliciesFormTable';
 import PluginsDropdown from './PluginsDropdown';
-import Box from '@mui/material/Box';
-import { capitalizeFirstLetter } from '../../utils/string-utils';
+import { RoleFormValues } from './types';
 
 type PermissionPoliciesFormProps = {
   permissionPoliciesRows: PermissionsData[];
@@ -54,6 +52,7 @@ export const PermissionPoliciesForm = ({
   handleBlur,
   selectedPluginsError,
 }: PermissionPoliciesFormProps) => {
+  const { t } = useTranslation();
   const rbacApi = useApi(rbacApiRef);
   const conditionRules = useConditionRules();
 
@@ -106,11 +105,27 @@ export const PermissionPoliciesForm = ({
     policyIndex: number,
     index: number,
   ) => {
-    setFieldValue(
-      `permissionPoliciesRows[${index}].policies[${policyIndex}].effect`,
-      isChecked ? 'allow' : 'deny',
-      true,
-    );
+    const updatedRows = [...permissionPoliciesRows];
+    updatedRows[index].policies[policyIndex].effect = isChecked
+      ? 'allow'
+      : 'deny';
+
+    // If unchecking and no policies are left with 'allow' effect, remove the entire permission
+    if (!isChecked) {
+      const hasAnyAllowPolicy = updatedRows[index].policies.some(
+        policy => policy.effect === 'allow',
+      );
+
+      if (!hasAnyAllowPolicy) {
+        // Remove the entire permission entry
+        const finalPps = updatedRows.filter((_ppr, pIndex) => index !== pIndex);
+        setFieldValue('permissionPoliciesRows', finalPps, true);
+        setFieldError(`permissionPoliciesRows[${index}]`, undefined);
+        return;
+      }
+    }
+
+    setFieldValue('permissionPoliciesRows', updatedRows, true);
   };
 
   const onAddConditions = (index: number, conditions?: ConditionsData) => {
@@ -147,7 +162,9 @@ export const PermissionPoliciesForm = ({
       allPlugins.length > 0
         ? [
             {
-              label: `All plugins (${allPlugins.length})`,
+              label: t('permissionPolicies.allPlugins' as any, {
+                count: allPlugins.length.toString(),
+              }),
               value: '',
             },
           ]
@@ -197,11 +214,7 @@ export const PermissionPoliciesForm = ({
 
   return (
     <div>
-      <FormHelperText>
-        By default, users are not granted access to any plugins. To grant user
-        access, select the plugins you want to enable. Then, select which
-        actions you would like to give user permission to.
-      </FormHelperText>
+      <FormHelperText>{t('permissionPolicies.helperText')}</FormHelperText>
       <br />
       {permissionPoliciesLoading ? (
         <Progress />
@@ -237,10 +250,11 @@ export const PermissionPoliciesForm = ({
           <>
             <br />
             <FormHelperText error>
-              {`Error fetching the permission policies: ${
-                permissionPoliciesErr?.message ||
-                (permissionPolicies as Response)?.statusText
-              }`}
+              {t('permissionPolicies.errorFetchingPolicies' as any, {
+                error:
+                  permissionPoliciesErr?.message ||
+                  (permissionPolicies as Response)?.statusText,
+              })}
             </FormHelperText>
           </>
         )}

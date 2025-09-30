@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
+import {
+  Cost,
+  Maybe,
+  Metric,
+  MetricData,
+} from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import { useTheme } from '@material-ui/core/styles';
-import { LegendItem } from '../LegendItem';
+import { PropsWithChildren } from 'react';
+import { useFilters, useLastCompleteBillingDate } from '../../hooks';
 import { CostInsightsTheme } from '../../types';
-import {
-  MetricData,
-  Maybe,
-  Cost,
-  Metric,
-} from '@backstage-community/plugin-cost-insights-common';
-import { useLastCompleteBillingDate, useFilters } from '../../hooks';
-import { getComparedChange, choose } from '../../utils/change';
-import { mapFiltersToProps } from './selector';
+import { choose, getComparedChange } from '../../utils/change';
 import { formatChange } from '../../utils/formatters';
 import { CostGrowth } from '../CostGrowth';
+import { LegendItem } from '../LegendItem';
+import { mapFiltersToProps } from './selector';
 
 type CostOverviewLegendProps = {
   metric: Maybe<Metric>;

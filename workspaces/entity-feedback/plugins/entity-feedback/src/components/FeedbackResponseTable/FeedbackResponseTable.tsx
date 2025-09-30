@@ -14,17 +14,15 @@
  * limitations under the License.
  */
 
+import { FeedbackResponse } from '@backstage-community/plugin-entity-feedback-common';
 import { ErrorPanel, Table } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import { EntityRefLink } from '@backstage/plugin-catalog-react';
-import { FeedbackResponse } from '@backstage-community/plugin-entity-feedback-common';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
-import CheckIcon from '@material-ui/icons/Check';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import CheckIcon from '@material-ui/icons/Check';
 import useAsync from 'react-use/esm/useAsync';
-
 import { entityFeedbackApiRef } from '../../api';
 import { Comments } from '../FeedbackResponseDialog';
 

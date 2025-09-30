@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import { useEntity } from '@backstage/plugin-catalog-react';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
-import React from 'react';
 import useAsync from 'react-use/esm/useAsync';
 import { codeCoverageApiRef } from '../../api';
 import { FileEntry } from '../../types';
 import { CodeRow } from './CodeRow';
 import { highlightLines } from './Highlighter';
-
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
 
 type Props = {
   filename: string;

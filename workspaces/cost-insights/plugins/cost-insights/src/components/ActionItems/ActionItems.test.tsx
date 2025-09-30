@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-import { ActionItems } from './ActionItems';
 import { MockScrollProvider } from '../../testUtils';
+import { ActionItems } from './ActionItems';
 
 function renderInContext(children: JSX.Element) {
   return render(<MockScrollProvider>{children}</MockScrollProvider>);

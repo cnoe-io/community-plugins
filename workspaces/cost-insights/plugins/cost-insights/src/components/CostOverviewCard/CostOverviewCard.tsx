@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react';
-import Box from '@material-ui/core/Box';
-import { capitalize } from '@material-ui/core/utils';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Divider from '@material-ui/core/Divider';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import { useTheme } from '@material-ui/core/styles';
-import { CostOverviewChart } from './CostOverviewChart';
-import { CostOverviewBreakdownChart } from './CostOverviewBreakdownChart';
-import { CostOverviewHeader } from './CostOverviewHeader';
-import { MetricSelect } from '../MetricSelect';
-import { PeriodSelect } from '../PeriodSelect';
-import { useConfig, useFilters } from '../../hooks';
-import { mapFiltersToProps } from './selector';
-import { DefaultNavigation } from '../../utils/navigation';
-import { findAlways } from '../../utils/assert';
-import { CostInsightsTheme } from '../../types';
 import {
   Cost,
   Maybe,
   MetricData,
 } from '@backstage-community/plugin-cost-insights-common';
-import { useOverviewTabsStyles } from '../../utils/styles';
+import Box from '@material-ui/core/Box';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Divider from '@material-ui/core/Divider';
+import { useTheme } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import { capitalize } from '@material-ui/core/utils';
+import { useEffect, useState } from 'react';
+import { useConfig, useFilters } from '../../hooks';
+import { CostInsightsTheme } from '../../types';
+import { findAlways } from '../../utils/assert';
+import { DefaultNavigation } from '../../utils/navigation';
 import { ScrollAnchor } from '../../utils/scroll';
+import { useOverviewTabsStyles } from '../../utils/styles';
+import { MetricSelect } from '../MetricSelect';
+import { PeriodSelect } from '../PeriodSelect';
+import { CostOverviewBreakdownChart } from './CostOverviewBreakdownChart';
+import { CostOverviewChart } from './CostOverviewChart';
+import { CostOverviewHeader } from './CostOverviewHeader';
+import { mapFiltersToProps } from './selector';
 
 export type CostOverviewCardProps = {
   dailyCostData: Cost;

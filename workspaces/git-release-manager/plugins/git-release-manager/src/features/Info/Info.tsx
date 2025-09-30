@@ -14,21 +14,20 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
-import { Typography, Button, Box } from '@material-ui/core';
+import { Link } from '@backstage/core-components';
+import { Box, Button, Typography } from '@material-ui/core';
 import BarChartIcon from '@material-ui/icons/BarChart';
-
+import { useState } from 'react';
 import {
   GetBranchResult,
   GetLatestReleaseResult,
 } from '../../api/GitReleaseClient';
 import { Differ } from '../../components/Differ';
 import { InfoCardPlus } from '../../components/InfoCardPlus';
-import { Stats } from '../Stats/Stats';
-import { TEST_IDS } from '../../test-helpers/test-ids';
 import { useProjectContext } from '../../contexts/ProjectContext';
+import { TEST_IDS } from '../../test-helpers/test-ids';
+import { Stats } from '../Stats/Stats';
 import flowImage from './flow.png';
-import { Link } from '@backstage/core-components';
 
 interface InfoCardProps {
   releaseBranch: GetBranchResult['branch'] | null;

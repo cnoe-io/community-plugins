@@ -15,29 +15,28 @@
  */
 
 import {
-  ApiBlueprint,
-  createApiFactory,
-  PageBlueprint,
-  createFrontendPlugin,
-  discoveryApiRef,
-  fetchApiRef,
-} from '@backstage/frontend-plugin-api';
-import { azureDevOpsApiRef, AzureDevOpsClient } from '../api';
-import {
   compatWrapper,
   convertLegacyRouteRef,
 } from '@backstage/core-compat-api';
 import {
+  ApiBlueprint,
+  createFrontendPlugin,
+  discoveryApiRef,
+  fetchApiRef,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
+import {
   EntityCardBlueprint,
   EntityContentBlueprint,
 } from '@backstage/plugin-catalog-react/alpha';
-import { azurePullRequestDashboardRouteRef } from '../routes';
+import { azureDevOpsApiRef, AzureDevOpsClient } from '../api';
 import { isAzureDevOpsAvailable, isAzurePipelinesAvailable } from '../plugin';
+import { azurePullRequestDashboardRouteRef } from '../routes';
 
 /** @alpha */
 export const azureDevOpsApi = ApiBlueprint.make({
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: azureDevOpsApiRef,
       deps: {
         discoveryApi: discoveryApiRef,
@@ -46,13 +45,12 @@ export const azureDevOpsApi = ApiBlueprint.make({
       factory: ({ discoveryApi, fetchApi }) =>
         new AzureDevOpsClient({ discoveryApi, fetchApi }),
     }),
-  },
 });
 
 /** @alpha */
 export const azureDevOpsPullRequestPage = PageBlueprint.make({
   params: {
-    defaultPath: '/azure-pull-requests',
+    path: '/azure-pull-requests',
     routeRef: convertLegacyRouteRef(azurePullRequestDashboardRouteRef),
     loader: () =>
       import('../components/PullRequestsPage').then(m =>
@@ -65,8 +63,8 @@ export const azureDevOpsPullRequestPage = PageBlueprint.make({
 export const azureDevOpsPipelinesEntityContent = EntityContentBlueprint.make({
   name: 'pipelines',
   params: {
-    defaultPath: '/pipelines',
-    defaultTitle: 'Pipelines',
+    path: '/pipelines',
+    title: 'Pipelines',
     filter: isAzurePipelinesAvailable,
     loader: () =>
       import('../components/EntityPageAzurePipelines').then(m =>
@@ -79,8 +77,8 @@ export const azureDevOpsPipelinesEntityContent = EntityContentBlueprint.make({
 export const azureDevOpsGitTagsEntityContent = EntityContentBlueprint.make({
   name: 'git-tags',
   params: {
-    defaultPath: '/git-tags',
-    defaultTitle: 'Git Tags',
+    path: '/git-tags',
+    title: 'Git Tags',
     filter: isAzureDevOpsAvailable,
     loader: () =>
       import('../components/EntityPageAzureGitTags').then(m =>
@@ -94,8 +92,8 @@ export const azureDevOpsPullRequestsEntityContent = EntityContentBlueprint.make(
   {
     name: 'pull-requests',
     params: {
-      defaultPath: '/pull-requests',
-      defaultTitle: 'Pull Requests',
+      path: '/pull-requests',
+      title: 'Pull Requests',
       filter: isAzureDevOpsAvailable,
       loader: () =>
         import('../components/EntityPageAzurePullRequests').then(m =>

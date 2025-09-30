@@ -13,24 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-
-import { createDevApp } from '@backstage/dev-utils';
-import { EntityProvider } from '@backstage/plugin-catalog-react';
+import { Ratings } from '@backstage-community/plugin-entity-feedback-common';
+import { Content, Header, HeaderLabel, Page } from '@backstage/core-components';
 import { ErrorApi, errorApiRef } from '@backstage/core-plugin-api';
-import { TestApiProvider } from '@backstage/test-utils';
+import { createDevApp } from '@backstage/dev-utils';
 import {
   CatalogEntityPage,
   CatalogIndexPage,
   catalogPlugin,
   EntityLayout,
 } from '@backstage/plugin-catalog';
-
-import { entityFeedbackPlugin, FeedbackResponseTable } from '../src/plugin';
-import { Ratings } from '@backstage-community/plugin-entity-feedback-common';
+import { EntityProvider } from '@backstage/plugin-catalog-react';
+import { TestApiProvider } from '@backstage/test-utils';
 import { LikeDislikeButtons } from '../src';
-import { Content, Header, HeaderLabel, Page } from '@backstage/core-components';
 import { EntityFeedbackApi, entityFeedbackApiRef } from '../src/api';
+import { entityFeedbackPlugin, FeedbackResponseTable } from '../src/plugin';
 
 const entity = {
   apiVersion: 'backstage.io/v1alpha1',

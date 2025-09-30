@@ -13,9 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SetStateAction, Dispatch, ChangeEvent } from 'react';
-
-import { useState, useEffect } from 'react';
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import SearchIcon from '@mui/icons-material/Search';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -23,20 +28,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import IconButton from '@mui/material/IconButton';
-import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import ArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import ArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import type { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 import { PermissionsData } from '../../types';
 import { ConditionRulesData, ConditionsData } from '../ConditionalAccess/types';
 import PermissionPoliciesFormRow from './PermissionPoliciesFormRow';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
 
 interface PermissionPoliciesTableToolbarProps {
   numSelected: number;
@@ -49,6 +49,8 @@ const PermissionPoliciesFormTableToolbar = ({
   search,
   setSearch,
 }: PermissionPoliciesTableToolbarProps) => {
+  const { t } = useTranslation();
+
   return (
     <Toolbar
       sx={{
@@ -64,13 +66,17 @@ const PermissionPoliciesFormTableToolbar = ({
         id="tableTitle"
         component="div"
       >
-        {numSelected > 0 ? `${numSelected} plugins` : 'No plugins selected'}
+        {numSelected > 0
+          ? t('permissionPolicies.pluginsSelected' as any, {
+              count: `${numSelected}`,
+            })
+          : t('permissionPolicies.noPluginsSelected')}
       </Typography>
 
       <TextField
         sx={{ width: '30%' }}
         id="input-with-icon-textfield"
-        placeholder="Search"
+        placeholder={t('permissionPolicies.search')}
         value={search}
         onChange={e => setSearch(e.target.value)}
         InputProps={{
@@ -124,6 +130,7 @@ const PermissionPoliciesFormTable = ({
   onRemovePlugin: (plugin: string) => void;
   onAddConditions: (index: number, conditions?: ConditionsData) => void;
 }) => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [open, setOpen] = useState<boolean>(false);
@@ -174,7 +181,7 @@ const PermissionPoliciesFormTable = ({
                 >
                   {open ? <ArrowDownIcon /> : <ArrowRightIcon />}
                 </IconButton>
-                Name
+                {t('common.name')}
               </TableCell>
               <TableCell
                 align="left"
@@ -183,7 +190,7 @@ const PermissionPoliciesFormTable = ({
                   fontWeight: theme => theme.typography.fontWeightBold,
                 }}
               >
-                Permission
+                {t('permissionPolicies.permission')}
               </TableCell>
               <TableCell
                 align="right"
@@ -192,7 +199,7 @@ const PermissionPoliciesFormTable = ({
                   fontWeight: theme => theme.typography.fontWeightBold,
                 }}
               >
-                Actions
+                {t('common.actions')}
               </TableCell>
             </TableRow>
           </TableHead>
@@ -220,8 +227,8 @@ const PermissionPoliciesFormTable = ({
                 <TableCell colSpan={4}>
                   <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
                     {search && !filteredData.length
-                      ? 'No records to display.'
-                      : 'Selected plugins appear here.'}
+                      ? t('permissionPolicies.noRecordsToDisplay')
+                      : t('permissionPolicies.selectedPluginsAppearHere')}
                   </Box>
                 </TableCell>
               </TableRow>

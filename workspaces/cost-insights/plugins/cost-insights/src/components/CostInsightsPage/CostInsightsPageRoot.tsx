@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { CostInsightsPage } from './CostInsightsPage';
-import { FilterProvider } from '../../hooks/useFilters';
-import { LoadingProvider } from '../../hooks/useLoading';
-import { GroupsProvider } from '../../hooks/useGroups';
-import { CurrencyProvider } from '../../hooks/useCurrency';
-import { ScrollProvider } from '../../hooks/useScroll';
 import { ConfigProvider } from '../../hooks/useConfig';
+import { CurrencyProvider } from '../../hooks/useCurrency';
+import { FilterProvider } from '../../hooks/useFilters';
+import { GroupsProvider } from '../../hooks/useGroups';
 import { BillingDateProvider } from '../../hooks/useLastCompleteBillingDate';
+import { LoadingProvider } from '../../hooks/useLoading';
+import { ScrollProvider } from '../../hooks/useScroll';
+import { CostInsightsPage } from './CostInsightsPage';
 import { CostInsightsThemeProvider } from './CostInsightsThemeProvider';
 
 export const CostInsightsPageRoot = () => (

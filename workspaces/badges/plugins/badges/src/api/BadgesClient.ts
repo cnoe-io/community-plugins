@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { generatePath } from 'react-router-dom';
-import { ResponseError } from '@backstage/errors';
-import { Entity, DEFAULT_NAMESPACE } from '@backstage/catalog-model';
-import { BadgesApi, BadgeSpec, BadgeStyleOptions } from './types';
+import { DEFAULT_NAMESPACE, Entity } from '@backstage/catalog-model';
 import { ConfigApi, DiscoveryApi, FetchApi } from '@backstage/core-plugin-api';
+import { ResponseError } from '@backstage/errors';
+import { generatePath } from 'react-router-dom';
+import { BadgesApi, BadgeSpec, BadgeStyleOptions } from './types';
 
 export class BadgesClient implements BadgesApi {
   private readonly discoveryApi: DiscoveryApi;
@@ -57,6 +57,7 @@ export class BadgesClient implements BadgesApi {
       });
       const entityUuidBadgeSpecsUrl = await this.getEntityUuidBadgeSpecsUrl(
         entityUuid,
+        badgeOptions,
       );
 
       const response = await this.fetchApi.fetch(entityUuidBadgeSpecsUrl);
@@ -98,11 +99,20 @@ export class BadgesClient implements BadgesApi {
     return await responseEntityUuid.json();
   }
 
-  private async getEntityUuidBadgeSpecsUrl(entityUuid: {
-    uuid: string;
-  }): Promise<string> {
+  private async getEntityUuidBadgeSpecsUrl(
+    entityUuid: { uuid: string },
+    badgeOptions: BadgeStyleOptions,
+  ): Promise<string> {
     const baseUrl = await this.discoveryApi.getBaseUrl('badges');
-    return `${baseUrl}/entity/${entityUuid}/badge-specs`;
+    const queries: string[] = [];
+    if (badgeOptions.style) {
+      queries.push(`style=${badgeOptions.style}`);
+    }
+    if (badgeOptions.color) {
+      queries.push(`color=${badgeOptions.color}`);
+    }
+    const queryString = queries.length > 0 ? `?${queries.join('&')}` : '';
+    return `${baseUrl}/entity/${entityUuid}/badge-specs${queryString}`;
   }
 
   private async getEntityBadgeSpecsUrl(

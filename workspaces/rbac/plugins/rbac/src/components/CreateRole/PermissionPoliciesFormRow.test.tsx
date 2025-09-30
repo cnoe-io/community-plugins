@@ -14,12 +14,15 @@
  * limitations under the License.
  */
 import { fireEvent, render, screen } from '@testing-library/react';
-
 import '@testing-library/jest-dom';
-
 import { mockTransformedConditionRules } from '../../__fixtures__/mockTransformedConditionRules';
+import { mockUseLanguage } from '../../test-utils/mockTranslations';
 import * as ConditionsFormRowFields from '../ConditionalAccess/ConditionsFormRowFields';
 import PermissionPoliciesFormRow from './PermissionPoliciesFormRow';
+
+jest.mock('../../hooks/useLanguage', () => ({
+  useLanguage: mockUseLanguage,
+}));
 
 jest.mock('../ConditionalAccess/ConditionsFormRowFields');
 

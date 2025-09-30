@@ -19,7 +19,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
+import { useTranslation } from '../../hooks/useTranslation';
 import { getDefaultRule } from '../../utils/conditional-access-utils';
 import { tooltipTitle } from './AddNestedConditionButton';
 import { criterias } from './const';
@@ -44,6 +44,7 @@ export const ComplexConditionRowButtons = ({
   isNestedConditionRule,
   handleAddNestedCondition,
 }: ComplexConditionRowButtonsProps) => {
+  const { t } = useTranslation();
   const findFirstNestedConditionIndex = (rules: Condition[]): number => {
     return rules.findIndex(e => isNestedConditionRule(e)) || 0;
   };
@@ -90,7 +91,7 @@ export const ComplexConditionRowButtons = ({
           startIcon={<AddIcon fontSize="small" />}
         >
           <Typography variant="body2" component="span">
-            Add rule
+            {t('conditionalAccess.addRule')}
           </Typography>
         </Button>
         <Button
@@ -102,9 +103,9 @@ export const ComplexConditionRowButtons = ({
           startIcon={<AddIcon fontSize="small" />}
         >
           <Typography variant="body2" component="span">
-            Add nested condition
+            {t('conditionalAccess.addNestedCondition')}
           </Typography>
-          <Tooltip title={tooltipTitle()} placement="top">
+          <Tooltip title={tooltipTitle(t)} placement="top">
             <HelpOutlineIcon fontSize="inherit" style={{ marginLeft: 4 }} />
           </Tooltip>
         </Button>

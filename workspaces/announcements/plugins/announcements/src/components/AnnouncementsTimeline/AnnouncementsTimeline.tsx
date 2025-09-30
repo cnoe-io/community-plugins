@@ -13,26 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { useRouteRef } from '@backstage/core-plugin-api';
-import { Link } from 'react-router-dom';
-import { DateTime } from 'luxon';
-import { announcementViewRouteRef } from '../../routes';
 import {
   useAnnouncements,
   useAnnouncementsTranslation,
 } from '@backstage-community/plugin-announcements-react';
 import { Progress } from '@backstage/core-components';
+import { useRouteRef } from '@backstage/core-plugin-api';
+import { Box, Typography } from '@material-ui/core';
 import {
   Timeline,
-  TimelineItem,
   TimelineConnector,
-  TimelineDot,
-  TimelineSeparator,
-  TimelineOppositeContent,
   TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineOppositeContent,
+  TimelineSeparator,
 } from '@material-ui/lab';
-import { Box, Typography } from '@material-ui/core';
 import Stack from '@mui/material/Stack';
+import { DateTime } from 'luxon';
+import { Link } from 'react-router-dom';
+import { announcementViewRouteRef } from '../../routes';
 
 /**
  * Props for the AnnouncementsTimeline component.
@@ -72,6 +72,11 @@ export type AnnouncementsTimelineProps = {
    * Default: 'desc'
    */
   order?: 'asc' | 'desc';
+  /**
+   * Whether to show current announcements or not.
+   * Default: false
+   */
+  current?: boolean;
 };
 
 /**
@@ -105,6 +110,11 @@ const DEFAULT_SORTBY = 'created_at';
 const DEFAULT_ORDER = 'desc';
 
 /**
+ * Default setting for only displaying current annoucenments.
+ */
+const DEFAULT_CURRENT = false;
+
+/**
  * Timeline of most recent announcements.
  *
  * @param options - The options for the announcements timeline.
@@ -117,6 +127,7 @@ export const AnnouncementsTimeline = ({
   hideInactive = DEFAULT_INACTIVE,
   sortBy = DEFAULT_SORTBY,
   order = DEFAULT_ORDER,
+  current = DEFAULT_CURRENT,
 }: AnnouncementsTimelineProps) => {
   const viewAnnouncementLink = useRouteRef(announcementViewRouteRef);
 
@@ -125,6 +136,7 @@ export const AnnouncementsTimeline = ({
     active: hideInactive,
     sortBy,
     order,
+    current,
   });
   const { t } = useAnnouncementsTranslation();
 

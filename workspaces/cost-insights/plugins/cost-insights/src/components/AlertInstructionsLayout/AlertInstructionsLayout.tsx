@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
+import { Header, Page } from '@backstage/core-components';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import { makeStyles } from '@material-ui/core/styles';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
+import { PropsWithChildren } from 'react';
 import { ConfigProvider, CurrencyProvider } from '../../hooks';
-import { Header, Page } from '@backstage/core-components';
+import { CostInsightsThemeProvider } from '../CostInsightsPage/CostInsightsThemeProvider';
 
 const useStyles = makeStyles(theme => ({
   root: {

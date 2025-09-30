@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-
+import { useProjectContext } from '../../contexts/ProjectContext';
 import {
   mockCalverProject,
   mockNextGitInfoSemver,
@@ -25,10 +24,9 @@ import {
   mockReleaseVersionCalver,
   mockSemverProject,
 } from '../../test-helpers/test-helpers';
-import { CreateReleaseCandidate } from './CreateReleaseCandidate';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { CreateReleaseCandidate } from './CreateReleaseCandidate';
 import { useCreateReleaseCandidate } from './hooks/useCreateReleaseCandidate';
-import { useProjectContext } from '../../contexts/ProjectContext';
 
 jest.mock('../../contexts/ProjectContext', () => ({
   useProjectContext: jest.fn(() => ({

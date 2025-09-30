@@ -13,16 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import MoneyIcon from '@material-ui/icons/MonetizationOn';
-import ActionIcon from '@material-ui/icons/Whatshot';
-import Settings from '@material-ui/icons/Settings';
 import AccountTree from '@material-ui/icons/AccountTree';
-import Storage from '@material-ui/icons/Storage';
-import Search from '@material-ui/icons/Search';
 import CloudQueue from '@material-ui/icons/CloudQueue';
+import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import School from '@material-ui/icons/School';
+import Search from '@material-ui/icons/Search';
+import Settings from '@material-ui/icons/Settings';
+import Storage from '@material-ui/icons/Storage';
 import ViewHeadline from '@material-ui/icons/ViewHeadline';
+import ActionIcon from '@material-ui/icons/Whatshot';
 import { IconType } from '../types';
 
 export enum DefaultNavigation {

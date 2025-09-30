@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-import React, { useState, useEffect } from 'react';
-import { Alert, AlertTitle } from '@material-ui/lab';
 import {
   Box,
   Button,
@@ -25,21 +23,23 @@ import {
   Select,
   Typography,
 } from '@material-ui/core';
-
+import { Alert, AlertTitle } from '@material-ui/lab';
+import type { ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 import {
   GetBranchResult,
   GetLatestReleaseResult,
   GetRepositoryResult,
 } from '../../api/GitReleaseClient';
-import { ComponentConfig, CreateRcOnSuccessArgs } from '../../types/types';
 import { Differ } from '../../components/Differ';
-import { getReleaseCandidateGitInfo } from '../../helpers/getReleaseCandidateGitInfo';
 import { InfoCardPlus } from '../../components/InfoCardPlus';
 import { ResponseStepDialog } from '../../components/ResponseStepDialog/ResponseStepDialog';
 import { SEMVER_PARTS } from '../../constants/constants';
-import { TEST_IDS } from '../../test-helpers/test-ids';
-import { useCreateReleaseCandidate } from './hooks/useCreateReleaseCandidate';
 import { useProjectContext } from '../../contexts/ProjectContext';
+import { getReleaseCandidateGitInfo } from '../../helpers/getReleaseCandidateGitInfo';
+import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ComponentConfig, CreateRcOnSuccessArgs } from '../../types/types';
+import { useCreateReleaseCandidate } from './hooks/useCreateReleaseCandidate';
 
 interface CreateReleaseCandidateProps {
   defaultBranch: GetRepositoryResult['repository']['defaultBranch'];
@@ -48,7 +48,7 @@ interface CreateReleaseCandidateProps {
   onSuccess?: ComponentConfig<CreateRcOnSuccessArgs>['onSuccess'];
 }
 
-const InfoCardPlusWrapper = ({ children }: { children: React.ReactNode }) => {
+const InfoCardPlusWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <InfoCardPlus>
       <Box marginBottom={2}>

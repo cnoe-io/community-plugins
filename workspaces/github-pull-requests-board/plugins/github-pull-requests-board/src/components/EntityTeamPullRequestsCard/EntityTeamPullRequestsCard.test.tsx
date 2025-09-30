@@ -13,11 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React from 'react';
-import { EntityTeamPullRequestsCard } from '../EntityTeamPullRequestsCard';
+import { fireEvent, render } from '@testing-library/react';
 import { PullRequestsColumn, Status } from '../../utils/types';
-import { render } from '@testing-library/react';
-import { fireEvent } from '@testing-library/react';
+import { EntityTeamPullRequestsCard } from '../EntityTeamPullRequestsCard';
 
 jest.mock('../../hooks/useUserRepositoriesAndTeam', () => {
   return {
@@ -27,6 +25,21 @@ jest.mock('../../hooks/useUserRepositoriesAndTeam', () => {
         repositories: ['team-login/team-repo'],
         teamMembers: ['team-member'],
         teamMembersOrganization: 'test-org',
+      };
+    },
+  };
+});
+
+jest.mock('@backstage/plugin-catalog-react', () => {
+  return {
+    useEntity: () => {
+      return {
+        entity: {
+          metadata: {
+            name: 'test-entity',
+            namespace: 'default',
+          },
+        },
       };
     },
   };

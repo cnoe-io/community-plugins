@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { useMemo } from 'react';
+import { getAdrLocationUrl } from '@backstage-community/plugin-adr-common';
 import {
   InfoCard,
   MarkdownContent,
@@ -23,14 +23,13 @@ import {
 } from '@backstage/core-components';
 import { discoveryApiRef, useApi } from '@backstage/core-plugin-api';
 import { scmIntegrationsApiRef } from '@backstage/integration-react';
-import { getAdrLocationUrl } from '@backstage-community/plugin-adr-common';
-import { useEntity } from '@backstage/plugin-catalog-react';
 import { CookieAuthRefreshProvider } from '@backstage/plugin-auth-react';
-
+import { useEntity } from '@backstage/plugin-catalog-react';
+import { useMemo } from 'react';
+import useAsync from 'react-use/esm/useAsync';
+import { adrApiRef } from '../../api';
 import { adrDecoratorFactories } from './decorators';
 import { AdrContentDecorator } from './types';
-import { adrApiRef } from '../../api';
-import useAsync from 'react-use/esm/useAsync';
 
 /**
  * Component to fetch and render an ADR.
@@ -71,10 +70,10 @@ export const AdrReader = (props: {
 
     return adrDecorators.reduce(
       (content, decorator) =>
-        decorator({ baseUrl: adrLocationUrl, content }).content,
+        decorator({ baseUrl: adrLocationUrl, content, filename: adr }).content,
       value.data,
     );
-  }, [adrLocationUrl, decorators, value]);
+  }, [adrLocationUrl, decorators, value, adr]);
 
   return (
     <CookieAuthRefreshProvider pluginId="adr">

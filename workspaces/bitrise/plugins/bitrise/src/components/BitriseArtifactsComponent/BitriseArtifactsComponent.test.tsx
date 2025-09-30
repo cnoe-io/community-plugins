@@ -14,12 +14,11 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { render } from '@testing-library/react';
-import { BitriseArtifactsComponent } from './BitriseArtifactsComponent';
-import { useBitriseArtifacts } from '../useBitriseArtifacts';
-import { useBitriseArtifactDetails } from '../useBitriseArtifactDetails';
 import { BitriseBuildResult } from '../../api/bitriseApi.model';
+import { useBitriseArtifactDetails } from '../useBitriseArtifactDetails';
+import { useBitriseArtifacts } from '../useBitriseArtifacts';
+import { BitriseArtifactsComponent } from './BitriseArtifactsComponent';
 
 jest.mock('../useBitriseArtifacts', () => ({
   useBitriseArtifacts: jest.fn(),

@@ -14,32 +14,32 @@
  * limitations under the License.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import { default as Alert } from '@material-ui/lab/Alert';
-import { costInsightsApiRef } from '../../api';
-import { ProductInsightsCardList } from '../ProductInsightsCard/ProductInsightsCardList';
-import { Duration } from '../../types';
 import {
   Entity,
   Maybe,
   Product,
 } from '@backstage-community/plugin-cost-insights-common';
-import { intervalsOf, DEFAULT_DURATION } from '../../utils/duration';
+import { useApi } from '@backstage/core-plugin-api';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { default as Alert } from '@material-ui/lab/Alert';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { costInsightsApiRef } from '../../api';
+import {
+  MapLoadingToProps,
+  useLastCompleteBillingDate,
+  useLoading,
+} from '../../hooks';
+import { Duration } from '../../types';
+import { DEFAULT_DURATION, intervalsOf } from '../../utils/duration';
 import {
   DefaultLoadingAction,
   initialStatesOf,
-  settledResponseOf,
   ProductState,
+  settledResponseOf,
 } from '../../utils/loading';
 import { totalAggregationSort } from '../../utils/sort';
-import {
-  useLoading,
-  useLastCompleteBillingDate,
-  MapLoadingToProps,
-} from '../../hooks';
-import { useApi } from '@backstage/core-plugin-api';
+import { ProductInsightsCardList } from '../ProductInsightsCard/ProductInsightsCardList';
 
 type LoadingProps = (isLoading: boolean) => void;
 

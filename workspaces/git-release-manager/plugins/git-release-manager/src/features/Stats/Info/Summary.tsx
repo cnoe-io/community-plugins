@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import {
   Box,
   makeStyles,
@@ -26,10 +25,9 @@ import {
   TableRow,
   Typography,
 } from '@material-ui/core';
-
+import { useReleaseStatsContext } from '../contexts/ReleaseStatsContext';
 import { getDecimalNumber } from '../helpers/getDecimalNumber';
 import { getSummary } from '../helpers/getSummary';
-import { useReleaseStatsContext } from '../contexts/ReleaseStatsContext';
 
 const useStyles = makeStyles({
   table: {

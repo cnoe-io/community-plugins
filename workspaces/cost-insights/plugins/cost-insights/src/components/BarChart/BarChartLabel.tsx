@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import React, { PropsWithChildren } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import { PropsWithChildren } from 'react';
 import { useBarChartLabelStyles } from '../../utils/styles';
 
 type BarChartLabelProps = {

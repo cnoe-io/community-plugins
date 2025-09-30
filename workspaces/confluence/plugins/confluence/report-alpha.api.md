@@ -5,17 +5,21 @@
 ```ts
 /// <reference types="react" />
 
-import { ConfigurableExtensionDataRef } from '@backstage/frontend-plugin-api';
-import { ExtensionDefinition } from '@backstage/frontend-plugin-api';
-import { FrontendPlugin } from '@backstage/frontend-plugin-api';
-import { RouteRef } from '@backstage/frontend-plugin-api';
-import { SearchFilterResultTypeBlueprintParams } from '@backstage/plugin-search-react/alpha';
-import { SearchResultItemExtensionComponent } from '@backstage/plugin-search-react/alpha';
-import { SearchResultItemExtensionPredicate } from '@backstage/plugin-search-react/alpha';
-import { SearchResultListItemBlueprintParams } from '@backstage/plugin-search-react/alpha';
+import {
+  ExtensionDataRef,
+  ExtensionDefinition,
+  OverridableFrontendPlugin,
+  RouteRef,
+} from '@backstage/frontend-plugin-api';
+import {
+  SearchFilterResultTypeBlueprintParams,
+  SearchResultItemExtensionComponent,
+  SearchResultItemExtensionPredicate,
+  SearchResultListItemBlueprintParams,
+} from '@backstage/plugin-search-react/alpha';
 
 // @alpha (undocumented)
-const _default: FrontendPlugin<
+const _default: OverridableFrontendPlugin<
   {
     entityContent: RouteRef<undefined>;
   },
@@ -26,7 +30,7 @@ const _default: FrontendPlugin<
       name: 'confluence-results-type';
       config: {};
       configInput: {};
-      output: ConfigurableExtensionDataRef<
+      output: ExtensionDataRef<
         {
           value: string;
           name: string;
@@ -47,7 +51,7 @@ const _default: FrontendPlugin<
       configInput: {
         noTrack?: boolean | undefined;
       };
-      output: ConfigurableExtensionDataRef<
+      output: ExtensionDataRef<
         {
           predicate?: SearchResultItemExtensionPredicate | undefined;
           component: SearchResultItemExtensionComponent;

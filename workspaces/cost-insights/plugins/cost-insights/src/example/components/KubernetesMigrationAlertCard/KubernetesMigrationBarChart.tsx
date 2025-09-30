@@ -14,15 +14,14 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import { Entity } from '@backstage-community/plugin-cost-insights-common';
+import { useTheme } from '@material-ui/core/styles';
 import { BarChart } from '../../../components';
 import {
   BarChartOptions,
   CostInsightsTheme,
   ResourceData,
 } from '../../../types';
-import { Entity } from '@backstage-community/plugin-cost-insights-common';
-import { useTheme } from '@material-ui/core/styles';
 
 type MigrationBarChartProps = {
   currentProduct: string;

@@ -14,9 +14,8 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
-import useAsync from 'react-use/esm/useAsync';
-import { Alert, AlertTitle } from '@material-ui/lab';
+import { Link, Progress } from '@backstage/core-components';
+import { useApi } from '@backstage/core-plugin-api';
 import {
   Box,
   Button,
@@ -32,25 +31,24 @@ import {
 } from '@material-ui/core';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import OpenInNewIcon from '@material-ui/icons/OpenInNew';
-
+import { Alert, AlertTitle } from '@material-ui/lab';
+import { useState } from 'react';
+import useAsync from 'react-use/esm/useAsync';
 import {
   GetBranchResult,
   GetLatestReleaseResult,
 } from '../../api/GitReleaseClient';
-import { CalverTagParts } from '../../helpers/tagParts/getCalverTagParts';
-import { ComponentConfig, PatchOnSuccessArgs } from '../../types/types';
-import { Differ } from '../../components/Differ';
-import { getPatchCommitSuffix } from './helpers/getPatchCommitSuffix';
 import { gitReleaseManagerApiRef } from '../../api/serviceApiRef';
-import { GitReleaseManagerError } from '../../errors/GitReleaseManagerError';
+import { Differ } from '../../components/Differ';
 import { ResponseStepDialog } from '../../components/ResponseStepDialog/ResponseStepDialog';
+import { useProjectContext } from '../../contexts/ProjectContext';
+import { GitReleaseManagerError } from '../../errors/GitReleaseManagerError';
+import { CalverTagParts } from '../../helpers/tagParts/getCalverTagParts';
 import { SemverTagParts } from '../../helpers/tagParts/getSemverTagParts';
 import { TEST_IDS } from '../../test-helpers/test-ids';
+import { ComponentConfig, PatchOnSuccessArgs } from '../../types/types';
+import { getPatchCommitSuffix } from './helpers/getPatchCommitSuffix';
 import { usePatch } from './hooks/usePatch';
-import { useProjectContext } from '../../contexts/ProjectContext';
-
-import { Link, Progress } from '@backstage/core-components';
-import { useApi } from '@backstage/core-plugin-api';
 
 interface PatchBodyProps {
   bumpedTag: string;

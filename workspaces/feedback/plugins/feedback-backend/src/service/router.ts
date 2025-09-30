@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 import {
   AuthService,
   DatabaseService,
@@ -23,17 +24,13 @@ import {
 import { CatalogClient } from '@backstage/catalog-client';
 import { Entity, UserEntityV1alpha1 } from '@backstage/catalog-model';
 import { Config } from '@backstage/config';
-
+import { NotificationService } from '@backstage/plugin-notifications-node';
 import express from 'express';
 import Router from 'express-promise-router';
-
 import { JiraApiService } from '../api';
 import { DatabaseFeedbackStore } from '../database/feedbackStore';
 import { FeedbackCategory, FeedbackModel } from '../model/feedback.model';
 import { NodeMailer } from './emails';
-
-import { NotificationService } from '@backstage/plugin-notifications-node';
-import { MiddlewareFactory } from '@backstage/backend-defaults/rootHttpRouter';
 
 /** @internal */
 export interface RouterOptions {
@@ -185,12 +182,13 @@ export async function createRouter(
             return logger.error('Jira integeration not found');
           }
           host = serviceConfig.getString('host');
+          const apiHost = serviceConfig.getOptionalString('apiHost') ?? host;
           const authToken = serviceConfig.getString('token');
           const hostType = serviceConfig.getOptionalString('hostType');
 
           const projectKey = entityRef.metadata.annotations['jira/project-key'];
           const jiraService = new JiraApiService(
-            host,
+            apiHost,
             authToken,
             logger,
             hostType,
@@ -348,10 +346,11 @@ export async function createRouter(
               .find(hostConfig => host === hostConfig.getString('host')) ??
             config.getConfigArray('feedback.integrations.jira')[0];
           host = serviceConfig.getString('host');
+          const apiHost = serviceConfig.getOptionalString('apiHost') ?? host;
           const authToken = serviceConfig.getString('token');
 
           const resp = await new JiraApiService(
-            host,
+            apiHost,
             authToken,
             logger,
           ).getTicketDetails(ticketId);

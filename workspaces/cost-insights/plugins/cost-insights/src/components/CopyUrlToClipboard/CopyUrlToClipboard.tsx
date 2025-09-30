@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import useCopyToClipboard from 'react-use/esm/useCopyToClipboard';
-import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
 import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import AssignmentTurnedInOutlinedIcon from '@material-ui/icons/AssignmentTurnedInOutlined';
 import SentimentVeryDissatisfiedIcon from '@material-ui/icons/SentimentVeryDissatisfied';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import useCopyToClipboard from 'react-use/esm/useCopyToClipboard';
 
 const ClipboardMessage = {
   default: 'Copy URL to clipboard',

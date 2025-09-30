@@ -14,28 +14,29 @@
  * limitations under the License.
  */
 
-import React, { useState } from 'react';
-import Alert from '@material-ui/lab/Alert';
+import {
+  Link,
+  StatusAborted,
+  StatusError,
+  StatusOK,
+  StatusRunning,
+  StatusWarning,
+  SubvalueCell,
+  Table,
+  TableColumn,
+} from '@backstage/core-components';
 import Button from '@material-ui/core/Button';
 import GitHubIcon from '@material-ui/icons/GitHub';
-import { useBitriseBuilds } from '../../hooks/useBitriseBuilds';
+import Alert from '@material-ui/lab/Alert';
+import { DateTime } from 'luxon';
+import { useState } from 'react';
+import * as React from 'react';
 import {
   BitriseBuildResult,
   BitriseBuildResultStatus,
 } from '../../api/bitriseApi.model';
+import { useBitriseBuilds } from '../../hooks/useBitriseBuilds';
 import { BitriseBuildDetailsDialog } from '../BitriseBuildDetailsDialog';
-import { DateTime } from 'luxon';
-import {
-  Table,
-  TableColumn,
-  Link,
-  SubvalueCell,
-  StatusOK,
-  StatusWarning,
-  StatusAborted,
-  StatusError,
-  StatusRunning,
-} from '@backstage/core-components';
 
 type BitriseBuildsProps = {
   appName: string;

@@ -13,43 +13,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import React, { useState } from 'react';
-import { DateTime } from 'luxon';
+import { Cost } from '@backstage-community/plugin-cost-insights-common';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import { useTheme } from '@material-ui/core/styles';
 import { emphasize } from '@material-ui/core/styles/colorManipulator';
 import Typography from '@material-ui/core/Typography';
-import { useTheme } from '@material-ui/core/styles';
 import { default as FullScreenIcon } from '@material-ui/icons/Fullscreen';
+import { DateTime } from 'luxon';
+import { useState } from 'react';
 import {
   Area,
   AreaChart,
   CartesianGrid,
-  ResponsiveContainer,
   Tooltip as RechartsTooltip,
+  ResponsiveContainer,
   XAxis,
   YAxis,
 } from 'recharts';
-import { DEFAULT_DATE_FORMAT, CostInsightsTheme } from '../../types';
-import { Cost } from '@backstage-community/plugin-cost-insights-common';
+import { useConfig, useFilters, useLastCompleteBillingDate } from '../../hooks';
 import {
-  BarChartLegend,
-  BarChartTooltip as Tooltip,
-  BarChartTooltipItem as TooltipItem,
-} from '../BarChart';
+  CostInsightsTheme,
+  DEFAULT_DATE_FORMAT,
+  TooltipRenderer,
+} from '../../types';
+import { getPreviousPeriodTotalCost } from '../../utils/change';
+import { formatPeriod } from '../../utils/formatters';
 import {
   formatGraphValue,
   isInvalid,
   overviewGraphTickFormatter,
 } from '../../utils/graphs';
 import { useCostOverviewStyles as useStyles } from '../../utils/styles';
-import { useConfig, useFilters, useLastCompleteBillingDate } from '../../hooks';
-import { mapFiltersToProps } from './selector';
-import { getPreviousPeriodTotalCost } from '../../utils/change';
-import { formatPeriod } from '../../utils/formatters';
 import { aggregationSum } from '../../utils/sum';
-import { BarChartLegendOptions } from '../BarChart';
-import { TooltipRenderer } from '../../types';
+import {
+  BarChartLegend,
+  BarChartLegendOptions,
+  BarChartTooltip as Tooltip,
+  BarChartTooltipItem as TooltipItem,
+} from '../BarChart';
+import { mapFiltersToProps } from './selector';
 
 export type CostOverviewBreakdownChartProps = {
   costBreakdown: Cost[];

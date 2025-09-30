@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, waitFor } from '@testing-library/react';
+import { MockLoadingProvider, MockScrollProvider } from '../../testUtils';
 import { AlertInsights } from './AlertInsights';
-import { MockScrollProvider, MockLoadingProvider } from '../../testUtils';
 
 function renderInContext(children: JSX.Element) {
   return render(

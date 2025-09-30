@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import cicdStatisticsGitlabPlugin from '@backstage-community/plugin-cicd-statistics-module-gitlab/alpha';
+import cicdStatisticsPlugin from '@backstage-community/plugin-cicd-statistics/alpha';
 import { FlatRoutes } from '@backstage/core-app-api';
-import { convertLegacyApp } from '@backstage/core-compat-api';
+import { convertLegacyAppRoot } from '@backstage/core-compat-api';
 import { createApp } from '@backstage/frontend-defaults';
 import {
-  configApiRef,
   ApiBlueprint,
-  createApiFactory,
+  configApiRef,
   createFrontendModule,
   PageBlueprint,
   SignInPageBlueprint,
@@ -30,16 +31,12 @@ import {
   scmIntegrationsApiRef,
 } from '@backstage/integration-react';
 import { ApiExplorerPage } from '@backstage/plugin-api-docs';
-import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import catalogImportPlugin from '@backstage/plugin-catalog-import/alpha';
+import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import { Navigate, Route } from 'react-router';
-
-import { navigationExtension } from './components/Sidebar';
 import { SignInPage } from './components/auth/SignInPage';
-
-import cicdStatisticsPlugin from '@backstage-community/plugin-cicd-statistics/alpha';
-import cicdStatisticsGitlabPlugin from '@backstage-community/plugin-cicd-statistics-module-gitlab/alpha';
+import { navigationExtension } from './components/Sidebar';
 
 const signInPage = SignInPageBlueprint.make({
   params: {
@@ -50,12 +47,12 @@ const signInPage = SignInPageBlueprint.make({
 const homePageExtension = PageBlueprint.make({
   name: 'home',
   params: {
-    defaultPath: '/',
+    path: '/',
     loader: () => Promise.resolve(<Navigate to="catalog" />),
   },
 });
 
-const collectedLegacyPlugins = convertLegacyApp(
+const collectedLegacyPlugins = convertLegacyAppRoot(
   <FlatRoutes>
     <Route path="/api-docs" element={<ApiExplorerPage />} />
   </FlatRoutes>,
@@ -63,20 +60,17 @@ const collectedLegacyPlugins = convertLegacyApp(
 
 const scmAuthApi = ApiBlueprint.make({
   name: 'scm-auth',
-  params: {
-    factory: ScmAuth.createDefaultApiFactory(),
-  },
+  params: defineParams => defineParams(ScmAuth.createDefaultApiFactory()),
 });
 
 const scmIntegrationsApi = ApiBlueprint.make({
   name: 'scm-integrations',
-  params: {
-    factory: createApiFactory({
+  params: defineParams =>
+    defineParams({
       api: scmIntegrationsApiRef,
       deps: { configApi: configApiRef },
       factory: ({ configApi }) => ScmIntegrationsApi.fromConfig(configApi),
     }),
-  },
 });
 
 export const app = createApp({

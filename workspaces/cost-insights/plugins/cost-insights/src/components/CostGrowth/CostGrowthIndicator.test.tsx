@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-import React from 'react';
 import { renderInTestApp } from '@backstage/test-utils';
-import { CostGrowthIndicator } from './CostGrowthIndicator';
-import { ChangeThreshold, EngineerThreshold } from '../../types';
 import { MockConfigProvider } from '../../testUtils';
+import { ChangeThreshold, EngineerThreshold } from '../../types';
+import { CostGrowthIndicator } from './CostGrowthIndicator';
 
 describe.each`
   ratio                           | amount                     | ariaLabel

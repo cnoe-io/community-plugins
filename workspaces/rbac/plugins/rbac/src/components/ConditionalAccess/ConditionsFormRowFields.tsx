@@ -13,11 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import type { SetStateAction, Dispatch } from 'react';
-import { useState } from 'react';
-
 import { PermissionCondition } from '@backstage/plugin-permission-common';
-
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import { Theme, useTheme } from '@mui/material/styles';
@@ -31,7 +27,9 @@ import {
   UiSchema,
 } from '@rjsf/utils';
 import validator from '@rjsf/validator-ajv8';
-
+import type { Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
+import { useTranslation } from '../../hooks/useTranslation';
 import {
   getNestedRuleErrors,
   getSimpleRuleErrors,
@@ -145,6 +143,7 @@ export const ConditionsFormRowFields = ({
   nestedConditionRuleIndex,
   updateRules,
 }: ConditionFormRowFieldsProps) => {
+  const { t } = useTranslation();
   const isNotSimpleCondition =
     criteria === criterias.not && !nestedConditionCriteria;
   const theme = useTheme();
@@ -415,9 +414,9 @@ export const ConditionsFormRowFields = ({
         renderInput={(params: any) => (
           <TextField
             {...params}
-            label="Rule"
+            label={t('common.rule')}
             variant="outlined"
-            placeholder="Select a rule"
+            placeholder={t('common.selectRule')}
             required
           />
         )}

@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { UnlabeledDataflowAlertCard } from './UnlabeledDataflowAlertCard';
+import { renderInTestApp } from '@backstage/test-utils';
 import {
-  createMockUnlabeledDataflowData,
   createMockUnlabeledDataflowAlertProject,
+  createMockUnlabeledDataflowData,
   MockConfigProvider,
 } from '../../testUtils';
-import { renderInTestApp } from '@backstage/test-utils';
+import { UnlabeledDataflowAlertCard } from './UnlabeledDataflowAlertCard';
 
 const MockUnlabeledDataflowAlertMultipleProjects =
   createMockUnlabeledDataflowData(data => ({

@@ -13,30 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { ReactNode } from 'react';
-import useAsync from 'react-use/lib/useAsync';
-import { DateTime } from 'luxon';
+import { Announcement } from '@backstage-community/plugin-announcements-common';
+import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
 import {
-  Progress,
-  Page,
-  Header,
   Content,
+  Header,
   InfoCard,
+  Page,
+  Progress,
 } from '@backstage/core-components';
 import {
   useApi,
   useRouteRef,
   useRouteRefParams,
 } from '@backstage/core-plugin-api';
-import {
-  EntityPeekAheadPopover,
-  EntityRefLink,
-} from '@backstage/plugin-catalog-react';
-import { announcementViewRouteRef, rootRouteRef } from '../../routes';
-import { announcementsApiRef } from '@backstage-community/plugin-announcements-react';
-import { Announcement } from '@backstage-community/plugin-announcements-common';
+import { EntityRefLink } from '@backstage/plugin-catalog-react';
 import { Grid, Typography } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import { DateTime } from 'luxon';
+import { ReactNode } from 'react';
+import useAsync from 'react-use/lib/useAsync';
+import { announcementViewRouteRef, rootRouteRef } from '../../routes';
 import {
   MarkdownRenderer,
   MarkdownRendererTypeProps,
@@ -57,14 +54,10 @@ const AnnouncementDetails = ({
   const subHeader = (
     <Typography>
       By{' '}
-      <EntityPeekAheadPopover
+      <EntityRefLink
         entityRef={announcement.on_behalf_of || announcement.publisher}
-      >
-        <EntityRefLink
-          entityRef={announcement.on_behalf_of || announcement.publisher}
-          hideIcon
-        />
-      </EntityPeekAheadPopover>
+        hideIcon
+      />
       , {DateTime.fromISO(announcement.created_at).toRelative()}
     </Typography>
   );

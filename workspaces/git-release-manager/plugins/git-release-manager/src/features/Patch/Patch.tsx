@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-import React from 'react';
-import { Typography, Box } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { Alert, AlertTitle } from '@material-ui/lab';
-
 import {
   GetBranchResult,
   GetLatestReleaseResult,
 } from '../../api/GitReleaseClient';
-import { ComponentConfig, PatchOnSuccessArgs } from '../../types/types';
-import { getBumpedTag } from '../../helpers/getBumpedTag';
 import { InfoCardPlus } from '../../components/InfoCardPlus';
 import { NoLatestRelease } from '../../components/NoLatestRelease';
-import { PatchBody } from './PatchBody';
 import { useProjectContext } from '../../contexts/ProjectContext';
+import { getBumpedTag } from '../../helpers/getBumpedTag';
+import { ComponentConfig, PatchOnSuccessArgs } from '../../types/types';
+import { PatchBody } from './PatchBody';
 
 interface PatchProps {
   latestRelease: GetLatestReleaseResult['latestRelease'];
