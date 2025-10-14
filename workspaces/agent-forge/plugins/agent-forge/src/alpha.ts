@@ -47,14 +47,16 @@ export default createFrontendPlugin({
 });
 
 /**
+ * Legacy plugin export for backward compatibility
  * @alpha
  */
 export { chatAssistantPlugin as agentForgePlugin } from './plugin';
 
 /**
+ * New page component for the frontend system
  * @alpha
  */
-export { default as ChatAssistantPage } from './components/ChatAssistantApp';
+export { default as AgentForgePage } from './components/AgentForgePage';
 
 /**
  * @alpha

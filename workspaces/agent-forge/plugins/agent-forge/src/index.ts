@@ -22,6 +22,9 @@ export { chatAssistantPlugin } from './plugin';
 
 // New native page component
 export { default as AgentForgePage } from './components/AgentForgePage';
+export { ChatContainer } from './components/ChatContainer';
+export { ChatMessage } from './components/ChatMessage';
+export { PageHeader } from './components/PageHeader';
 
 // New frontend system exports
 export { default } from './alpha';

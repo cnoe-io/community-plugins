@@ -14,34 +14,21 @@
  * limitations under the License.
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import {
-  Content,
-  Header,
-  HeaderLabel,
-  MarkdownContent,
-  Page,
-  Progress,
-} from '@backstage/core-components';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Content, Header, HeaderLabel, Page } from '@backstage/core-components';
 import {
   configApiRef,
   identityApiRef,
   useApi,
 } from '@backstage/core-plugin-api';
 import {
-  Box,
   Button,
   Card,
   CardContent,
-  Chip,
-  Divider,
   Grid,
-  IconButton,
   Paper,
-  TextField,
   Typography,
 } from '@material-ui/core';
-import SendIcon from '@material-ui/icons/Send';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -49,64 +36,10 @@ import { ChatbotApi } from '../apis';
 import { DEFAULT_BOT_CONFIG } from '../constants';
 import { Message } from '../types';
 import { createTimestamp } from '../utils';
+import { ChatContainer } from './ChatContainer';
+import { PageHeader } from './PageHeader';
 
 const useStyles = makeStyles(theme => ({
-  chatContainer: {
-    height: '70vh',
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  messagesContainer: {
-    flex: 1,
-    overflowY: 'auto',
-    padding: theme.spacing(2),
-    backgroundColor: theme.palette.background.default,
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: theme.shape.borderRadius,
-    marginBottom: theme.spacing(2),
-  },
-  messageBox: {
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(1.5),
-    borderRadius: theme.shape.borderRadius,
-    maxWidth: '80%',
-  },
-  userMessage: {
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.primary.contrastText,
-    marginLeft: 'auto',
-    textAlign: 'right',
-  },
-  botMessage: {
-    backgroundColor:
-      theme.palette.type === 'dark'
-        ? theme.palette.grey[800]
-        : theme.palette.grey[100],
-    color: theme.palette.text.primary,
-    marginRight: 'auto',
-  },
-  inputContainer: {
-    display: 'flex',
-    gap: theme.spacing(1),
-    alignItems: 'flex-end',
-  },
-  inputField: {
-    flex: 1,
-  },
-  suggestionChip: {
-    margin: theme.spacing(0.5),
-    cursor: 'pointer',
-  },
-  suggestionsContainer: {
-    marginBottom: theme.spacing(2),
-  },
-  typingIndicator: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(1),
-    fontStyle: 'italic',
-    color: theme.palette.text.secondary,
-  },
   errorBox: {
     padding: theme.spacing(2),
     backgroundColor: theme.palette.error.light,
@@ -114,22 +47,10 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     marginBottom: theme.spacing(2),
   },
-  headerContent: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(2),
-  },
-  botAvatar: {
-    width: 48,
-    height: 48,
-    borderRadius: '50%',
-    objectFit: 'contain' as const,
-  },
 }));
 
 const INITIAL_SUGGESTIONS = [
   'What can you do?',
-  'Give me information about SRE team onboarding',
   'How do I configure agents?',
   'Help me with platform engineering tasks',
 ];
@@ -165,12 +86,6 @@ export function AgentForgePage() {
     }
   }, [backendUrl, identityApi]);
 
-  const messagesEndRef = useRef<HTMLDivElement>(null);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
   const addMessage = useCallback((message: Message) => {
     setMessages(prevMessages => [
       ...prevMessages,
@@ -178,9 +93,33 @@ export function AgentForgePage() {
     ]);
   }, []);
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages, isTyping]);
+  const addStreamingMessage = useCallback((initialText: string = '') => {
+    const newMessage: Message = {
+      text: initialText,
+      isUser: false,
+      timestamp: createTimestamp(),
+    };
+    setMessages(prevMessages => [...prevMessages, newMessage]);
+    return newMessage;
+  }, []);
+
+  const updateStreamingMessage = useCallback((text: string) => {
+    setMessages(prevMessages => {
+      const newMessages = [...prevMessages];
+      const lastMessageIndex = newMessages.length - 1;
+      if (lastMessageIndex >= 0) {
+        newMessages[lastMessageIndex] = {
+          ...newMessages[lastMessageIndex],
+          text: text,
+        };
+      }
+      return newMessages;
+    });
+  }, []);
+
+  const finishStreamingMessage = useCallback(() => {
+    setIsTyping(false);
+  }, []);
 
   // Add initial greeting message
   useEffect(() => {
@@ -262,15 +201,40 @@ export function AgentForgePage() {
           }
         }
 
-        // Join all the words together without extra spaces
+        // Implement streaming display for long responses (>300 words)
+        if (agentWords.length > 300) {
+          addStreamingMessage();
+
+          // Stream words with delay
+          let currentText = '';
+          agentWords.forEach((word, index) => {
+            setTimeout(() => {
+              currentText += word;
+              updateStreamingMessage(currentText.trim());
+
+              // Finish streaming on last word
+              if (index === agentWords.length - 1) {
+                setTimeout(() => {
+                  finishStreamingMessage();
+                }, 50);
+              }
+            }, index * 10); // delay (milliseconds) between words
+          });
+          return; // Exit early to avoid adding non-streaming message
+        }
+
+        // Fallback: join all words if no streaming
         resultText = agentWords.join('').trim();
       }
 
-      addMessage({
-        text: resultText,
-        isUser: false,
-        timestamp: createTimestamp(),
-      });
+      // Add message normally if not streaming
+      if (resultText) {
+        addMessage({
+          text: resultText,
+          isUser: false,
+          timestamp: createTimestamp(),
+        });
+      }
     } catch (error) {
       const err = error as Error;
       setApiError(err.message);
@@ -286,13 +250,6 @@ export function AgentForgePage() {
 
   const handleSuggestionClick = (suggestion: string) => {
     handleMessageSubmit(suggestion);
-  };
-
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'Enter' && !event.shiftKey) {
-      event.preventDefault();
-      handleMessageSubmit();
-    }
   };
 
   const resetChat = () => {
@@ -336,121 +293,18 @@ export function AgentForgePage() {
 
             <Card>
               <CardContent>
-                {/* Welcome header with avatar */}
-                {botIcon && (
-                  <Box
-                    display="flex"
-                    alignItems="center"
-                    mb={2}
-                    className={classes.headerContent}
-                  >
-                    <img
-                      src={botIcon}
-                      alt={botName}
-                      className={classes.botAvatar}
-                    />
-                    <Typography variant="h6" color="textPrimary">
-                      {botName} - AI Platform Engineer
-                    </Typography>
-                  </Box>
-                )}
-
-                <div className={classes.chatContainer}>
-                  <div className={classes.messagesContainer}>
-                    {messages.map((message, index) => (
-                      <Box
-                        key={index}
-                        className={`${classes.messageBox} ${
-                          message.isUser
-                            ? classes.userMessage
-                            : classes.botMessage
-                        }`}
-                      >
-                        <Box
-                          style={{
-                            wordBreak: 'break-word',
-                            color: 'inherit',
-                          }}
-                        >
-                          <MarkdownContent
-                            content={message.text || ''}
-                            transformLinkUri={uri =>
-                              uri.startsWith('http') ? uri : ''
-                            }
-                            linkTarget="_blank"
-                          />
-                        </Box>
-                        <Typography
-                          variant="caption"
-                          style={{
-                            opacity: 0.7,
-                            fontSize: '0.75rem',
-                            color: 'inherit',
-                            display: 'block',
-                            marginTop: 4,
-                          }}
-                        >
-                          {message.timestamp}
-                        </Typography>
-                      </Box>
-                    ))}
-
-                    {isTyping && (
-                      <Box className={classes.typingIndicator}>
-                        <Progress />
-                        <Typography variant="body2" style={{ marginLeft: 8 }}>
-                          {botName} is thinking...
-                        </Typography>
-                      </Box>
-                    )}
-
-                    <div ref={messagesEndRef} />
-                  </div>
-
-                  {suggestions.length > 0 && (
-                    <Box className={classes.suggestionsContainer}>
-                      <Typography variant="subtitle2" gutterBottom>
-                        Suggested questions:
-                      </Typography>
-                      {suggestions.map((suggestion, index) => (
-                        <Chip
-                          key={index}
-                          label={suggestion}
-                          onClick={() => handleSuggestionClick(suggestion)}
-                          className={classes.suggestionChip}
-                          variant="outlined"
-                          size="small"
-                        />
-                      ))}
-                    </Box>
-                  )}
-
-                  <Divider style={{ margin: '16px 0' }} />
-
-                  <Box className={classes.inputContainer}>
-                    <TextField
-                      className={classes.inputField}
-                      multiline
-                      maxRows={4}
-                      variant="outlined"
-                      placeholder={`Ask ${botName} anything...`}
-                      value={userInput}
-                      onChange={e => setUserInput(e.target.value)}
-                      onKeyDown={handleKeyDown}
-                      disabled={isTyping}
-                    />
-                    <IconButton
-                      color="primary"
-                      onClick={() => handleMessageSubmit()}
-                      disabled={isTyping || !userInput.trim()}
-                    >
-                      <SendIcon />
-                    </IconButton>
-                    <IconButton onClick={resetChat} title="Reset conversation">
-                      <RefreshIcon />
-                    </IconButton>
-                  </Box>
-                </div>
+                <PageHeader botName={botName} botIcon={botIcon} />
+                <ChatContainer
+                  messages={messages}
+                  userInput={userInput}
+                  setUserInput={setUserInput}
+                  isTyping={isTyping}
+                  suggestions={suggestions}
+                  botName={botName}
+                  onMessageSubmit={handleMessageSubmit}
+                  onReset={resetChat}
+                  onSuggestionClick={handleSuggestionClick}
+                />
               </CardContent>
             </Card>
           </Grid>
