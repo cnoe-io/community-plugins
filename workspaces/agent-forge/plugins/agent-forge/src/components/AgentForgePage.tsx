@@ -55,6 +55,10 @@ const INITIAL_SUGGESTIONS = [
   'Help me with platform engineering tasks',
 ];
 
+/**
+ * Agent Forge page component
+ * @public
+ */
 export function AgentForgePage() {
   const classes = useStyles();
   const config = useApi(configApiRef);

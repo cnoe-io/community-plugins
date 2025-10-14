@@ -17,6 +17,7 @@ import { createPlugin } from '@backstage/core-plugin-api';
 
 import { rootRouteRef } from './routes';
 
+/** @public */
 export const chatAssistantPlugin = createPlugin({
   id: 'agent-forge',
   routes: {

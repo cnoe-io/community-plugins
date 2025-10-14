@@ -70,7 +70,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface ChatContainerProps {
+/**
+ * Props for the ChatContainer component
+ * @public
+ */
+export interface ChatContainerProps {
   messages: Message[];
   userInput: string;
   setUserInput: (input: string) => void;
@@ -82,6 +86,10 @@ interface ChatContainerProps {
   onSuggestionClick: (suggestion: string) => void;
 }
 
+/**
+ * Chat container component that handles message display and input
+ * @public
+ */
 export function ChatContainer({
   messages,
   userInput,

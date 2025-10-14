@@ -42,10 +42,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface ChatMessageProps {
+/**
+ * Properties for the ChatMessage component
+ * @public
+ */
+export interface ChatMessageProps {
   message: Message;
 }
 
+/**
+ * Individual chat message component with user profile integration
+ * @public
+ */
 export function ChatMessage({ message }: ChatMessageProps) {
   const classes = useStyles();
   const identityApi = useApi(identityApiRef);

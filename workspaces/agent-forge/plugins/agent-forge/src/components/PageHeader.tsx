@@ -30,11 +30,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-interface PageHeaderProps {
+/**
+ * Props for the PageHeader component
+ * @public
+ */
+export interface PageHeaderProps {
   botName: string;
   botIcon?: string;
 }
 
+/** @public */
 export function PageHeader({ botName, botIcon }: PageHeaderProps) {
   const classes = useStyles();
 
