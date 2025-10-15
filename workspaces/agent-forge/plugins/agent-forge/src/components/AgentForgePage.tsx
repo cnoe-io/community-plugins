@@ -38,6 +38,8 @@ import { Message } from '../types';
 import { createTimestamp } from '../utils';
 import { ChatContainer } from './ChatContainer';
 import { PageHeader } from './PageHeader';
+// @ts-ignore
+import packageInfo from '../../package.json';
 
 const useStyles = makeStyles(theme => ({
   errorBox: {
@@ -136,121 +138,150 @@ export function AgentForgePage() {
     }
   }, [botName, messages.length, addMessage]);
 
-  const handleMessageSubmit = async (messageText?: string) => {
-    const inputText = messageText || userInput.trim();
-    if (!inputText) return;
+  const handleMessageSubmit = useCallback(
+    async (messageText?: string) => {
+      const inputText = messageText || userInput.trim();
+      if (!inputText) return;
 
-    const userMessage: Message = {
-      text: inputText,
-      isUser: true,
-      timestamp: createTimestamp(),
-    };
-    addMessage(userMessage);
-    setUserInput('');
-    setIsTyping(true);
-    setSuggestions([]); // Clear suggestions after first message
-
-    if (!chatbotApi) {
-      addMessage({
-        text: `🚫 **${botName} Multi-Agent System Disconnected**\n\nI'm unable to connect to the ${botName} Multi-Agent System at this time. Please check your configuration and try again.`,
-        isUser: false,
+      const userMessage: Message = {
+        text: inputText,
+        isUser: true,
         timestamp: createTimestamp(),
-      });
-      setIsTyping(false);
-      return;
-    }
+      };
+      addMessage(userMessage);
+      setUserInput('');
+      setIsTyping(true);
+      setSuggestions([]); // Clear suggestions after first message
 
-    try {
-      const taskResult = await chatbotApi.submitA2ATask(newContext, inputText);
-      setNewContext(false);
-
-      // Handle streaming response from history array
-      let resultText = '';
-      if (taskResult.status.state === 'completed' && taskResult.artifacts) {
-        const part = taskResult.artifacts[0].parts[0];
-        if (part.kind === 'text') {
-          resultText = part.text;
-        }
-      } else if (taskResult.status.message) {
-        const part = taskResult.status.message.parts[0];
-        if (part.kind === 'text') {
-          resultText = part.text;
-        }
-      }
-
-      // If no text from status/artifacts, collect from streaming history
-      if (!resultText && taskResult.history && taskResult.history.length > 0) {
-        // Find the last user message
-        let lastUserIndex = -1;
-        for (let i = taskResult.history.length - 1; i >= 0; i--) {
-          if (taskResult.history[i].role === 'user') {
-            lastUserIndex = i;
-            break;
-          }
-        }
-
-        // Collect all agent messages after the last user message
-        const agentWords = [];
-        if (lastUserIndex >= 0) {
-          for (let i = lastUserIndex + 1; i < taskResult.history.length; i++) {
-            const message = taskResult.history[i];
-            if (
-              message.role === 'agent' &&
-              message.parts &&
-              message.parts[0] &&
-              message.parts[0].kind === 'text'
-            ) {
-              agentWords.push(message.parts[0].text);
-            }
-          }
-        }
-
-        // Implement streaming display for long responses (>300 words)
-        if (agentWords.length > 300) {
-          addStreamingMessage();
-
-          // Stream words with delay
-          let currentText = '';
-          agentWords.forEach((word, index) => {
-            setTimeout(() => {
-              currentText += word;
-              updateStreamingMessage(currentText.trim());
-
-              // Finish streaming on last word
-              if (index === agentWords.length - 1) {
-                setTimeout(() => {
-                  finishStreamingMessage();
-                }, 50);
-              }
-            }, index * 10); // delay (milliseconds) between words
-          });
-          return; // Exit early to avoid adding non-streaming message
-        }
-
-        // Fallback: join all words if no streaming
-        resultText = agentWords.join('').trim();
-      }
-
-      // Add message normally if not streaming
-      if (resultText) {
+      if (!chatbotApi) {
         addMessage({
-          text: resultText,
+          text: `🚫 **${botName} Multi-Agent System Disconnected**\n\nI'm unable to connect to the ${botName} Multi-Agent System at this time. Please check your configuration and try again.`,
           isUser: false,
           timestamp: createTimestamp(),
         });
+        setIsTyping(false);
+        return;
       }
-    } catch (error) {
-      const err = error as Error;
-      setApiError(err.message);
-      addMessage({
-        text: `🚫 **${botName} Multi-Agent System Disconnected**\n\nError: ${err.message}`,
-        isUser: false,
-        timestamp: createTimestamp(),
-      });
-    } finally {
-      setIsTyping(false);
-    }
-  };
+
+      try {
+        const taskResult = await chatbotApi.submitA2ATask(
+          newContext,
+          inputText,
+        );
+        setNewContext(false);
+
+        // Handle streaming response from history array
+        let resultText = '';
+        if (taskResult.status.state === 'completed' && taskResult.artifacts) {
+          const part = taskResult.artifacts[0].parts[0];
+          if (part.kind === 'text') {
+            resultText = part.text;
+          }
+        } else if (taskResult.status.message) {
+          const part = taskResult.status.message.parts[0];
+          if (part.kind === 'text') {
+            resultText = part.text;
+          }
+        }
+
+        // If no text from status/artifacts, collect from streaming history
+        if (
+          !resultText &&
+          taskResult.history &&
+          taskResult.history.length > 0
+        ) {
+          // Find the last user message
+          let lastUserIndex = -1;
+          for (let i = taskResult.history.length - 1; i >= 0; i--) {
+            if (taskResult.history[i].role === 'user') {
+              lastUserIndex = i;
+              break;
+            }
+          }
+
+          // Collect all agent messages after the last user message
+          const agentWords = [];
+          if (lastUserIndex >= 0) {
+            for (
+              let i = lastUserIndex + 1;
+              i < taskResult.history.length;
+              i++
+            ) {
+              const message = taskResult.history[i];
+              if (
+                message.role === 'agent' &&
+                message.parts &&
+                message.parts[0] &&
+                message.parts[0].kind === 'text'
+              ) {
+                agentWords.push(message.parts[0].text);
+              }
+            }
+          }
+
+          // Implement streaming display for long responses (>300 words)
+          if (agentWords.length > 300) {
+            addStreamingMessage();
+
+            let currentText = '';
+            agentWords.forEach((word, index) => {
+              setTimeout(() => {
+                currentText += word;
+                updateStreamingMessage(currentText.trim());
+
+                // Finish streaming on last word
+                if (index === agentWords.length - 1) {
+                  setTimeout(() => {
+                    finishStreamingMessage();
+                  }, 50);
+                }
+              }, index * 10); // delay (milliseconds) between words
+            });
+            return; // Exit early - isTyping will be set to false by finishStreamingMessage
+          }
+
+          // Fallback: join all words if no streaming
+          resultText = agentWords.join('').trim();
+        }
+
+        // Add message normally if not streaming
+        if (resultText) {
+          addMessage({
+            text: resultText,
+            isUser: false,
+            timestamp: createTimestamp(),
+          });
+        }
+        setIsTyping(false); // Set to false for non-streaming responses
+      } catch (error) {
+        const err = error as Error;
+        setApiError(err.message);
+        addMessage({
+          text: `🚫 **${botName} Multi-Agent System Disconnected**\n\nError: ${err.message}`,
+          isUser: false,
+          timestamp: createTimestamp(),
+        });
+        setIsTyping(false); // Always set to false on error
+      }
+      // Note: isTyping is set to false by finishStreamingMessage() for streaming responses
+      // or by the normal flow for non-streaming responses
+    },
+    [
+      userInput,
+      chatbotApi,
+      botName,
+      newContext,
+      addMessage,
+      setUserInput,
+      setIsTyping,
+      setSuggestions,
+      setNewContext,
+      setApiError,
+      addStreamingMessage,
+      updateStreamingMessage,
+      finishStreamingMessage,
+    ],
+  );
 
   const handleSuggestionClick = (suggestion: string) => {
     handleMessageSubmit(suggestion);
@@ -276,7 +307,7 @@ export function AgentForgePage() {
           label="Status"
           value={chatbotApi ? 'Connected' : 'Disconnected'}
         />
-        <HeaderLabel label="Version" value="v1.0" />
+        <HeaderLabel label="Version" value={`v${packageInfo.version}`} />
       </Header>
       <Content>
         <Grid container spacing={3}>
