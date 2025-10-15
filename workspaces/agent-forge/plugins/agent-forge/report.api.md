@@ -23,7 +23,7 @@ function ChatAssistantApp(): JSX_2.Element;
 export { ChatAssistantApp };
 export { ChatAssistantApp as ChatAssistantPage };
 
-// @public (undocumented)
+// @public @deprecated
 export const chatAssistantPlugin: BackstagePlugin<
   {
     root: RouteRef<undefined>;

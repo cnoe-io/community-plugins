@@ -18,7 +18,7 @@ import { RouteRef as RouteRef_2 } from '@backstage/core-plugin-api';
 // @public
 export function AgentForgePage(): JSX_3.Element;
 
-// @public (undocumented)
+// @public @deprecated
 export const agentForgePlugin: BackstagePlugin<
   {
     root: RouteRef_2<undefined>;
