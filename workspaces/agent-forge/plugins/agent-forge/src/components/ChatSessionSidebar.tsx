@@ -84,8 +84,8 @@ const useStyles = makeStyles(theme => ({
   },
   sessionItem: {
     cursor: 'pointer',
-    borderRadius: theme.shape.borderRadius,
-    margin: theme.spacing(0.5),
+    // borderRadius: theme.shape.borderRadius,
+    // margin: theme.spacing(0.5),
     maxWidth: '100%',
     overflow: 'hidden',
     '&:hover': {
@@ -101,11 +101,22 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       backgroundColor: theme.palette.type === 'dark' ? '#00ccff' : '#01579b',
     },
+
+    '& $deleteButton': {
+      color: 'white',
+    },
+
+    '& $sessionDate': {
+      color: '#dbdbdb',
+    },
   },
   sessionText: {
     paddingRight: theme.spacing(1),
     wordBreak: 'break-word',
     overflowWrap: 'break-word',
+  },
+  sessionDate: {
+    fontSize: '0.75rem',
   },
   deleteButton: {
     padding: theme.spacing(0.5),
@@ -237,7 +248,11 @@ export function ChatSessionSidebar({
           </Tooltip>
           <Box style={{ flex: 1, overflow: 'auto', width: '100%' }}>
             {sessions.map((session, index) => (
-              <Tooltip key={session.contextId} title={session.title} placement="right">
+              <Tooltip
+                key={session.contextId}
+                title={session.title}
+                placement="right"
+              >
                 <Box
                   className={`${classes.collapsedSessionDot} ${
                     session.contextId === currentSessionId
@@ -298,7 +313,9 @@ export function ChatSessionSidebar({
             <ListItem
               key={session.contextId}
               className={`${classes.sessionItem} ${
-                session.contextId === currentSessionId ? classes.activeSession : ''
+                session.contextId === currentSessionId
+                  ? classes.activeSession
+                  : ''
               }`}
               onClick={() => onSessionSwitch(session.contextId)}
             >
@@ -309,11 +326,10 @@ export function ChatSessionSidebar({
                 primaryTypographyProps={{
                   variant: 'body2',
                   noWrap: false,
-                  style: { fontSize: sidebarTextFontSize || '0.875rem' },
                 }}
                 secondaryTypographyProps={{
                   variant: 'caption',
-                  style: { fontSize: sidebarTextFontSize || '0.875rem' },
+                  classes: { root: classes.sessionDate },
                 }}
               />
               <Tooltip title="Delete this chat session">

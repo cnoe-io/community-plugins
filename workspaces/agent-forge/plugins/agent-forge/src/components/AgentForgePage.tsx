@@ -3759,101 +3759,94 @@ export function AgentForgePage() {
           </Card>
         )}
 
-        <Card className={classes.chatCard}>
-          <CardContent className={classes.chatCardContent}>
-            <PageHeader botName={botName} botIcon={botIcon} />
+        <div className={classes.chatCard}>
+          {currentSession ? (
+            (() => {
+              // Debug logging for props passed to ChatContainer
+              console.log('🎯 CHATCONTAINER PROPS DEBUG:', {
+                messagesCount: renderedMessages.length,
+                messageTimestamps: renderedMessages.map(m => m.timestamp),
+                executionPlanBufferKeys: Object.keys(executionPlanBuffer),
+                executionPlanBufferSize:
+                  Object.keys(executionPlanBuffer).length,
+                sessionId: currentSessionId,
+              });
 
-            {currentSession ? (
-              (() => {
-                // Debug logging for props passed to ChatContainer
-                console.log('🎯 CHATCONTAINER PROPS DEBUG:', {
-                  messagesCount: renderedMessages.length,
-                  messageTimestamps: renderedMessages.map(m => m.timestamp),
-                  executionPlanBufferKeys: Object.keys(executionPlanBuffer),
-                  executionPlanBufferSize:
-                    Object.keys(executionPlanBuffer).length,
-                  sessionId: currentSessionId,
-                });
-
-                const isCurrentSessionTyping =
-                  isTypingBySession.get(currentSessionId) || false;
-                if (process.env.NODE_ENV === 'development') {
-                  console.log(
-                    '🎬 RENDERING CHATCONTAINER - isTyping:',
-                    isCurrentSessionTyping,
-                    'for session:',
-                    currentSessionId,
-                  );
-                }
-
-                return (
-                  <ChatContainer
-                    key="chat-container"
-                    messages={renderedMessages}
-                    userInput={userInput}
-                    setUserInput={setUserInput}
-                    onMessageSubmit={handleMessageSubmit}
-                    onCancelRequest={() =>
-                      handleCancelRequest(currentSessionId)
-                    }
-                    onSuggestionClick={handleSuggestionClick}
-                    onReset={resetChat}
-                    isTyping={isCurrentSessionTyping}
-                    suggestions={suggestions}
-                    onScroll={handleScroll}
-                    onLoadMore={handleLoadMore}
-                    hasMoreMessages={
-                      loadedMessageCount <
-                      (currentSession?.messages?.length || 0)
-                    }
-                    showLoadMoreButton={showLoadMoreButton}
-                    loadMoreIncrement={LOAD_MORE_INCREMENT}
-                    executionPlanBuffer={executionPlanBuffer}
-                    executionPlanHistory={executionPlanHistory}
-                    autoExpandExecutionPlans={autoExpandExecutionPlans}
-                    executionPlanLoading={executionPlanLoading}
-                    autoScrollEnabled={autoScrollEnabled}
-                    setAutoScrollEnabled={setAutoScrollEnabled}
-                    thinkingMessages={thinkingMessages}
-                    thinkingMessagesInterval={thinkingMessagesInterval}
-                    botName={botName}
-                    botIcon={botIcon}
-                    inputPlaceholder={inputPlaceholder}
-                    currentOperation={currentOperation}
-                    isInOperationalMode={isInOperationalMode}
-                    onMetadataSubmit={handleMetadataSubmit}
-                    enableFeedback={enableFeedback}
-                    feedback={feedback}
-                    onFeedbackChange={handleFeedbackChange}
-                    onFeedbackSubmit={handleFeedbackSubmit}
-                    customCallConfig={customCallConfig}
-                    selectedCustomCall={selectedCustomCall}
-                    onCustomCallClick={handleCustomCallClick}
-                    fontSizes={{
-                      messageText: fontSizes.messageText,
-                      codeBlock: fontSizes.codeBlock,
-                      inlineCode: fontSizes.inlineCode,
-                      suggestionChip: fontSizes.suggestionChip,
-                      inputField: fontSizes.inputField,
-                      timestamp: fontSizes.timestamp,
-                    }}
-                  />
+              const isCurrentSessionTyping =
+                isTypingBySession.get(currentSessionId) || false;
+              if (process.env.NODE_ENV === 'development') {
+                console.log(
+                  '🎬 RENDERING CHATCONTAINER - isTyping:',
+                  isCurrentSessionTyping,
+                  'for session:',
+                  currentSessionId,
                 );
-              })()
-            ) : (
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                minHeight="200px"
-              >
-                <Typography color="textSecondary">
-                  Loading chat session...
-                </Typography>
-              </Box>
-            )}
-          </CardContent>
-        </Card>
+              }
+
+              return (
+                <ChatContainer
+                  key="chat-container"
+                  messages={renderedMessages}
+                  userInput={userInput}
+                  setUserInput={setUserInput}
+                  onMessageSubmit={handleMessageSubmit}
+                  onCancelRequest={() => handleCancelRequest(currentSessionId)}
+                  onSuggestionClick={handleSuggestionClick}
+                  onReset={resetChat}
+                  isTyping={isCurrentSessionTyping}
+                  suggestions={suggestions}
+                  onScroll={handleScroll}
+                  onLoadMore={handleLoadMore}
+                  hasMoreMessages={
+                    loadedMessageCount < (currentSession?.messages?.length || 0)
+                  }
+                  showLoadMoreButton={showLoadMoreButton}
+                  loadMoreIncrement={LOAD_MORE_INCREMENT}
+                  executionPlanBuffer={executionPlanBuffer}
+                  executionPlanHistory={executionPlanHistory}
+                  autoExpandExecutionPlans={autoExpandExecutionPlans}
+                  executionPlanLoading={executionPlanLoading}
+                  autoScrollEnabled={autoScrollEnabled}
+                  setAutoScrollEnabled={setAutoScrollEnabled}
+                  thinkingMessages={thinkingMessages}
+                  thinkingMessagesInterval={thinkingMessagesInterval}
+                  botName={botName}
+                  botIcon={botIcon}
+                  inputPlaceholder={inputPlaceholder}
+                  currentOperation={currentOperation}
+                  isInOperationalMode={isInOperationalMode}
+                  onMetadataSubmit={handleMetadataSubmit}
+                  enableFeedback={enableFeedback}
+                  feedback={feedback}
+                  onFeedbackChange={handleFeedbackChange}
+                  onFeedbackSubmit={handleFeedbackSubmit}
+                  customCallConfig={customCallConfig}
+                  selectedCustomCall={selectedCustomCall}
+                  onCustomCallClick={handleCustomCallClick}
+                  fontSizes={{
+                    messageText: fontSizes.messageText,
+                    codeBlock: fontSizes.codeBlock,
+                    inlineCode: fontSizes.inlineCode,
+                    suggestionChip: fontSizes.suggestionChip,
+                    inputField: fontSizes.inputField,
+                    timestamp: fontSizes.timestamp,
+                  }}
+                />
+              );
+            })()
+          ) : (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              minHeight="200px"
+            >
+              <Typography color="textSecondary">
+                Loading chat session...
+              </Typography>
+            </Box>
+          )}
+        </div>
       </Grid>
     </Grid>
   );
@@ -3915,12 +3908,12 @@ export function AgentForgePage() {
             </Tooltip>
             {caipeVersion && (
               <Tooltip
-                title={`CAIPE Platform Version: ${caipeVersion}`}
+                title={`Agent Version: ${caipeVersion}`}
                 placement="bottom"
               >
                 <Box className={classes.customHeaderStatus}>
                   <Typography className={classes.customHeaderLabel}>
-                    CAIPE Version
+                    Agent Version
                   </Typography>
                   <Typography className={classes.customHeaderValue}>
                     v{caipeVersion}
@@ -4044,12 +4037,12 @@ export function AgentForgePage() {
           </Tooltip>
           {caipeVersion && (
             <Tooltip
-              title={`CAIPE Platform Version: ${caipeVersion}`}
+              title={`Agent Version: ${caipeVersion}`}
               placement="bottom"
             >
               <Box className={classes.customHeaderStatus}>
                 <Typography className={classes.customHeaderLabel}>
-                  CAIPE Version
+                  Agent Version
                 </Typography>
                 <Typography className={classes.customHeaderValue}>
                   v{caipeVersion}
