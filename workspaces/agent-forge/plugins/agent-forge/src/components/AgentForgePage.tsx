@@ -2936,7 +2936,7 @@ export function AgentForgePage() {
               setSessions(prev =>
                 prev.map(session =>
                   session.contextId === sessionToUse
-                    ? { ...session, contextId: lastContextId }
+                    ? { ...session, contextId: lastContextId as string }
                     : session,
                 ),
               );
@@ -3024,7 +3024,7 @@ export function AgentForgePage() {
         }
 
         // Non-streaming mode: submit task and wait for response
-        let taskResult;
+        let taskResult: any;
         try {
           taskResult = await chatbotApi.submitA2ATask(
             !workingSession?.contextId,
