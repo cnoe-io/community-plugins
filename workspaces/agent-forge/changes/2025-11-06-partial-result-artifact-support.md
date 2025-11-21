@@ -64,9 +64,7 @@ if (event.artifact?.name === 'partial_result') {
   accumulatedText = textPart.text;
 
   // Clean the text content from execution plan markers
-  const cleanedTextForMessage = accumulatedText
-    .replace(/⟦[^⟧]*⟧/g, '')
-    .trim();
+  const cleanedTextForMessage = accumulatedText.replace(/⟦[^⟧]*⟧/g, '').trim();
 
   updateStreamingMessage(
     cleanedTextForMessage,
@@ -92,6 +90,7 @@ Sub-Agent (AWS, Jira, ArgoCD, GitHub, etc.)
 ```
 
 #### Normal Scenario
+
 ```
 1. Sub-agent streams chunks → Supervisor forwards as `streaming_result`
 2. Stream completes successfully → Supervisor sends `final_result`
@@ -99,6 +98,7 @@ Sub-Agent (AWS, Jira, ArgoCD, GitHub, etc.)
 ```
 
 #### Premature End Scenario (NOW HANDLED)
+
 ```
 1. Sub-agent streams chunks → Supervisor forwards as `streaming_result`
 2. Stream ends prematurely (connection error, timeout, agent crash)
@@ -109,12 +109,12 @@ Sub-Agent (AWS, Jira, ArgoCD, GitHub, etc.)
 
 ### Artifact Priority
 
-| Artifact Name | When Sent | Agent-Forge Handling | Priority |
-|---------------|-----------|---------------------|----------|
-| `streaming_result` | During streaming (chunks) | Accumulates in real-time | Low (display only) |
-| `partial_result` | Stream ends prematurely | **Replaces accumulated text** | **High (complete content)** |
-| `final_result` | Normal completion | Used for task completion | High (complete content) |
-| `complete_result` | Sub-agent → Supervisor | Not directly used | N/A (internal) |
+| Artifact Name      | When Sent                 | Agent-Forge Handling          | Priority                    |
+| ------------------ | ------------------------- | ----------------------------- | --------------------------- |
+| `streaming_result` | During streaming (chunks) | Accumulates in real-time      | Low (display only)          |
+| `partial_result`   | Stream ends prematurely   | **Replaces accumulated text** | **High (complete content)** |
+| `final_result`     | Normal completion         | Used for task completion      | High (complete content)     |
+| `complete_result`  | Sub-agent → Supervisor    | Not directly used             | N/A (internal)              |
 
 ## Comparison with agent-chat-cli
 
@@ -142,9 +142,13 @@ elif response_stream_buffer:
 ```typescript
 // During streaming: replace accumulated text with partial_result
 if (event.artifact?.name === 'partial_result') {
-    accumulatedText = textPart.text;  // Use complete text from backend
-    updateStreamingMessage(cleanedTextForMessage, accumulatedExecutionPlan || '', true);
-    continue;
+  accumulatedText = textPart.text; // Use complete text from backend
+  updateStreamingMessage(
+    cleanedTextForMessage,
+    accumulatedExecutionPlan || '',
+    true,
+  );
+  continue;
 }
 ```
 
@@ -170,6 +174,7 @@ if (event.artifact?.name === 'partial_result') {
 ### Console Logs
 
 When `partial_result` is received:
+
 ```
 🎯 PARTIAL_RESULT ARTIFACT DETECTED - Using as final complete text
 📄 Content length: 2847 chars
@@ -182,17 +187,20 @@ When `partial_result` is received:
 ### Test Scenarios
 
 #### Scenario 1: Normal Completion (no partial_result)
+
 - **Query**: "show argocd version"
 - **Expected**: Uses `final_result`, full response displayed
 - **Result**: ✅ Works (existing behavior preserved)
 
 #### Scenario 2: Premature Stream End (partial_result sent)
+
 - **Query**: "show all IAM users" (AWS agent with large response)
 - **Trigger**: Connection interrupts during streaming
 - **Expected**: Supervisor sends `partial_result`, Agent-Forge uses it
 - **Result**: ✅ Full response displayed (NEW fix)
 
 #### Scenario 3: No Duplication
+
 - **Query**: Any query
 - **Expected**: No duplicate text in response
 - **Result**: ✅ Content appears only once
@@ -200,6 +208,7 @@ When `partial_result` is received:
 ## Use Cases
 
 ### 1. Network Interruptions
+
 - WiFi drops during streaming
 - Backend container restarts
 - Load balancer connection timeout
@@ -208,6 +217,7 @@ When `partial_result` is received:
 **After**: `partial_result` preserves all accumulated content ✅
 
 ### 2. Sub-Agent Failures
+
 - AWS agent crashes mid-stream
 - Jira API rate limit hit
 - GitHub API timeout
@@ -216,6 +226,7 @@ When `partial_result` is received:
 **After**: `partial_result` shows everything before failure ✅
 
 ### 3. Long-Running Queries
+
 - Large dataset queries
 - Multi-step workflows
 - Pagination scenarios
@@ -241,6 +252,7 @@ When `partial_result` is received:
 ## Related Features
 
 This artifact support complements:
+
 - **Streaming Output Persistence**: Works together to preserve complete content
 - **Concurrent Session Streaming**: Each session handles `partial_result` independently
 - **Execution Plan Updates**: Execution plans remain visible even with partial results
@@ -264,4 +276,3 @@ If issues arise, remove the `partial_result` handler block (lines ~2709-2740).
 **Date:** November 6, 2025
 **Status:** ✅ In Production
 **Signed-off-by:** Sri Aradhyula <sraradhy@cisco.com>
-

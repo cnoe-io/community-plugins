@@ -19,7 +19,11 @@ import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { TestApiProvider, renderInTestApp } from '@backstage/test-utils';
 import { AgentForgePage } from '../AgentForgePage';
-import { identityApiRef, alertApiRef, storageApiRef } from '@backstage/core-plugin-api';
+import {
+  identityApiRef,
+  alertApiRef,
+  storageApiRef,
+} from '@backstage/core-plugin-api';
 import { ChatbotApi } from '../../apis/ChatbotApi';
 
 // Mock the ChatbotApi
@@ -50,7 +54,7 @@ const mockAlertApi = {
   alert$: jest.fn(),
 };
 
-// Mock Storage API  
+// Mock Storage API
 const mockStorageApi = {
   forBucket: jest.fn().mockReturnValue({
     get: jest.fn().mockResolvedValue(undefined),
@@ -94,22 +98,24 @@ describe('AgentForgePage Integration Tests', () => {
   describe('Component Rendering', () => {
     test('should render the component without crashing', async () => {
       await renderComponent();
-      
+
       // Component should render
       expect(screen.getByRole('main')).toBeInTheDocument();
     });
 
     test('should display initial welcome message', async () => {
       await renderComponent();
-      
+
       await waitFor(() => {
-        expect(screen.getByText(/How can I help you today/i)).toBeInTheDocument();
+        expect(
+          screen.getByText(/How can I help you today/i),
+        ).toBeInTheDocument();
       });
     });
 
     test('should render input field', async () => {
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       expect(input).toBeInTheDocument();
       expect(input).toHaveAttribute('placeholder');
@@ -117,7 +123,7 @@ describe('AgentForgePage Integration Tests', () => {
 
     test('should render send button', async () => {
       await renderComponent();
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       expect(sendButton).toBeInTheDocument();
     });
@@ -126,7 +132,7 @@ describe('AgentForgePage Integration Tests', () => {
   describe('Session Management', () => {
     test('should create default session on mount', async () => {
       await renderComponent();
-      
+
       // Should have at least one session (default)
       await waitFor(() => {
         const sidebar = screen.getByRole('complementary');
@@ -137,11 +143,11 @@ describe('AgentForgePage Integration Tests', () => {
     test('should allow creating new chat session', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Find and click new chat button
       const newChatButton = screen.getByRole('button', { name: /new chat/i });
       await user.click(newChatButton);
-      
+
       // Should create a new session
       await waitFor(() => {
         const sessions = screen.getAllByRole('listitem');
@@ -152,16 +158,16 @@ describe('AgentForgePage Integration Tests', () => {
     test('should switch between sessions', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Create a new session
       const newChatButton = screen.getByRole('button', { name: /new chat/i });
       await user.click(newChatButton);
-      
+
       // Get all session items
       await waitFor(async () => {
         const sessions = screen.getAllByRole('listitem');
         expect(sessions.length).toBeGreaterThanOrEqual(2);
-        
+
         // Click on first session
         await user.click(sessions[0]);
       });
@@ -172,23 +178,23 @@ describe('AgentForgePage Integration Tests', () => {
     test('should allow typing in input field', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Hello, world!');
-      
+
       expect(input).toHaveValue('Hello, world!');
     });
 
     test('should clear input after submission', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Test message');
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       await user.click(sendButton);
-      
+
       // Input should be cleared
       await waitFor(() => {
         expect(input).toHaveValue('');
@@ -198,10 +204,10 @@ describe('AgentForgePage Integration Tests', () => {
     test('should submit message on Enter key', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Test message{Enter}');
-      
+
       // Input should be cleared after submission
       await waitFor(() => {
         expect(input).toHaveValue('');
@@ -211,15 +217,15 @@ describe('AgentForgePage Integration Tests', () => {
     test('should not submit empty message', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
-      
+
       // Button should be disabled when input is empty
       expect(sendButton).toBeDisabled();
-      
+
       // Try to click anyway
       await user.click(sendButton);
-      
+
       // Should not have added any new messages
       const messages = screen.queryAllByRole('article');
       expect(messages.length).toBeLessThanOrEqual(1); // Only welcome message
@@ -230,13 +236,13 @@ describe('AgentForgePage Integration Tests', () => {
     test('should display user messages', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Hello');
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       await user.click(sendButton);
-      
+
       // User message should appear
       await waitFor(() => {
         expect(screen.getByText('Hello')).toBeInTheDocument();
@@ -246,24 +252,27 @@ describe('AgentForgePage Integration Tests', () => {
     test('should show typing indicator when waiting for response', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Test');
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       await user.click(sendButton);
-      
+
       // Typing indicator should appear
-      await waitFor(() => {
-        expect(screen.getByText(/thinking/i)).toBeInTheDocument();
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(screen.getByText(/thinking/i)).toBeInTheDocument();
+        },
+        { timeout: 3000 },
+      );
     });
   });
 
   describe('Execution Plan Buffer', () => {
     test('should initialize with empty execution plan buffer', async () => {
       await renderComponent();
-      
+
       // Buffer should be empty initially
       // This is verified by component rendering without errors
       expect(screen.getByRole('main')).toBeInTheDocument();
@@ -272,21 +281,21 @@ describe('AgentForgePage Integration Tests', () => {
     test('should clear execution plan buffer when starting new message', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Send first message
       const input = screen.getByRole('textbox');
       await user.type(input, 'First message');
       await user.click(screen.getByRole('button', { name: /send/i }));
-      
+
       // Wait a bit
       await waitFor(() => {
         expect(input).toHaveValue('');
       });
-      
+
       // Send second message (should clear buffer)
       await user.type(input, 'Second message');
       await user.click(screen.getByRole('button', { name: /send/i }));
-      
+
       // Should have both messages
       await waitFor(() => {
         expect(screen.getByText('First message')).toBeInTheDocument();
@@ -298,7 +307,7 @@ describe('AgentForgePage Integration Tests', () => {
   describe('Connection Status', () => {
     test('should display connection status', async () => {
       await renderComponent();
-      
+
       // Should show connection status
       await waitFor(() => {
         expect(screen.getByText(/status/i)).toBeInTheDocument();
@@ -307,7 +316,7 @@ describe('AgentForgePage Integration Tests', () => {
 
     test('should handle disconnection gracefully', async () => {
       await renderComponent();
-      
+
       // Component should still be functional even if disconnected
       expect(screen.getByRole('main')).toBeInTheDocument();
     });
@@ -317,11 +326,11 @@ describe('AgentForgePage Integration Tests', () => {
     test('should allow collapsing sidebar', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Find collapse button
       const collapseButton = screen.getByRole('button', { name: /collapse/i });
       await user.click(collapseButton);
-      
+
       // Sidebar should be collapsed
       await waitFor(() => {
         const sidebar = screen.getByRole('complementary');
@@ -332,11 +341,13 @@ describe('AgentForgePage Integration Tests', () => {
     test('should allow fullscreen toggle', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Find fullscreen button
-      const fullscreenButton = screen.getByRole('button', { name: /fullscreen/i });
+      const fullscreenButton = screen.getByRole('button', {
+        name: /fullscreen/i,
+      });
       await user.click(fullscreenButton);
-      
+
       // Should toggle fullscreen mode
       await waitFor(() => {
         expect(document.fullscreenElement).toBeDefined();
@@ -347,10 +358,10 @@ describe('AgentForgePage Integration Tests', () => {
   describe('Accessibility', () => {
     test('should have proper ARIA labels', async () => {
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       expect(input).toHaveAccessibleName();
-      
+
       const sendButton = screen.getByRole('button', { name: /send/i });
       expect(sendButton).toHaveAccessibleName();
     });
@@ -358,12 +369,12 @@ describe('AgentForgePage Integration Tests', () => {
     test('should support keyboard navigation', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Tab to input
       await user.tab();
       const input = screen.getByRole('textbox');
       expect(input).toHaveFocus();
-      
+
       // Type message
       await user.type(input, 'Test');
       expect(input).toHaveValue('Test');
@@ -371,7 +382,7 @@ describe('AgentForgePage Integration Tests', () => {
 
     test('should have proper heading hierarchy', async () => {
       await renderComponent();
-      
+
       // Should have proper h1, h2, etc.
       const headings = screen.getAllByRole('heading');
       expect(headings.length).toBeGreaterThan(0);
@@ -380,33 +391,40 @@ describe('AgentForgePage Integration Tests', () => {
 
   describe('Error Handling', () => {
     test('should handle API errors gracefully', async () => {
-      mockChatbotApi.submitA2ATask = jest.fn().mockRejectedValue(new Error('API Error'));
-      
+      mockChatbotApi.submitA2ATask = jest
+        .fn()
+        .mockRejectedValue(new Error('API Error'));
+
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Test');
       await user.click(screen.getByRole('button', { name: /send/i }));
-      
+
       // Should show error message
-      await waitFor(() => {
-        expect(screen.getByText(/error/i)).toBeInTheDocument();
-      }, { timeout: 5000 });
+      await waitFor(
+        () => {
+          expect(screen.getByText(/error/i)).toBeInTheDocument();
+        },
+        { timeout: 5000 },
+      );
     });
 
     test('should handle network timeouts', async () => {
-      mockChatbotApi.submitA2ATask = jest.fn().mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 10000))
-      );
-      
+      mockChatbotApi.submitA2ATask = jest
+        .fn()
+        .mockImplementation(
+          () => new Promise(resolve => setTimeout(resolve, 10000)),
+        );
+
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
       await user.type(input, 'Test');
       await user.click(screen.getByRole('button', { name: /send/i }));
-      
+
       // Should show loading state
       await waitFor(() => {
         expect(screen.getByText(/thinking/i)).toBeInTheDocument();
@@ -417,24 +435,24 @@ describe('AgentForgePage Integration Tests', () => {
   describe('State Persistence', () => {
     test('should persist message history across re-renders', async () => {
       const { rerender } = await renderComponent();
-      
+
       const user = userEvent.setup();
       const input = screen.getByRole('textbox');
       await user.type(input, 'Persistent message');
       await user.click(screen.getByRole('button', { name: /send/i }));
-      
+
       // Wait for message to appear
       await waitFor(() => {
         expect(screen.getByText('Persistent message')).toBeInTheDocument();
       });
-      
+
       // Re-render component
       rerender(
         <TestApiProvider apis={[]}>
           <AgentForgePage />
-        </TestApiProvider>
+        </TestApiProvider>,
       );
-      
+
       // Message should still be there
       expect(screen.getByText('Persistent message')).toBeInTheDocument();
     });
@@ -444,7 +462,7 @@ describe('AgentForgePage Integration Tests', () => {
     test('should render large number of messages efficiently', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       // Send multiple messages
       for (let i = 0; i < 10; i++) {
         const input = screen.getByRole('textbox');
@@ -452,7 +470,7 @@ describe('AgentForgePage Integration Tests', () => {
         await user.click(screen.getByRole('button', { name: /send/i }));
         await waitFor(() => expect(input).toHaveValue(''));
       }
-      
+
       // Should render all messages
       await waitFor(() => {
         const messages = screen.getAllByText(/Message \d/);
@@ -463,14 +481,14 @@ describe('AgentForgePage Integration Tests', () => {
     test('should handle rapid message submissions', async () => {
       const user = userEvent.setup();
       await renderComponent();
-      
+
       const input = screen.getByRole('textbox');
-      
+
       // Rapidly submit multiple messages
       for (let i = 0; i < 5; i++) {
         await user.type(input, `Rapid ${i}{Enter}`);
       }
-      
+
       // Should handle all submissions
       await waitFor(() => {
         const messages = screen.getAllByText(/Rapid \d/);
@@ -479,4 +497,3 @@ describe('AgentForgePage Integration Tests', () => {
     });
   });
 });
-

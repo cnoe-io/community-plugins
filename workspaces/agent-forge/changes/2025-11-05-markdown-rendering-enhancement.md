@@ -15,6 +15,7 @@ Implemented automatic newline conversion in Agent-Forge to handle legacy agent r
 Legacy CAIPE agents send text with single newlines between list items and paragraphs, but ReactMarkdown (following standard Markdown rules) was rendering them as continuous text without proper line breaks.
 
 **Agent Response**:
+
 ```
 Technical Support: Help with coding...
 2. Project Management: Assist with task planning...
@@ -22,11 +23,13 @@ Technical Support: Help with coding...
 ```
 
 **Was Displaying As**:
+
 ```
 Technical Support: Help with coding... 2. Project Management: Assist with task planning... 3. Cloud Services: Manage cloud resources...
 ```
 
 **Should Display As**:
+
 ```
 Technical Support: Help with coding...
 
@@ -39,11 +42,11 @@ Technical Support: Help with coding...
 
 ReactMarkdown follows standard Markdown specification:
 
-| Input | Markdown Rule | Output |
-|-------|---------------|--------|
-| Single newline (`\n`) | Treated as space | Inline text (no break) |
-| Double newline (`\n\n`) | Creates paragraph | New paragraph |
-| Two spaces + newline (`  \n`) | Creates line break | `<br>` tag |
+| Input                         | Markdown Rule      | Output                 |
+| ----------------------------- | ------------------ | ---------------------- |
+| Single newline (`\n`)         | Treated as space   | Inline text (no break) |
+| Double newline (`\n\n`)       | Creates paragraph  | New paragraph          |
+| Two spaces + newline (`  \n`) | Creates line break | `<br>` tag             |
 
 Legacy agents were sending single newlines, expecting them to be preserved as line breaks, but standard Markdown was collapsing them into spaces.
 
@@ -101,16 +104,19 @@ updateStreamingMessage(displayText, executionPlan || '', event.final || false);
 #### Example 1: Numbered List
 
 **Input** (from agent):
+
 ```
 Here are the options:\n1. First option\n2. Second option\n3. Third option
 ```
 
 **After Step 1** (`\n` → `\n\n` before numbers):
+
 ```
 Here are the options:\n\n1. First option\n\n2. Second option\n\n3. Third option
 ```
 
 **Rendered As**:
+
 ```html
 <p>Here are the options:</p>
 <ol>
@@ -123,16 +129,19 @@ Here are the options:\n\n1. First option\n\n2. Second option\n\n3. Third option
 #### Example 2: Bullet List
 
 **Input** (from agent):
+
 ```
 Features:\n- Fast processing\n- Easy to use\n- Secure
 ```
 
 **After Step 2** (`\n` → `\n\n` before bullets):
+
 ```
 Features:\n\n- Fast processing\n\n- Easy to use\n\n- Secure
 ```
 
 **Rendered As**:
+
 ```html
 <p>Features:</p>
 <ul>
@@ -145,20 +154,25 @@ Features:\n\n- Fast processing\n\n- Easy to use\n\n- Secure
 #### Example 3: Paragraph Breaks
 
 **Input** (from agent):
+
 ```
 First paragraph.\nSecond paragraph.\nThird paragraph.
 ```
 
 **After Step 3** (`\n` → `  \n` with two spaces):
+
 ```
 First paragraph.  \nSecond paragraph.  \nThird paragraph.
 ```
 
 **Rendered As**:
+
 ```html
-<p>First paragraph.<br>
-Second paragraph.<br>
-Third paragraph.</p>
+<p>
+  First paragraph.<br />
+  Second paragraph.<br />
+  Third paragraph.
+</p>
 ```
 
 ### Why This Approach?
@@ -183,11 +197,13 @@ Third paragraph.</p>
 ### Case 1: Mixed Formatting
 
 **Input**:
+
 ```
 Paragraph 1.\n\nParagraph 2.\n3. List item
 ```
 
 **Processing**:
+
 - `\n\n` already present → Skip (preserved)
 - `\n3.` → Convert to `\n\n3.`
 
@@ -196,11 +212,13 @@ Paragraph 1.\n\nParagraph 2.\n3. List item
 ### Case 2: Empty Lines
 
 **Input**:
+
 ```
 Text\n\nMore text
 ```
 
 **Processing**:
+
 - `\n\n` detected → Skip (already markdown-compliant)
 
 **Result**: No modification, renders correctly ✅
@@ -208,11 +226,13 @@ Text\n\nMore text
 ### Case 3: Code Blocks
 
 **Input**:
+
 ````
 Here's code:\n```python\nprint("hello")\n```
 ````
 
 **Processing**:
+
 - Newlines inside code blocks are preserved
 - ReactMarkdown handles code block rendering
 
@@ -234,6 +254,7 @@ Here's code:\n```python\nprint("hello")\n```
 **Query**: "List your capabilities"
 
 **Expected**:
+
 ```
 I can help with:
 
@@ -249,6 +270,7 @@ I can help with:
 **Query**: "What services do you offer?"
 
 **Expected**:
+
 ```
 Services:
 
@@ -264,6 +286,7 @@ Services:
 **Query**: "Tell me about your features"
 
 **Expected**:
+
 ```
 Key features:
 
@@ -297,36 +320,42 @@ Key features:
 
 ## Compatibility Matrix
 
-| Agent Type | Original Format | Conversion Applied | Result |
-|------------|----------------|-------------------|---------|
-| Legacy CAIPE | Single `\n` | ✅ Yes | Displays correctly |
-| Modern Platform Engineer | Double `\n\n` | ❌ No (preserved) | Displays correctly |
-| GitHub/Jira Sub-agents | Markdown compliant | ❌ No (preserved) | Displays correctly |
-| Custom Agents | Mixed | ✅ Partial (as needed) | Displays correctly |
+| Agent Type               | Original Format    | Conversion Applied     | Result             |
+| ------------------------ | ------------------ | ---------------------- | ------------------ |
+| Legacy CAIPE             | Single `\n`        | ✅ Yes                 | Displays correctly |
+| Modern Platform Engineer | Double `\n\n`      | ❌ No (preserved)      | Displays correctly |
+| GitHub/Jira Sub-agents   | Markdown compliant | ❌ No (preserved)      | Displays correctly |
+| Custom Agents            | Mixed              | ✅ Partial (as needed) | Displays correctly |
 
 ## Alternative Approaches Considered
 
 ### Option 1: CSS Line-Height Adjustment
+
 ```css
 .message-content {
   white-space: pre-line;
 }
 ```
+
 **Rejected**: Breaks Markdown rendering, affects all content globally
 
 ### Option 2: Backend Response Modification
+
 ```python
 # In backend: Convert \n to \n\n before sending
 response_text = response_text.replace('\n', '\n\n')
 ```
+
 **Rejected**: Requires backend changes, affects all clients
 
 ### Option 3: remarkGfm Plugin Configuration
+
 ```typescript
 <ReactMarkdown remarkPlugins={[remarkGfm, remarkBreaks]}>
   {content}
 </ReactMarkdown>
 ```
+
 **Rejected**: `remark-breaks` plugin converts ALL single newlines, breaks intentional inline formatting
 
 **Chosen**: Client-side selective conversion (current implementation) ✅
@@ -349,6 +378,7 @@ response_text = response_text.replace('\n', '\n\n')
 ## Related Issues
 
 This fix addresses:
+
 1. ✅ Legacy CAIPE agent list formatting
 2. ✅ Single newline preservation
 3. ✅ Mixed content rendering
@@ -364,4 +394,3 @@ This fix addresses:
 **Date:** November 5, 2025
 **Status:** ✅ In Production
 **Signed-off-by:** Sri Aradhyula <sraradhy@cisco.com>
-

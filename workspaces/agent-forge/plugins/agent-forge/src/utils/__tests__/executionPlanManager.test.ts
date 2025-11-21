@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 import { v4 as uuidv4 } from 'uuid';
 
 // Types for testing
@@ -55,12 +54,15 @@ class ExecutionPlanManager {
   }
 
   // Reset streaming flags on all messages
-  resetStreamingFlags(sessions: TestSession[], currentSessionId: string): TestSession[] {
+  resetStreamingFlags(
+    sessions: TestSession[],
+    currentSessionId: string,
+  ): TestSession[] {
     return sessions.map(session => {
       if (session.contextId === currentSessionId) {
         const updatedMessages = session.messages.map(msg => ({
           ...msg,
-          isStreaming: false
+          isStreaming: false,
         }));
         return { ...session, messages: updatedMessages };
       }
@@ -235,7 +237,9 @@ describe('ExecutionPlanManager - Simplified Buffer Only', () => {
     test('should reset accumulated execution plan when clearing state', () => {
       manager.setAccumulatedExecutionPlan('Some accumulated plan');
 
-      expect(manager.getAccumulatedExecutionPlan()).toBe('Some accumulated plan');
+      expect(manager.getAccumulatedExecutionPlan()).toBe(
+        'Some accumulated plan',
+      );
 
       manager.clearAllExecutionPlanState();
 
@@ -245,24 +249,61 @@ describe('ExecutionPlanManager - Simplified Buffer Only', () => {
 
   describe('Message State Management', () => {
     test('should reset streaming flags on all messages', () => {
-      const sessions: TestSession[] = [{
-        contextId: 'session-1',
-        messages: [
-          { messageId: 'msg-1', text: 'Message 1', isStreaming: true, isUser: false, timestamp: '10:00' },
-          { messageId: 'msg-2', text: 'Message 2', isStreaming: true, isUser: false, timestamp: '10:01' },
-        ]
-      }];
+      const sessions: TestSession[] = [
+        {
+          contextId: 'session-1',
+          messages: [
+            {
+              messageId: 'msg-1',
+              text: 'Message 1',
+              isStreaming: true,
+              isUser: false,
+              timestamp: '10:00',
+            },
+            {
+              messageId: 'msg-2',
+              text: 'Message 2',
+              isStreaming: true,
+              isUser: false,
+              timestamp: '10:01',
+            },
+          ],
+        },
+      ];
 
-      const updatedSessions = manager.resetStreamingFlags(sessions, 'session-1');
+      const updatedSessions = manager.resetStreamingFlags(
+        sessions,
+        'session-1',
+      );
 
-      expect(updatedSessions[0].messages.every(msg => msg.isStreaming === false)).toBe(true);
+      expect(
+        updatedSessions[0].messages.every(msg => msg.isStreaming === false),
+      ).toBe(true);
     });
 
     test('should find newest streaming message', () => {
       const messages: TestMessage[] = [
-        { messageId: 'msg-1', text: 'Message 1', isStreaming: false, isUser: false, timestamp: '10:00' },
-        { messageId: 'msg-2', text: 'Message 2', isStreaming: true, isUser: false, timestamp: '10:01' },
-        { messageId: 'msg-3', text: 'Message 3', isStreaming: true, isUser: false, timestamp: '10:02' },
+        {
+          messageId: 'msg-1',
+          text: 'Message 1',
+          isStreaming: false,
+          isUser: false,
+          timestamp: '10:00',
+        },
+        {
+          messageId: 'msg-2',
+          text: 'Message 2',
+          isStreaming: true,
+          isUser: false,
+          timestamp: '10:01',
+        },
+        {
+          messageId: 'msg-3',
+          text: 'Message 3',
+          isStreaming: true,
+          isUser: false,
+          timestamp: '10:02',
+        },
       ];
 
       const streamingMessage = manager.findStreamingMessage(messages);
@@ -272,8 +313,20 @@ describe('ExecutionPlanManager - Simplified Buffer Only', () => {
 
     test('should return undefined when no streaming messages exist', () => {
       const messages: TestMessage[] = [
-        { messageId: 'msg-1', text: 'Message 1', isStreaming: false, isUser: false, timestamp: '10:00' },
-        { messageId: 'msg-2', text: 'Message 2', isStreaming: false, isUser: false, timestamp: '10:01' },
+        {
+          messageId: 'msg-1',
+          text: 'Message 1',
+          isStreaming: false,
+          isUser: false,
+          timestamp: '10:00',
+        },
+        {
+          messageId: 'msg-2',
+          text: 'Message 2',
+          isStreaming: false,
+          isUser: false,
+          timestamp: '10:01',
+        },
       ];
 
       const streamingMessage = manager.findStreamingMessage(messages);
@@ -330,7 +383,7 @@ describe('ExecutionPlanManager - Simplified Buffer Only', () => {
 
       // Verify isolation
       expect(manager.shouldShowExecutionPlan(msg1.messageId)).toBe(false); // Old plan gone
-      expect(manager.shouldShowExecutionPlan(msg2.messageId)).toBe(true);  // New plan present
+      expect(manager.shouldShowExecutionPlan(msg2.messageId)).toBe(true); // New plan present
       expect(manager.getExecutionPlan(msg1.messageId)).toBe('');
       expect(manager.getExecutionPlan(msg2.messageId)).toBe('Plan 2: Task B');
       expect(manager.getAccumulatedExecutionPlan()).toBe('Plan 2: Task B');
@@ -372,7 +425,7 @@ describe('ExecutionPlanManager - Simplified Buffer Only', () => {
     });
 
     test('should handle very long execution plans', () => {
-      const longPlan = `${'Task: '.repeat(1000)  }Final task`;
+      const longPlan = `${'Task: '.repeat(1000)}Final task`;
       manager.storeExecutionPlan('msg-1', longPlan);
 
       const retrieved = manager.getExecutionPlan('msg-1');

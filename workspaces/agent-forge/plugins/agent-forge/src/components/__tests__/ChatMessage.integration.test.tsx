@@ -98,25 +98,27 @@ describe('ChatMessage Integration Tests', () => {
   describe('Basic Message Rendering', () => {
     test('should render user message', async () => {
       await renderMessage(mockUserMessage);
-      
+
       expect(screen.getByText('Hello, AI!')).toBeInTheDocument();
     });
 
     test('should render bot message', async () => {
       await renderMessage(mockBotMessage);
-      
-      expect(screen.getByText('Hello! How can I help you?')).toBeInTheDocument();
+
+      expect(
+        screen.getByText('Hello! How can I help you?'),
+      ).toBeInTheDocument();
     });
 
     test('should display timestamp', async () => {
       await renderMessage(mockUserMessage);
-      
+
       expect(screen.getByText('10:00 AM')).toBeInTheDocument();
     });
 
     test('should display bot name for bot messages', async () => {
       await renderMessage(mockBotMessage);
-      
+
       expect(screen.getByText('CAIPE')).toBeInTheDocument();
     });
   });
@@ -127,9 +129,9 @@ describe('ChatMessage Integration Tests', () => {
       const buffer = {
         'msg-with-plan': 'Task 1: Analyze request\nTask 2: Generate response',
       };
-      
+
       await renderMessage(messageWithPlan, buffer);
-      
+
       // Execution plan header should be visible
       await waitFor(() => {
         expect(screen.getByText('📋 Execution Plan')).toBeInTheDocument();
@@ -138,7 +140,7 @@ describe('ChatMessage Integration Tests', () => {
 
     test('should not show execution plan when buffer is empty', async () => {
       await renderMessage(mockBotMessage, {});
-      
+
       // Execution plan should not be visible
       expect(screen.queryByText('📋 Execution Plan')).not.toBeInTheDocument();
     });
@@ -149,9 +151,9 @@ describe('ChatMessage Integration Tests', () => {
         'msg-expand': 'Task 1: Do something',
       };
       const autoExpand = new Set(['msg-expand']);
-      
+
       await renderMessage(messageWithPlan, buffer, autoExpand);
-      
+
       // Plan content should be visible
       await waitFor(() => {
         expect(screen.getByText(/Task 1: Do something/)).toBeInTheDocument();
@@ -164,21 +166,21 @@ describe('ChatMessage Integration Tests', () => {
       const buffer = {
         'msg-toggle': 'Task 1: Test toggle',
       };
-      
+
       await renderMessage(messageWithPlan, buffer);
-      
+
       // Find and click execution plan header
       const header = screen.getByText('📋 Execution Plan');
       await user.click(header);
-      
+
       // Plan should expand
       await waitFor(() => {
         expect(screen.getByText(/Task 1: Test toggle/)).toBeInTheDocument();
       });
-      
+
       // Click again to collapse
       await user.click(header);
-      
+
       // Plan should collapse
       await waitFor(() => {
         expect(screen.queryByText(/Task 1: Test toggle/)).not.toBeVisible();
@@ -191,9 +193,9 @@ describe('ChatMessage Integration Tests', () => {
         'msg-markdown': '**Bold text**\n*Italic text*\n- List item',
       };
       const autoExpand = new Set(['msg-markdown']);
-      
+
       await renderMessage(messageWithPlan, buffer, autoExpand);
-      
+
       // Markdown should be rendered
       await waitFor(() => {
         expect(screen.getByText('Bold text')).toBeInTheDocument();
@@ -208,20 +210,22 @@ describe('ChatMessage Integration Tests', () => {
         'msg-1': 'Plan for message 1',
         'msg-2': 'Plan for message 2', // Should not appear
       };
-      
+
       await renderMessage(msg1, buffer);
-      
+
       // Only plan for msg-1 should be visible
       await waitFor(() => {
         expect(screen.getByText('📋 Execution Plan')).toBeInTheDocument();
       });
-      
+
       const autoExpand = new Set(['msg-1']);
       await renderMessage(msg1, buffer, autoExpand);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/Plan for message 1/)).toBeInTheDocument();
-        expect(screen.queryByText(/Plan for message 2/)).not.toBeInTheDocument();
+        expect(
+          screen.queryByText(/Plan for message 2/),
+        ).not.toBeInTheDocument();
       });
     });
   });
@@ -229,44 +233,49 @@ describe('ChatMessage Integration Tests', () => {
   describe('Message Actions', () => {
     test('should copy message to clipboard', async () => {
       const user = userEvent.setup();
-      
+
       // Mock clipboard API
       Object.assign(window.navigator, {
         clipboard: {
           writeText: jest.fn().mockResolvedValue(undefined),
         },
       });
-      
+
       await renderMessage(mockBotMessage);
-      
+
       // Find copy button
       const copyButton = screen.getByRole('button', { name: /copy/i });
       await user.click(copyButton);
-      
+
       // Clipboard should be called
       await waitFor(() => {
-        expect(window.navigator.clipboard.writeText).toHaveBeenCalledWith('Hello! How can I help you?');
+        expect(window.navigator.clipboard.writeText).toHaveBeenCalledWith(
+          'Hello! How can I help you?',
+        );
       });
     });
 
     test('should show toast on successful copy', async () => {
       const user = userEvent.setup();
-      
+
       Object.assign(window.navigator, {
         clipboard: {
           writeText: jest.fn().mockResolvedValue(undefined),
         },
       });
-      
+
       await renderMessage(mockBotMessage);
-      
+
       const copyButton = screen.getByRole('button', { name: /copy/i });
       await user.click(copyButton);
-      
+
       // Toast message should appear
-      await waitFor(() => {
-        expect(screen.getByText(/copied/i)).toBeInTheDocument();
-      }, { timeout: 3000 });
+      await waitFor(
+        () => {
+          expect(screen.getByText(/copied/i)).toBeInTheDocument();
+        },
+        { timeout: 3000 },
+      );
     });
   });
 
@@ -277,9 +286,9 @@ describe('ChatMessage Integration Tests', () => {
         isStreaming: true,
         text: 'Generating response...',
       };
-      
+
       await renderMessage(streamingMessage);
-      
+
       // Should show streaming message
       expect(screen.getByText('Generating response...')).toBeInTheDocument();
     });
@@ -294,9 +303,9 @@ describe('ChatMessage Integration Tests', () => {
         'last-msg': 'Execution plan content',
       };
       const autoExpand = new Set(['last-msg']);
-      
+
       await renderMessage(completedMessage, buffer, autoExpand, true);
-      
+
       // Plan should remain expanded (last message)
       await waitFor(() => {
         expect(screen.getByText(/Execution plan content/)).toBeInTheDocument();
@@ -310,9 +319,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: '[Click here](https://example.com)',
       };
-      
+
       await renderMessage(messageWithLink);
-      
+
       const link = screen.getByText('Click here');
       expect(link).toBeInTheDocument();
       expect(link.closest('a')).toHaveAttribute('href', 'https://example.com');
@@ -323,9 +332,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: '```javascript\nconst hello = "world";\n```',
       };
-      
+
       await renderMessage(messageWithCode);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/const hello/)).toBeInTheDocument();
       });
@@ -336,9 +345,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: 'Use the `console.log()` function',
       };
-      
+
       await renderMessage(messageWithInlineCode);
-      
+
       expect(screen.getByText('console.log()')).toBeInTheDocument();
     });
 
@@ -347,9 +356,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: '- Item 1\n- Item 2\n- Item 3',
       };
-      
+
       await renderMessage(messageWithList);
-      
+
       expect(screen.getByText('Item 1')).toBeInTheDocument();
       expect(screen.getByText('Item 2')).toBeInTheDocument();
       expect(screen.getByText('Item 3')).toBeInTheDocument();
@@ -359,29 +368,29 @@ describe('ChatMessage Integration Tests', () => {
   describe('Accessibility', () => {
     test('should have proper ARIA attributes', async () => {
       await renderMessage(mockBotMessage);
-      
+
       const copyButton = screen.getByRole('button', { name: /copy/i });
       expect(copyButton).toHaveAccessibleName();
     });
 
     test('should support keyboard navigation for actions', async () => {
       const user = userEvent.setup();
-      
+
       Object.assign(window.navigator, {
         clipboard: {
           writeText: jest.fn().mockResolvedValue(undefined),
         },
       });
-      
+
       await renderMessage(mockBotMessage);
-      
+
       // Tab to copy button
       await user.tab();
       const copyButton = screen.getByRole('button', { name: /copy/i });
-      
+
       // Press Enter to copy
       await user.keyboard('{Enter}');
-      
+
       await waitFor(() => {
         expect(window.navigator.clipboard.writeText).toHaveBeenCalled();
       });
@@ -394,9 +403,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: '',
       };
-      
+
       await renderMessage(emptyMessage);
-      
+
       // Should render without crashing
       expect(screen.getByText('CAIPE')).toBeInTheDocument();
     });
@@ -406,9 +415,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: 'A'.repeat(10000),
       };
-      
+
       await renderMessage(longMessage);
-      
+
       // Should render without crashing
       const content = screen.getByText(/A{1000,}/);
       expect(content).toBeInTheDocument();
@@ -419,9 +428,9 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         text: '<script>alert("XSS")</script>',
       };
-      
+
       await renderMessage(specialCharsMessage);
-      
+
       // Should sanitize and render safely
       expect(screen.getByText(/<script>/)).toBeInTheDocument();
     });
@@ -431,34 +440,38 @@ describe('ChatMessage Integration Tests', () => {
         ...mockBotMessage,
         messageId: undefined,
       };
-      
+
       await renderMessage(noIdMessage);
-      
+
       // Should render without crashing
-      expect(screen.getByText('Hello! How can I help you?')).toBeInTheDocument();
+      expect(
+        screen.getByText('Hello! How can I help you?'),
+      ).toBeInTheDocument();
     });
   });
 
   describe('Performance', () => {
     test('should render quickly with large execution plan', async () => {
-      const largePlan = `${'Task '.repeat(1000)  }Final task`;
-      const messageWithLargePlan = { ...mockBotMessage, messageId: 'large-plan' };
+      const largePlan = `${'Task '.repeat(1000)}Final task`;
+      const messageWithLargePlan = {
+        ...mockBotMessage,
+        messageId: 'large-plan',
+      };
       const buffer = {
         'large-plan': largePlan,
       };
       const autoExpand = new Set(['large-plan']);
-      
+
       const startTime = Date.now();
       await renderMessage(messageWithLargePlan, buffer, autoExpand);
       const endTime = Date.now();
-      
+
       // Should render in reasonable time (<1 second)
       expect(endTime - startTime).toBeLessThan(1000);
-      
+
       await waitFor(() => {
         expect(screen.getByText(/Final task/)).toBeInTheDocument();
       });
     });
   });
 });
-
