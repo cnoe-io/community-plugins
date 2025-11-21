@@ -308,6 +308,8 @@ export function AgentForgePage() {
     config.getOptionalBoolean('agentForge.autoReloadOnTokenExpiry') ?? true;
   const enableFeedback =
     config.getOptionalBoolean('agentForge.enableFeedback') ?? false;
+  const showStreamedOutputDropdown =
+    config.getOptionalBoolean('agentForge.showStreamedOutputDropdown') ?? true;
   const feedbackEndpoint =
     config.getOptionalString('agentForge.feedbackEndpoint') ?? null;
   const requestTimeout =
@@ -372,7 +374,7 @@ export function AgentForgePage() {
   }, [initialSuggestions, suggestionToCustomCallMap]);
 
   // Config validation logs
-  console.log('Agent Forge Config - Streaming:', enableStreaming);
+  // console.log('Agent Forge Config - Streaming:', enableStreaming);
   const headerTitle =
     config.getOptionalString('agentForge.headerTitle') || botName;
   const headerSubtitle =
@@ -405,6 +407,11 @@ export function AgentForgePage() {
     timestamp:
       config.getOptionalString('agentForge.fontSize.timestamp') || '0.75rem',
   };
+
+  // Set tab name based on headerTitle
+  useEffect(() => {
+    document.title = headerTitle;
+  }, [headerTitle]);
 
   // OpenIdConnectApiRef - only create if authApiId is provided
   const OpenIdConnectApiRef: ApiRef<
@@ -735,7 +742,6 @@ export function AgentForgePage() {
   // Function to remove cached tool notifications from content
   const removeCachedToolNotifications = useCallback((text: string): string => {
     let cleanText = text;
-    const originalText = text;
 
     // Remove each cached notification from the text
     for (const notification of toolNotificationsCache.current) {
@@ -755,12 +761,12 @@ export function AgentForgePage() {
     cleanText = cleanText.replace(/\n{3,}/g, '\n\n'); // Collapse multiple newlines
     cleanText = cleanText.trim();
 
-    console.log(
-      'CLEANED TEXT - original length:',
-      originalText.length,
-      'cleaned length:',
-      cleanText.length,
-    );
+    // console.log(
+    //   'CLEANED TEXT - original length:',
+    //   originalText.length,
+    //   'cleaned length:',
+    //   cleanText.length,
+    // );
 
     return cleanText;
   }, []);
@@ -838,7 +844,7 @@ export function AgentForgePage() {
       return { content: text, hasMetadata: false };
     } catch (e) {
       // Not pure JSON - might be text with embedded JSON
-      console.log('🧹 Cleaning text with potential embedded JSON');
+      // console.log('🧹 Cleaning text with potential embedded JSON');
 
       // Remove JSON payloads embedded in the text
       // Handle multiple patterns: {"status":"..."}, {"answer":"..."}, etc.
@@ -918,7 +924,7 @@ export function AgentForgePage() {
 
       cleanedText = cleanedParts.length > 0 ? cleanedParts.join('\n\n') : text;
 
-      console.log('✅ JSON payloads removed, returning clean text');
+      // console.log('✅ JSON payloads removed, returning clean text');
       return { content: cleanedText || text, hasMetadata: false };
     }
   };
@@ -1799,21 +1805,21 @@ export function AgentForgePage() {
   );
 
   const updateStreamingMessage = useCallback(
-    (text: string, executionPlan?: string, isStreaming: boolean = true) => {
+    (text: string, _executionPlan?: string, isStreaming: boolean = true) => {
       if (!currentSessionId) return;
 
-      if (process.env.NODE_ENV === 'development') {
-        console.log(
-          '📝 UPDATE STREAMING MESSAGE - executionPlan:',
-          executionPlan
-            ? `${executionPlan.length} chars - "${executionPlan.substring(
-                0,
-                30,
-              )}..."`
-            : 'undefined/empty',
-        );
-        console.log('📝 UPDATE STREAMING MESSAGE - text length:', text.length);
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   console.log(
+      //     '📝 UPDATE STREAMING MESSAGE - executionPlan:',
+      //     executionPlan
+      //       ? `${executionPlan.length} chars - "${executionPlan.substring(
+      //           0,
+      //           30,
+      //         )}..."`
+      //       : 'undefined/empty',
+      //   );
+      //   console.log('📝 UPDATE STREAMING MESSAGE - text length:', text.length);
+      // }
 
       setSessions(prev =>
         prev.map(session => {
@@ -3766,25 +3772,25 @@ export function AgentForgePage() {
             {currentSession ? (
               (() => {
                 // Debug logging for props passed to ChatContainer
-                console.log('🎯 CHATCONTAINER PROPS DEBUG:', {
-                  messagesCount: renderedMessages.length,
-                  messageTimestamps: renderedMessages.map(m => m.timestamp),
-                  executionPlanBufferKeys: Object.keys(executionPlanBuffer),
-                  executionPlanBufferSize:
-                    Object.keys(executionPlanBuffer).length,
-                  sessionId: currentSessionId,
-                });
+                // console.log('🎯 CHATCONTAINER PROPS DEBUG:', {
+                //   messagesCount: renderedMessages.length,
+                //   messageTimestamps: renderedMessages.map(m => m.timestamp),
+                //   executionPlanBufferKeys: Object.keys(executionPlanBuffer),
+                //   executionPlanBufferSize:
+                //     Object.keys(executionPlanBuffer).length,
+                //   sessionId: currentSessionId,
+                // });
 
                 const isCurrentSessionTyping =
                   isTypingBySession.get(currentSessionId) || false;
-                if (process.env.NODE_ENV === 'development') {
-                  console.log(
-                    '🎬 RENDERING CHATCONTAINER - isTyping:',
-                    isCurrentSessionTyping,
-                    'for session:',
-                    currentSessionId,
-                  );
-                }
+                // if (process.env.NODE_ENV === 'development') {
+                //   console.log(
+                //     '🎬 RENDERING CHATCONTAINER - isTyping:',
+                //     isCurrentSessionTyping,
+                //     'for session:',
+                //     currentSessionId,
+                //   );
+                // }
 
                 return (
                   <ChatContainer
@@ -3823,6 +3829,7 @@ export function AgentForgePage() {
                     isInOperationalMode={isInOperationalMode}
                     onMetadataSubmit={handleMetadataSubmit}
                     enableFeedback={enableFeedback}
+                    showStreamedOutputDropdown={showStreamedOutputDropdown}
                     feedback={feedback}
                     onFeedbackChange={handleFeedbackChange}
                     onFeedbackSubmit={handleFeedbackSubmit}

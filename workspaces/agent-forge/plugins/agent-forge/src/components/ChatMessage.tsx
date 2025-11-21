@@ -33,6 +33,7 @@ import {
   Button,
   Snackbar,
   Chip,
+  Checkbox,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
@@ -40,7 +41,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import useAsync from 'react-use/esm/useAsync';
-import { Message, PlatformEngineerResponse } from '../types';
+import { Message } from '../types';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -265,10 +266,312 @@ export interface ChatMessageProps {
   onMetadataSubmit?: (messageId: string, data: Record<string, any>) => void;
   // Feedback props
   enableFeedback?: boolean;
+  showStreamedOutputDropdown?: boolean;
   messageFeedback?: FeedbackType;
   onFeedbackChange?: (feedback: FeedbackType) => void;
   onFeedbackSubmit?: (feedback: FeedbackType) => void;
 }
+
+/**
+ * Parse execution plan text to extract tasks with completion status
+ */
+interface ExecutionTask {
+  text: string;
+  completed: boolean;
+  timestamp?: string;
+  firstSeenIndex: number; // Which update this task first appeared in
+}
+
+interface TaskIdentifier {
+  normalizedText: string;
+  originalText: string;
+}
+
+/**
+ * Normalize task text for comparison by removing emojis, checkboxes, and extra whitespace
+ */
+function normalizeTaskText(text: string): string {
+  return (
+    text
+      // Remove ALL emojis (using Unicode ranges for emoji characters)
+      .replace(
+        /[\u{1F300}-\u{1F9FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/gu,
+        '',
+      )
+      // Also remove specific status emojis just to be sure
+      .replace(/[✓✔☑✗✘☒✅❌🔄⏳⌛📋]/g, '')
+      .replace(/\[([x✓ ])\]/gi, '') // Remove checkbox syntax
+      .replace(/\(completed at .+?\)/g, '') // Remove timestamp
+      .replace(/^\d+[\.)]\s*/, '') // Remove numbering
+      .replace(/^[-*]\s*/, '') // Remove bullet points
+      .replace(/\*\*/g, '') // Remove markdown bold
+      .replace(/\s+/g, ' ') // Normalize multiple spaces to single space
+      .trim()
+      .toLocaleLowerCase('en-US')
+  );
+}
+
+/**
+ * Extract tasks from a single plan text
+ */
+function extractTasksFromPlan(planText: string): TaskIdentifier[] {
+  const tasks: TaskIdentifier[] = [];
+  const lines = planText.split('\n');
+
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    if (!trimmedLine) continue;
+
+    // Skip header lines (markdown headers, bold text without task indicators)
+    if (/^#+\s+/.test(trimmedLine)) continue; // Skip markdown headers like "# Title"
+    if (/^\*\*[^*]+\*\*\s*:?\s*$/.test(trimmedLine)) continue; // Skip standalone bold text like "**Task Progress:**"
+    if (
+      /^[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]+\s*\*\*[^*]+\*\*\s*:?\s*$/u.test(
+        trimmedLine,
+      )
+    )
+      continue; // Skip emoji + bold headers
+
+    // Match bullet points with task text: "- Task text" or "* Task text"
+    const bulletMatch = trimmedLine.match(/^[-*]\s+(.+)$/);
+    // Match numbered list items: "1. Task text" or "1) Task text"
+    const numberedMatch = trimmedLine.match(/^\d+[\.)]\s+(.+)$/);
+    // Match checkboxes: "- [ ] Task" or "- [x] Task" or "- [✓] Task"
+    const checkboxMatch = trimmedLine.match(/^[-*]\s*\[([x✓ ])\]\s+(.+)$/i);
+
+    let taskText = '';
+    if (checkboxMatch) {
+      taskText = checkboxMatch[2];
+    } else if (bulletMatch) {
+      taskText = bulletMatch[1];
+    } else if (numberedMatch) {
+      taskText = numberedMatch[1];
+    }
+
+    // Only add if we found a valid task format (bullet/numbered list)
+    if (taskText) {
+      tasks.push({
+        normalizedText: normalizeTaskText(taskText),
+        originalText: taskText.trim(),
+      });
+    }
+  }
+
+  return tasks;
+}
+
+/**
+ * Check if a task text indicates completion (has checkmarks or completion indicators)
+ */
+function isTaskCompleted(text: string): boolean {
+  // Check for checkbox completion: [x] or [✓]
+  if (/\[[x✓]\]/i.test(text)) {
+    return true;
+  }
+  // Check for completion emoji indicators (including ✅ which is commonly used)
+  const hasCheckmark = /✓|✔|☑|✅/.test(text);
+  const hasCrossmark = /✗|✘|☒|❌/.test(text);
+  const hasInProgress = /🔄|⏳|⌛/.test(text);
+
+  // Completed if has checkmark and no cross/in-progress indicators
+  return hasCheckmark && !hasCrossmark && !hasInProgress;
+}
+
+/**
+ * Extract timestamp from task text if present
+ */
+function extractTimestamp(text: string): string | undefined {
+  const timestampMatch = text.match(/\(completed at (.+?)\)/);
+  return timestampMatch ? timestampMatch[1] : undefined;
+}
+
+/**
+ * Parse execution plan history to build a cumulative task list
+ * Tasks that disappear in later updates are marked as completed
+ */
+function parseExecutionPlanHistory(planHistory: string[]): ExecutionTask[] {
+  const taskMap = new Map<string, ExecutionTask>();
+
+  console.log('🔍 Parsing execution plan history:', {
+    historyLength: planHistory.length,
+    plans: planHistory,
+  });
+
+  // Process each plan update in order
+  planHistory.forEach((planText, updateIndex) => {
+    const tasksInThisUpdate = extractTasksFromPlan(planText);
+    const tasksSeenInThisUpdate = new Set<string>();
+
+    console.log(`📋 Update ${updateIndex}:`, {
+      planText,
+      extractedTasks: tasksInThisUpdate,
+    });
+
+    // Add or update tasks from this plan
+    tasksInThisUpdate.forEach(({ normalizedText, originalText }) => {
+      tasksSeenInThisUpdate.add(normalizedText);
+      const isCompleted = isTaskCompleted(originalText);
+
+      console.log(
+        `  Task: "${originalText}" -> normalized: "${normalizedText}", completed: ${isCompleted}`,
+      );
+
+      if (!taskMap.has(normalizedText)) {
+        // New task - add it
+        taskMap.set(normalizedText, {
+          text: originalText,
+          completed: isCompleted,
+          timestamp: extractTimestamp(originalText),
+          firstSeenIndex: updateIndex,
+        });
+      } else {
+        // Existing task - update its text and completion status
+        const existingTask = taskMap.get(normalizedText)!;
+        existingTask.text = originalText; // Update to latest text
+        existingTask.completed = isCompleted;
+        existingTask.timestamp =
+          extractTimestamp(originalText) || existingTask.timestamp;
+      }
+    });
+
+    // Mark tasks that disappeared as completed (they were in previous updates but not this one)
+    if (updateIndex > 0) {
+      taskMap.forEach((task, normalizedText) => {
+        // If task was seen before this update but is not in this update, mark as completed
+        if (
+          task.firstSeenIndex < updateIndex &&
+          !tasksSeenInThisUpdate.has(normalizedText)
+        ) {
+          console.log(
+            `  ✓ Marking disappeared task as complete: "${task.text}"`,
+          );
+          task.completed = true;
+        }
+      });
+    }
+  });
+
+  const result = Array.from(taskMap.values()).sort(
+    (a, b) => a.firstSeenIndex - b.firstSeenIndex,
+  );
+  console.log('✅ Final task list:', result);
+
+  // Convert map to array, sorted by first appearance
+  return result;
+}
+
+/**
+ * Component to render execution plan with task checkboxes
+ * Uses full plan history to track tasks across updates
+ */
+const ExecutionPlanWithTasks = memo(function ExecutionPlanWithTasks({
+  planHistory,
+  theme,
+}: {
+  planHistory: string[];
+  theme: any;
+}) {
+  const tasks = useMemo(
+    () => parseExecutionPlanHistory(planHistory),
+    [planHistory],
+  );
+
+  // If no tasks found, render the latest plan as plain markdown
+  if (tasks.length === 0) {
+    const latestPlan = planHistory[planHistory.length - 1] || '';
+    return (
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={{
+          p: ({ children, ...props }) => (
+            <p
+              style={{
+                fontSize: '0.8rem',
+                margin: '0.2em 0',
+                fontFamily: 'monospace',
+                lineHeight: '1.3',
+              }}
+              {...props}
+            >
+              {children}
+            </p>
+          ),
+        }}
+      >
+        {latestPlan}
+      </ReactMarkdown>
+    );
+  }
+
+  // Render tasks with checkboxes
+  return (
+    <Box>
+      {tasks.map((task, index) => {
+        const isDark = theme.palette.type === 'dark';
+
+        let backgroundColor = 'transparent';
+        if (task.completed) {
+          backgroundColor = isDark
+            ? 'rgba(76, 175, 80, 0.15)'
+            : 'rgba(76, 175, 80, 0.08)';
+        }
+
+        let checkboxColor;
+        if (task.completed) {
+          checkboxColor = isDark ? '#4caf50' : '#2e7d32';
+        }
+
+        return (
+          <Box
+            key={index}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              marginBottom: theme.spacing(0.75),
+              padding: theme.spacing(0.5),
+              borderRadius: theme.spacing(0.5),
+              backgroundColor,
+            }}
+          >
+            <Checkbox
+              checked={task.completed}
+              disabled
+              style={{
+                padding: theme.spacing(0.25),
+                marginRight: theme.spacing(0.5),
+                color: checkboxColor,
+              }}
+            />
+            <Box style={{ flex: 1, paddingTop: theme.spacing(0.5) }}>
+              <Typography
+                style={{
+                  fontSize: '0.85rem',
+                  fontFamily: 'monospace',
+                  textDecoration: task.completed ? 'line-through' : 'none',
+                  opacity: task.completed ? 0.8 : 1,
+                }}
+              >
+                {task.text}
+              </Typography>
+              {task.timestamp && (
+                <Typography
+                  style={{
+                    fontSize: '0.7rem',
+                    fontFamily: 'monospace',
+                    opacity: 0.6,
+                    marginTop: theme.spacing(0.25),
+                  }}
+                >
+                  ✓ Completed at {task.timestamp}
+                </Typography>
+              )}
+            </Box>
+          </Box>
+        );
+      })}
+    </Box>
+  );
+});
 
 /**
  * Individual chat message component with user profile integration
@@ -285,6 +588,7 @@ export const ChatMessage = memo(function ChatMessage({
   autoExpandExecutionPlans,
   onMetadataSubmit,
   enableFeedback = false,
+  showStreamedOutputDropdown = true,
   messageFeedback,
   onFeedbackChange,
   onFeedbackSubmit,
@@ -398,8 +702,6 @@ export const ChatMessage = memo(function ChatMessage({
   ]);
 
   const finalExecutionPlan = planHistory[planHistory.length - 1] || '';
-  const priorExecutionPlans =
-    planHistory.length > 1 ? planHistory.slice(0, planHistory.length - 1) : [];
   const hasExecutionPlan = finalExecutionPlan.trim().length > 0;
   const hasStreamedOutput =
     !!(message as any).streamedOutput &&
@@ -430,14 +732,8 @@ export const ChatMessage = memo(function ChatMessage({
   // }
 
   // Simple toast notification state
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [toastMessage] = useState<string | null>(null);
   const [isToastOpen, setIsToastOpen] = useState(false);
-
-  // Function to show toast notification
-  const showToast = useCallback((toastMsg: string) => {
-    setToastMessage(toastMsg);
-    setIsToastOpen(true);
-  }, []);
 
   // Handle toast close
   const handleToastClose = useCallback(
@@ -587,7 +883,11 @@ export const ChatMessage = memo(function ChatMessage({
       }
 
       await copyTextToClipboard(textToCopy);
-      showToast('Response copied to clipboard');
+      alertApi.post({
+        message: 'Response copied to clipboard',
+        severity: 'success',
+        display: 'transient',
+      });
     } catch (error) {
       console.error('Failed to copy message content', error);
       alertApi.post({
@@ -600,7 +900,11 @@ export const ChatMessage = memo(function ChatMessage({
   const handleCodeCopy = async (code: string) => {
     try {
       await window.navigator.clipboard.writeText(code);
-      showToast('Code copied to clipboard');
+      alertApi.post({
+        message: 'Code copied to clipboard',
+        severity: 'success',
+        display: 'transient',
+      });
     } catch (error) {
       alertApi.post({
         message: 'Failed to copy code',
@@ -651,14 +955,18 @@ export const ChatMessage = memo(function ChatMessage({
     try {
       const textToCopy = message.text?.replace(/⟦|⟧/g, '') || '';
       await copyTextToClipboard(textToCopy);
-      showToast('Message copied to clipboard');
+      alertApi.post({
+        message: 'Message copied to clipboard',
+        severity: 'success',
+        display: 'transient',
+      });
     } catch (error) {
       alertApi.post({
         message: 'Failed to copy message',
         severity: 'error',
       });
     }
-  }, [message.text, copyTextToClipboard, showToast, alertApi]);
+  }, [message.text, copyTextToClipboard, alertApi]);
 
   // Custom code component with syntax highlighting
   const CodeBlock = ({ inline, className, children, ...props }: any) => {
@@ -1023,29 +1331,6 @@ export const ChatMessage = memo(function ChatMessage({
               }}
             >
               📋 Execution Plan
-              {priorExecutionPlans.length > 0 && (
-                <Box
-                  component="span"
-                  style={{
-                    fontSize: '0.65rem',
-                    fontWeight: 500,
-                    padding: '1px 6px',
-                    borderRadius: '10px',
-                    backgroundColor:
-                      theme.palette.type === 'dark'
-                        ? 'rgba(76, 175, 80, 0.3)'
-                        : 'rgba(76, 175, 80, 0.25)',
-                    color:
-                      theme.palette.type === 'dark'
-                        ? 'rgba(255, 255, 255, 0.9)'
-                        : 'rgba(0, 0, 0, 0.8)',
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                  }}
-                >
-                  {priorExecutionPlans.length + 1} updates
-                </Box>
-              )}
             </Typography>
             <IconButton
               size="small"
@@ -1071,287 +1356,14 @@ export const ChatMessage = memo(function ChatMessage({
 
           <Collapse in={isExecutionPlanExpanded}>
             <Box className={classes.executionPlanContent}>
-              {/* Execution Plan History - now collapses with main execution plan */}
-              {priorExecutionPlans.length > 0 && (
-                <Box
-                  style={{
-                    padding: theme.spacing(0.6),
-                    marginBottom: theme.spacing(0.75),
-                    borderRadius: theme.spacing(0.75),
-                    backgroundColor:
-                      theme.palette.type === 'dark'
-                        ? 'rgba(255, 255, 255, 0.04)'
-                        : 'rgba(255, 255, 255, 0.8)',
-                    border: `1px dashed ${
-                      theme.palette.type === 'dark'
-                        ? 'rgba(76, 175, 80, 0.45)'
-                        : 'rgba(76, 175, 80, 0.45)'
-                    }`,
-                  }}
-                >
-                  <Typography
-                    style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 600,
-                      opacity: 0.85,
-                      marginBottom: theme.spacing(0.75),
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: theme.spacing(0.75),
-                    }}
-                  >
-                    🕘 Execution Plan History ({priorExecutionPlans.length}{' '}
-                    updates)
-                  </Typography>
-                  {priorExecutionPlans.map((entry, index) => (
-                    <Box
-                      key={index}
-                      style={{
-                        padding: theme.spacing(0.5, 0.75),
-                        borderRadius: theme.spacing(0.5),
-                        backgroundColor:
-                          theme.palette.type === 'dark'
-                            ? 'rgba(76, 175, 80, 0.12)'
-                            : 'rgba(76, 175, 80, 0.1)',
-                        border: `1px solid ${
-                          theme.palette.type === 'dark'
-                            ? 'rgba(76, 175, 80, 0.35)'
-                            : 'rgba(76, 175, 80, 0.25)'
-                        }`,
-                        marginBottom: theme.spacing(0.6),
-                      }}
-                    >
-                      <Typography
-                        style={{
-                          fontSize: '0.7rem',
-                          fontWeight: 600,
-                          opacity: 0.8,
-                          marginBottom: theme.spacing(0.35),
-                        }}
-                      >
-                        Update {index + 1}
-                      </Typography>
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                          p: ({ children, ...props }) => (
-                            <p
-                              style={{
-                                fontSize: '0.78rem',
-                                margin: '0.2em 0',
-                                fontFamily: 'monospace',
-                                lineHeight: '1.25',
-                              }}
-                              {...props}
-                            >
-                              {children}
-                            </p>
-                          ),
-                          ul: ({ children, ...props }) => (
-                            <ul
-                              style={{
-                                fontSize: '0.78rem',
-                                fontFamily: 'monospace',
-                                paddingLeft: '1.2em',
-                                margin: '0.2em 0',
-                                lineHeight: '1.25',
-                              }}
-                              {...props}
-                            >
-                              {children}
-                            </ul>
-                          ),
-                          ol: ({ children, ...props }) => (
-                            <ol
-                              style={{
-                                fontSize: '0.78rem',
-                                fontFamily: 'monospace',
-                                paddingLeft: '1.2em',
-                                margin: '0.2em 0',
-                                lineHeight: '1.25',
-                              }}
-                              {...props}
-                            >
-                              {children}
-                            </ol>
-                          ),
-                          li: ({ children, ...props }) => (
-                            <li
-                              style={{
-                                fontSize: '0.78rem',
-                                fontFamily: 'monospace',
-                                margin: '0.12em 0',
-                                lineHeight: '1.25',
-                              }}
-                              {...props}
-                            >
-                              {children}
-                            </li>
-                          ),
-                        }}
-                      >
-                        {entry}
-                      </ReactMarkdown>
-                    </Box>
-                  ))}
-                </Box>
-              )}
-
-              <Typography
-                style={{
-                  fontSize: '0.75rem',
-                  fontWeight: 600,
-                  opacity: 0.85,
-                  marginBottom: theme.spacing(0.75),
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: theme.spacing(0.75),
-                }}
-              >
-                📍 Current Plan
-              </Typography>
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={{
-                  code: CodeBlock,
-                  a: ({ href, children, ...props }) => (
-                    <a
-                      href={href?.startsWith('http') ? href : ''}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        color:
-                          theme.palette.type === 'dark' ? '#90caf9' : '#1976d2',
-                        textDecoration: 'underline',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </a>
-                  ),
-                  p: ({ children, ...props }) => (
-                    <p
-                      style={{
-                        fontSize: '0.8rem',
-                        margin: '0.2em 0',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.3',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </p>
-                  ),
-                  h1: ({ children, ...props }) => (
-                    <h1
-                      style={{
-                        fontSize: '0.9rem',
-                        fontWeight: 600,
-                        margin: '0.3em 0 0.2em 0',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.2',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </h1>
-                  ),
-                  h2: ({ children, ...props }) => (
-                    <h2
-                      style={{
-                        fontSize: '0.85rem',
-                        fontWeight: 600,
-                        margin: '0.25em 0 0.15em 0',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.2',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </h2>
-                  ),
-                  h3: ({ children, ...props }) => (
-                    <h3
-                      style={{
-                        fontSize: '0.8rem',
-                        fontWeight: 600,
-                        margin: '0.2em 0 0.1em 0',
-                        fontFamily: 'monospace',
-                        lineHeight: '1.2',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </h3>
-                  ),
-                  ul: ({ children, ...props }) => (
-                    <ul
-                      style={{
-                        fontSize: '0.8rem',
-                        fontFamily: 'monospace',
-                        paddingLeft: '1.2em',
-                        margin: '0.2em 0',
-                        lineHeight: '1.3',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </ul>
-                  ),
-                  ol: ({ children, ...props }) => (
-                    <ol
-                      style={{
-                        fontSize: '0.8rem',
-                        fontFamily: 'monospace',
-                        paddingLeft: '1.2em',
-                        margin: '0.2em 0',
-                        lineHeight: '1.3',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </ol>
-                  ),
-                  li: ({ children, ...props }) => (
-                    <li
-                      style={{
-                        fontSize: '0.8rem',
-                        fontFamily: 'monospace',
-                        margin: '0.1em 0',
-                        lineHeight: '1.3',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </li>
-                  ),
-                  strong: ({ children, ...props }) => (
-                    <strong
-                      style={{
-                        fontWeight: 600,
-                        fontFamily: 'monospace',
-                      }}
-                      {...props}
-                    >
-                      {children}
-                    </strong>
-                  ),
-                  table: ({ children, ...props }) => (
-                    <table className={classes.markdownTable} {...props}>
-                      {children}
-                    </table>
-                  ),
-                }}
-              >
-                {finalExecutionPlan}
-              </ReactMarkdown>
+              <ExecutionPlanWithTasks planHistory={planHistory} theme={theme} />
             </Box>
           </Collapse>
         </Box>
       )}
 
       {/* Streamed Output - shows the word-by-word streamed text before partial_result */}
-      {hasStreamedOutput && (
+      {hasStreamedOutput && showStreamedOutputDropdown && (
         <Box className={classes.streamedOutputContainer}>
           <Box
             className={classes.streamedOutputHeader}
@@ -1621,279 +1633,19 @@ export const ChatMessage = memo(function ChatMessage({
               overflow: 'auto',
             }}
           >
-            {/* Execution Plan History */}
-            {priorExecutionPlans.length > 0 ? (
-              <Box
-                style={{
-                  padding: theme.spacing(0.6),
-                  marginBottom: theme.spacing(0.75),
-                  borderRadius: theme.spacing(0.75),
-                  backgroundColor:
-                    theme.palette.type === 'dark'
-                      ? 'rgba(255, 255, 255, 0.04)'
-                      : 'rgba(255, 255, 255, 0.8)',
-                  border: `1px dashed ${
-                    theme.palette.type === 'dark'
-                      ? 'rgba(76, 175, 80, 0.45)'
-                      : 'rgba(76, 175, 80, 0.45)'
-                  }`,
-                }}
-              >
-                <Typography
-                  style={{
-                    fontSize: '0.75rem',
-                    fontWeight: 600,
-                    opacity: 0.85,
-                    marginBottom: theme.spacing(0.75),
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: theme.spacing(0.75),
-                  }}
-                >
-                  🕘 Execution Plan History
-                </Typography>
-                {priorExecutionPlans.map((entry, index) => (
-                  <Box
-                    key={index}
-                    style={{
-                      padding: theme.spacing(0.5, 0.75),
-                      borderRadius: theme.spacing(0.5),
-                      backgroundColor:
-                        theme.palette.type === 'dark'
-                          ? 'rgba(76, 175, 80, 0.12)'
-                          : 'rgba(76, 175, 80, 0.1)',
-                      border: `1px solid ${
-                        theme.palette.type === 'dark'
-                          ? 'rgba(76, 175, 80, 0.35)'
-                          : 'rgba(76, 175, 80, 0.25)'
-                      }`,
-                      marginBottom: theme.spacing(0.6),
-                    }}
-                  >
-                    <Typography
-                      style={{
-                        fontSize: '0.7rem',
-                        fontWeight: 600,
-                        opacity: 0.8,
-                        marginBottom: theme.spacing(0.35),
-                      }}
-                    >
-                      Step {index + 1}
-                    </Typography>
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
-                        p: ({ children, ...props }) => (
-                          <p
-                            style={{
-                              fontSize: '0.78rem',
-                              margin: '0.2em 0',
-                              fontFamily: 'monospace',
-                              lineHeight: '1.25',
-                            }}
-                            {...props}
-                          >
-                            {children}
-                          </p>
-                        ),
-                        ul: ({ children, ...props }) => (
-                          <ul
-                            style={{
-                              fontSize: '0.78rem',
-                              fontFamily: 'monospace',
-                              paddingLeft: '1.2em',
-                              margin: '0.2em 0',
-                              lineHeight: '1.25',
-                            }}
-                            {...props}
-                          >
-                            {children}
-                          </ul>
-                        ),
-                        ol: ({ children, ...props }) => (
-                          <ol
-                            style={{
-                              fontSize: '0.78rem',
-                              fontFamily: 'monospace',
-                              paddingLeft: '1.2em',
-                              margin: '0.2em 0',
-                              lineHeight: '1.25',
-                            }}
-                            {...props}
-                          >
-                            {children}
-                          </ol>
-                        ),
-                        li: ({ children, ...props }) => (
-                          <li
-                            style={{
-                              fontSize: '0.78rem',
-                              fontFamily: 'monospace',
-                              margin: '0.12em 0',
-                              lineHeight: '1.25',
-                            }}
-                            {...props}
-                          >
-                            {children}
-                          </li>
-                        ),
-                      }}
-                    >
-                      {entry}
-                    </ReactMarkdown>
-                  </Box>
-                ))}
-              </Box>
-            ) : null}
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm]}
-              components={{
-                code: CodeBlock,
-                a: ({ href, children, ...props }) => (
-                  <a
-                    href={href?.startsWith('http') ? href : ''}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      color:
-                        theme.palette.type === 'dark' ? '#90caf9' : '#1976d2',
-                      textDecoration: 'underline',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </a>
-                ),
-                p: ({ children, ...props }) => (
-                  <p
-                    style={{
-                      fontSize: '0.85rem',
-                      margin: '0.25em 0',
-                      fontFamily: 'monospace',
-                      lineHeight: '1.35',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </p>
-                ),
-                h1: ({ children, ...props }) => (
-                  <h1
-                    style={{
-                      fontSize: '0.95rem',
-                      fontWeight: 600,
-                      margin: '0.35em 0 0.2em 0',
-                      fontFamily: 'monospace',
-                      lineHeight: '1.25',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </h1>
-                ),
-                h2: ({ children, ...props }) => (
-                  <h2
-                    style={{
-                      fontSize: '0.9rem',
-                      fontWeight: 600,
-                      margin: '0.3em 0 0.18em 0',
-                      fontFamily: 'monospace',
-                      lineHeight: '1.25',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </h2>
-                ),
-                h3: ({ children, ...props }) => (
-                  <h3
-                    style={{
-                      fontSize: '0.85rem',
-                      fontWeight: 600,
-                      margin: '0.25em 0 0.15em 0',
-                      fontFamily: 'monospace',
-                      lineHeight: '1.25',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </h3>
-                ),
-                ul: ({ children, ...props }) => (
-                  <ul
-                    style={{
-                      fontSize: '0.85rem',
-                      fontFamily: 'monospace',
-                      paddingLeft: '1.2em',
-                      margin: '0.25em 0',
-                      lineHeight: '1.35',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </ul>
-                ),
-                ol: ({ children, ...props }) => (
-                  <ol
-                    style={{
-                      fontSize: '0.85rem',
-                      fontFamily: 'monospace',
-                      paddingLeft: '1.2em',
-                      margin: '0.25em 0',
-                      lineHeight: '1.35',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </ol>
-                ),
-                li: ({ children, ...props }) => (
-                  <li
-                    style={{
-                      fontSize: '0.85rem',
-                      fontFamily: 'monospace',
-                      margin: '0.12em 0',
-                      lineHeight: '1.35',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </li>
-                ),
-                strong: ({ children, ...props }) => (
-                  <strong
-                    style={{
-                      fontWeight: 600,
-                      fontFamily: 'monospace',
-                    }}
-                    {...props}
-                  >
-                    {children}
-                  </strong>
-                ),
-                table: ({ children, ...props }) => (
-                  <table className={classes.markdownTable} {...props}>
-                    {children}
-                  </table>
-                ),
-              }}
-            >
-              {finalExecutionPlan}
-            </ReactMarkdown>
+            <ExecutionPlanWithTasks planHistory={planHistory} theme={theme} />
           </Box>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={async () => {
               try {
-                const textToCopy = [
-                  ...priorExecutionPlans.map(
-                    (entry, index) => `Step ${index + 1}\n${entry}`,
-                  ),
-                  finalExecutionPlan,
-                ].join('\n\n');
-                await window.navigator.clipboard.writeText(textToCopy);
-                showToast('Execution plan copied to clipboard');
+                await window.navigator.clipboard.writeText(finalExecutionPlan);
+                alertApi.post({
+                  message: 'Execution plan copied to clipboard',
+                  severity: 'success',
+                  display: 'transient',
+                });
               } catch (error) {
                 alertApi.post({
                   message: 'Failed to copy execution plan',
@@ -1919,7 +1671,7 @@ export const ChatMessage = memo(function ChatMessage({
       {/* Custom Toast Notification */}
       <Snackbar
         open={isToastOpen}
-        autoHideDuration={5000}
+        autoHideDuration={1000}
         onClose={handleToastClose}
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
       >

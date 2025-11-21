@@ -64,6 +64,13 @@ export interface Config {
     enableStreaming?: boolean;
 
     /**
+     * Show the Streamed Output dropdown after messages complete (default: true)
+     * When disabled, hides the dropdown that displays raw streamed text
+     * @visibility frontend
+     */
+    showStreamedOutputDropdown?: boolean;
+
+    /**
      * The API ID for the OpenIdConnectApi (default: 'auth.duo.oidc')
      * @visibility frontend
      */

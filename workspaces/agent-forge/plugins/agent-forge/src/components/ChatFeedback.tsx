@@ -135,6 +135,7 @@ function ChatFeedback({
         alertApi.post({
           severity: 'success',
           message: 'Text copied to clipboard',
+          display: 'transient',
         });
       })
       .catch(() => {

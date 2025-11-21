@@ -20,7 +20,6 @@ import {
   Chip,
   Divider,
   IconButton,
-  InputAdornment,
   TextField,
   Tooltip,
   Typography,
@@ -231,6 +230,7 @@ export interface ChatContainerProps {
 
   // Feedback props
   enableFeedback?: boolean;
+  showStreamedOutputDropdown?: boolean;
   feedback?: { [key: number]: Feedback };
   onFeedbackChange?: (index: number, feedback: Feedback) => void;
   onFeedbackSubmit?: (index: number, feedback: Feedback) => void;
@@ -278,6 +278,7 @@ const MessagesList = memo(function MessagesList({
   executionPlanLoading,
   onMetadataSubmit,
   enableFeedback,
+  showStreamedOutputDropdown,
   feedback,
   onFeedbackChange,
   onFeedbackSubmit,
@@ -297,6 +298,7 @@ const MessagesList = memo(function MessagesList({
   executionPlanLoading?: Set<string>;
   onMetadataSubmit?: (messageId: string, data: Record<string, any>) => void;
   enableFeedback?: boolean;
+  showStreamedOutputDropdown?: boolean;
   feedback?: { [key: number]: Feedback };
   onFeedbackChange?: (index: number, feedback: Feedback) => void;
   onFeedbackSubmit?: (index: number, feedback: Feedback) => void;
@@ -335,6 +337,7 @@ const MessagesList = memo(function MessagesList({
             executionPlanLoading={executionPlanLoading}
             onMetadataSubmit={onMetadataSubmit}
             enableFeedback={enableFeedback}
+            showStreamedOutputDropdown={showStreamedOutputDropdown}
             messageFeedback={feedback?.[index]}
             onFeedbackChange={
               onFeedbackChange
@@ -382,6 +385,7 @@ export const ChatContainer = memo(function ChatContainer({
   botIcon,
   inputPlaceholder,
   enableFeedback = false,
+  showStreamedOutputDropdown = true,
   feedback,
   onFeedbackChange,
   onFeedbackSubmit,
@@ -661,6 +665,7 @@ export const ChatContainer = memo(function ChatContainer({
           executionPlanLoading={executionPlanLoading}
           onMetadataSubmit={onMetadataSubmit}
           enableFeedback={enableFeedback}
+          showStreamedOutputDropdown={showStreamedOutputDropdown}
           feedback={feedback}
           onFeedbackChange={onFeedbackChange}
           onFeedbackSubmit={onFeedbackSubmit}
@@ -732,33 +737,34 @@ export const ChatContainer = memo(function ChatContainer({
         <Box position="relative" flex={1}>
           {selectedCustomCall && (
             <Box
-              ref={chipRef}
               position="absolute"
               left="14px"
               top="14px"
               style={{ zIndex: 1, pointerEvents: 'auto' }}
             >
-              <Chip
-                label={
-                  Object.entries(customCallConfig || {}).find(
-                    ([, prefix]) => prefix === selectedCustomCall,
-                  )?.[0] || selectedCustomCall
-                }
-                size="small"
-                onDelete={() => {
-                  const label =
+              <div ref={chipRef}>
+                <Chip
+                  label={
                     Object.entries(customCallConfig || {}).find(
                       ([, prefix]) => prefix === selectedCustomCall,
-                    )?.[0] || '';
-                  onCustomCallClick?.(label, selectedCustomCall);
-                }}
-                style={{
-                  backgroundColor: '#1976d2',
-                  color: '#fff',
-                  height: '28px',
-                  fontWeight: 500,
-                }}
-              />
+                    )?.[0] || selectedCustomCall
+                  }
+                  size="small"
+                  onDelete={() => {
+                    const label =
+                      Object.entries(customCallConfig || {}).find(
+                        ([, prefix]) => prefix === selectedCustomCall,
+                      )?.[0] || '';
+                    onCustomCallClick?.(label, selectedCustomCall);
+                  }}
+                  style={{
+                    backgroundColor: '#1976d2',
+                    color: '#fff',
+                    height: '28px',
+                    fontWeight: 500,
+                  }}
+                />
+              </div>
             </Box>
           )}
           <TextField
