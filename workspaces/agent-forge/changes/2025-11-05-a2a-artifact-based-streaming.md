@@ -26,6 +26,7 @@ const detectToolNotification = (artifact: any) => {
 ```
 
 **Problems**:
+
 - Fragile: Breaks if agent changes wording
 - Imprecise: False positives on similar text
 - Unmaintainable: Pattern list grows with each agent
@@ -46,6 +47,7 @@ elif artifact_name == 'execution_plan_update':
 ```
 
 **Benefits**:
+
 - Reliable: Based on standardized A2A protocol
 - Type-safe: Each artifact has defined structure
 - Maintainable: Single source of truth (backend)
@@ -119,15 +121,16 @@ if (event.artifact?.name === 'tool_notification_end') {
 ```
 
 **UI Display**:
+
 ```typescript
-{isInOperationalMode && currentOperation && (
-  <Box className={classes.operationIndicator}>
-    <CircularProgress size={16} />
-    <Typography variant="caption">
-      {currentOperation}
-    </Typography>
-  </Box>
-)}
+{
+  isInOperationalMode && currentOperation && (
+    <Box className={classes.operationIndicator}>
+      <CircularProgress size={16} />
+      <Typography variant="caption">{currentOperation}</Typography>
+    </Box>
+  );
+}
 ```
 
 ### 2. Execution Plan Handling
@@ -185,7 +188,11 @@ if (textPart && 'text' in textPart) {
   }
 
   // Update UI
-  updateStreamingMessage(accumulatedText, accumulatedExecutionPlan || '', false);
+  updateStreamingMessage(
+    accumulatedText,
+    accumulatedExecutionPlan || '',
+    false,
+  );
 }
 ```
 
@@ -200,7 +207,7 @@ See [2025-11-06-partial-result-artifact-support.md](./2025-11-06-partial-result-
 if (event.type === 'task-complete') {
   // Use final_result artifact if present
   const finalResultArtifact = event.artifacts?.find(
-    a => a.name === 'final_result'
+    a => a.name === 'final_result',
   );
   if (finalResultArtifact) {
     completionText = finalResultArtifact.text;
@@ -222,6 +229,7 @@ if (event.type === 'task-complete') {
 ```
 
 **Behavior**:
+
 - Appears when `tool_notification_start` received
 - Updates text in real-time
 - Shows completion briefly (500ms) with ✅
@@ -233,7 +241,9 @@ if (event.type === 'task-complete') {
 <Collapse in={isExecutionPlanExpanded}>
   <Box className={classes.executionPlanContent}>
     <Typography variant="subtitle2">
-      📋 Execution Plan {priorExecutionPlans.length > 0 && `(${priorExecutionPlans.length} updates)`}
+      📋 Execution Plan{' '}
+      {priorExecutionPlans.length > 0 &&
+        `(${priorExecutionPlans.length} updates)`}
     </Typography>
     <ReactMarkdown remarkPlugins={[remarkGfm]}>
       {finalExecutionPlan}
@@ -243,6 +253,7 @@ if (event.type === 'task-complete') {
 ```
 
 **Behavior**:
+
 - Updates in real-time with `execution_plan_update`
 - Shows status changes with `execution_plan_status_update`
 - Tracks history of all updates
@@ -323,9 +334,12 @@ if (artifact?.description?.includes('Calling')) {
 
 ```typescript
 // ✅ ADDED: Explicit artifact handling
-if (event.artifact?.name === 'tool_notification_start') { }
-if (event.artifact?.name === 'execution_plan_update') { }
-if (event.artifact?.name === 'partial_result') { }
+if (event.artifact?.name === 'tool_notification_start') {
+}
+if (event.artifact?.name === 'execution_plan_update') {
+}
+if (event.artifact?.name === 'partial_result') {
+}
 ```
 
 ## Files Modified
@@ -339,11 +353,13 @@ if (event.artifact?.name === 'partial_result') { }
 ## Performance Impact
 
 **Before** (Pattern Matching):
+
 - ~50 regex operations per artifact
 - O(n) complexity with pattern count
 - False positive checks
 
 **After** (Explicit Handling):
+
 - 1 string equality check
 - O(1) complexity
 - Zero false positives
@@ -355,15 +371,19 @@ if (event.artifact?.name === 'partial_result') { }
 ### Test Queries
 
 1. **Tool Notifications**:
+
    ```
    "Search the codebase for API endpoints"
    ```
+
    Expected: See ⏳ operation indicator during tool execution
 
 2. **Execution Plans**:
+
    ```
    "Analyze the authentication system and create a refactoring plan"
    ```
+
    Expected: See execution plan panel with TODO checklist
 
 3. **Concurrent Operations**:
@@ -383,4 +403,3 @@ if (event.artifact?.name === 'partial_result') { }
 **Date:** November 5, 2025
 **Status:** ✅ In Production
 **Signed-off-by:** Sri Aradhyula <sraradhy@cisco.com>
-

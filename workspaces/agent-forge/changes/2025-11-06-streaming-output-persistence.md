@@ -111,7 +111,9 @@ console.log(
 
 // Respect the append flag for proper text accumulation in display buffer
 if (event.append === false) {
-  console.log('STARTING FRESH - clearing previous text (but keeping streaming buffer)');
+  console.log(
+    'STARTING FRESH - clearing previous text (but keeping streaming buffer)',
+  );
   accumulatedText = cleanText; // ← Display buffer can reset
 } else {
   console.log('APPENDING to existing text (direct concat)');
@@ -193,6 +195,7 @@ partial_result arrives
 **Query**: "Search ArgoCD for prod apps"
 
 **Expected**:
+
 - Live stream shows real-time updates
 - Final message shows structured response (from `partial_result`)
 - Streaming Output container shows ALL streamed content including:
@@ -209,6 +212,7 @@ partial_result arrives
 **Query**: "List all ArgoCD applications"
 
 **Expected**:
+
 - 819 applications paginated
 - Summary section
 - Table with first 20 apps
@@ -229,6 +233,7 @@ partial_result arrives
 ## Related Features
 
 This persistent buffer architecture also enables:
+
 - **Session Isolation**: Each session maintains independent streaming history
 - **Concurrent Streaming**: Multiple sessions can stream without buffer contamination
 - **Debugging**: Complete audit trail of all streamed content
@@ -265,4 +270,3 @@ If issues arise, revert by:
 **Date:** November 6, 2025
 **Status:** ✅ In Production
 **Signed-off-by:** Sri Aradhyula <sraradhy@cisco.com>
-

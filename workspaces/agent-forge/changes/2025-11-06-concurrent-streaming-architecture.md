@@ -29,7 +29,7 @@ const currentStreamingMessageIdRef = useRef<string | null>(null);
    ```typescript
    if (currentRequestIdRef.current !== currentRequestId) {
      console.log('🛑 STREAMING ABORTED');
-     break;  // Session A aborts!
+     break; // Session A aborts!
    }
    ```
 4. Session A sees `currentRequestIdRef.current === "request-B"` and **aborts its stream**
@@ -136,22 +136,28 @@ if (
 
 ```typescript
 // When deleting a session
-const handleDeleteSession = useCallback((sessionId: string) => {
-  // Clean up streaming state
-  const sessionState = streamingStateBySession.current.get(sessionId);
-  if (sessionState) {
-    sessionState.abortController.abort();
-    streamingStateBySession.current.delete(sessionId);
-  }
+const handleDeleteSession = useCallback(
+  (sessionId: string) => {
+    // Clean up streaming state
+    const sessionState = streamingStateBySession.current.get(sessionId);
+    if (sessionState) {
+      sessionState.abortController.abort();
+      streamingStateBySession.current.delete(sessionId);
+    }
 
-  // Clean up execution plan state
-  executionPlanStateBySession.current.delete(sessionId);
+    // Clean up execution plan state
+    executionPlanStateBySession.current.delete(sessionId);
 
-  // Remove from sessions list
-  const updated = sessions.filter(s => s.id !== sessionId);
-  setSessions(updated);
-  saveToLocalStorage(updated, currentSessionId === sessionId ? null : currentSessionId);
-}, [sessions, currentSessionId]);
+    // Remove from sessions list
+    const updated = sessions.filter(s => s.id !== sessionId);
+    setSessions(updated);
+    saveToLocalStorage(
+      updated,
+      currentSessionId === sessionId ? null : currentSessionId,
+    );
+  },
+  [sessions, currentSessionId],
+);
 ```
 
 ## Architecture Diagram
@@ -206,6 +212,7 @@ Each session operates independently with isolated state
 ## Related Changes
 
 This architecture change also enabled:
+
 - **Execution Plan History per Session**: Each session maintains independent execution plan state
 - **Streaming Output Buffer per Session**: Each session accumulates its own streaming content
 - **Session-Specific Loading States**: Loading indicators work independently per session
@@ -240,4 +247,3 @@ This architecture change also enabled:
 **Date:** November 6, 2025
 **Status:** ✅ In Production
 **Signed-off-by:** Sri Aradhyula <sraradhy@cisco.com>
-

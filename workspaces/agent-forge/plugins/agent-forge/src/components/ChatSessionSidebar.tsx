@@ -237,7 +237,11 @@ export function ChatSessionSidebar({
           </Tooltip>
           <Box style={{ flex: 1, overflow: 'auto', width: '100%' }}>
             {sessions.map((session, index) => (
-              <Tooltip key={session.contextId} title={session.title} placement="right">
+              <Tooltip
+                key={session.contextId}
+                title={session.title}
+                placement="right"
+              >
                 <Box
                   className={`${classes.collapsedSessionDot} ${
                     session.contextId === currentSessionId
@@ -298,7 +302,9 @@ export function ChatSessionSidebar({
             <ListItem
               key={session.contextId}
               className={`${classes.sessionItem} ${
-                session.contextId === currentSessionId ? classes.activeSession : ''
+                session.contextId === currentSessionId
+                  ? classes.activeSession
+                  : ''
               }`}
               onClick={() => onSessionSwitch(session.contextId)}
             >

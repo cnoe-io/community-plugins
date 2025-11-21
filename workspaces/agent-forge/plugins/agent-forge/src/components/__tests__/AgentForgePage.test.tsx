@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 describe('AgentForgePage - Execution Plan Management', () => {
   beforeEach(() => {
     // Clear localStorage before each test
@@ -31,9 +30,27 @@ describe('AgentForgePage - Execution Plan Management', () => {
   describe('Message Streaming State Management', () => {
     test('should reset isStreaming flag on all previous messages when creating new streaming message', async () => {
       const messages = [
-        { messageId: 'msg-1', text: 'Hello', isStreaming: false, isUser: true, timestamp: '10:00 AM' },
-        { messageId: 'msg-2', text: 'Response 1', isStreaming: true, isUser: false, timestamp: '10:01 AM' },
-        { messageId: 'msg-3', text: 'Response 2', isStreaming: true, isUser: false, timestamp: '10:02 AM' }
+        {
+          messageId: 'msg-1',
+          text: 'Hello',
+          isStreaming: false,
+          isUser: true,
+          timestamp: '10:00 AM',
+        },
+        {
+          messageId: 'msg-2',
+          text: 'Response 1',
+          isStreaming: true,
+          isUser: false,
+          timestamp: '10:01 AM',
+        },
+        {
+          messageId: 'msg-3',
+          text: 'Response 2',
+          isStreaming: true,
+          isUser: false,
+          timestamp: '10:02 AM',
+        },
       ];
 
       // Simulate the reset logic
@@ -42,9 +59,11 @@ describe('AgentForgePage - Execution Plan Management', () => {
       };
 
       const resetMessages = resetStreamingFlags(messages);
-      
+
       expect(resetMessages.every(msg => msg.isStreaming === false)).toBe(true);
-      expect(resetMessages.filter(msg => msg.isStreaming === true)).toHaveLength(0);
+      expect(
+        resetMessages.filter(msg => msg.isStreaming === true),
+      ).toHaveLength(0);
     });
 
     test('should create new streaming message with unique messageId', () => {
@@ -55,7 +74,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
           text,
           isUser: false,
           timestamp: new Date().toISOString(),
-          isStreaming: true
+          isStreaming: true,
         };
       };
 
@@ -72,7 +91,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
     test('should clear execution plan buffer when new message is submitted', () => {
       const initialBuffer = {
         'msg-1': 'Old execution plan',
-        'msg-2': 'Another old plan'
+        'msg-2': 'Another old plan',
       };
 
       // Simulate the cleanup function
@@ -99,7 +118,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should update execution plan in buffer for same messageId', () => {
       const buffer: Record<string, string> = {
-        'msg-123': 'Initial plan'
+        'msg-123': 'Initial plan',
       };
 
       // Update with new plan
@@ -111,7 +130,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should handle multiple execution plans in buffer', () => {
       const buffer: Record<string, string> = {};
-      
+
       buffer['msg-1'] = 'Plan for message 1';
       buffer['msg-2'] = 'Plan for message 2';
       buffer['msg-3'] = 'Plan for message 3';
@@ -124,7 +143,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should clear auto-expand state when new message is submitted', () => {
       const initialAutoExpand = new Set(['msg-1', 'msg-2']);
-      
+
       const cleanupAutoExpandState = () => {
         return new Set(); // Should be completely cleared
       };
@@ -148,10 +167,30 @@ describe('AgentForgePage - Execution Plan Management', () => {
   describe('Message Identification Logic', () => {
     test('should find the correct streaming message when multiple messages exist', () => {
       const messages = [
-        { messageId: 'msg-1', isStreaming: false, isUser: true, text: 'User message' },
-        { messageId: 'msg-2', isStreaming: false, isUser: false, text: 'Old AI response' },
-        { messageId: 'msg-3', isStreaming: true, isUser: false, text: 'Current AI response' }, // This should be selected
-        { messageId: 'msg-4', isStreaming: false, isUser: false, text: 'Another old response' }
+        {
+          messageId: 'msg-1',
+          isStreaming: false,
+          isUser: true,
+          text: 'User message',
+        },
+        {
+          messageId: 'msg-2',
+          isStreaming: false,
+          isUser: false,
+          text: 'Old AI response',
+        },
+        {
+          messageId: 'msg-3',
+          isStreaming: true,
+          isUser: false,
+          text: 'Current AI response',
+        }, // This should be selected
+        {
+          messageId: 'msg-4',
+          isStreaming: false,
+          isUser: false,
+          text: 'Another old response',
+        },
       ];
 
       // Simulate the streaming message finder logic
@@ -168,8 +207,18 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should handle case where no streaming messages exist', () => {
       const messages = [
-        { messageId: 'msg-1', isStreaming: false, isUser: true, text: 'User message' },
-        { messageId: 'msg-2', isStreaming: false, isUser: false, text: 'AI response' }
+        {
+          messageId: 'msg-1',
+          isStreaming: false,
+          isUser: true,
+          text: 'User message',
+        },
+        {
+          messageId: 'msg-2',
+          isStreaming: false,
+          isUser: false,
+          text: 'AI response',
+        },
       ];
 
       const findStreamingMessage = (msgs: typeof messages) => {
@@ -183,9 +232,24 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should find newest streaming message when multiple are streaming', () => {
       const messages = [
-        { messageId: 'msg-1', isStreaming: true, isUser: false, text: 'First streaming' },
-        { messageId: 'msg-2', isStreaming: true, isUser: false, text: 'Second streaming' },
-        { messageId: 'msg-3', isStreaming: true, isUser: false, text: 'Third streaming (newest)' }
+        {
+          messageId: 'msg-1',
+          isStreaming: true,
+          isUser: false,
+          text: 'First streaming',
+        },
+        {
+          messageId: 'msg-2',
+          isStreaming: true,
+          isUser: false,
+          text: 'Second streaming',
+        },
+        {
+          messageId: 'msg-3',
+          isStreaming: true,
+          isUser: false,
+          text: 'Third streaming (newest)',
+        },
       ];
 
       const findStreamingMessage = (msgs: typeof messages) => {
@@ -204,12 +268,14 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const messageId = 'msg-1';
       const executionPlanBuffer = {
         'msg-1': 'Some execution plan content',
-        'msg-2': 'Other execution plan content'
+        'msg-2': 'Other execution plan content',
       };
 
       // Simplified logic: only check buffer
       const currentExecutionPlan = executionPlanBuffer[messageId] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(true);
       expect(currentExecutionPlan).toBe('Some execution plan content');
@@ -219,11 +285,13 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const messageId = 'msg-3';
       const executionPlanBuffer = {
         'msg-1': 'Some execution plan content',
-        'msg-2': 'Other execution plan content'
+        'msg-2': 'Other execution plan content',
       };
 
       const currentExecutionPlan = executionPlanBuffer[messageId] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
       expect(currentExecutionPlan).toBe('');
@@ -233,11 +301,13 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const messageId = 'msg-1';
       const executionPlanBuffer = {
         'msg-1': '',
-        'msg-2': 'Valid content'
+        'msg-2': 'Valid content',
       };
 
       const currentExecutionPlan = executionPlanBuffer[messageId] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
     });
@@ -246,11 +316,13 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const messageId = 'msg-1';
       const executionPlanBuffer = {
         'msg-1': '   \n  \t  ',
-        'msg-2': 'Valid content'
+        'msg-2': 'Valid content',
       };
 
       const currentExecutionPlan = executionPlanBuffer[messageId] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
     });
@@ -259,11 +331,12 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const executionPlanBuffer = {
         'msg-1': 'Plan for message 1',
         'msg-2': 'Plan for message 2',
-        'msg-3': 'Plan for message 3'
+        'msg-3': 'Plan for message 3',
       };
 
       // Each message should only see its own plan
-      const getPlan = (messageId: string) => executionPlanBuffer[messageId] || '';
+      const getPlan = (messageId: string) =>
+        executionPlanBuffer[messageId] || '';
 
       expect(getPlan('msg-1')).toBe('Plan for message 1');
       expect(getPlan('msg-2')).toBe('Plan for message 2');
@@ -274,8 +347,9 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
   describe('Execution Plan Marker Cleanup', () => {
     test('should remove execution plan markers from content', () => {
-      const textWithMarkers = '⟦Task 1: Do something\nTask 2: Do another thing⟧';
-      
+      const textWithMarkers =
+        '⟦Task 1: Do something\nTask 2: Do another thing⟧';
+
       const cleanText = textWithMarkers.replace(/⟦|⟧/g, '');
 
       expect(cleanText).toBe('Task 1: Do something\nTask 2: Do another thing');
@@ -285,7 +359,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should handle multiple marker pairs', () => {
       const textWithMarkers = '⟦First plan⟧ Some text ⟦Second plan⟧';
-      
+
       const cleanText = textWithMarkers.replace(/⟦|⟧/g, '');
 
       expect(cleanText).toBe('First plan Some text Second plan');
@@ -293,7 +367,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should handle text without markers', () => {
       const textWithoutMarkers = 'Regular execution plan text';
-      
+
       const cleanText = textWithoutMarkers.replace(/⟦|⟧/g, '');
 
       expect(cleanText).toBe('Regular execution plan text');
@@ -303,7 +377,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
   describe('Text Accumulation State', () => {
     test('should reset text accumulation between requests', () => {
       let accumulatedText = 'Previous request text';
-      
+
       const resetTextAccumulation = () => {
         accumulatedText = '';
       };
@@ -314,9 +388,9 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should accumulate text chunks during streaming', () => {
       let accumulatedText = '';
-      
+
       const chunks = ['Hello', ' world', '!', ' How are you?'];
-      
+
       chunks.forEach(chunk => {
         accumulatedText += chunk;
       });
@@ -326,7 +400,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should properly handle fresh start vs append modes', () => {
       let accumulatedText = 'Existing text';
-      
+
       const processTextEvent = (newText: string, appendMode: boolean) => {
         if (appendMode) {
           accumulatedText += newText;
@@ -349,11 +423,11 @@ describe('AgentForgePage - Execution Plan Management', () => {
   describe('Request Isolation', () => {
     test('should track current request ID to prevent cross-contamination', () => {
       const currentRequestIdRef = { current: '' };
-      
+
       // Start first request
       currentRequestIdRef.current = 'request-1';
       expect(currentRequestIdRef.current).toBe('request-1');
-      
+
       // Start second request (should overwrite)
       currentRequestIdRef.current = 'request-2';
       expect(currentRequestIdRef.current).toBe('request-2');
@@ -362,24 +436,30 @@ describe('AgentForgePage - Execution Plan Management', () => {
     test('should reject events from previous requests', () => {
       const currentRequestId = 'request-2';
       const eventRequestId = 'request-1';
-      
+
       const shouldProcessEvent = (current: string, event: string) => {
         return current === event;
       };
 
-      const shouldProcess = shouldProcessEvent(currentRequestId, eventRequestId);
+      const shouldProcess = shouldProcessEvent(
+        currentRequestId,
+        eventRequestId,
+      );
       expect(shouldProcess).toBe(false);
     });
 
     test('should accept events from current request', () => {
       const currentRequestId = 'request-2';
       const eventRequestId = 'request-2';
-      
+
       const shouldProcessEvent = (current: string, event: string) => {
         return current === event;
       };
 
-      const shouldProcess = shouldProcessEvent(currentRequestId, eventRequestId);
+      const shouldProcess = shouldProcessEvent(
+        currentRequestId,
+        eventRequestId,
+      );
       expect(shouldProcess).toBe(true);
     });
   });
@@ -389,22 +469,26 @@ describe('AgentForgePage - Execution Plan Management', () => {
       // Simulate a complete request cycle
       let executionPlanBuffer: Record<string, string> = {};
       let autoExpandExecutionPlans = new Set<string>();
-      let messages: Array<{messageId: string, isStreaming: boolean, text: string}> = [];
+      let messages: Array<{
+        messageId: string;
+        isStreaming: boolean;
+        text: string;
+      }> = [];
 
       // Step 1: Submit first request
       const submitFirstRequest = () => {
         // Clear buffers
         executionPlanBuffer = {};
         autoExpandExecutionPlans = new Set();
-        
+
         // Reset streaming flags on all messages
         messages = messages.map(msg => ({ ...msg, isStreaming: false }));
-        
+
         // Add new streaming message
         messages.push({
           messageId: 'msg-1',
           isStreaming: true,
-          text: ''
+          text: '',
         });
       };
 
@@ -412,7 +496,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
       const processExecutionPlan = (messageId: string, plan: string) => {
         executionPlanBuffer[messageId] = plan;
         autoExpandExecutionPlans.add(messageId);
-        
+
         // Update message streaming state
         const msgIndex = messages.findIndex(m => m.messageId === messageId);
         if (msgIndex >= 0) {
@@ -425,15 +509,15 @@ describe('AgentForgePage - Execution Plan Management', () => {
         // Clear buffers (CRITICAL for preventing contamination)
         executionPlanBuffer = {};
         autoExpandExecutionPlans = new Set();
-        
+
         // Reset streaming flags
         messages = messages.map(msg => ({ ...msg, isStreaming: false }));
-        
+
         // Add new streaming message
         messages.push({
           messageId: 'msg-2',
           isStreaming: true,
-          text: ''
+          text: '',
         });
       };
 
@@ -452,7 +536,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
       expect(messages[1].messageId).toBe('msg-2');
       expect(messages[1].isStreaming).toBe(true);
       expect(messages[0].isStreaming).toBe(false); // Previous message should be reset
-      
+
       // CRITICAL: Buffers should be clean for second request
       expect(Object.keys(executionPlanBuffer)).toHaveLength(0);
       expect(autoExpandExecutionPlans.size).toBe(0);
@@ -470,17 +554,17 @@ describe('AgentForgePage - Execution Plan Management', () => {
       for (let i = 1; i <= 5; i++) {
         // Clear buffer for each request
         executionPlanBuffer = {};
-        
+
         const messageId = `msg-${i}`;
         messages.push(messageId);
-        
+
         // Add execution plan for current request only
         executionPlanBuffer[messageId] = `Plan ${i}`;
-        
+
         // Verify isolation
         expect(Object.keys(executionPlanBuffer)).toHaveLength(1);
         expect(executionPlanBuffer[messageId]).toBe(`Plan ${i}`);
-        
+
         // Previous plans should not exist in buffer
         for (let j = 1; j < i; j++) {
           expect(executionPlanBuffer[`msg-${j}`]).toBeUndefined();
@@ -495,7 +579,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
     test('should handle undefined messageId gracefully', () => {
       const messageKey = undefined || 'unknown';
       const executionPlanBuffer = {
-        'unknown': 'Fallback plan'
+        unknown: 'Fallback plan',
       };
 
       const plan = executionPlanBuffer[messageKey] || '';
@@ -515,7 +599,7 @@ describe('AgentForgePage - Execution Plan Management', () => {
 
     test('should handle buffer with null values', () => {
       const executionPlanBuffer: Record<string, any> = {
-        'msg-1': null
+        'msg-1': null,
       };
       const messageId = 'msg-1';
 
@@ -526,9 +610,9 @@ describe('AgentForgePage - Execution Plan Management', () => {
     });
 
     test('should handle very long execution plans', () => {
-      const longPlan = `${'Task '.repeat(1000)  }Final task`;
+      const longPlan = `${'Task '.repeat(1000)}Final task`;
       const executionPlanBuffer = {
-        'msg-1': longPlan
+        'msg-1': longPlan,
       };
 
       const plan = executionPlanBuffer['msg-1'] || '';

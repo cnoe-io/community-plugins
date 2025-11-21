@@ -11,11 +11,11 @@ agentForge:
   botName: CAIPE
   infoPage: https://cnoe-io.github.io/ai-platform-engineering/
   showOptions: true
-  useOpenIDToken: true  # Set to true to use OpenIdConnectApi.getIdToken(), false to use IdentityApi.getCredentials()
-  autoReloadOnTokenExpiry: true  # Set to true to auto-reload page when OpenID token expires, false to show error message
-  enableStreaming: true   # Set to true to enable streaming responses, false for non-streaming
+  useOpenIDToken: true # Set to true to use OpenIdConnectApi.getIdToken(), false to use IdentityApi.getCredentials()
+  autoReloadOnTokenExpiry: true # Set to true to auto-reload page when OpenID token expires, false to show error message
+  enableStreaming: true # Set to true to enable streaming responses, false for non-streaming
   requestTimeout: 300
-  disconnectionDelayMs: 3000  # Delay before showing disconnection toast (default: 3000ms/3 seconds)
+  disconnectionDelayMs: 3000 # Delay before showing disconnection toast (default: 3000ms/3 seconds)
   headerTitle: CAIPE
   headerSubtitle: AI Platform Engineer Assistant
   inputPlaceholder: Ask CAIPE anything...
@@ -26,29 +26,29 @@ agentForge:
     - Get LLM keys
     - Add MyID Groups
     - Invite users to Github Organization
-  thinkingMessagesInterval: 7000  # Interval in milliseconds (default: 7000)
+  thinkingMessagesInterval: 7000 # Interval in milliseconds (default: 7000)
   thinkingMessages:
     # - "⏳ Thinking..."
-    - "⚙️ Processing query — even great thoughts start with a single thread."
-    - "🤖 Contacting agents — because collaboration beats computation."
-    - "📦 Carrying bits — somewhere in here lies meaning… and metadata."
-    - "📊 Analyzing data — the truth hides between the averages."
-    - "🧠 Reflecting on the prompt — clarity is the best optimization."
-    - "🌐 Syncing thoughts across nodes — wisdom prefers low latency."
-    - "🧩 Assembling context — the art of not missing the missing piece."
-    - "🔍 Searching the void — if you stare long enough into the logs, the logs stare back."
-    - "🪞 Reflecting reasoning — recursive thinking: now 30% more self-aware."
-    - "🧭 Following agent breadcrumbs — because even distributed minds need a map."
-    - "🔧 Calibrating models — what is alignment, if not purpose with precision?"
-    - "💭 Daydreaming in embeddings — vectors have feelings too."
-    - "🚦 Negotiating with rate limits — patience is also a form of throughput."
-    - "📚 Reading context — a good agent never stops learning."
-    - "🕸️ Weaving reasoning chains — because one thought alone never scales."
+    - '⚙️ Processing query — even great thoughts start with a single thread.'
+    - '🤖 Contacting agents — because collaboration beats computation.'
+    - '📦 Carrying bits — somewhere in here lies meaning… and metadata.'
+    - '📊 Analyzing data — the truth hides between the averages.'
+    - '🧠 Reflecting on the prompt — clarity is the best optimization.'
+    - '🌐 Syncing thoughts across nodes — wisdom prefers low latency.'
+    - '🧩 Assembling context — the art of not missing the missing piece.'
+    - '🔍 Searching the void — if you stare long enough into the logs, the logs stare back.'
+    - '🪞 Reflecting reasoning — recursive thinking: now 30% more self-aware.'
+    - '🧭 Following agent breadcrumbs — because even distributed minds need a map.'
+    - '🔧 Calibrating models — what is alignment, if not purpose with precision?'
+    - '💭 Daydreaming in embeddings — vectors have feelings too.'
+    - '🚦 Negotiating with rate limits — patience is also a form of throughput.'
+    - '📚 Reading context — a good agent never stops learning.'
+    - '🕸️ Weaving reasoning chains — because one thought alone never scales.'
     - "💡 Illuminating intent — signal, not noise — that's the real bandwidth."
-    - "🧮 Counting tokens — every byte a step toward enlightenment."
-    - "🕰️ Waiting for consensus — distributed wisdom takes time."
+    - '🧮 Counting tokens — every byte a step toward enlightenment.'
+    - '🕰️ Waiting for consensus — distributed wisdom takes time.'
     - "🧰 Debugging the universe — there's always one more missing semicolon."
-    - "🌌 Manifesting insights — the cosmos runs on context, too."
+    - '🌌 Manifesting insights — the cosmos runs on context, too.'
 
 backend:
   baseUrl: http://localhost:7007

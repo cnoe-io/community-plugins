@@ -104,7 +104,14 @@ const useStyles = makeStyles(theme => ({
 export interface MetadataField {
   name: string;
   label?: string;
-  type?: 'text' | 'number' | 'email' | 'password' | 'textarea' | 'select' | 'boolean';
+  type?:
+    | 'text'
+    | 'number'
+    | 'email'
+    | 'password'
+    | 'textarea'
+    | 'select'
+    | 'boolean';
   required?: boolean;
   description?: string;
   placeholder?: string;
@@ -145,7 +152,8 @@ export const MetadataInputForm: React.FC<MetadataInputFormProps> = ({
   const [formData, setFormData] = useState<Record<string, any>>(() => {
     const initialData: Record<string, any> = {};
     fields.forEach(field => {
-      initialData[field.name] = field.defaultValue ?? (field.type === 'boolean' ? false : '');
+      initialData[field.name] =
+        field.defaultValue ?? (field.type === 'boolean' ? false : '');
     });
     return initialData;
   });
@@ -372,4 +380,3 @@ export const MetadataInputForm: React.FC<MetadataInputFormProps> = ({
     </Paper>
   );
 };
-

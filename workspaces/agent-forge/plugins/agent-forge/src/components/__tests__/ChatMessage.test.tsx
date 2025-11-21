@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-
 import { Message } from '../../types';
 
 describe('ChatMessage - Execution Plan Display', () => {
@@ -23,7 +22,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     text: 'This is a test message',
     isUser: false,
     timestamp: '10:00 AM',
-    isStreaming: false
+    isStreaming: false,
   };
 
   beforeEach(() => {
@@ -39,26 +38,31 @@ describe('ChatMessage - Execution Plan Display', () => {
   describe('Execution Plan Buffer Integration', () => {
     test('should show execution plan when buffer has content for messageId', () => {
       const executionPlanBuffer = {
-        'msg-123': 'Task 1: Do something\nTask 2: Do another thing'
+        'msg-123': 'Task 1: Do something\nTask 2: Do another thing',
       };
 
       // Simulate the logic
       const messageKey = mockMessage.messageId || 'unknown';
       const currentExecutionPlan = executionPlanBuffer[messageKey] || '';
-      const hasExecutionPlan = currentExecutionPlan && currentExecutionPlan.trim().length > 0;
+      const hasExecutionPlan =
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0;
 
       expect(hasExecutionPlan).toBe(true);
-      expect(currentExecutionPlan).toBe('Task 1: Do something\nTask 2: Do another thing');
+      expect(currentExecutionPlan).toBe(
+        'Task 1: Do something\nTask 2: Do another thing',
+      );
     });
 
     test('should not show execution plan when buffer has no content for messageId', () => {
       const executionPlanBuffer = {
-        'msg-456': 'Plan for different message'
+        'msg-456': 'Plan for different message',
       };
 
       const messageKey = mockMessage.messageId || 'unknown';
       const currentExecutionPlan = executionPlanBuffer[messageKey] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
       expect(currentExecutionPlan).toBe('');
@@ -69,31 +73,37 @@ describe('ChatMessage - Execution Plan Display', () => {
 
       const messageKey = mockMessage.messageId || 'unknown';
       const currentExecutionPlan = executionPlanBuffer[messageKey] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
     });
 
     test('should not show execution plan for empty string in buffer', () => {
       const executionPlanBuffer = {
-        'msg-123': ''
+        'msg-123': '',
       };
 
       const messageKey = mockMessage.messageId || 'unknown';
       const currentExecutionPlan = executionPlanBuffer[messageKey] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
     });
 
     test('should not show execution plan for whitespace-only content', () => {
       const executionPlanBuffer = {
-        'msg-123': '   \n  \t  '
+        'msg-123': '   \n  \t  ',
       };
 
       const messageKey = mockMessage.messageId || 'unknown';
       const currentExecutionPlan = executionPlanBuffer[messageKey] || '';
-      const hasExecutionPlan = !!(currentExecutionPlan && currentExecutionPlan.trim().length > 0);
+      const hasExecutionPlan = !!(
+        currentExecutionPlan && currentExecutionPlan.trim().length > 0
+      );
 
       expect(hasExecutionPlan).toBe(false);
     });
@@ -103,7 +113,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should use messageId as key when available', () => {
       const message = {
         ...mockMessage,
-        messageId: 'msg-456'
+        messageId: 'msg-456',
       };
 
       const messageKey = message.messageId || 'unknown';
@@ -113,7 +123,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should fallback to "unknown" when messageId is undefined', () => {
       const message = {
         ...mockMessage,
-        messageId: undefined
+        messageId: undefined,
       };
 
       const messageKey = message.messageId || 'unknown';
@@ -123,7 +133,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should fallback to "unknown" when messageId is empty string', () => {
       const message = {
         ...mockMessage,
-        messageId: ''
+        messageId: '',
       };
 
       const messageKey = message.messageId || 'unknown';
@@ -136,11 +146,12 @@ describe('ChatMessage - Execution Plan Display', () => {
       const executionPlanBuffer = {
         'msg-1': 'Plan 1',
         'msg-2': 'Plan 2',
-        'msg-3': 'Plan 3'
+        'msg-3': 'Plan 3',
       };
 
       // Test each message gets only its own plan
-      const getPlan = (messageId: string) => executionPlanBuffer[messageId] || '';
+      const getPlan = (messageId: string) =>
+        executionPlanBuffer[messageId] || '';
 
       // Each message should see only its own plan
       expect(getPlan('msg-1')).toBe('Plan 1');
@@ -154,7 +165,7 @@ describe('ChatMessage - Execution Plan Display', () => {
 
     test('should prevent contamination from previous messages', () => {
       let executionPlanBuffer: Record<string, string> = {
-        'msg-old': 'Old execution plan'
+        'msg-old': 'Old execution plan',
       };
 
       // Clear buffer for new message (simulating new request)
@@ -217,10 +228,13 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should not auto-collapse if message is still streaming', () => {
       const message = {
         ...mockMessage,
-        isStreaming: true
+        isStreaming: true,
       };
 
-      const shouldAutoCollapse = (msg: typeof message, isLastMessage: boolean) => {
+      const shouldAutoCollapse = (
+        msg: typeof message,
+        isLastMessage: boolean,
+      ) => {
         return msg.isStreaming === false && !isLastMessage;
       };
 
@@ -230,7 +244,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should not auto-collapse if message is last message', () => {
       const message = {
         ...mockMessage,
-        isStreaming: false
+        isStreaming: false,
       };
       const isLastMessage = true;
 
@@ -244,7 +258,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should auto-collapse if message is not streaming and not last', () => {
       const message = {
         ...mockMessage,
-        isStreaming: false
+        isStreaming: false,
       };
       const isLastMessage = false;
 
@@ -260,7 +274,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should identify user messages', () => {
       const userMessage = {
         ...mockMessage,
-        isUser: true
+        isUser: true,
       };
 
       expect(userMessage.isUser).toBe(true);
@@ -269,7 +283,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should identify bot messages', () => {
       const botMessage = {
         ...mockMessage,
-        isUser: false
+        isUser: false,
       };
 
       expect(botMessage.isUser).toBe(false);
@@ -278,7 +292,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should identify streaming messages', () => {
       const streamingMessage = {
         ...mockMessage,
-        isStreaming: true
+        isStreaming: true,
       };
 
       expect(streamingMessage.isStreaming).toBe(true);
@@ -287,7 +301,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should identify completed messages', () => {
       const completedMessage = {
         ...mockMessage,
-        isStreaming: false
+        isStreaming: false,
       };
 
       expect(completedMessage.isStreaming).toBe(false);
@@ -299,7 +313,7 @@ describe('ChatMessage - Execution Plan Display', () => {
       const messages = [
         { messageId: 'msg-1', text: 'First' },
         { messageId: 'msg-2', text: 'Second' },
-        { messageId: 'msg-3', text: 'Third' }
+        { messageId: 'msg-3', text: 'Third' },
       ];
 
       messages.forEach((msg, index) => {
@@ -313,9 +327,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     });
 
     test('should handle single message as last', () => {
-      const messages = [
-        { messageId: 'msg-1', text: 'Only message' }
-      ];
+      const messages = [{ messageId: 'msg-1', text: 'Only message' }];
 
       const isLast = messages.length - 1 === 0;
       expect(isLast).toBe(true);
@@ -331,7 +343,7 @@ describe('ChatMessage - Execution Plan Display', () => {
   describe('Complex Scenarios', () => {
     test('should handle sequential message updates correctly', () => {
       const executionPlanBuffer: Record<string, string> = {};
-      const messages: Array<{messageId: string, isStreaming: boolean}> = [];
+      const messages: Array<{ messageId: string; isStreaming: boolean }> = [];
 
       // Add first message
       messages.push({ messageId: 'msg-1', isStreaming: true });
@@ -346,7 +358,7 @@ describe('ChatMessage - Execution Plan Display', () => {
 
       // Add second message (buffer should remain but be replaced)
       messages.push({ messageId: 'msg-2', isStreaming: true });
-      
+
       // In real app, buffer would be cleared
       // Simulating buffer cleanup for new message
       const newBuffer: Record<string, string> = {};
@@ -361,8 +373,8 @@ describe('ChatMessage - Execution Plan Display', () => {
       const messages = [
         { messageId: 'msg-1', isStreaming: false, isUser: true },
         { messageId: 'msg-2', isStreaming: false, isUser: false }, // Completed bot message
-        { messageId: 'msg-3', isStreaming: true, isUser: false },  // Currently streaming
-        { messageId: 'msg-4', isStreaming: false, isUser: true }
+        { messageId: 'msg-3', isStreaming: true, isUser: false }, // Currently streaming
+        { messageId: 'msg-4', isStreaming: false, isUser: true },
       ];
 
       const streamingMessages = messages.filter(m => m.isStreaming === true);
@@ -408,7 +420,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should handle special characters in execution plan', () => {
       const specialPlan = 'Task: Do <something> & "test" with \'quotes\'';
       const buffer = {
-        'msg-123': specialPlan
+        'msg-123': specialPlan,
       };
 
       const plan = buffer['msg-123'] || '';
@@ -418,7 +430,7 @@ describe('ChatMessage - Execution Plan Display', () => {
     test('should handle unicode characters in execution plan', () => {
       const unicodePlan = 'Task: Test emoji 🎯 and unicode ñ é ü';
       const buffer = {
-        'msg-123': unicodePlan
+        'msg-123': unicodePlan,
       };
 
       const plan = buffer['msg-123'] || '';
@@ -426,9 +438,9 @@ describe('ChatMessage - Execution Plan Display', () => {
     });
 
     test('should handle very long messageIds', () => {
-      const longId = `msg-${  'x'.repeat(1000)}`;
+      const longId = `msg-${'x'.repeat(1000)}`;
       const buffer = {
-        [longId]: 'Test plan'
+        [longId]: 'Test plan',
       };
 
       const plan = buffer[longId] || '';
@@ -436,4 +448,3 @@ describe('ChatMessage - Execution Plan Display', () => {
     });
   });
 });
-
